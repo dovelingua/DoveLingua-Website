@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Evaluate DoveLingua — Share Your Experience</title>
+<meta name="description" content="Rate and review your experience with DoveLingua English Learning Academy. Your feedback helps us grow and serve our students better."/>
+<meta property="og:title" content="Evaluate DoveLingua — Share Your Experience"/>
+<meta property="og:description" content="Your honest feedback shapes the future of DoveLingua. Share your experience and help us improve."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.dovelingua.com/evaluate.html"/>
+<link rel="canonical" href="https://www.dovelingua.com/evaluate.html"/>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"EducationalOrganization",
+  "name":"DoveLingua English Learning Academy",
+  "url":"https://www.dovelingua.com",
+  "aggregateRating":{
+    "@type":"AggregateRating",
+    "ratingValue":"5",
+    "reviewCount":"3",
+    "bestRating":"5",
+    "worstRating":"1"
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --g:#059669;--gm:#10b981;--gd:#047857;--gl:#34d399;--gw:#f0fdf4;
+  --ch:#1f2937;--gray:#64748b;--white:#ffffff;--bdr:#d1fae5;
+  --btn:#0284c7;--btn-h:#0369a1;--gold:#f59e0b;
+  --r:16px;--rsm:10px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;color:var(--ch);background:var(--white);overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+
+/* PAGE TRANSITION */
+.page-transition{position:fixed;inset:0;background:linear-gradient(135deg,var(--gd),var(--g));z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s;}
+.page-transition.active{opacity:1;pointer-events:all;}
+.pt-logo{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--white);letter-spacing:2px;}
+.pt-dot{display:inline-block;animation:ptdot 1s infinite;}
+.pt-dot:nth-child(2){animation-delay:.2s;}
+.pt-dot:nth-child(3){animation-delay:.4s;}
+@keyframes ptdot{0%,80%,100%{opacity:.3;transform:translateY(0);}40%{opacity:1;transform:translateY(-6px);}}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:999;background:var(--white);border-bottom:1px solid var(--bdr);padding:0 5%;}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;}
+.nav-brand{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--gd);cursor:pointer;}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.lang-toggle{display:flex;background:var(--gw);border:1px solid var(--bdr);border-radius:20px;overflow:hidden;font-size:12px;font-weight:600;}
+.lang-toggle button{padding:5px 13px;border:none;background:transparent;cursor:pointer;color:var(--gray);transition:all .2s;}
+.lang-toggle button.active{background:var(--g);color:var(--white);}
+.nav-back{display:flex;align-items:center;gap:6px;background:var(--gw);border:1px solid var(--bdr);border-radius:20px;padding:6px 14px;font-size:13px;font-weight:600;color:var(--gd);cursor:pointer;transition:all .2s;}
+.nav-back:hover{background:var(--bdr);}
+.hamburger{background:none;border:none;cursor:pointer;padding:6px;display:flex;flex-direction:column;gap:4px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--gd);border-radius:2px;}
+
+/* SIDE MENU */
+.side-overlay{position:fixed;inset:0;background:rgba(4,120,87,.3);z-index:1100;opacity:0;pointer-events:none;transition:opacity .3s;}
+.side-overlay.open{opacity:1;pointer-events:all;}
+.side-menu{position:fixed;left:-300px;top:0;bottom:0;width:280px;background:var(--white);z-index:1101;transition:left .32s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column;}
+.side-menu.open{left:0;}
+.side-hdr{background:linear-gradient(160deg,var(--gd),var(--g));padding:26px 20px 18px;color:var(--white);position:relative;}
+.side-hdr .sbrand{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;}
+.side-close{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.15);border:none;color:var(--white);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;}
+.side-nav{padding:8px 0;flex:1;}
+.side-nav a{display:flex;align-items:center;gap:12px;padding:12px 20px;font-size:14px;font-weight:500;color:var(--ch);transition:background .15s;border-left:3px solid transparent;cursor:pointer;}
+.side-nav a:hover{background:var(--gw);border-left-color:var(--g);color:var(--gd);}
+.side-nav .mi{font-size:15px;width:18px;text-align:center;}
+.sdiv{height:1px;background:var(--bdr);margin:6px 20px;}
+.bsoon{font-size:10px;background:#fef9c3;color:#854d0e;padding:2px 7px;border-radius:10px;margin-left:auto;font-weight:600;}
+.side-footer{padding:16px 20px;border-top:1px solid var(--bdr);background:var(--gw);}
+.side-footer p{font-size:11px;color:var(--gray);line-height:1.5;font-style:italic;}
+
+/* HERO */
+.eval-hero{background:linear-gradient(150deg,#065f46 0%,var(--gd) 40%,var(--g) 80%,#6ee7b7 100%);padding:60px 5% 72px;text-align:center;position:relative;overflow:hidden;}
+.eval-hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/svg%3E");}
+.hero-inner{position:relative;max-width:640px;margin:0 auto;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:var(--white);padding:7px 18px;border-radius:30px;font-size:12px;font-weight:600;margin-bottom:20px;}
+.eval-hero h1{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,54px);font-weight:700;color:var(--white);line-height:1.15;margin-bottom:16px;}
+.eval-hero h1 em{font-style:normal;color:#a7f3d0;}
+.eval-hero p{font-size:16px;color:rgba(255,255,255,.82);line-height:1.7;max-width:500px;margin:0 auto 32px;}
+
+/* LIVE STATS BAR */
+.stats-bar{background:var(--ch);padding:20px 5%;}
+.stats-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:center;gap:48px;flex-wrap:wrap;}
+.stat-item{text-align:center;color:var(--white);}
+.stat-num{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--gl);}
+.stat-label{font-size:11px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;}
+.stat-stars{color:var(--gold);font-size:18px;letter-spacing:2px;}
+
+/* MAIN LAYOUT */
+.eval-main{padding:64px 5%;background:var(--gw);}
+.eval-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1.35fr;gap:40px;align-items:start;}
+
+/* WHAT WE ASK */
+.ask-section{display:flex;flex-direction:column;gap:16px;}
+.ask-intro{background:var(--white);border-radius:var(--r);border:1px solid var(--bdr);padding:24px;}
+.ask-intro h3{font-family:'Playfair Display',serif;font-size:20px;color:var(--gd);margin-bottom:10px;}
+.ask-intro p{font-size:14px;color:var(--gray);line-height:1.75;}
+.promise-list{display:flex;flex-direction:column;gap:10px;margin-top:14px;}
+.promise-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--gray);}
+.promise-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+
+/* CATEGORY CARDS */
+.cat-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.cat-card{background:var(--white);border-radius:var(--r);border:1px solid var(--bdr);padding:18px 16px;text-align:center;transition:all .25s;cursor:default;}
+.cat-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(5,150,105,.1);}
+.cat-ico{font-size:28px;margin-bottom:8px;}
+.cat-card h4{font-size:13px;font-weight:600;color:var(--gd);margin-bottom:4px;}
+.cat-card p{font-size:11px;color:var(--gray);line-height:1.5;}
+
+/* TESTIMONIALS PREVIEW */
+.testi-preview{background:var(--white);border-radius:var(--r);border:1px solid var(--bdr);padding:22px;}
+.testi-preview h3{font-family:'Playfair Display',serif;font-size:17px;color:var(--gd);margin-bottom:16px;}
+.mini-testi{border-left:3px solid var(--bdr);padding:10px 14px;margin-bottom:12px;transition:border-color .2s;}
+.mini-testi:hover{border-left-color:var(--g);}
+.mini-testi p{font-size:13px;color:var(--gray);font-style:italic;line-height:1.65;margin-bottom:6px;}
+.mini-auth{font-size:11px;font-weight:600;color:var(--gd);}
+.mini-stars{color:var(--gold);font-size:11px;}
+
+/* FORM */
+.eval-form-wrap{background:var(--white);border-radius:var(--r);border:1px solid var(--bdr);padding:36px;position:sticky;top:80px;}
+.eval-form-wrap h2{font-family:'Playfair Display',serif;font-size:clamp(20px,2.5vw,28px);color:var(--gd);margin-bottom:6px;}
+.eval-form-wrap>p{font-size:13px;color:var(--gray);line-height:1.6;margin-bottom:28px;}
+
+/* STEP INDICATOR */
+.steps-indicator{display:flex;align-items:center;gap:0;margin-bottom:28px;}
+.step-dot{width:32px;height:32px;border-radius:50%;background:var(--gw);border:2px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--gray);transition:all .3s;flex-shrink:0;}
+.step-dot.active{background:var(--g);border-color:var(--g);color:var(--white);}
+.step-dot.done{background:var(--gm);border-color:var(--gm);color:var(--white);}
+.step-line{flex:1;height:2px;background:var(--bdr);transition:background .3s;}
+.step-line.done{background:var(--gm);}
+
+/* FORM STEPS */
+.form-step{display:none;}
+.form-step.active{display:block;}
+
+/* STAR RATING */
+.star-group{margin-bottom:20px;}
+.star-group label{display:block;font-size:12px;font-weight:600;color:var(--gd);text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px;}
+.star-row{display:flex;gap:6px;}
+.star-btn{font-size:32px;cursor:pointer;transition:transform .15s;color:#e2e8f0;line-height:1;background:none;border:none;padding:2px;}
+.star-btn:hover,.star-btn.selected{color:var(--gold);}
+.star-btn:hover ~ .star-btn{color:#e2e8f0 !important;}
+.star-row:hover .star-btn{color:var(--gold);}
+.star-label{font-size:12px;color:var(--gray);margin-top:6px;min-height:16px;}
+
+/* ASPECT RATINGS */
+.aspect-grid{display:flex;flex-direction:column;gap:14px;margin-bottom:20px;}
+.aspect-row{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.aspect-name{font-size:13px;font-weight:500;color:var(--ch);min-width:120px;}
+.aspect-stars{display:flex;gap:4px;}
+.aspect-star{font-size:20px;cursor:pointer;color:#e2e8f0;transition:all .15s;background:none;border:none;}
+.aspect-star.lit{color:var(--gold);}
+
+/* CATEGORY SELECTOR */
+.cat-selector{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+.cat-option{background:var(--gw);border:2px solid var(--bdr);border-radius:var(--rsm);padding:10px 12px;cursor:pointer;transition:all .2s;text-align:center;}
+.cat-option:hover{border-color:var(--gm);}
+.cat-option.selected{border-color:var(--g);background:var(--white);box-shadow:0 0 0 3px rgba(5,150,105,.1);}
+.cat-option .co-ico{font-size:20px;margin-bottom:4px;}
+.cat-option .co-label{font-size:12px;font-weight:600;color:var(--gd);}
+
+/* FIELD */
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--gd);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px;}
+.field input,.field select,.field textarea{width:100%;padding:12px 14px;border:1.5px solid var(--bdr);border-radius:var(--rsm);font-size:14px;font-family:'Inter',sans-serif;color:var(--ch);background:var(--gw);outline:none;transition:border-color .2s;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--g);}
+.field textarea{resize:vertical;min-height:90px;line-height:1.6;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+/* RECOMMEND TOGGLE */
+.recommend-row{display:flex;gap:10px;margin-bottom:20px;}
+.rec-btn{flex:1;padding:11px;border-radius:var(--rsm);border:2px solid var(--bdr);background:var(--gw);font-size:13px;font-weight:600;color:var(--gray);cursor:pointer;transition:all .2s;text-align:center;}
+.rec-btn.yes.selected{border-color:var(--g);background:#dcfce7;color:var(--gd);}
+.rec-btn.no.selected{border-color:#ef4444;background:#fee2e2;color:#dc2626;}
+
+/* ANONYMOUS TOGGLE */
+.anon-row{display:flex;align-items:center;gap:10px;margin-bottom:20px;padding:12px 14px;background:var(--gw);border-radius:var(--rsm);border:1px solid var(--bdr);}
+.anon-row label{font-size:13px;color:var(--gray);cursor:pointer;flex:1;}
+.toggle-switch{position:relative;width:40px;height:22px;flex-shrink:0;}
+.toggle-switch input{opacity:0;width:0;height:0;}
+.toggle-slider{position:absolute;inset:0;background:#cbd5e1;border-radius:20px;cursor:pointer;transition:.3s;}
+.toggle-slider::before{content:'';position:absolute;width:16px;height:16px;left:3px;top:3px;background:var(--white);border-radius:50%;transition:.3s;}
+.toggle-switch input:checked + .toggle-slider{background:var(--g);}
+.toggle-switch input:checked + .toggle-slider::before{transform:translateX(18px);}
+
+/* NAV BTNS */
+.form-nav{display:flex;gap:10px;margin-top:8px;}
+.btn-back-step{flex:0 0 auto;background:var(--gw);border:1px solid var(--bdr);color:var(--gd);padding:12px 20px;border-radius:50px;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-back-step:hover{background:var(--bdr);}
+.btn-next-step{flex:1;background:var(--btn);color:var(--white);padding:12px 20px;border-radius:50px;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all .2s;}
+.btn-next-step:hover{background:var(--btn-h);transform:translateY(-1px);}
+
+/* SUCCESS */
+.eval-success{display:none;text-align:center;padding:16px 0;}
+.es-ico{font-size:64px;margin-bottom:16px;animation:bounce 1s ease;}
+@keyframes bounce{0%,100%{transform:scale(1);}50%{transform:scale(1.15);}}
+.eval-success h3{font-family:'Playfair Display',serif;font-size:24px;color:var(--gd);margin-bottom:10px;}
+.eval-success p{font-size:14px;color:var(--gray);line-height:1.75;margin-bottom:20px;}
+.submitted-rating{display:flex;justify-content:center;gap:4px;font-size:32px;margin:12px 0;}
+.eval-success .s-name{font-weight:600;color:var(--g);}
+
+/* IMPACT SECTION */
+.impact-sec{padding:64px 5%;background:var(--white);}
+.impact-inner{max-width:1200px;margin:0 auto;}
+.impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:32px;}
+.impact-card{background:var(--gw);border-radius:var(--r);border:1px solid var(--bdr);padding:28px;text-align:center;}
+.impact-ico{font-size:36px;margin-bottom:14px;}
+.impact-card h3{font-size:15px;font-weight:600;color:var(--gd);margin-bottom:8px;}
+.impact-card p{font-size:13px;color:var(--gray);line-height:1.7;}
+
+/* DONATE CTA */
+.donate-cta{background:linear-gradient(135deg,#065f46,var(--gd) 55%,var(--gm));padding:60px 5%;text-align:center;color:var(--white);}
+.donate-cta h2{font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,40px);margin-bottom:12px;line-height:1.2;}
+.donate-cta p{font-size:15px;opacity:.85;line-height:1.75;max-width:520px;margin:0 auto 32px;}
+.donate-cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+/* FOOTER */
+footer{background:#111827;color:var(--white);padding:52px 5% 28px;}
+.fg{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px;text-align:center;}
+.fb-brand .fname{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;margin-bottom:10px;}
+.fb-brand p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.7;margin-bottom:18px;}
+.fsoc{display:flex;gap:10px;justify-content:center;}
+.fsocb{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;}
+.fsocb:hover{background:var(--g);}
+.fcol h4{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#34d399;margin-bottom:14px;}
+.fcol a{display:block;font-size:13px;color:rgba(255,255,255,.6);margin-bottom:9px;transition:color .18s;cursor:pointer;}
+.fcol a:hover{color:var(--gl);}
+.fbot{max-width:1200px;margin:0 auto;border-top:1px solid rgba(255,255,255,.08);padding-top:22px;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:16px;text-align:center;}
+.fbot p{font-size:12px;color:rgba(255,255,255,.3);}
+.fbot a{color:rgba(255,255,255,.4);font-size:12px;cursor:pointer;}
+.fbot a:hover{color:var(--white);}
+
+/* WA FAB */
+.wa-fab{position:fixed;bottom:24px;right:24px;z-index:900;width:52px;height:52px;border-radius:50%;background:#25D366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:all .3s;}
+.wa-fab:hover{transform:scale(1.1);}
+.wa-fab svg{width:26px;height:26px;fill:var(--white);}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:50px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:all .22s;}
+.btn-blue{background:var(--btn);color:var(--white);}
+.btn-blue:hover{background:var(--btn-h);transform:translateY(-2px);}
+.btn-g{background:var(--g);color:var(--white);}
+.btn-g:hover{background:var(--gd);transform:translateY(-2px);}
+.btn-ghost{background:rgba(255,255,255,.12);color:var(--white);border:1px solid rgba(255,255,255,.3);}
+.btn-ghost:hover{background:rgba(255,255,255,.22);}
+.btn-sm{padding:9px 20px;font-size:13px;}
+
+.stag-head{display:inline-block;background:var(--g);color:var(--white);font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,40px);font-weight:700;padding:10px 28px;border-radius:12px;line-height:1.2;margin-bottom:10px;}
+.sub-head{font-family:'Playfair Display',serif;font-size:clamp(17px,2vw,24px);font-weight:600;color:var(--gd);margin-bottom:10px;}
+
+/* TOAST */
+.toast{position:fixed;bottom:90px;right:24px;z-index:9000;background:var(--ch);color:var(--white);padding:10px 18px;border-radius:var(--rsm);font-size:13px;font-weight:500;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none;}
+.toast.show{opacity:1;transform:translateY(0);}
+
+/* PROGRESS BAR */
+.progress-bar{height:3px;background:var(--bdr);border-radius:10px;margin-bottom:20px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--g),var(--gl));border-radius:10px;transition:width .4s ease;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .eval-grid{grid-template-columns:1fr;}
+  .eval-form-wrap{position:static;}
+  .fg{grid-template-columns:1fr 1fr;}
+  .cat-cards{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:600px){
+  nav{padding:0 4%;}
+  .eval-hero{padding:44px 4% 56px;}
+  .eval-main{padding:44px 4%;}
+  .impact-sec{padding:44px 4%;}
+  .donate-cta{padding:44px 4%;}
+  .eval-form-wrap{padding:24px 18px;}
+  .field-row{grid-template-columns:1fr;}
+  .cat-selector{grid-template-columns:1fr 1fr;}
+  .stats-inner{gap:24px;}
+  .fg{grid-template-columns:1fr;}
+  .donate-cta-btns{flex-direction:column;align-items:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- TRANSITION -->
+<div class="page-transition" id="pageTransition">
+  <div class="pt-logo">🕊️ DoveLingua<span class="pt-dot">.</span><span class="pt-dot">.</span><span class="pt-dot">.</span></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+    <div class="nav-brand" onclick="navigateTo('index.html')">🕊️ DoveLingua</div>
+    <div class="nav-right">
+      <div class="nav-back" onclick="navigateTo('index.html')">← <span data-lang="en">Home</span><span data-lang="pt" style="display:none">Início</span></div>
+      <div class="lang-toggle">
+        <button id="btnEN" class="active" onclick="setLang('en')">EN</button>
+        <button id="btnPT" onclick="setLang('pt')">PT</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- SIDE MENU -->
+<div class="side-overlay" id="sideOv" onclick="toggleMenu()"></div>
+<div class="side-menu" id="sideMenu">
+  <div class="side-hdr">
+    <button class="side-close" onclick="toggleMenu()">✕</button>
+    <div class="sbrand">🕊️ DoveLingua</div>
+  </div>
+  <div class="side-nav">
+    <a onclick="navigateTo('index.html')"><span class="mi">🏠</span><span data-lang="en">Home</span><span data-lang="pt" style="display:none">Início</span></a>
+    <div class="sdiv"></div>
+    <a onclick="navigateTo('about.html')"><span class="mi">🕊️</span><span data-lang="en">About Us</span><span data-lang="pt" style="display:none">Sobre Nós</span></a>
+    <a onclick="navigateTo('programme.html')"><span class="mi">📚</span><span data-lang="en">Our Programme</span><span data-lang="pt" style="display:none">O Nosso Programa</span></a>
+    <a onclick="navigateTo('enrol.html')"><span class="mi">✏️</span><span data-lang="en">Enrol Now</span><span data-lang="pt" style="display:none">Inscrever-me</span></a>
+    <a href="https://classroom.dovelingua.com" target="_blank"><span class="mi">💻</span>DoveLingua Classroom</a>
+    <div class="sdiv"></div>
+    <a onclick="navigateTo('library.html')"><span class="mi">📖</span><span data-lang="en">Library</span><span data-lang="pt" style="display:none">Biblioteca</span><span class="bsoon">Soon</span></a>
+    <a onclick="navigateTo('app.html')"><span class="mi">📱</span><span data-lang="en">English Dove App</span><span data-lang="pt" style="display:none">App English Dove</span><span class="bsoon">Soon</span></a>
+    <div class="sdiv"></div>
+    <a onclick="navigateTo('announcements.html')"><span class="mi">📢</span><span data-lang="en">Announcements</span><span data-lang="pt" style="display:none">Avisos</span></a>
+    <a onclick="navigateTo('faq.html')"><span class="mi">❓</span>FAQ</a>
+    <a onclick="navigateTo('evaluate.html')"><span class="mi">⭐</span><span data-lang="en">Evaluate DoveLingua</span><span data-lang="pt" style="display:none">Avaliar DoveLingua</span></a>
+    <a href="https://whatsapp.com/channel/0029VbCKsViFCCoWvkhrYT2g" target="_blank"><span class="mi">📡</span><span data-lang="en">WhatsApp Channel</span><span data-lang="pt" style="display:none">Canal WhatsApp</span></a>
+    <div class="sdiv"></div>
+    <a onclick="navigateTo('donate.html')"><span class="mi">❤️</span><span data-lang="en">Support DoveLingua</span><span data-lang="pt" style="display:none">Apoiar DoveLingua</span></a>
+    <a onclick="navigateTo('report.html')"><span class="mi">🚩</span><span data-lang="en">Report a Problem</span><span data-lang="pt" style="display:none">Reportar Problema</span></a>
+    <div class="sdiv"></div>
+    <a onclick="navigateTo('contact.html')"><span class="mi">📧</span><span data-lang="en">Contact Support</span><span data-lang="pt" style="display:none">Contactar Suporte</span></a>
+    <a onclick="navigateTo('terms.html')"><span class="mi">📄</span><span data-lang="en">Terms &amp; Policies</span><span data-lang="pt" style="display:none">Termos e Políticas</span></a>
+  </div>
+  <div class="side-footer">
+    <p data-lang="en">"Learn English today and connect with the World tomorrow"</p>
+    <p data-lang="pt" style="display:none">"Aprende inglês hoje e conecta-te com o Mundo amanhã"</p>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="eval-hero">
+  <div class="hero-inner">
+    <div class="hero-badge">⭐ <span data-lang="en">Your voice shapes DoveLingua</span><span data-lang="pt" style="display:none">A tua voz molda a DoveLingua</span></div>
+    <h1 data-lang="en">Tell us how we are <em>doing</em>.</h1>
+    <h1 data-lang="pt" style="display:none">Diz-nos como estamos <em>a fazer</em>.</h1>
+    <p data-lang="en">Your honest evaluation is one of the most powerful tools DoveLingua has. It takes 2 minutes — and it helps every student who comes after you.</p>
+    <p data-lang="pt" style="display:none">A tua avaliação honesta é uma das ferramentas mais poderosas que a DoveLingua tem. Demora 2 minutos — e ajuda cada aluno que vem depois de ti.</p>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-stars" id="avgStarsDisplay">★★★★★</div>
+      <div class="stat-label" data-lang="en">Average Rating</div>
+      <div class="stat-label" data-lang="pt" style="display:none">Classificação Média</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" id="reviewCount">3</div>
+      <div class="stat-label" data-lang="en">Reviews so far</div>
+      <div class="stat-label" data-lang="pt" style="display:none">Avaliações até agora</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-label" data-lang="en">Would recommend</div>
+      <div class="stat-label" data-lang="pt" style="display:none">Recomendariam</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">🕊️</div>
+      <div class="stat-label" data-lang="en">Founded April 2026</div>
+      <div class="stat-label" data-lang="pt" style="display:none">Fundado em Abril 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="eval-main">
+  <div class="eval-grid">
+
+    <!-- LEFT -->
+    <div class="ask-section">
+
+      <div class="ask-intro">
+        <h3 data-lang="en">Why your evaluation matters</h3>
+        <h3 data-lang="pt" style="display:none">Por que a tua avaliação importa</h3>
+        <p data-lang="en">DoveLingua was built on honest observation. We were founded because someone took the time to notice what was not working and decided to do something about it. That same spirit drives how we grow — through real, honest feedback from the people who experience our programme every day.</p>
+        <p data-lang="pt" style="display:none">A DoveLingua foi construída sobre observação honesta. Fomos fundados porque alguém se deu ao trabalho de notar o que não estava a funcionar e decidiu fazer algo. Esse mesmo espírito orienta como crescemos — através de feedback real e honesto das pessoas que vivenciam o nosso programa todos os dias.</p>
+        <div class="promise-list">
+          <div class="promise-item"><span class="promise-icon">✅</span><span data-lang="en">Every evaluation is read personally by Teacher Dove</span><span data-lang="pt" style="display:none">Cada avaliação é lida pessoalmente por Teacher Dove</span></div>
+          <div class="promise-item"><span class="promise-icon">🔒</span><span data-lang="en">Anonymous submissions are fully protected — your identity is never shared</span><span data-lang="pt" style="display:none">As submissões anónimas são totalmente protegidas — a tua identidade nunca é partilhada</span></div>
+          <div class="promise-item"><span class="promise-icon">📈</span><span data-lang="en">Your feedback directly shapes what we improve next</span><span data-lang="pt" style="display:none">O teu feedback molda diretamente o que melhoramos a seguir</span></div>
+          <div class="promise-item"><span class="promise-icon">🎁</span><span data-lang="en">Students who evaluate help future students find the right path</span><span data-lang="pt" style="display:none">Os alunos que avaliam ajudam futuros alunos a encontrar o caminho certo</span></div>
+        </div>
+      </div>
+
+      <div class="ask-intro">
+        <h3 data-lang="en">What we ask about</h3>
+        <h3 data-lang="pt" style="display:none">O que perguntamos</h3>
+        <p style="font-size:13px;color:var(--gray);margin-bottom:16px;" data-lang="en">Our evaluation covers four areas of your DoveLingua experience:</p>
+        <p style="font-size:13px;color:var(--gray);margin-bottom:16px;" data-lang="pt" style="display:none">A nossa avaliação abrange quatro áreas da tua experiência DoveLingua:</p>
+        <div class="cat-cards">
+          <div class="cat-card"><div class="cat-ico">🎓</div><h4 data-lang="en">Teaching Quality</h4><h4 data-lang="pt" style="display:none">Qualidade do Ensino</h4><p data-lang="en">Lessons, methodology and communication</p><p data-lang="pt" style="display:none">Aulas, metodologia e comunicação</p></div>
+          <div class="cat-card"><div class="cat-ico">💻</div><h4 data-lang="en">Platform</h4><h4 data-lang="pt" style="display:none">Plataforma</h4><p data-lang="en">Classroom access and usability</p><p data-lang="pt" style="display:none">Acesso e usabilidade da sala de aula</p></div>
+          <div class="cat-card"><div class="cat-ico">📚</div><h4 data-lang="en">Programme Design</h4><h4 data-lang="pt" style="display:none">Design do Programa</h4><p data-lang="en">Structure, levels and curriculum</p><p data-lang="pt" style="display:none">Estrutura, níveis e currículo</p></div>
+          <div class="cat-card"><div class="cat-ico">🤝</div><h4 data-lang="en">Support &amp; Care</h4><h4 data-lang="pt" style="display:none">Suporte e Atenção</h4><p data-lang="en">Response times and student care</p><p data-lang="pt" style="display:none">Tempos de resposta e atenção ao aluno</p></div>
+        </div>
+      </div>
+
+      <!-- MINI TESTIMONIALS -->
+      <div class="testi-preview">
+        <h3 data-lang="en">What others said</h3>
+        <h3 data-lang="pt" style="display:none">O que outros disseram</h3>
+        <div class="mini-testi">
+          <div class="mini-stars">★★★★★</div>
+          <p data-lang="en">"For the first time I could see exactly where I was going. DoveLingua gave me a real structure to follow."</p>
+          <p data-lang="pt" style="display:none">"Pela primeira vez consegui ver exatamente para onde ia. A DoveLingua deu-me uma estrutura real para seguir."</p>
+          <div class="mini-auth">Ana M. — <span data-lang="en">Level 2</span><span data-lang="pt" style="display:none">Nível 2</span></div>
+        </div>
+        <div class="mini-testi">
+          <div class="mini-stars">★★★★★</div>
+          <p data-lang="en">"I am not just memorising grammar — I am actually communicating. Every lesson feels purposeful."</p>
+          <p data-lang="pt" style="display:none">"Não estou apenas a memorizar gramática — estou realmente a comunicar. Cada aula tem um propósito."</p>
+          <div class="mini-auth">João N. — <span data-lang="en">Level 1</span><span data-lang="pt" style="display:none">Nível 1</span></div>
+        </div>
+        <div class="mini-testi">
+          <div class="mini-stars">★★★★★</div>
+          <p data-lang="en">"The recognition at the end of each level keeps me going. Already in Level 2."</p>
+          <p data-lang="pt" style="display:none">"O reconhecimento no final de cada nível mantém-me motivada. Já estou no Nível 2."</p>
+          <div class="mini-auth">Lúcia C. — <span data-lang="en">Level 2</span><span data-lang="pt" style="display:none">Nível 2</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: FORM -->
+    <div class="eval-form-wrap">
+      <h2 data-lang="en">Share your evaluation</h2>
+      <h2 data-lang="pt" style="display:none">Partilha a tua avaliação</h2>
+      <p data-lang="en">Takes about 2 minutes. Every answer helps us become better.</p>
+      <p data-lang="pt" style="display:none">Demora cerca de 2 minutos. Cada resposta ajuda-nos a melhorar.</p>
+
+      <!-- PROGRESS -->
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:33%"></div></div>
+
+      <!-- STEP DOTS -->
+      <div class="steps-indicator">
+        <div class="step-dot active" id="dot1">1</div>
+        <div class="step-line" id="line1"></div>
+        <div class="step-dot" id="dot2">2</div>
+        <div class="step-line" id="line2"></div>
+        <div class="step-dot" id="dot3">3</div>
+      </div>
+
+      <!-- STEP 1: WHO + OVERALL -->
+      <div class="form-step active" id="step1">
+        <div class="field">
+          <label data-lang="en">What level are you in?</label>
+          <label data-lang="pt" style="display:none">Em que nível estás?</label>
+          <select id="s1-level">
+            <option value="" data-lang="en">— Select your level —</option>
+            <option value="" data-lang="pt" style="display:none">— Seleciona o teu nível —</option>
+            <option value="starter">Pre-A1 — Starter</option>
+            <option value="a1">A1 — Beginner</option>
+            <option value="a2">A2 — Elementary</option>
+            <option value="a2plus">A2+ — Pre-Intermediate</option>
+            <option value="b1">B1 — Intermediate</option>
+            <option value="c1">C1 — Advanced</option>
+            <option value="completed" data-lang="en">I completed a level</option>
+            <option value="completed" data-lang="pt" style="display:none">Conclui um nível</option>
+          </select>
+        </div>
+        <div class="field">
+          <label data-lang="en">How long have you been with DoveLingua?</label>
+          <label data-lang="pt" style="display:none">Há quanto tempo estás na DoveLingua?</label>
+          <select id="s1-duration">
+            <option value="new" data-lang="en">Just started (less than 1 month)</option>
+            <option value="new" data-lang="pt" style="display:none">Acabei de começar (menos de 1 mês)</option>
+            <option value="1-3" data-lang="en">1–3 months</option>
+            <option value="1-3" data-lang="pt" style="display:none">1–3 meses</option>
+            <option value="3-6" data-lang="en">3–6 months</option>
+            <option value="3-6" data-lang="pt" style="display:none">3–6 meses</option>
+            <option value="6plus" data-lang="en">More than 6 months</option>
+            <option value="6plus" data-lang="pt" style="display:none">Mais de 6 meses</option>
+          </select>
+        </div>
+        <div class="star-group">
+          <label data-lang="en">Overall rating — how would you rate DoveLingua?</label>
+          <label data-lang="pt" style="display:none">Classificação geral — como classificas a DoveLingua?</label>
+          <div class="star-row" id="overallStars" onmouseleave="resetStarHover('overall')">
+            <button class="star-btn" data-val="1" onclick="setRating('overall',1)" onmouseenter="hoverStars('overall',1)">★</button>
+            <button class="star-btn" data-val="2" onclick="setRating('overall',2)" onmouseenter="hoverStars('overall',2)">★</button>
+            <button class="star-btn" data-val="3" onclick="setRating('overall',3)" onmouseenter="hoverStars('overall',3)">★</button>
+            <button class="star-btn" data-val="4" onclick="setRating('overall',4)" onmouseenter="hoverStars('overall',4)">★</button>
+            <button class="star-btn" data-val="5" onclick="setRating('overall',5)" onmouseenter="hoverStars('overall',5)">★</button>
+          </div>
+          <div class="star-label" id="overall-label" data-lang="en">Tap a star to rate</div>
+          <div class="star-label" id="overall-label-pt" data-lang="pt" style="display:none">Toca numa estrela para classificar</div>
+        </div>
+        <div class="form-nav">
+          <button class="btn-next-step" onclick="nextStep(1)">
+            <span data-lang="en">Continue →</span>
+            <span data-lang="pt" style="display:none">Continuar →</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 2: DETAILED RATINGS + RECOMMEND -->
+      <div class="form-step" id="step2">
+        <p style="font-size:13px;color:var(--gray);margin-bottom:18px;" data-lang="en">Rate each area of your experience:</p>
+        <p style="font-size:13px;color:var(--gray);margin-bottom:18px;" data-lang="pt" style="display:none">Classifica cada área da tua experiência:</p>
+        <div class="aspect-grid">
+          <div class="aspect-row">
+            <div class="aspect-name" data-lang="en">🎓 Teaching Quality</div>
+            <div class="aspect-name" data-lang="pt" style="display:none">🎓 Qualidade do Ensino</div>
+            <div class="aspect-stars" id="aspect-teaching" onmouseleave="resetAspectHover('teaching')">
+              <button class="aspect-star" data-val="1" onclick="setAspect('teaching',1)" onmouseenter="hoverAspect('teaching',1)">★</button>
+              <button class="aspect-star" data-val="2" onclick="setAspect('teaching',2)" onmouseenter="hoverAspect('teaching',2)">★</button>
+              <button class="aspect-star" data-val="3" onclick="setAspect('teaching',3)" onmouseenter="hoverAspect('teaching',3)">★</button>
+              <button class="aspect-star" data-val="4" onclick="setAspect('teaching',4)" onmouseenter="hoverAspect('teaching',4)">★</button>
+              <button class="aspect-star" data-val="5" onclick="setAspect('teaching',5)" onmouseenter="hoverAspect('teaching',5)">★</button>
+            </div>
+          </div>
+          <div class="aspect-row">
+            <div class="aspect-name" data-lang="en">💻 Platform</div>
+            <div class="aspect-name" data-lang="pt" style="display:none">💻 Plataforma</div>
+            <div class="aspect-stars" id="aspect-platform" onmouseleave="resetAspectHover('platform')">
+              <button class="aspect-star" data-val="1" onclick="setAspect('platform',1)" onmouseenter="hoverAspect('platform',1)">★</button>
+              <button class="aspect-star" data-val="2" onclick="setAspect('platform',2)" onmouseenter="hoverAspect('platform',2)">★</button>
+              <button class="aspect-star" data-val="3" onclick="setAspect('platform',3)" onmouseenter="hoverAspect('platform',3)">★</button>
+              <button class="aspect-star" data-val="4" onclick="setAspect('platform',4)" onmouseenter="hoverAspect('platform',4)">★</button>
+              <button class="aspect-star" data-val="5" onclick="setAspect('platform',5)" onmouseenter="hoverAspect('platform',5)">★</button>
+            </div>
+          </div>
+          <div class="aspect-row">
+            <div class="aspect-name" data-lang="en">📚 Programme</div>
+            <div class="aspect-name" data-lang="pt" style="display:none">📚 Programa</div>
+            <div class="aspect-stars" id="aspect-programme" onmouseleave="resetAspectHover('programme')">
+              <button class="aspect-star" data-val="1" onclick="setAspect('programme',1)" onmouseenter="hoverAspect('programme',1)">★</button>
+              <button class="aspect-star" data-val="2" onclick="setAspect('programme',2)" onmouseenter="hoverAspect('programme',2)">★</button>
+              <button class="aspect-star" data-val="3" onclick="setAspect('programme',3)" onmouseenter="hoverAspect('programme',3)">★</button>
+              <button class="aspect-star" data-val="4" onclick="setAspect('programme',4)" onmouseenter="hoverAspect('programme',4)">★</button>
+              <button class="aspect-star" data-val="5" onclick="setAspect('programme',5)" onmouseenter="hoverAspect('programme',5)">★</button>
+            </div>
+          </div>
+          <div class="aspect-row">
+            <div class="aspect-name" data-lang="en">🤝 Support</div>
+            <div class="aspect-name" data-lang="pt" style="display:none">🤝 Suporte</div>
+            <div class="aspect-stars" id="aspect-support" onmouseleave="resetAspectHover('support')">
+              <button class="aspect-star" data-val="1" onclick="setAspect('support',1)" onmouseenter="hoverAspect('support',1)">★</button>
+              <button class="aspect-star" data-val="2" onclick="setAspect('support',2)" onmouseenter="hoverAspect('support',2)">★</button>
+              <button class="aspect-star" data-val="3" onclick="setAspect('support',3)" onmouseenter="hoverAspect('support',3)">★</button>
+              <button class="aspect-star" data-val="4" onclick="setAspect('support',4)" onmouseenter="hoverAspect('support',4)">★</button>
+              <button class="aspect-star" data-val="5" onclick="setAspect('support',5)" onmouseenter="hoverAspect('support',5)">★</button>
+            </div>
+          </div>
+        </div>
+        <div style="margin-bottom:16px;">
+          <p style="font-size:12px;font-weight:600;color:var(--gd);text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px;" data-lang="en">Would you recommend DoveLingua?</p>
+          <p style="font-size:12px;font-weight:600;color:var(--gd);text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px;" data-lang="pt" style="display:none">Recomendarias a DoveLingua?</p>
+          <div class="recommend-row">
+            <button class="rec-btn yes" id="recYes" onclick="setRecommend(true)">👍 <span data-lang="en">Yes, definitely!</span><span data-lang="pt" style="display:none">Sim, definitivamente!</span></button>
+            <button class="rec-btn no" id="recNo" onclick="setRecommend(false)">👎 <span data-lang="en">Not yet</span><span data-lang="pt" style="display:none">Ainda não</span></button>
+          </div>
+        </div>
+        <div class="form-nav">
+          <button class="btn-back-step" onclick="prevStep(2)" data-lang="en">← Back</button>
+          <button class="btn-back-step" onclick="prevStep(2)" data-lang="pt" style="display:none">← Voltar</button>
+          <button class="btn-next-step" onclick="nextStep(2)">
+            <span data-lang="en">Continue →</span>
+            <span data-lang="pt" style="display:none">Continuar →</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 3: COMMENT + IDENTITY -->
+      <div class="form-step" id="step3">
+        <div class="field">
+          <label data-lang="en">Your review — tell us more</label>
+          <label data-lang="pt" style="display:none">A tua avaliação — diz-nos mais</label>
+          <textarea id="s3-comment" placeholder="What did you enjoy most? What could be improved? Be honest — it helps everyone." oninput="updateCharCount()"></textarea>
+          <div style="font-size:11px;color:var(--gray);text-align:right;margin-top:4px;"><span id="charCount">0</span>/400</div>
+        </div>
+        <div class="anon-row">
+          <label for="anonToggle" data-lang="en">Submit anonymously — my name will not appear</label>
+          <label for="anonToggle" data-lang="pt" style="display:none">Submeter anonimamente — o meu nome não aparecerá</label>
+          <label class="toggle-switch">
+            <input type="checkbox" id="anonToggle" onchange="toggleAnon()"/>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div id="nameFields">
+          <div class="field-row">
+            <div class="field">
+              <label data-lang="en">Your Name</label>
+              <label data-lang="pt" style="display:none">O Teu Nome</label>
+              <input type="text" id="s3-name" placeholder="e.g. Ana Machava" autocomplete="off"/>
+            </div>
+            <div class="field">
+              <label data-lang="en">Level Completed</label>
+              <label data-lang="pt" style="display:none">Nível Concluído</label>
+              <input type="text" id="s3-level-display" placeholder="e.g. Level 1 — Beginner" autocomplete="off"/>
+            </div>
+          </div>
+        </div>
+        <div class="form-nav">
+          <button class="btn-back-step" onclick="prevStep(3)" data-lang="en">← Back</button>
+          <button class="btn-back-step" onclick="prevStep(3)" data-lang="pt" style="display:none">← Voltar</button>
+          <button class="btn-next-step" onclick="submitEvaluation()">
+            <span data-lang="en">Submit Evaluation →</span>
+            <span data-lang="pt" style="display:none">Submeter Avaliação →</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="eval-success" id="evalSuccess">
+        <div class="es-ico">🌟</div>
+        <div class="submitted-rating" id="submittedStars"></div>
+        <h3 data-lang="en">Thank you, <span class="s-name" id="evalSenderName">valued student</span>!</h3>
+        <h3 data-lang="pt" style="display:none">Obrigado/a, <span class="s-name" id="evalSenderNamePT">aluno estimado</span>!</h3>
+        <p data-lang="en">Your evaluation has been submitted and will be read personally by Teacher Dove. Your honesty makes DoveLingua better — for you and for every student who comes after you. 🕊️</p>
+        <p data-lang="pt" style="display:none">A tua avaliação foi submetida e será lida pessoalmente por Teacher Dove. A tua honestidade torna a DoveLingua melhor — para ti e para cada aluno que vem depois de ti. 🕊️</p>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px;">
+          <button class="btn btn-g btn-sm" onclick="navigateTo('index.html')">
+            <span data-lang="en">Back to Home</span>
+            <span data-lang="pt" style="display:none">Voltar ao Início</span>
+          </button>
+          <button class="btn btn-blue btn-sm" onclick="resetEval()">
+            <span data-lang="en">Submit another</span>
+            <span data-lang="pt" style="display:none">Submeter outra</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- IMPACT SECTION -->
+<div class="impact-sec">
+  <div class="impact-inner">
+    <div style="text-align:center;margin-bottom:8px;">
+      <span class="stag-head" data-lang="en">Your Impact</span>
+      <span class="stag-head" data-lang="pt" style="display:none">O Teu Impacto</span>
+    </div>
+    <p class="sub-head" style="text-align:center;" data-lang="en">What happens after you evaluate</p>
+    <p class="sub-head" style="text-align:center;" data-lang="pt" style="display:none">O que acontece depois de avaliares</p>
+    <div class="impact-grid">
+      <div class="impact-card">
+        <div class="impact-ico">👁️</div>
+        <h3 data-lang="en">Personally read</h3>
+        <h3 data-lang="pt" style="display:none">Lido pessoalmente</h3>
+        <p data-lang="en">Teacher Dove reads every single evaluation. No submission disappears into a database without being seen by a real person.</p>
+        <p data-lang="pt" style="display:none">Teacher Dove lê cada avaliação. Nenhuma submissão desaparece numa base de dados sem ser vista por uma pessoa real.</p>
+      </div>
+      <div class="impact-card">
+        <div class="impact-ico">🔧</div>
+        <h3 data-lang="en">Used to improve</h3>
+        <h3 data-lang="pt" style="display:none">Usado para melhorar</h3>
+        <p data-lang="en">Specific feedback on teaching methods, platform usability or curriculum gaps feeds directly into how the next version of DoveLingua is designed.</p>
+        <p data-lang="pt" style="display:none">Feedback específico sobre métodos de ensino, usabilidade da plataforma ou lacunas no currículo alimenta diretamente como a próxima versão da DoveLingua é concebida.</p>
+      </div>
+      <div class="impact-card">
+        <div class="impact-ico">🌱</div>
+        <h3 data-lang="en">Shared with future students</h3>
+        <h3 data-lang="pt" style="display:none">Partilhado com futuros alunos</h3>
+        <p data-lang="en">Named reviews (with your permission) may appear on the DoveLingua website to help future students understand what to expect.</p>
+        <p data-lang="pt" style="display:none">As avaliações com nome (com a tua permissão) podem aparecer no site da DoveLingua para ajudar futuros alunos a entender o que esperar.</p>
+      </div>
+      <div class="impact-card">
+        <div class="impact-ico">🏆</div>
+        <h3 data-lang="en">Builds credibility</h3>
+        <h3 data-lang="pt" style="display:none">Constrói credibilidade</h3>
+        <p data-lang="en">Honest public evaluations build the institutional credibility that DoveLingua needs to grow towards formal recognition in Mozambique and beyond.</p>
+        <p data-lang="pt" style="display:none">Avaliações públicas honestas constroem a credibilidade institucional de que a DoveLingua precisa para crescer em direção ao reconhecimento formal em Moçambique e além.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DONATE CTA -->
+<div class="donate-cta">
+  <h2 data-lang="en">Love DoveLingua?<br/>Help us reach more students.</h2>
+  <h2 data-lang="pt" style="display:none">Gostas da DoveLingua?<br/>Ajuda-nos a chegar a mais alunos.</h2>
+  <p data-lang="en">Your support — however small — helps DoveLingua provide quality English education to more Mozambican learners who deserve a structured, honest path to fluency.</p>
+  <p data-lang="pt" style="display:none">O teu apoio — por menor que seja — ajuda a DoveLingua a proporcionar educação de qualidade em inglês a mais aprendentes moçambicanos que merecem um caminho estruturado e honesto para a fluência.</p>
+  <div class="donate-cta-btns">
+    <button class="btn btn-ghost" onclick="navigateTo('donate.html')">
+      ❤️ <span data-lang="en">Support DoveLingua →</span><span data-lang="pt" style="display:none">Apoiar DoveLingua →</span>
+    </button>
+    <button class="btn btn-blue" onclick="navigateTo('contact.html')">
+      💬 <span data-lang="en">Get in Touch →</span><span data-lang="pt" style="display:none">Entrar em Contacto →</span>
+    </button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fg">
+    <div class="fb-brand">
+      <div class="fname">🕊️ DoveLingua English Learning Academy</div>
+      <p data-lang="en">A structured, communicative and professionally designed English learning programme — founded in Mozambique, April 2026.</p>
+      <p data-lang="pt" style="display:none">Um programa de aprendizagem de inglês estruturado, comunicativo e profissionalmente concebido — fundado em Moçambique, abril de 2026.</p>
+      <div class="fsoc">
+        <a href="https://www.facebook.com/DoveLingua" target="_blank" class="fsocb"><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a href="https://wa.me/258828920143" target="_blank" class="fsocb"><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+        <a href="https://whatsapp.com/channel/0029VbCKsViFCCoWvkhrYT2g" target="_blank" class="fsocb">📡</a>
+        <a href="mailto:info@dovelingua.com" class="fsocb">✉️</a>
+      </div>
+    </div>
+    <div class="fcol">
+      <h4 data-lang="en">Learn</h4><h4 data-lang="pt" style="display:none">Aprender</h4>
+      <a onclick="navigateTo('programme.html')"><span data-lang="en">Our Programme</span><span data-lang="pt" style="display:none">O Nosso Programa</span></a>
+      <a onclick="navigateTo('enrol.html')"><span data-lang="en">Enrol Now</span><span data-lang="pt" style="display:none">Inscrever-me</span></a>
+      <a href="https://classroom.dovelingua.com" target="_blank">Classroom</a>
+      <a onclick="navigateTo('library.html')"><span data-lang="en">Library</span><span data-lang="pt" style="display:none">Biblioteca</span></a>
+    </div>
+    <div class="fcol">
+      <h4 data-lang="en">About</h4><h4 data-lang="pt" style="display:none">Sobre</h4>
+      <a onclick="navigateTo('about.html')"><span data-lang="en">About DoveLingua</span><span data-lang="pt" style="display:none">Sobre a DoveLingua</span></a>
+      <a onclick="navigateTo('announcements.html')"><span data-lang="en">Announcements</span><span data-lang="pt" style="display:none">Avisos</span></a>
+      <a onclick="navigateTo('faq.html')">FAQ</a>
+      <a onclick="navigateTo('donate.html')"><span data-lang="en">Support Us</span><span data-lang="pt" style="display:none">Apoiar-nos</span></a>
+    </div>
+    <div class="fcol">
+      <h4 data-lang="en">Help</h4><h4 data-lang="pt" style="display:none">Ajuda</h4>
+      <a onclick="navigateTo('contact.html')"><span data-lang="en">Contact Support</span><span data-lang="pt" style="display:none">Contactar Suporte</span></a>
+      <a onclick="navigateTo('report.html')"><span data-lang="en">Report a Problem</span><span data-lang="pt" style="display:none">Reportar Problema</span></a>
+      <a onclick="navigateTo('terms.html')"><span data-lang="en">Terms &amp; Policies</span><span data-lang="pt" style="display:none">Termos e Políticas</span></a>
+    </div>
+  </div>
+  <div class="fbot">
+    <p>DoveLingua © 2026 — <span data-lang="en">All rights reserved.</span><span data-lang="pt" style="display:none">Todos os direitos reservados.</span></p>
+    <a onclick="navigateTo('terms.html')"><span data-lang="en">Terms &amp; Policies</span><span data-lang="pt" style="display:none">Termos e Políticas</span></a>
+    <a onclick="navigateTo('contact.html')"><span data-lang="en">Contact</span><span data-lang="pt" style="display:none">Contacto</span></a>
+  </div>
+</footer>
+
+<!-- WA FAB -->
+<a href="https://wa.me/258828920143" target="_blank" class="wa-fab">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+var lang = localStorage.getItem('dl_lang') || 'en';
+var currentStep = 1;
+var ratings = { overall: 0, teaching: 0, platform: 0, programme: 0, support: 0 };
+var recommend = null;
+var isAnon = false;
+
+var starLabelsEN = ['','Poor — we need to do better','Below expectations','Satisfactory — room for improvement','Good — we are on the right track','Excellent — thank you!'];
+var starLabelsPT = ['','Fraco — precisamos de melhorar','Abaixo das expectativas','Satisfatório — há margem para melhorar','Bom — estamos no caminho certo','Excelente — obrigado!'];
+
+function setLang(l) {
+  lang = l;
+  document.documentElement.lang = l;
+  document.getElementById('btnEN').classList.toggle('active', l === 'en');
+  document.getElementById('btnPT').classList.toggle('active', l === 'pt');
+  document.querySelectorAll('[data-lang]').forEach(function(el) {
+    el.style.display = el.getAttribute('data-lang') === l ? '' : 'none';
+  });
+  localStorage.setItem('dl_lang', l);
+}
+
+function navigateTo(url) {
+  var pt = document.getElementById('pageTransition');
+  pt.classList.add('active');
+  setTimeout(function() { window.location.href = url; }, 380);
+}
+
+document.addEventListener('click', function(e) {
+  var el = e.target.closest('a[href]');
+  if (!el) return;
+  var href = el.getAttribute('href');
+  if (!href || href.startsWith('http') || href.startsWith('mailto') || href.startsWith('tel') || href.startsWith('#') || el.target === '_blank') return;
+  e.preventDefault();
+  navigateTo(href);
+});
+
+function toggleMenu() {
+  var m = document.getElementById('sideMenu'), o = document.getElementById('sideOv');
+  var open = m.classList.contains('open');
+  m.classList.toggle('open', !open);
+  o.classList.toggle('open', !open);
+  document.body.style.overflow = open ? '' : 'hidden';
+}
+
+/* STAR RATING — OVERALL */
+function setRating(type, val) {
+  ratings[type] = val;
+  renderStars('overallStars', val);
+  var lbl = lang === 'en' ? starLabelsEN[val] : starLabelsPT[val];
+  document.getElementById('overall-label').textContent = lbl;
+  document.getElementById('overall-label-pt').textContent = lbl;
+}
+
+function hoverStars(type, val) {
+  renderStars('overallStars', val);
+}
+
+function resetStarHover(type) {
+  renderStars('overallStars', ratings[type]);
+}
+
+function renderStars(containerId, val) {
+  var btns = document.getElementById(containerId).querySelectorAll('.star-btn');
+  btns.forEach(function(b, i) {
+    b.style.color = i < val ? 'var(--gold)' : '#e2e8f0';
+  });
+}
+
+/* ASPECT RATINGS */
+function setAspect(aspect, val) {
+  ratings[aspect] = val;
+  renderAspect('aspect-' + aspect, val);
+}
+
+function hoverAspect(aspect, val) {
+  renderAspect('aspect-' + aspect, val);
+}
+
+function resetAspectHover(aspect) {
+  renderAspect('aspect-' + aspect, ratings[aspect]);
+}
+
+function renderAspect(containerId, val) {
+  var btns = document.getElementById(containerId).querySelectorAll('.aspect-star');
+  btns.forEach(function(b, i) {
+    b.style.color = i < val ? 'var(--gold)' : '#e2e8f0';
+  });
+}
+
+function setRecommend(val) {
+  recommend = val;
+  document.getElementById('recYes').classList.toggle('selected', val === true);
+  document.getElementById('recNo').classList.toggle('selected', val === false);
+}
+
+function toggleAnon() {
+  isAnon = document.getElementById('anonToggle').checked;
+  document.getElementById('nameFields').style.display = isAnon ? 'none' : 'block';
+}
+
+function updateCharCount() {
+  var len = document.getElementById('s3-comment').value.length;
+  document.getElementById('charCount').textContent = Math.min(len, 400);
+  if (len > 400) document.getElementById('s3-comment').value = document.getElementById('s3-comment').value.substring(0, 400);
+}
+
+/* STEP NAVIGATION */
+function nextStep(from) {
+  if (from === 1 && ratings.overall === 0) {
+    showToast(lang === 'en' ? '⭐ Please give an overall rating first.' : '⭐ Por favor, dá primeiro uma classificação geral.');
+    return;
+  }
+  goToStep(from + 1);
+}
+
+function prevStep(from) {
+  goToStep(from - 1);
+}
+
+function goToStep(n) {
+  document.getElementById('step' + currentStep).classList.remove('active');
+  currentStep = n;
+  document.getElementById('step' + n).classList.add('active');
+  updateStepUI(n);
+  document.querySelector('.eval-form-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function updateStepUI(n) {
+  var pct = n === 1 ? 33 : n === 2 ? 66 : 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  [1, 2, 3].forEach(function(i) {
+    var dot = document.getElementById('dot' + i);
+    dot.classList.remove('active', 'done');
+    if (i < n) dot.classList.add('done');
+    else if (i === n) dot.classList.add('active');
+  });
+  [1, 2].forEach(function(i) {
+    var line = document.getElementById('line' + i);
+    line.classList.toggle('done', i < n);
+  });
+}
+
+/* SUBMIT */
+function submitEvaluation() {
+  var comment = document.getElementById('s3-comment').value.trim();
+  var name = isAnon ? 'Anonymous' : (document.getElementById('s3-name').value.trim() || 'Anonymous');
+  var level = document.getElementById('s1-level').value;
+  var duration = document.getElementById('s1-duration').value;
+
+  /* Build mailto */
+  var subject = 'DoveLingua Evaluation — ' + (ratings.overall) + '/5 — ' + name;
+  var body = [
+    '=== DoveLingua Student Evaluation ===',
+    '',
+    'Name: ' + name,
+    'Level: ' + level,
+    'Duration: ' + duration,
+    'Anonymous: ' + isAnon,
+    '',
+    '--- RATINGS ---',
+    'Overall: ' + ratings.overall + '/5',
+    'Teaching Quality: ' + (ratings.teaching || 'Not rated') + '/5',
+    'Platform: ' + (ratings.platform || 'Not rated') + '/5',
+    'Programme: ' + (ratings.programme || 'Not rated') + '/5',
+    'Support: ' + (ratings.support || 'Not rated') + '/5',
+    '',
+    'Would recommend: ' + (recommend === true ? 'Yes' : recommend === false ? 'No' : 'Not answered'),
+    '',
+    '--- REVIEW ---',
+    comment || '(No written review provided)',
+    '',
+    '--- Submitted via evaluate.html ---'
+  ].join('\n');
+
+  window.location.href = 'mailto:teacher@dovelingua.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+  /* Show success */
+  var stars = '';
+  for (var i = 0; i < ratings.overall; i++) stars += '⭐';
+  document.getElementById('submittedStars').textContent = stars;
+  document.getElementById('evalSenderName').textContent = name;
+  document.getElementById('evalSenderNamePT').textContent = name;
+
+  [1, 2, 3].forEach(function(i) {
+    document.getElementById('step' + i).classList.remove('active');
+  });
+  document.getElementById('evalSuccess').style.display = 'block';
+  document.getElementById('progressFill').style.width = '100%';
+  setLang(lang);
+}
+
+function resetEval() {
+  currentStep = 1;
+  ratings = { overall: 0, teaching: 0, platform: 0, programme: 0, support: 0 };
+  recommend = null;
+  document.getElementById('evalSuccess').style.display = 'none';
+  document.getElementById('step1').classList.add('active');
+  updateStepUI(1);
+  document.getElementById('s3-comment').value = '';
+  document.getElementById('charCount').textContent = '0';
+}
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 3000);
+}
+
+window.addEventListener('load', function() {
+  document.getElementById('pageTransition').classList.remove('active');
+  setLang(lang);
+});
+
+window.addEventListener('pageshow', function() {
+  document.getElementById('pageTransition').classList.remove('active');
+});
+</script>
+</body>
+</html>
