@@ -3,30 +3,126 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Estado do Pagamento — DoveLingua English Learning Academy</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<title>Painel Admin — DoveLingua</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 :root{
   --g:#059669;--gd:#047857;--gm:#10b981;--gl:#34d399;--gw:#f0fdf4;
   --navy:#0D1B2A;--deep:#1A2E45;--enrol-bg:#0B2545;--gold:#C9A84C;--gold-acc:#E2B13C;
-  --teal:#0E7C7B;--teal-l:#14A89A;--tort:#2ab7ca;--tort-bg:rgba(42,183,202,0.15);
+  --teal:#0E7C7B;--teal-l:#14A89A;--tort:#2ab7ca;
   --white:#FFFFFF;--cream:#F9F5EF;--gray:#6B7A8D;--lg:#E8EDF2;
   --red:#e74c3c;--grn:#27ae60;--border:#D4DCE6;--blue-lbl:#1A3A5C;
   --text:#1A2E45;--sub:#6B7A8D;--r:14px;--rs:8px;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{font-family:'Inter',sans-serif;color:var(--text);background:#f0f2f5;overflow-x:hidden;}
-a{text-decoration:none;color:inherit;}
+body{font-family:'Inter',sans-serif;color:var(--text);background:#0a0f1a;overflow-x:hidden;}
 
-.pt{position:fixed;inset:0;background:linear-gradient(135deg,var(--gd),var(--g));z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s;}
-.pt.on{opacity:1;pointer-events:all;}
-.pt-txt{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--white);}
-.ptd{display:inline-block;animation:ptd 1s infinite;}
-.ptd:nth-child(2){animation-delay:.2s;}.ptd:nth-child(3){animation-delay:.4s;}
-@keyframes ptd{0%,80%,100%{opacity:.3;transform:translateY(0);}40%{opacity:1;transform:translateY(-5px);}}
+/* LOGIN SCREEN */
+.login-screen{position:fixed;inset:0;background:linear-gradient(135deg,#050d1a,#0B2545);display:flex;align-items:center;justify-content:center;z-index:9999;}
+.login-box{background:var(--white);border-radius:20px;padding:44px 40px;width:100%;max-width:400px;box-shadow:0 24px 60px rgba(0,0,0,.5);text-align:center;}
+.lb-logo{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--gd);margin-bottom:4px;}
+.lb-sub{font-size:12px;color:var(--sub);margin-bottom:28px;text-transform:uppercase;letter-spacing:1px;}
+.lb-title{font-family:'Playfair Display',serif;font-size:20px;color:var(--navy);margin-bottom:6px;}
+.lb-desc{font-size:13px;color:var(--sub);margin-bottom:24px;}
+.lb-field{margin-bottom:16px;text-align:left;}
+.lb-field label{display:block;font-size:12px;font-weight:700;color:var(--blue-lbl);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px;}
+.lb-field input{width:100%;padding:12px 16px;border:2px solid var(--border);border-radius:var(--rs);font-size:14px;font-family:'Inter',sans-serif;color:var(--text);background:var(--white);outline:none;transition:border-color .2s;}
+.lb-field input:focus{border-color:var(--teal);}
+.lb-btn{width:100%;background:var(--enrol-bg);color:var(--white);border:none;border-radius:50px;padding:13px;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;margin-top:4px;}
+.lb-btn:hover{background:var(--deep);}
+.lb-err{font-size:13px;color:var(--red);margin-top:10px;display:none;}
 
+/* ADMIN APP */
+.admin-app{display:none;}
+
+/* TOP BAR */
+.top-bar{background:var(--enrol-bg);border-bottom:2px solid var(--gold-acc);padding:0 5%;}
+.tb-in{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;}
+.tb-brand{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--gold-acc);}
+.tb-sub{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;}
+.tb-right{display:flex;align-items:center;gap:10px;}
+.tb-stat{font-size:12px;color:rgba(255,255,255,.65);}
+.tb-stat strong{color:var(--gl);}
+.tb-logout{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:var(--white);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;}
+.tb-logout:hover{background:var(--red);border-color:var(--red);}
+
+/* MAIN */
+.admin-main{padding:28px 5% 60px;max-width:1200px;margin:0 auto;}
+
+/* STATS CARDS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px;}
+.stat-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);padding:18px 20px;border-top:3px solid var(--teal);}
+.stat-card:nth-child(1){border-top-color:var(--teal);}
+.stat-card:nth-child(2){border-top-color:var(--gold);}
+.stat-card:nth-child(3){border-top-color:var(--grn);}
+.stat-card:nth-child(4){border-top-color:var(--red);}
+.sc-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--navy);}
+.sc-label{font-size:12px;color:var(--sub);margin-top:4px;}
+
+/* FILTER BAR */
+.filter-bar{background:var(--white);border-radius:var(--r);border:1px solid var(--border);padding:16px 20px;margin-bottom:20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.fb-input{flex:1;min-width:200px;padding:9px 14px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:13px;font-family:'Inter',sans-serif;color:var(--text);outline:none;transition:border-color .2s;}
+.fb-input:focus{border-color:var(--teal);}
+.fb-select{padding:9px 14px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:13px;font-family:'Inter',sans-serif;color:var(--text);background:var(--white);outline:none;cursor:pointer;}
+.fb-btn{background:var(--teal);color:var(--white);border:none;border-radius:var(--rs);padding:9px 20px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.fb-btn:hover{background:var(--teal-l);}
+.fb-refresh{background:var(--gw);border:1px solid var(--border);color:var(--gd);border-radius:var(--rs);padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.fb-refresh:hover{background:var(--lg);}
+
+/* ENROLMENTS TABLE */
+.table-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;}
+.tc-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.tc-header h3{font-family:'Playfair Display',serif;font-size:18px;color:var(--navy);}
+.tc-header p{font-size:12px;color:var(--sub);}
+
+.enrol-list{display:flex;flex-direction:column;gap:0;}
+.enrol-row{border-bottom:1px solid #f0f0f0;padding:14px 20px;transition:background .15s;cursor:pointer;}
+.enrol-row:hover{background:#f8fbfe;}
+.enrol-row:last-child{border-bottom:none;}
+.er-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:8px;}
+.er-name{font-size:14px;font-weight:700;color:var(--navy);}
+.er-ref{font-size:12px;color:var(--teal);font-weight:600;letter-spacing:1px;}
+.er-mid{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:8px;}
+.er-item{font-size:12px;color:var(--sub);}
+.er-item strong{color:var(--text);}
+.er-bot{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.er-total{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--teal);}
+.er-date{font-size:11px;color:var(--gray);}
+.status-pill{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;}
+.sp-pending{background:#fff7ed;color:#b45309;border:1px solid #f59e0b;}
+.sp-paid{background:#f0fdf4;color:var(--gd);border:1px solid var(--g);}
+.er-actions{display:flex;gap:6px;}
+.act-sm{padding:6px 12px;border-radius:var(--rs);font-size:12px;font-weight:600;cursor:pointer;border:none;transition:all .2s;}
+.act-confirm{background:var(--g);color:var(--white);}
+.act-confirm:hover{background:var(--gd);}
+.act-creds{background:var(--teal);color:var(--white);}
+.act-creds:hover{background:var(--teal-l);}
+.act-del{background:#fff0f0;color:var(--red);border:1px solid #fecaca;}
+.act-del:hover{background:var(--red);color:var(--white);}
+
+.empty-state{text-align:center;padding:48px 20px;color:var(--sub);}
+.empty-state .es-ico{font-size:48px;margin-bottom:14px;}
+
+/* CONFIRM MODAL */
+.mo{position:fixed;inset:0;background:rgba(5,10,22,.65);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s;}
+.mo.open{opacity:1;pointer-events:all;}
+.modal-box{background:var(--white);border-radius:18px;max-width:500px;width:100%;overflow:hidden;transform:scale(.95);transition:transform .3s;max-height:90vh;overflow-y:auto;}
+.mo.open .modal-box{transform:scale(1);}
+.mhdr{background:var(--enrol-bg);padding:20px 24px;}
+.mhdr h3{font-family:'Playfair Display',serif;font-size:18px;color:var(--gold-acc);margin-bottom:3px;}
+.mhdr p{font-size:12px;color:rgba(255,255,255,.65);}
+.mbody{padding:20px 24px;}
+.mfield{margin-bottom:14px;}
+.mfield label{display:block;font-size:12px;font-weight:700;color:var(--blue-lbl);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px;}
+.mfield input{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:14px;font-family:'Inter',sans-serif;color:var(--text);background:var(--white);outline:none;transition:border-color .2s;}
+.mfield input:focus{border-color:var(--g);}
+.mfooter{padding:12px 24px 20px;display:flex;gap:10px;}
+.mbtn-cancel{flex:1;background:var(--lg);border:1px solid var(--border);color:var(--navy);padding:11px;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;}
+.mbtn-save{flex:2;background:var(--g);color:var(--white);padding:11px;border-radius:50px;font-size:13px;font-weight:700;cursor:pointer;border:none;}
+.mbtn-save:hover{background:var(--gd);}
+
+/* TOAST */
 .tw{position:fixed;top:76px;right:18px;z-index:8000;display:flex;flex-direction:column;gap:8px;max-width:320px;}
 .tm{background:var(--white);border-radius:var(--rs);box-shadow:0 4px 18px rgba(13,27,42,.13);padding:11px 15px;display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--text);line-height:1.5;transform:translateX(110%);transition:transform .32s cubic-bezier(.4,0,.2,1);border-left:4px solid var(--grn);}
 .tm.show{transform:translateX(0);}
@@ -34,637 +130,369 @@ a{text-decoration:none;color:inherit;}
 .tm.e{border-left-color:var(--red);}
 .tm.i{border-left-color:var(--teal);}
 
-nav{position:sticky;top:0;z-index:999;background:var(--white);border-bottom:1px solid var(--border);padding:0 5%;}
-.nav-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;}
-.nav-brand{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--gd);cursor:pointer;}
-.nav-r{display:flex;align-items:center;gap:10px;}
-.nav-back{display:flex;align-items:center;gap:6px;background:var(--gw);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:13px;font-weight:600;color:var(--gd);cursor:pointer;transition:all .2s;}
-.nav-back:hover{background:var(--lg);}
-.nav-avatar{width:36px;height:36px;border-radius:50%;background:var(--gw);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;}
-.hamburger{background:none;border:none;cursor:pointer;padding:6px;display:flex;flex-direction:column;gap:4px;}
-.hamburger span{display:block;width:22px;height:2px;background:var(--gd);border-radius:2px;}
-
-.so{position:fixed;inset:0;background:rgba(4,120,87,.3);z-index:1100;opacity:0;pointer-events:none;transition:opacity .3s;}
-.so.open{opacity:1;pointer-events:all;}
-.sm{position:fixed;left:-300px;top:0;bottom:0;width:280px;background:var(--white);z-index:1101;transition:left .32s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column;}
-.sm.open{left:0;}
-.sm-hdr{background:linear-gradient(160deg,var(--gd),var(--g));padding:26px 20px 18px;color:var(--white);position:relative;}
-.sm-hdr .sb{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;}
-.sm-cl{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.15);border:none;color:var(--white);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;}
-.sm-nav{padding:8px 0;flex:1;}
-.sm-nav a{display:flex;align-items:center;gap:12px;padding:12px 20px;font-size:14px;font-weight:500;color:var(--text);transition:background .15s;border-left:3px solid transparent;cursor:pointer;}
-.sm-nav a:hover{background:var(--gw);border-left-color:var(--g);color:var(--gd);}
-.sm-nav .mi{font-size:15px;width:18px;text-align:center;}
-.sdiv{height:1px;background:var(--border);margin:6px 20px;}
-.bsoon{font-size:10px;background:#fef9c3;color:#854d0e;padding:2px 7px;border-radius:10px;margin-left:auto;font-weight:600;}
-.sm-ft{padding:16px 20px;border-top:1px solid var(--border);background:var(--gw);}
-.sm-ft p{font-size:11px;color:var(--sub);line-height:1.5;font-style:italic;}
-
-/* HERO */
-.hero-wrap{background:linear-gradient(160deg,var(--gd) 0%,var(--g) 60%,var(--gm) 100%);border-top:4px solid var(--gold);padding:32px 5% 36px;}
-.hero-inner{max-width:1100px;margin:0 auto;}
-.hero-title-card{background:rgba(14,124,123,.35);border:1px solid rgba(255,255,255,.2);border-radius:var(--r);padding:14px 24px;margin-bottom:24px;text-align:center;}
-.htc-text{font-family:'Playfair Display',serif;font-size:clamp(15px,2.2vw,20px);font-weight:700;color:#7ec8e3;letter-spacing:1px;text-transform:uppercase;}
-.hero-pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
-.hp{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);padding:8px 16px;border-radius:30px;font-size:12px;font-weight:600;color:var(--white);}
-.hp:nth-child(1){border:2px solid #34d399;}
-.hp:nth-child(2){border:2px solid #f59e0b;}
-.hp:nth-child(3){border:2px solid #a78bfa;}
-.hp:nth-child(4){border:2px solid #fb7185;}
-
-/* MAIN */
-.main{padding:32px 5% 60px;max-width:780px;margin:0 auto;}
-
-/* SEARCH CARD */
-.search-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);border-top:4px solid var(--teal);padding:32px;margin-bottom:24px;}
-.sc-heading{font-family:'Playfair Display',serif;font-size:clamp(20px,3vw,26px);color:var(--navy);margin-bottom:8px;}
-.sc-sub{font-size:14px;color:var(--sub);line-height:1.75;margin-bottom:24px;}
-.sc-sub strong{color:var(--navy);}
-.search-row{display:flex;gap:12px;align-items:stretch;}
-.search-input{flex:1;padding:13px 18px;border:2px solid var(--border);border-radius:var(--rs);font-size:15px;font-family:'Inter',sans-serif;color:var(--text);background:var(--white);outline:none;transition:border-color .2s;letter-spacing:1px;}
-.search-input:focus{border-color:var(--teal);}
-.search-btn{background:var(--teal);color:var(--white);border:none;border-radius:var(--rs);padding:13px 28px;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;}
-.search-btn:hover{background:var(--teal-l);}
-
-/* HOW IT WORKS */
-.how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:28px;}
-.how-card{background:var(--white);border-radius:var(--r);padding:16px;border:1px solid var(--border);}
-.how-card:nth-child(1){border-left:4px solid var(--teal);}
-.how-card:nth-child(2){border-left:4px solid var(--gold);}
-.how-card:nth-child(3){border-left:4px solid #a78bfa;}
-.how-card:nth-child(4){border-left:4px solid var(--grn);}
-.how-num{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--teal);margin-bottom:6px;}
-.how-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px;}
-.how-desc{font-size:12px;color:var(--sub);line-height:1.6;}
-
-/* RESULT CARD */
-.result-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;margin-bottom:24px;display:none;}
-.rc-hdr{background:var(--enrol-bg);padding:20px 28px;}
-.rc-hdr h3{font-family:'Playfair Display',serif;font-size:18px;color:var(--gold-acc);margin-bottom:3px;}
-.rc-hdr p{font-size:12px;color:rgba(255,255,255,.65);}
-.rc-body{padding:24px 28px;}
-
-/* STATUS BADGE */
-.status-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:50px;font-size:14px;font-weight:700;margin-bottom:20px;}
-.sb-pending{background:#fff7ed;border:2px solid #f59e0b;color:#b45309;}
-.sb-paid{background:#f0fdf4;border:2px solid var(--g);color:var(--gd);}
-
-/* DATA ROWS */
-.data-section{margin-bottom:18px;}
-.ds-title{font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid var(--border);}
-.dr{display:flex;justify-content:space-between;align-items:flex-start;padding:6px 0;border-bottom:1px solid #f5f5f5;font-size:13px;}
-.dr:last-child{border-bottom:none;}
-.dk{font-weight:700;color:var(--blue-lbl);min-width:130px;padding-right:10px;}
-.dv{color:var(--text);font-weight:400;text-align:right;}
-
-/* PENDING SECTION */
-.pending-info{background:#fffbeb;border:1px solid #fde68a;border-left:4px solid var(--gold);border-radius:var(--r);padding:18px 20px;margin-bottom:20px;}
-.pending-info h4{font-size:14px;font-weight:700;color:#92400e;margin-bottom:10px;}
-.pending-info p{font-size:13px;color:#78350f;line-height:1.75;}
-.pending-info strong{color:#92400e;}
-
-/* PAID SECTION */
-.paid-section{display:none;}
-.credentials-card{background:var(--gw);border:2px solid var(--g);border-radius:var(--r);padding:20px 24px;margin-bottom:20px;}
-.cc-title{font-size:13px;font-weight:700;color:var(--gd);text-transform:uppercase;letter-spacing:.4px;margin-bottom:14px;}
-.cc-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--bdr);font-size:14px;}
-.cc-row:last-child{border-bottom:none;}
-.cc-k{font-weight:700;color:var(--blue-lbl);}
-.cc-v{font-family:'Playfair Display',serif;font-size:16px;color:var(--navy);display:flex;align-items:center;gap:10px;}
-.cc-copy{background:var(--teal);color:var(--white);border:none;border-radius:var(--rs);padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer;}
-
-/* ACTION BUTTONS */
-.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;}
-.act-btn{border-radius:var(--r);padding:16px 18px;cursor:pointer;transition:all .25s;text-align:center;border:none;display:flex;flex-direction:column;align-items:center;gap:6px;}
-.act-btn:nth-child(1){background:var(--g);color:var(--white);}
-.act-btn:nth-child(1):hover{background:var(--gd);transform:translateY(-2px);}
-.act-btn:nth-child(2){background:var(--teal);color:var(--white);}
-.act-btn:nth-child(2):hover{background:var(--teal-l);transform:translateY(-2px);}
-.act-btn:nth-child(3){background:var(--navy);color:var(--white);}
-.act-btn:nth-child(3):hover{background:var(--deep);transform:translateY(-2px);}
-.act-btn:nth-child(4){background:var(--cream);color:var(--navy);border:2px solid var(--border);}
-.act-btn:nth-child(4):hover{background:var(--lg);}
-.act-btn .ab-ico{font-size:22px;}
-.act-btn .ab-label{font-size:13px;font-weight:700;}
-.act-btn .ab-desc{font-size:11px;opacity:.8;}
-
-/* BOTTOM NAV CARDS */
-.bottom-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px;}
-.bc{background:var(--white);border-radius:var(--r);border:1px solid var(--border);padding:18px;cursor:pointer;transition:all .25s;text-align:center;}
-.bc:nth-child(1){border-top:4px solid var(--teal);}
-.bc:nth-child(2){border-top:4px solid var(--gold);}
-.bc:nth-child(3){border-top:4px solid #a78bfa;}
-.bc:nth-child(4){border-top:4px solid var(--red);}
-.bc:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,.08);}
-.bc-ico{font-size:28px;margin-bottom:8px;}
-.bc-name{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px;}
-.bc-desc{font-size:12px;color:var(--sub);}
-
 /* SPINNER */
-.spin-ov{position:fixed;inset:0;background:rgba(13,27,42,.45);z-index:7000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+.spin-ov{position:fixed;inset:0;background:rgba(5,10,22,.55);z-index:7000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
 .spin-ov.on{display:flex;}
 .spin{width:48px;height:48px;border:4px solid rgba(255,255,255,.2);border-top-color:var(--gl);border-radius:50%;animation:sp .9s linear infinite;}
 @keyframes sp{to{transform:rotate(360deg);}}
 .spin-ov p{color:var(--white);font-size:14px;}
 
-footer{background:var(--navy);color:var(--white);padding:48px 5% 26px;}
-.fg{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:32px;text-align:center;}
-.fb .fname{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:10px;}
-.fb p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.7;margin-bottom:16px;}
-.fsoc{display:flex;gap:10px;justify-content:center;}
-.fsb{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;}
-.fsb:hover{background:var(--g);}
-.fc h4{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--gl);margin-bottom:12px;}
-.fc a{display:block;font-size:13px;color:rgba(255,255,255,.6);margin-bottom:8px;cursor:pointer;transition:color .18s;}
-.fc a:hover{color:var(--gold-acc);}
-.fbot{max-width:1100px;margin:0 auto;border-top:1px solid rgba(255,255,255,.08);padding-top:20px;display:flex;justify-content:center;flex-wrap:wrap;gap:14px;text-align:center;}
-.fbot p{font-size:12px;color:rgba(255,255,255,.3);}
-.fbot a{color:rgba(255,255,255,.4);font-size:12px;cursor:pointer;}
-.waf{position:fixed;bottom:22px;right:22px;z-index:900;width:50px;height:50px;border-radius:50%;background:#25D366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(37,211,102,.4);transition:all .3s;}
-.waf:hover{transform:scale(1.1);}
-.waf svg{width:24px;height:24px;fill:var(--white);}
-
-@media(max-width:680px){
-  .action-grid,.bottom-cards{grid-template-columns:1fr 1fr;}
-  .how-grid{grid-template-columns:1fr 1fr;}
-  .search-row{flex-direction:column;}
-  nav{padding:0 4%;}
-  .main{padding:20px 4% 50px;}
-  .fg{grid-template-columns:1fr 1fr;}
-  .hero-wrap{padding:24px 4% 28px;}
+@media(max-width:900px){
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .admin-main{padding:20px 4% 50px;}
 }
-@media(max-width:420px){
-  .fg{grid-template-columns:1fr;}
-  .action-grid,.bottom-cards{grid-template-columns:1fr;}
+@media(max-width:600px){
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .er-mid{gap:8px;}
+  .er-actions{flex-wrap:wrap;}
+  .mfooter{flex-direction:column;}
 }
 </style>
 </head>
 <body>
 
-<div class="pt" id="pt"><div class="pt-txt">DoveLingua<span class="ptd">.</span><span class="ptd">.</span><span class="ptd">.</span></div></div>
 <div class="tw" id="tw"></div>
-<div class="spin-ov" id="spinOv"><div class="spin"></div><p>A verificar o seu código...</p></div>
+<div class="spin-ov" id="spinOv"><div class="spin"></div><p>A processar...</p></div>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-in">
-    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
-    <div class="nav-brand" onclick="nav('index.html')">DoveLingua</div>
-    <div class="nav-r">
-      <div class="nav-back" onclick="nav('enrol.html')">← Inscrição</div>
-      <div class="nav-avatar" title="Perfil / Login">👤</div>
+<!-- LOGIN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <div class="lb-logo">DoveLingua</div>
+    <div class="lb-sub">Painel de Administração</div>
+    <div class="lb-title">Acesso Restrito</div>
+    <div class="lb-desc">Este painel é exclusivo para o Director da Academia DoveLingua.</div>
+    <div class="lb-field">
+      <label>Palavra-passe</label>
+      <input type="password" id="pwdInput" placeholder="Insira a palavra-passe" onkeydown="if(event.key==='Enter')doLogin()"/>
     </div>
-  </div>
-</nav>
-
-<!-- SIDE MENU -->
-<div class="so" id="sO" onclick="toggleMenu()"></div>
-<div class="sm" id="sM">
-  <div class="sm-hdr"><button class="sm-cl" onclick="toggleMenu()">✕</button><div class="sb">DoveLingua</div></div>
-  <div class="sm-nav">
-    <a onclick="nav('index.html')"><span class="mi">🏠</span>Início</a>
-    <div class="sdiv"></div>
-    <a onclick="nav('about.html')"><span class="mi">📖</span>Sobre Nós</a>
-    <a onclick="nav('programme.html')"><span class="mi">📚</span>O Nosso Programa</a>
-    <a onclick="nav('enrol.html')"><span class="mi">✏️</span>Inscrição</a>
-    <a href="https://classroom.dovelingua.com/login/index.php" target="_blank"><span class="mi">💻</span>DoveLingua Classroom</a>
-    <div class="sdiv"></div>
-    <a onclick="nav('announcements.html')"><span class="mi">📢</span>Avisos</a>
-    <a onclick="nav('faq.html')"><span class="mi">❓</span>FAQ</a>
-    <a onclick="nav('evaluate.html')"><span class="mi">⭐</span>Avaliar DoveLingua</a>
-    <div class="sdiv"></div>
-    <a onclick="nav('contact.html')"><span class="mi">📧</span>Contactar Suporte</a>
-    <a onclick="nav('terms.html')"><span class="mi">📄</span>Termos e Políticas</a>
-  </div>
-  <div class="sm-ft"><p>"Aprende inglês hoje e conecta-te com o Mundo amanhã"</p></div>
-</div>
-
-<!-- HERO -->
-<div class="hero-wrap">
-  <div class="hero-inner">
-    <div class="hero-title-card">
-      <div class="htc-text">Verificação de Estado do Pagamento</div>
-    </div>
-    <div class="hero-pills">
-      <div class="hp">🔍 Consulta Rápida</div>
-      <div class="hp">🔒 Seguro</div>
-      <div class="hp">⚡ Imediato</div>
-      <div class="hp">📥 Download do Recibo</div>
-    </div>
+    <button class="lb-btn" onclick="doLogin()">🔐 Entrar no Painel</button>
+    <div class="lb-err" id="loginErr">❌ Palavra-passe incorrecta. Tente novamente.</div>
   </div>
 </div>
 
-<!-- MAIN -->
-<div class="main">
+<!-- ADMIN APP -->
+<div class="admin-app" id="adminApp">
 
-  <!-- SEARCH CARD -->
-  <div class="search-card">
-    <div class="sc-heading">Consulta de Estado do Pagamento</div>
-    <div class="sc-sub">Insira o seu <strong>Código de Referência</strong> para verificar o estado do seu pagamento. O código foi-lhe atribuído automaticamente no momento da sua inscrição — encontra-o no recibo que descarregou ou no e-mail de confirmação.</div>
-    <div class="search-row">
-      <input class="search-input" id="refInput" type="text" placeholder="Ex: DVL-2026A11456" maxlength="20"/>
-      <button class="search-btn" onclick="checkStatus()">🔍 Verificar</button>
-    </div>
-
-    <!-- HOW IT WORKS -->
-    <div class="how-grid">
-      <div class="how-card">
-        <div class="how-num">1</div>
-        <div class="how-title">Insira o Código</div>
-        <div class="how-desc">Digite o Código de Referência que recebeu durante a inscrição no campo acima.</div>
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="tb-in">
+      <div>
+        <div class="tb-brand">DoveLingua — Painel Admin</div>
+        <div class="tb-sub">Área Exclusiva do Director</div>
       </div>
-      <div class="how-card">
-        <div class="how-num">2</div>
-        <div class="how-title">Clique em Verificar</div>
-        <div class="how-desc">O sistema irá procurar o estado do seu pagamento em tempo real.</div>
-      </div>
-      <div class="how-card">
-        <div class="how-num">3</div>
-        <div class="how-title">Veja o Resultado</div>
-        <div class="how-desc">Se o pagamento estiver confirmado, as suas credenciais de acesso serão apresentadas.</div>
-      </div>
-      <div class="how-card">
-        <div class="how-num">4</div>
-        <div class="how-title">Aceda ao Classroom</div>
-        <div class="how-desc">Use as suas credenciais para entrar na plataforma DoveLingua e começar a estudar.</div>
+      <div class="tb-right">
+        <div class="tb-stat">Total: <strong id="statTotal">0</strong> | Pagos: <strong id="statPaid">0</strong> | Pendentes: <strong id="statPend">0</strong></div>
+        <button class="tb-logout" onclick="doLogout()">Sair</button>
       </div>
     </div>
   </div>
 
-  <!-- RESULT CARD -->
-  <div class="result-card" id="resultCard">
-    <div class="rc-hdr">
-      <h3 id="rcTitle">Resultado da Verificação</h3>
-      <p id="rcSub">Informação sobre o estado do seu pagamento</p>
-    </div>
-    <div class="rc-body">
+  <div class="admin-main">
 
-      <!-- STATUS BADGE -->
-      <div id="statusBadge"></div>
-
-      <!-- STUDENT DATA -->
-      <div class="data-section" id="studentData"></div>
-
-      <!-- ENROLMENT DATA -->
-      <div class="data-section" id="enrolData"></div>
-
-      <!-- PRICE DATA -->
-      <div class="data-section" id="priceData"></div>
-
-      <!-- PENDING SECTION -->
-      <div class="pending-info" id="pendingSection">
-        <h4>⏳ O seu pagamento está a ser verificado</h4>
-        <p>
-          O sistema confirma os pagamentos em até <strong>12 horas</strong> após a submissão da inscrição.<br/><br/>
-          Guarde o seu <strong>Código de Referência</strong> e volte a esta página para verificar o estado.<br/><br/>
-          Se passaram mais de 12 horas e o pagamento ainda não foi confirmado, por favor contacte o suporte.
-        </p>
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="sc-num" id="sTotal">0</div>
+        <div class="sc-label">Total de Inscrições</div>
       </div>
+      <div class="stat-card">
+        <div class="sc-num" id="sPaid">0</div>
+        <div class="sc-label">Pagamentos Confirmados</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-num" id="sPend">0</div>
+        <div class="sc-label">A Aguardar Confirmação</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-num" id="sRev">—</div>
+        <div class="sc-label">Receita Total (MZN)</div>
+      </div>
+    </div>
 
-      <!-- PAID SECTION -->
-      <div class="paid-section" id="paidSection">
-        <div class="credentials-card" id="credentialsCard">
-          <div class="cc-title">🎓 Credenciais de Acesso ao Classroom</div>
-          <div class="cc-row">
-            <span class="cc-k">Utilizador</span>
-            <span class="cc-v" id="ccUser">—
-              <button class="cc-copy" onclick="cpTxt('ccUser')">Copiar</button>
-            </span>
-          </div>
-          <div class="cc-row">
-            <span class="cc-k">Palavra-passe</span>
-            <span class="cc-v" id="ccPass">—
-              <button class="cc-copy" onclick="cpTxt('ccPass')">Copiar</button>
-            </span>
-          </div>
-        </div>
+    <!-- FILTER -->
+    <div class="filter-bar">
+      <input class="fb-input" id="searchInput" type="text" placeholder="🔍 Pesquisar por nome, email ou código de referência..." oninput="filterList()"/>
+      <select class="fb-select" id="statusFilter" onchange="filterList()">
+        <option value="all">Todos os estados</option>
+        <option value="pending">⏳ Pendentes</option>
+        <option value="paid">✅ Pagos</option>
+      </select>
+      <select class="fb-select" id="levelFilter" onchange="filterList()">
+        <option value="all">Todos os níveis</option>
+        <option value="a1">A1 — Iniciante</option>
+        <option value="a2">A2 — Básico</option>
+      </select>
+      <button class="fb-refresh" onclick="loadData()">↻ Actualizar</button>
+    </div>
 
-        <div class="action-grid">
-          <button class="act-btn" onclick="downloadPaidReceipt()">
-            <span class="ab-ico">📥</span>
-            <span class="ab-label">Baixar Recibo Confirmado</span>
-            <span class="ab-desc">Com carimbo PAGO</span>
-          </button>
-          <button class="act-btn" onclick="goClassroom()">
-            <span class="ab-ico">💻</span>
-            <span class="ab-label">Entrar no Classroom</span>
-            <span class="ab-desc">classroom.dovelingua.com</span>
-          </button>
-          <button class="act-btn" onclick="nav('enrol.html')">
-            <span class="ab-ico">✏️</span>
-            <span class="ab-label">Nova Inscrição</span>
-            <span class="ab-desc">Inscrever em outro nível</span>
-          </button>
-          <button class="act-btn" onclick="nav('index.html')">
-            <span class="ab-ico">🏠</span>
-            <span class="ab-label">Página Inicial</span>
-            <span class="ab-desc">Voltar ao início</span>
-          </button>
+    <!-- LIST -->
+    <div class="table-card">
+      <div class="tc-header">
+        <div>
+          <h3>Inscrições Recebidas</h3>
+          <p id="listCount">A carregar...</p>
         </div>
       </div>
-
-    </div>
-  </div>
-
-  <!-- BOTTOM NAV CARDS -->
-  <div class="bottom-cards">
-    <div class="bc" onclick="window.open('https://classroom.dovelingua.com/login/index.php','_blank')">
-      <div class="bc-ico">💻</div>
-      <div class="bc-name">DoveLingua Classroom</div>
-      <div class="bc-desc">Aceder à plataforma de ensino online</div>
-    </div>
-    <div class="bc" onclick="nav('enrol.html')">
-      <div class="bc-ico">✏️</div>
-      <div class="bc-name">Fazer Inscrição</div>
-      <div class="bc-desc">Iniciar uma nova inscrição na academia</div>
-    </div>
-    <div class="bc" onclick="nav('contact.html')">
-      <div class="bc-ico">📧</div>
-      <div class="bc-name">Contactar Suporte</div>
-      <div class="bc-desc">Precisa de ajuda? Fale connosco</div>
-    </div>
-    <div class="bc" onclick="nav('evaluate.html')">
-      <div class="bc-ico">⭐</div>
-      <div class="bc-name">Avaliar DoveLingua</div>
-      <div class="bc-desc">Partilhe a sua experiência connosco</div>
-    </div>
-  </div>
-
-</div>
-
-<!-- FOOTER -->
-<footer>
-  <div class="fg">
-    <div class="fb">
-      <div class="fname">DoveLingua English Learning Academy</div>
-      <p>Um programa de aprendizagem de inglês estruturado, comunicativo e profissionalmente concebido — fundado em Moçambique, Abril de 2026.</p>
-      <div class="fsoc">
-        <a href="https://www.facebook.com/DoveLingua" target="_blank" class="fsb"><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-        <a href="https://wa.me/258828920143" target="_blank" class="fsb"><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
-        <a href="mailto:info@dovelingua.com" class="fsb">✉️</a>
+      <div class="enrol-list" id="enrolList">
+        <div class="empty-state"><div class="es-ico">⏳</div><p>A carregar inscrições...</p></div>
       </div>
     </div>
-    <div class="fc"><h4>Aprender</h4><a onclick="nav('programme.html')">O Nosso Programa</a><a onclick="nav('enrol.html')">Inscrição</a><a href="https://classroom.dovelingua.com/login/index.php" target="_blank">Classroom</a></div>
-    <div class="fc"><h4>Sobre</h4><a onclick="nav('about.html')">Sobre a DoveLingua</a><a onclick="nav('faq.html')">FAQ</a><a onclick="nav('donate.html')">Apoiar-nos</a></div>
-    <div class="fc"><h4>Ajuda</h4><a onclick="nav('contact.html')">Contactar Suporte</a><a onclick="nav('status.html')">Estado do Pagamento</a><a onclick="nav('terms.html')">Termos e Políticas</a></div>
-  </div>
-  <div class="fbot">
-    <p>DoveLingua © 2026 — Todos os direitos reservados.</p>
-    <a onclick="nav('terms.html')">Termos e Políticas</a>
-    <a onclick="nav('contact.html')">Contacto</a>
-  </div>
-</footer>
 
-<a href="https://wa.me/258828920143" target="_blank" class="waf"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+  </div>
+</div>
+
+<!-- CONFIRM PAYMENT MODAL -->
+<div class="mo" id="confModal">
+  <div class="modal-box">
+    <div class="mhdr">
+      <h3>Confirmar Pagamento</h3>
+      <p id="confModalSub">Atribuir credenciais e confirmar pagamento</p>
+    </div>
+    <div class="mbody">
+      <div style="background:var(--gw);border:1px solid var(--border);border-radius:var(--rs);padding:12px 14px;margin-bottom:16px;font-size:13px;color:var(--sub);">
+        <strong id="confStudentName" style="color:var(--navy);display:block;margin-bottom:4px;"></strong>
+        <span id="confRef" style="color:var(--teal);font-size:12px;font-weight:600;"></span>
+      </div>
+      <div class="mfield">
+        <label>Nome de Utilizador (Classroom)</label>
+        <input type="text" id="credUser" placeholder="Ex: ana.machava2026"/>
+      </div>
+      <div class="mfield">
+        <label>Palavra-passe (Classroom)</label>
+        <input type="text" id="credPass" placeholder="Ex: DoveLingua@2026"/>
+      </div>
+      <div style="font-size:12px;color:var(--sub);background:var(--cream);border-radius:var(--rs);padding:10px 12px;">
+        ℹ️ Ao confirmar, o estado do pagamento será alterado para <strong>PAGO</strong> e as credenciais ficarão disponíveis para o aluno na página de verificação.
+      </div>
+    </div>
+    <div class="mfooter">
+      <button class="mbtn-cancel" onclick="closeMo('confModal')">Cancelar</button>
+      <button class="mbtn-save" onclick="confirmPayment()">✅ Confirmar Pagamento</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT CREDS MODAL -->
+<div class="mo" id="credsModal">
+  <div class="modal-box">
+    <div class="mhdr">
+      <h3>Editar Credenciais</h3>
+      <p id="credsModalSub">Actualizar credenciais do aluno</p>
+    </div>
+    <div class="mbody">
+      <div class="mfield">
+        <label>Nome de Utilizador (Classroom)</label>
+        <input type="text" id="editUser" placeholder="Ex: ana.machava2026"/>
+      </div>
+      <div class="mfield">
+        <label>Palavra-passe (Classroom)</label>
+        <input type="text" id="editPass" placeholder="Ex: DoveLingua@2026"/>
+      </div>
+    </div>
+    <div class="mfooter">
+      <button class="mbtn-cancel" onclick="closeMo('credsModal')">Cancelar</button>
+      <button class="mbtn-save" onclick="saveCredentials()">💾 Guardar Credenciais</button>
+    </div>
+  </div>
+</div>
 
 <script>
 var JBIN='6a04f4e6adc21f119a979a92';
 var JKEY='$2a$10$j12F7a0fMxviwChcCb/Ad.RGSS3mmQ.fPa636oflL5BmxqKyLZovW';
 var JURL='https://api.jsonbin.io/v3/b/'+JBIN;
-var PR={
-  a1:{namePT:'Iniciante',nameEN:'Beginner',cefr:'A1',monthly:500,full:1500,mat:100,weeks:12,lessons:48,fsW:3},
-  a2:{namePT:'Básico',nameEN:'Elementary',cefr:'A2',monthly:600,full:1800,mat:50,weeks:13,lessons:51,fsW:0}
-};
-var MAT=250,DISC=0.10;
-var currentRec=null;
+var ADMIN_PWD='gildo2001@';
+var allEnrolments=[];
+var currentRef='';
 
-function nav(url){var p=document.getElementById('pt');p.classList.add('on');setTimeout(function(){window.location.href=url;},380);}
-document.addEventListener('click',function(e){var el=e.target.closest('a[href]');if(!el)return;var h=el.getAttribute('href');if(!h||h.startsWith('http')||h.startsWith('mailto')||h.startsWith('#')||el.target==='_blank')return;e.preventDefault();nav(h);});
-function toggleMenu(){var m=document.getElementById('sM'),o=document.getElementById('sO');var op=m.classList.contains('open');m.classList.toggle('open',!op);o.classList.toggle('open',!op);document.body.style.overflow=op?'':'hidden';}
+function doLogin(){
+  var pwd=document.getElementById('pwdInput').value;
+  if(pwd===ADMIN_PWD){
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('adminApp').style.display='block';
+    sessionStorage.setItem('dl_admin','1');
+    loadData();
+  }else{
+    document.getElementById('loginErr').style.display='block';
+    document.getElementById('pwdInput').value='';
+    setTimeout(function(){document.getElementById('loginErr').style.display='none';},3000);
+  }
+}
+
+function doLogout(){
+  sessionStorage.removeItem('dl_admin');
+  document.getElementById('adminApp').style.display='none';
+  document.getElementById('loginScreen').style.display='flex';
+  document.getElementById('pwdInput').value='';
+}
+
 function toast(msg,t,dur){t=t||'s';dur=dur||3500;var ic={s:'✅',w:'⚠️',e:'❌',i:'ℹ️'};var tc={s:'',w:'w',e:'e',i:'i'};var wrap=document.getElementById('tw');var el=document.createElement('div');el.className='tm '+tc[t];el.innerHTML='<span style="font-size:15px;flex-shrink:0;">'+ic[t]+'</span><span>'+msg+'</span>';wrap.appendChild(el);requestAnimationFrame(function(){el.classList.add('show');});setTimeout(function(){el.classList.remove('show');setTimeout(function(){el.remove();},400);},dur);}
-function cpTxt(id){var el=document.getElementById(id);var txt=el.childNodes[0].textContent.trim();if(navigator.clipboard){navigator.clipboard.writeText(txt);}else{var x=document.createElement('textarea');x.value=txt;document.body.appendChild(x);x.select();document.execCommand('copy');document.body.removeChild(x);}toast('Copiado com sucesso!','s');}
-function goClassroom(){window.open('https://classroom.dovelingua.com/login/index.php','_blank');}
+function closeMo(id){document.getElementById(id).classList.remove('open');}
 
-/* Allow pressing Enter to search */
-document.addEventListener('DOMContentLoaded',function(){
-  document.getElementById('refInput').addEventListener('keydown',function(e){if(e.key==='Enter')checkStatus();});
-  /* Auto-fill from URL param */
-  var params=new URLSearchParams(window.location.search);
-  var code=params.get('ref');
-  if(code){document.getElementById('refInput').value=code.toUpperCase();checkStatus();}
-});
-
-async function checkStatus(){
-  var code=document.getElementById('refInput').value.trim().toUpperCase();
-  if(!code){toast('Por favor, insira o seu Código de Referência.','w');return;}
-  if(!code.startsWith('DVL-')){toast('Código inválido. Os códigos começam com DVL-','e');return;}
+async function loadData(){
   document.getElementById('spinOv').classList.add('on');
   try{
     var res=await fetch(JURL+'/latest',{headers:{'X-Master-Key':JKEY}});
     var data=await res.json();
-    var list=(data.record&&data.record.enrolments)||[];
-    var rec=list.find(function(r){return r.refCode===code;});
+    allEnrolments=(data.record&&data.record.enrolments)||[];
+    allEnrolments.sort(function(a,b){return new Date(b.enrollDate)-new Date(a.enrollDate);});
+    renderStats();
+    renderList(allEnrolments);
     document.getElementById('spinOv').classList.remove('on');
-    if(!rec){toast('Código não encontrado. Verifique e tente novamente.','e',5000);return;}
-    currentRec=rec;
-    showResult(rec);
   }catch(err){
     document.getElementById('spinOv').classList.remove('on');
-    toast('Erro ao verificar. Por favor, tente novamente.','e');
+    toast('Erro ao carregar dados. Tente novamente.','e');
   }
 }
 
-function showResult(rec){
-  var card=document.getElementById('resultCard');
-  card.style.display='block';
-  var isPaid=rec.status==='paid';
-  var p=PR[rec.level]||{namePT:rec.levelPT||'—',nameEN:rec.levelEN||'—',cefr:rec.cefr||'—',weeks:rec.totalWeeks||0,lessons:0,fsW:0};
-  var tw=rec.totalWeeks||(rec.level==='a1'?p.weeks+p.fsW:p.weeks);
-
-  /* title */
-  document.getElementById('rcTitle').textContent=isPaid?'Pagamento Confirmado ✅':'A aguardar confirmação';
-  document.getElementById('rcSub').textContent='Código: '+rec.refCode;
-
-  /* badge */
-  document.getElementById('statusBadge').innerHTML=isPaid?
-    '<span class="status-badge sb-paid">✅ PAGO — Pagamento Confirmado</span>':
-    '<span class="status-badge sb-pending">⏳ PENDENTE — A aguardar confirmação</span>';
-
-  /* student data */
-  document.getElementById('studentData').innerHTML=
-    '<div class="ds-title">Dados do Aluno</div>'+
-    dr('Nome',rec.studentName)+dr('Idade',rec.age+' anos')+dr('Género',rec.gender)+
-    dr('E-mail',rec.email)+dr('WhatsApp',rec.wa)+dr('Província',rec.prov)+dr('Distrito',rec.dist);
-
-  /* enrolment data */
-  document.getElementById('enrolData').innerHTML=
-    '<div class="ds-title">Detalhes da Inscrição</div>'+
-    dr('Nível',rec.cefr+' — '+rec.levelPT)+
-    dr('Duração',tw+' semanas')+
-    dr('Modalidade de Ensino',rec.modality)+
-    dr('Modalidade de Pagamento',rec.payMod==='monthly'?'Mensal':'Nível Completo')+
-    dr('Método de Pagamento',rec.payMethod||'—')+
-    dr('Material',rec.inclMat?'Incluído':'Não incluído');
-
-  /* price */
-  var mFee=(rec.type==='new'?p.mat:0)||0;
-  var cCl=rec.payMod==='monthly'?p.monthly:p.full;
-  var cD=rec.payMod==='full'?Math.round(p.full*DISC):0;
-  document.getElementById('priceData').innerHTML=
-    '<div class="ds-title">Resumo de Pagamento</div>'+
-    dr('Taxa do Curso',fmz(cCl))+
-    dr('Taxa de Matrícula',fmz(mFee))+
-    dr('Desconto',cD>0?'- '+fmz(cD):fmz(0))+
-    dr('Material',rec.inclMat?fmz(MAT):fmz(0))+
-    '<div class="dr" style="background:#f0fdf4;border-radius:6px;padding:8px 4px;"><span class="dk">Total</span><span class="dv" style="color:#b57aff;font-family:Playfair Display,serif;font-size:16px;font-weight:700;">'+fmz(rec.total)+'</span></div>';
-
-  /* show/hide sections */
-  document.getElementById('pendingSection').style.display=isPaid?'none':'block';
-  document.getElementById('paidSection').style.display=isPaid?'block':'none';
-
-  if(isPaid){
-    document.getElementById('ccUser').innerHTML=(rec.classUser||'A ser atribuído')+'<button class="cc-copy" onclick="cpTxt(\'ccUser\')">Copiar</button>';
-    document.getElementById('ccPass').innerHTML=(rec.classPass||'A ser atribuído')+'<button class="cc-copy" onclick="cpTxt(\'ccPass\')">Copiar</button>';
-  }
-
-  setTimeout(function(){var el=document.getElementById('resultCard');var top=el.getBoundingClientRect().top+window.pageYOffset-80;window.scrollTo({top:top,behavior:'smooth'});},80);
+function renderStats(){
+  var total=allEnrolments.length;
+  var paid=allEnrolments.filter(function(r){return r.status==='paid';}).length;
+  var pend=total-paid;
+  var rev=allEnrolments.filter(function(r){return r.status==='paid';}).reduce(function(s,r){return s+(r.total||0);},0);
+  document.getElementById('sTotal').textContent=total;
+  document.getElementById('sPaid').textContent=paid;
+  document.getElementById('sPend').textContent=pend;
+  document.getElementById('sRev').textContent=rev.toLocaleString('pt-MZ');
+  document.getElementById('statTotal').textContent=total;
+  document.getElementById('statPaid').textContent=paid;
+  document.getElementById('statPend').textContent=pend;
 }
 
-function dr(k,v){return '<div class="dr"><span class="dk">'+k+'</span><span class="dv">'+v+'</span></div>';}
-
-/* ═══ SECOND PDF RECEIPT (PAID) ═══ */
-function downloadPaidReceipt(){
-  var rec=currentRec;if(!rec){toast('Dados não encontrados.','e');return;}
-  var{jsPDF}=window.jspdf;
-  var doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
-  var W=210,mg=14,y=0;
-  var now=new Date();
-  var due=rec.dueDate?new Date(rec.dueDate):new Date(now.getTime()+30*24*60*60*1000);
-  var p=PR[rec.level]||{namePT:rec.levelPT,nameEN:rec.levelEN,cefr:rec.cefr,monthly:0,full:0,mat:0,weeks:rec.totalWeeks||0,lessons:0,fsW:0};
-  var tw=rec.totalWeeks||(rec.level==='a1'?p.weeks+p.fsW:p.weeks);
-  var isNew=rec.type==='new';var mFee=isNew?(p.mat||0):0;
-  var enrollDate=rec.enrollDate?new Date(rec.enrollDate):now;
-
-  /* ─ HEADER ─ */
-  doc.setFillColor(26,46,69);
-  doc.rect(0,0,W,24,'F');
-  doc.setFillColor(5,150,105);doc.rect(0,22,W,2,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(14);doc.setTextColor(255,255,255);
-  doc.text('DoveLingua English Learning Academy',W/2,11,{align:'center'});
-  doc.setFont('helvetica','italic');doc.setFontSize(8);doc.setTextColor(201,168,76);
-  doc.text('"Learn English today and connect with the World tomorrow"',W/2,19,{align:'center'});
-
-  /* ─ TITLE ─ */
-  y=32;
-  doc.setFont('helvetica','bold');doc.setFontSize(16);doc.setTextColor(26,46,69);
-  doc.text('RECIBO DE INSCRIÇÃO',W/2,y,{align:'center'});
-  y+=12;
-
-  /* ─ REF/DATES ROW — full width ─ */
-  doc.setFillColor(249,245,239);
-  doc.roundedRect(mg,y,W-mg*2,18,2,2,'F');
-  doc.setDrawColor(212,220,230);doc.setLineWidth(0.3);
-  doc.roundedRect(mg,y,W-mg*2,18,2,2,'S');
-  doc.setFont('helvetica','bold');doc.setFontSize(7.5);doc.setTextColor(14,124,123);
-  var c1=mg+4,c2=mg+64,c3=mg+124;
-  doc.text('CÓDIGO DE REFERÊNCIA',c1,y+5);
-  doc.text('DATA DE EMISSÃO',c2,y+5);
-  doc.text('DATA DE VENCIMENTO',c3,y+5);
-  doc.setFont('helvetica','bold');doc.setFontSize(9.5);doc.setTextColor(26,46,69);
-  doc.text(rec.refCode,c1,y+13);
-  doc.setFontSize(9);
-  doc.text(fD(enrollDate)+' '+fT(enrollDate),c2,y+13);
-  doc.text(fD(due),c3,y+13);
-  y+=24;
-
-  /* ─ HELPERS ─ */
-  function secT(t,yy){doc.setFont('helvetica','bold');doc.setFontSize(8.5);doc.setTextColor(5,150,105);doc.text(t,mg,yy);doc.setDrawColor(5,150,105);doc.setLineWidth(0.4);doc.line(mg,yy+2,W-mg,yy+2);return yy+8;}
-  function dRow(lbl,val,yy,sh){if(sh){doc.setFillColor(245,248,252);doc.rect(mg,yy-4,W-mg*2,7,'F');}doc.setFont('helvetica','bold');doc.setFontSize(8.5);doc.setTextColor(26,46,69);doc.text(lbl+':',mg+2,yy);doc.setFont('helvetica','normal');doc.setTextColor(60,60,60);doc.text(String(val),mg+56,yy);return yy+7;}
-
-  /* ─ DADOS DO ALUNO + STATUS BADGE ─ */
-  var dadosY=y;
-  y=secT('DADOS DO ALUNO',y);
-  /* STATUS BADGE — right, with updated colours */
-  var sbX=W-mg-54,sbY=dadosY+4;
-  doc.setFillColor(242,247,247); /* #F2F7F7 */
-  doc.setDrawColor(26,46,69);doc.setLineWidth(0.5);
-  doc.roundedRect(sbX,sbY,54,20,2,2,'FD');
-  doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(201,168,76);
-  doc.text('ESTADO DO PAGAMENTO',sbX+27,sbY+6,{align:'center'});
-  doc.setFontSize(10);doc.setTextColor(5,150,105);
-  doc.text('✓ PAGO',sbX+27,sbY+14,{align:'center'});
-
-  var leftW=sbX-mg-4;
-  var sd=[['Nome Completo',rec.studentName],['Idade',(rec.age||'—')+' anos'],['Género',rec.gender||'—'],['E-mail',rec.email],['WhatsApp',rec.wa],['Chamadas',rec.phone||'—'],['Província',rec.prov],['Distrito',rec.dist],['Tipo de Inscrição',rec.type==='new'?'Nova Inscrição':'Renovação']];
-  sd.forEach(function(r,i){
-    if(i<3){if(i%2===0){doc.setFillColor(245,248,252);doc.rect(mg,y-4,leftW,7,'F');}doc.setFont('helvetica','bold');doc.setFontSize(8.5);doc.setTextColor(26,46,69);doc.text(r[0]+':',mg+2,y);doc.setFont('helvetica','normal');doc.setTextColor(60,60,60);doc.text(String(r[1]),mg+56,y);y+=7;}
-    else{y=dRow(r[0],r[1],y,i%2===0);}
+function filterList(){
+  var q=document.getElementById('searchInput').value.toLowerCase();
+  var sf=document.getElementById('statusFilter').value;
+  var lf=document.getElementById('levelFilter').value;
+  var filtered=allEnrolments.filter(function(r){
+    var matchQ=!q||(r.studentName||'').toLowerCase().includes(q)||(r.email||'').toLowerCase().includes(q)||(r.refCode||'').toLowerCase().includes(q);
+    var matchS=sf==='all'||r.status===sf;
+    var matchL=lf==='all'||r.level===lf;
+    return matchQ&&matchS&&matchL;
   });
-  y+=4;
-
-  /* ─ DETALHES ─ */
-  y=secT('DETALHES DA INSCRIÇÃO',y);
-  var ed=[['Nível',rec.cefr+' — '+rec.levelPT+' ('+rec.levelEN+')'],['Duração Total',tw+' semanas'],['Modalidade de Ensino',rec.modality],['Modalidade de Pagamento',rec.payMod==='monthly'?'Mensal':'Nível Completo'],['Método de Pagamento',rec.payMethod||'—'],['Material Didáctico',rec.inclMat?'Incluído':'Não incluído']];
-  ed.forEach(function(r,i){y=dRow(r[0],r[1],y,i%2===0);});y+=4;
-
-  /* ─ PAGAMENTO ─ */
-  y=secT('RESUMO DE PAGAMENTO',y);
-  var cCl=rec.payMod==='monthly'?p.monthly:p.full;var cD=rec.payMod==='full'?Math.round(p.full*DISC):0;
-  var pd=[['Taxa do Curso',fmz(cCl)],['Taxa de Matrícula',fmz(mFee)],['Desconto (10%)',cD>0?'- '+fmz(cD):fmz(0)],['Material Didáctico',rec.inclMat?fmz(MAT):fmz(0)]];
-  pd.forEach(function(r,i){y=dRow(r[0],r[1],y,i%2===0);});
-  /* TOTAL — #008B88 background, white text */
-  doc.setFillColor(0,139,136);
-  doc.rect(mg,y-2,W-mg*2,10,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(255,255,255);
-  doc.text('TOTAL',mg+3,y+5);
-  doc.setFontSize(11);
-  doc.text(fmz(rec.total),W-mg-3,y+5,{align:'right'});
-  y+=14;
-
-  /* ─ PAGO STAMP on the ref/dates rectangle area ─ */
-  /* Draw stamp directly on the document */
-  var stampX=W/2-25,stampY=44;
-  doc.setGState(doc.GState({opacity:0.18}));
-  doc.setFillColor(5,150,105);
-  doc.roundedRect(stampX,stampY,50,16,3,3,'F');
-  doc.setGState(doc.GState({opacity:1}));
-  doc.setDrawColor(5,150,105);doc.setLineWidth(1.5);
-  doc.roundedRect(stampX,stampY,50,16,3,3,'S');
-  doc.setFont('helvetica','bold');doc.setFontSize(16);doc.setTextColor(5,150,105);
-  doc.text('PAGO',W/2,stampY+11,{align:'center'});
-
-  /* ─ STATUS LINK blue ─ */
-  doc.setFillColor(219,234,254);
-  doc.roundedRect(mg,y,W-mg*2,10,2,2,'F');
-  doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(29,78,216);
-  doc.text('Para verificar o estado: www.dovelingua.com/status.html  |  Código: '+rec.refCode,W/2,y+7,{align:'center'});
-  y+=14;
-
-  /* ─ STATUS BOTTOM — PAGO ─ */
-  doc.setFillColor(240,253,244);doc.setDrawColor(5,150,105);doc.setLineWidth(0.3);
-  doc.roundedRect(mg,y,W-mg*2,10,2,2,'FD');
-  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(4,120,87);
-  doc.text('ESTADO DO PAGAMENTO: PAGO — Pagamento confirmado por DoveLingua',W/2,y+7,{align:'center'});
-  y+=16;
-
-  /* ─ SIGNATURE — cursive (Dancing Script simulated) ─ */
-  doc.setDrawColor(212,220,230);doc.setLineWidth(0.3);doc.line(mg,y,W-mg,y);y+=8;
-  doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(107,122,141);
-  doc.text('_______________________',W/2,y,{align:'center'});
-  doc.text('Assinatura do Director',W/2,y+6,{align:'center'});
-  /* Cursive name using italic Helvetica as closest available */
-  doc.setFont('helvetica','bolditalic');doc.setFontSize(13);doc.setTextColor(5,150,105);
-  doc.text('Gildo A. Dove',W/2,y+15,{align:'center'});
-  doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(107,122,141);
-  doc.text('Fundadora e Directora — DoveLingua English Learning Academy',W/2,y+21,{align:'center'});
-
-  /* ─ FOOTER BAR ─ */
-  doc.setFillColor(26,46,69);doc.rect(0,272,W,25,'F');
-  doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(180,200,220);
-  doc.text('www.dovelingua.com  |  info@dovelingua.com  |  +258 82 892 0143  |  DoveLingua English Learning Academy',W/2,281,{align:'center'});
-  doc.setTextColor(120,140,160);doc.setFontSize(7);
-  doc.text('Documento gerado pelo Sistema. DoveLingua © 2026 — Todos os direitos reservados.',W/2,288,{align:'center'});
-
-  doc.save('Recibo_PAGO_DoveLingua_'+rec.refCode+'.pdf');
-  toast('Recibo confirmado descarregado!','s');
+  renderList(filtered);
 }
 
-function fD(d){return('0'+d.getDate()).slice(-2)+'/'+('0'+(d.getMonth()+1)).slice(-2)+'/'+d.getFullYear();}
-function fT(d){return('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);}
-function fmz(v){return Math.abs(v).toLocaleString('pt-MZ')+' MZN';}
+function renderList(list){
+  document.getElementById('listCount').textContent=list.length+' inscrição(ões) encontrada(s)';
+  if(list.length===0){
+    document.getElementById('enrolList').innerHTML='<div class="empty-state"><div class="es-ico">📭</div><p>Nenhuma inscrição encontrada.</p></div>';
+    return;
+  }
+  var html='';
+  list.forEach(function(r){
+    var isPaid=r.status==='paid';
+    var dt=r.enrollDate?fmtDate(new Date(r.enrollDate)):'—';
+    html+='<div class="enrol-row">'+
+      '<div class="er-top">'+
+        '<div>'+
+          '<span class="er-name">'+r.studentName+'</span>'+
+          '<span style="font-size:12px;color:var(--sub);margin-left:10px;">'+r.gender+' · '+(r.age||'—')+' anos</span>'+
+        '</div>'+
+        '<div style="display:flex;align-items:center;gap:8px;">'+
+          '<span class="er-ref">'+r.refCode+'</span>'+
+          '<span class="status-pill '+(isPaid?'sp-paid':'sp-pending')+'">'+(isPaid?'✅ PAGO':'⏳ PENDENTE')+'</span>'+
+        '</div>'+
+      '</div>'+
+      '<div class="er-mid">'+
+        '<div class="er-item">📚 <strong>'+r.cefr+' — '+r.levelPT+'</strong></div>'+
+        '<div class="er-item">💻 <strong>'+r.modality+'</strong></div>'+
+        '<div class="er-item">📅 <strong>'+(r.payMod==='monthly'?'Mensal':'Nível Completo')+'</strong></div>'+
+        '<div class="er-item">📱 <strong>'+(r.payMethod||'—')+'</strong></div>'+
+        '<div class="er-item">📧 '+r.email+'</div>'+
+        '<div class="er-item">📞 '+r.wa+'</div>'+
+      '</div>'+
+      '<div class="er-bot">'+
+        '<span class="er-total">'+fmz(r.total)+'</span>'+
+        '<span class="er-date">'+dt+'</span>'+
+        '<div class="er-actions">'+
+          (!isPaid?'<button class="act-sm act-confirm" onclick="openConfModal(\''+r.refCode+'\')">✅ Confirmar Pagamento</button>':'')+
+          '<button class="act-sm act-creds" onclick="openCredsModal(\''+r.refCode+'\')">🎓 Credenciais</button>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+  });
+  document.getElementById('enrolList').innerHTML=html;
+}
 
-window.addEventListener('load',function(){document.getElementById('pt').classList.remove('on');});
-window.addEventListener('pageshow',function(){document.getElementById('pt').classList.remove('on');});
+function openConfModal(ref){
+  currentRef=ref;
+  var rec=allEnrolments.find(function(r){return r.refCode===ref;});
+  if(!rec)return;
+  document.getElementById('confModalSub').textContent='Confirmar pagamento — '+ref;
+  document.getElementById('confStudentName').textContent=rec.studentName;
+  document.getElementById('confRef').textContent=ref+' · '+rec.cefr+' — '+rec.levelPT;
+  document.getElementById('credUser').value=rec.classUser||'';
+  document.getElementById('credPass').value=rec.classPass||'';
+  document.getElementById('confModal').classList.add('open');
+}
+
+function openCredsModal(ref){
+  currentRef=ref;
+  var rec=allEnrolments.find(function(r){return r.refCode===ref;});
+  if(!rec)return;
+  document.getElementById('credsModalSub').textContent=rec.studentName+' — '+ref;
+  document.getElementById('editUser').value=rec.classUser||'';
+  document.getElementById('editPass').value=rec.classPass||'';
+  document.getElementById('credsModal').classList.add('open');
+}
+
+async function confirmPayment(){
+  var user=document.getElementById('credUser').value.trim();
+  var pass=document.getElementById('credPass').value.trim();
+  if(!user||!pass){toast('Por favor, preencha o utilizador e a palavra-passe antes de confirmar.','w');return;}
+  closeMo('confModal');
+  document.getElementById('spinOv').classList.add('on');
+  try{
+    var rec=allEnrolments.find(function(r){return r.refCode===currentRef;});
+    if(!rec){toast('Registo não encontrado.','e');document.getElementById('spinOv').classList.remove('on');return;}
+    rec.status='paid';
+    rec.classUser=user;
+    rec.classPass=pass;
+    await updateBin({enrolments:allEnrolments});
+    document.getElementById('spinOv').classList.remove('on');
+    toast('✅ Pagamento de '+rec.studentName+' confirmado com sucesso!','s',5000);
+    renderStats();
+    renderList(allEnrolments);
+  }catch(err){
+    document.getElementById('spinOv').classList.remove('on');
+    toast('Erro ao confirmar. Tente novamente.','e');
+  }
+}
+
+async function saveCredentials(){
+  var user=document.getElementById('editUser').value.trim();
+  var pass=document.getElementById('editPass').value.trim();
+  closeMo('credsModal');
+  document.getElementById('spinOv').classList.add('on');
+  try{
+    var rec=allEnrolments.find(function(r){return r.refCode===currentRef;});
+    if(!rec){document.getElementById('spinOv').classList.remove('on');return;}
+    rec.classUser=user;
+    rec.classPass=pass;
+    await updateBin({enrolments:allEnrolments});
+    document.getElementById('spinOv').classList.remove('on');
+    toast('Credenciais actualizadas com sucesso!','s');
+    renderList(allEnrolments);
+  }catch(err){
+    document.getElementById('spinOv').classList.remove('on');
+    toast('Erro ao guardar. Tente novamente.','e');
+  }
+}
+
+async function updateBin(data){
+  await fetch(JURL,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':JKEY},body:JSON.stringify(data)});
+}
+
+function fmtDate(d){return('0'+d.getDate()).slice(-2)+'/'+('0'+(d.getMonth()+1)).slice(-2)+'/'+d.getFullYear()+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);}
+function fmz(v){return(v||0).toLocaleString('pt-MZ')+' MZN';}
+
+window.addEventListener('load',function(){
+  if(sessionStorage.getItem('dl_admin')==='1'){
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('adminApp').style.display='block';
+    loadData();
+  }
+  document.getElementById('pwdInput').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin();});
+});
 </script>
 </body>
 </html>
