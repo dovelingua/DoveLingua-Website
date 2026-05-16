@@ -331,9 +331,10 @@ function closeMo(id){document.getElementById(id).classList.remove('open');}
 async function loadData(){
   document.getElementById('spinOv').classList.add('on');
   try{
-    var res=await fetch(JURL+'/latest',{headers:{'X-Master-Key':JKEY}});
-    var data=await res.json();
-    allEnrolments=(data.record&&data.record.enrolments)||[];
+    var res=await fetch(JURL+'/latest',{headers:{'X-Master-Key':JKEY,'X-Bin-Meta':false}});
+var data=await res.json();
+var record=data.record||data;
+allEnrolments=record.enrolments||[];
     allEnrolments.sort(function(a,b){return new Date(b.enrollDate)-new Date(a.enrollDate);});
     renderStats();
     renderList(allEnrolments);
@@ -479,7 +480,8 @@ async function saveCredentials(){
 }
 
 async function updateBin(data){
-  await fetch(JURL,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':JKEY},body:JSON.stringify(data)});
+  var res=await fetch(JURL,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':JKEY,'X-Bin-Meta':false},body:JSON.stringify(data)});
+  if(!res.ok){throw new Error('JSONBin update failed');}
 }
 
 function fmtDate(d){return('0'+d.getDate()).slice(-2)+'/'+('0'+(d.getMonth()+1)).slice(-2)+'/'+d.getFullYear()+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);}

@@ -447,13 +447,15 @@ document.addEventListener('DOMContentLoaded',function(){
 async function checkStatus(){
   var code=document.getElementById('refInput').value.trim().toUpperCase();
   if(!code){toast('Por favor, insira o seu Código de Referência.','w');return;}
-  if(!code.startsWith('DVL-')){toast('Código inválido. Os códigos começam com DVL-','e');return;}
+  if(code.length<8){toast('Por favor, insira um código válido.','w');return;}
   document.getElementById('spinOv').classList.add('on');
   try{
-    var res=await fetch(JURL+'/latest',{headers:{'X-Master-Key':JKEY}});
-    var data=await res.json();
-    var list=(data.record&&data.record.enrolments)||[];
-    var rec=list.find(function(r){return r.refCode===code;});
+    var res=await fetch(JURL+'/latest',{headers:{'X-Master-Key':JKEY,'X-Bin-Meta':false}});
+var data=await res.json();
+/* Handle both possible JSONBin response structures */
+var record=data.record||data;
+var list=(record.enrolments)||[];
+var rec=list.find(function(r){return (r.refCode||'').toUpperCase()===code;});
     document.getElementById('spinOv').classList.remove('on');
     if(!rec){toast('Código não encontrado. Verifique e tente novamente.','e',5000);return;}
     currentRec=rec;
