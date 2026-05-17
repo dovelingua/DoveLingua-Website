@@ -232,11 +232,11 @@ nav{position:sticky;top:0;z-index:999;background:var(--white);border-bottom:1px 
 .field{margin-bottom:16px;}
 .field label{   display:block;font-size:12px;font-weight:800;color:#1A3A5C;margin-bottom:6px;   text-transform:uppercase;letter-spacing:.4px;   background:#ffffff;              /* ← white when empty */   display:inline-block;padding:2px 10px;border-radius:6px;   border-left:3px solid var(--accent,#1A3A5C);   transition: background .25s ease, border-left-color .25s ease; } 
 .field label .req{color:var(--red);margin-left:2px;}
-.field input,.field select{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:14px;font-family:'Inter',sans-serif;color:var(--text);background:var(--white);outline:none;transition:all .25s;}
-.field input:focus,.field select:focus{border-color:var(--tort);background:#f0fbfc;outline:none;}
-.field input.ok,.field select.ok{background:#8bdee9;border-color:#0e7c7b;color:var(--navy);}
-
-.field input.er,.field select.er{background:#fff0f0;border-color:var(--red);}
+.field input,.field select{width:100%;padding:11px 14px;border:none;border-radius:var(--rs);font-size:14px;font-family:'Inter',sans-serif;color:var(--text);background:var(--white);outline:none;transition:background .25s;}
+.field input:focus,.field select:focus{background:#e8f7f9;outline:none;}
+.field input.ok{background:#8bdee9;color:var(--navy);}
+}
+.field input.er{background:#a34f48;}
 .fr{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 .pill-g{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
 .pill{padding:8px 18px;border-radius:50px;border:1.5px solid var(--border);background:var(--white);font-size:13px;font-weight:500;color:var(--sub);cursor:pointer;transition:all .2s;}
@@ -459,7 +459,7 @@ footer{background:var(--navy);color:var(--white);padding:48px 5% 26px;}
     <div class="sdiv"></div>
     <a onclick="nav('about.html')"><span class="mi">📖</span>Sobre Nós</a>
     <a onclick="nav('programme.html')"><span class="mi">📚</span>O Nosso Programa</a>
-    <a onclick="nav('enrol.html')"><span class="mi">📋</span>Inscrição</a>
+    <a onclick="nav('enrol.html')"><span class="mi">✏️</span>Inscrição</a>
     <a href="https://classroom.dovelingua.com" target="_blank"><span class="mi">💻</span>DoveLingua Classroom</a>
     <div class="sdiv"></div>
     <a onclick="nav('library.html')"><span class="mi">📖</span>Biblioteca<span class="bsoon">Soon</span></a>
@@ -540,7 +540,7 @@ footer{background:var(--navy);color:var(--white);padding:48px 5% 26px;}
         </div>
         <!-- FIX 3: Iniciar Inscrição colour #ba07f6, soft bg -->
         <button class="cta-right" onclick="startEnrol()">
-          <h3>📋 Iniciar Inscrição</h3>
+          <h3>✏️ Iniciar Inscrição</h3>
           <p>Inscreva-se agora — vagas ilimitadas</p>
         </button>
       </div>
@@ -635,12 +635,12 @@ footer{background:var(--navy);color:var(--white);padding:48px 5% 26px;}
         </div>
         <div class="field">
           <label>Idade <span class="req">*</span></label>
-          <input type="number" id="f-age" placeholder="Ex: 22" min="12" max="80" oninput="vAge(this)"/>
+          <input type="number" id="f-age" placeholder="Ex: 22" min="12" max="80" oninput="vf(this)"/>
         </div>
       </div>
       <div class="field">
             <label>Género <span class="req">*</span></label>
-            <select id="f-gender" onchange="S.gender=this.value;vf(this)" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:14px;font-family:'Inter',sans-serif;color:var(--text);background:var(--white);outline:none;transition:border-color .2s;">
+            <select id="f-gender" onchange="S.gender=this.value" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:14px;font-family:'Inter',sans-serif;color:var(--text);background:var(--white);outline:none;transition:border-color .2s;">
               <option value="">— Seleccione —</option>
               <option value="Masculino">Masculino</option>
               <option value="Feminino">Feminino</option>
@@ -653,7 +653,7 @@ footer{background:var(--navy);color:var(--white);padding:48px 5% 26px;}
         </div>
         <div class="field">
           <label>Número WhatsApp <span class="req">*</span></label>
-          <input type="tel" id="f-wa" placeholder="+258 82 000 0000" oninput="vPhone(this)"/>
+          <input type="tel" id="f-wa" placeholder="+258 82 000 0000" oninput="vf(this)"/>
         </div>
       </div>
       <div class="fr">
@@ -704,91 +704,107 @@ footer{background:var(--navy);color:var(--white);padding:48px 5% 26px;}
     <div class="win-hdr">
       <h3>Passo 4 — Método de Pagamento</h3>
       <p>Seleccione a carteira de pagamento e efectue a transferência.</p>
+    </div>
     <div class="win-body">
-  <!-- 1. SELECT WALLET -->
-  <div class="carteira-label">Seleccione a Carteira de Pagamento</div>
-  <div class="pay-mth-grid">
-    <div class="pmt mp" id="pmt-mp" onclick="selPayMth('mpesa')">
-      <div class="pmt-logo">M</div>
-      <div class="pmt-name">M-Pesa</div>
-    </div>
-    <div class="pmt em" id="pmt-em" onclick="selPayMth('emola')">
-      <div class="pmt-logo">e</div>
-      <div class="pmt-name">e-Mola</div>
-    </div>
-  </div>
+      <div class="carteira-label">Seleccione a Carteira de Pagamento</div>
+      <!-- FIX 6: M-Pesa left, e-Mola right, always 2 columns -->
+      <div class="pay-mth-grid">
+        <div class="pmt mp" id="pmt-mp" onclick="selPayMth('mpesa')">
+          <div class="pmt-logo">M</div>
+          <div class="pmt-name">M-Pesa</div>
+        </div>
+        <div class="pmt em" id="pmt-em" onclick="selPayMth('emola')">
+          <div class="pmt-logo">e</div>
+          <div class="pmt-name">e-Mola</div>
+        </div>
+      </div>
 
-  <!-- 2. NUMBER + INSTRUCTIONS (shown after wallet selection) -->
-  <div class="pnd" id="pnd-mp">
-    <div class="pnd-label">Número M-Pesa</div>
-    <div class="pnd-number">84 892 0143</div>
-    <div class="pnd-owner">Gildo Dove — DoveLingua</div>
-    <button class="pnd-copy" onclick="cpNum('848920143','M-Pesa')">📋 Copiar Número</button>
-    <div class="pnd-instr" style="margin-top:12px;">
-      <span class="hi-red">Transfira exactamente</span> o valor indicado abaixo para o <span class="hi-teal">número acima</span>.<br/><br/>
-      Após o pagamento, volte à página de <span class="hi-teal">Verificação de Pagamento</span> para consultar o estado.<br/><br/>
-      <span class="hi-gold">Guarde o seu código de referência</span> e o comprovativo da transferência.
+      <!-- M-Pesa details -->
+      <div class="pnd" id="pnd-mp">
+        <div class="pnd-label">Número M-Pesa</div>
+        <div class="pnd-number">84 892 0143</div>
+        <div class="pnd-owner">Gildo Dove — DoveLingua</div>
+        <button class="pnd-copy" onclick="cpNum('848920143','M-Pesa')">📋 Copiar Número</button>
+        <!-- FIX 6: pnd table with lateral coloured borders -->
+        <table class="pnd-table">
+          <tr><td>Número M-Pesa</td><td>84 892 0143</td></tr>
+          <tr><td>O Seu Código de Referência</td><td id="pnd-mp-ref">—</td></tr>
+          <tr><td>Tempo para Pagamento</td><td>30 minutos</td></tr>
+        </table>
+        <!-- FIX 6: instruction inside a beautiful card -->
+        <div class="pnd-instr">
+          <span class="hi-red">Transfira exactamente</span> o valor indicado abaixo para o <span class="hi-teal">número de telefone acima</span>.<br/><br/>
+          Após o pagamento, o seu pagamento será <span class="hi-teal">confirmado automaticamente</span>.<br/>
+          Pedimos que volte à página de <span class="hi-teal">Verificação de Pagamento</span> para consultar o estado.<br/><br/>
+          <span class="hi-gold">Guarde o seu código de referência</span> e o comprovativo da transferência.
+        </div>
+      </div>
+
+      <!-- e-Mola details -->
+      <div class="pnd" id="pnd-em">
+        <div class="pnd-label">Número e-Mola</div>
+        <div class="pnd-number">86 580 4379</div>
+        <div class="pnd-owner">Gildo Dove — DoveLingua</div>
+        <button class="pnd-copy" onclick="cpNum('865804379','e-Mola')">📋 Copiar Número</button>
+        <!-- FIX 6: pnd table with lateral coloured borders -->
+        <table class="pnd-table">
+          <tr><td>Número e-Mola</td><td>86 580 4379</td></tr>
+          <tr><td>O Seu Código de Referência</td><td id="pnd-em-ref">—</td></tr>
+          <tr><td>Tempo para Pagamento</td><td>30 minutos</td></tr>
+        </table>
+        <!-- FIX 6: instruction inside a beautiful card -->
+        <div class="pnd-instr">
+          <span class="hi-red">Transfira exactamente</span> o valor indicado abaixo para o <span class="hi-teal">número de telefone acima</span>.<br/><br/>
+          Após o pagamento, o seu pagamento será <span class="hi-teal">confirmado automaticamente</span>.<br/>
+          Pedimos que volte à página de <span class="hi-teal">Verificação de Pagamento</span> para consultar o estado.<br/><br/>
+          <span class="hi-gold">Guarde o seu código de referência</span> e o comprovativo da transferência.
+        </div>
+      </div>
+
+      <div class="proof-section" id="proofSection">
+        <div class="proof-title">Comprovativo de Pagamento</div>
+        <div class="proof-sub">Preencha pelo menos um dos campos abaixo antes de submeter.</div>
+        <div class="proof-field" style="margin-bottom:10px;">
+          <!-- FIX 6: proof labels bold coloured -->
+          <label>ID de Pagamento (Código da Transacção)</label>
+          <input type="text" id="f-pid" placeholder="Ex: ID da transacao PP2026..." oninput="checkProof()"/>
+        </div>
+        <div class="proof-or">— ou —</div>
+        <div class="proof-field">
+          <label>Nome / Número do Remetente</label>
+          <input type="text" id="f-sender" placeholder="Ex: João Silva / +258 84 000 0000" oninput="checkProof()"/>
+        </div>
+      </div>
+
+      <!-- FIX 6: ref-inner white background, code keeps red colour, Copiar keeps green -->
+      <div class="ref-card">
+        <div class="ref-card-title">O Seu Código de Referência</div>
+        <div class="ref-inner">
+          <div class="ri-label">Guarde este código! É o único meio de verificar o estado da sua inscrição</div>
+          <div class="ri-code" id="riCode">—</div>
+          <div class="ri-warn">⚠️ Utilize este código como referência ao efectuar a transferência, se o método de pagamento o permitir.</div>
+          <button class="ri-copy" onclick="cpRef()">📋 Copiar Código</button>
+        </div>
+      </div>
+
+      <!-- FIX 6: amount price coloured #c500ae -->
+      <div class="ab">
+        <div class="ab-label">Valor a Transferir</div>
+        <div class="ab-amt" id="abAmt">—</div>
+        <div class="ab-cur">MZN — Meticais Moçambicanos</div>
+      </div>
+
+      <div class="cd-box">
+        <div class="cd-label">Tempo Restante para Efectuar o Pagamento</div>
+        <div class="cd-timer" id="cdTimer">30:00</div>
+        <div class="cd-note">Efectue o pagamento dentro do prazo. Após o prazo, o código expira e o processo deve ser reiniciado.</div>
+      </div>
+
+      <button class="btn-submit" onclick="openConf()">✅ Confirmar e Submeter Inscrição</button>
+      <div class="step-nav" style="margin-top:12px;">
+        <button class="btn-back" onclick="showW4()">← Voltar</button>
+      </div>
     </div>
-  </div>
-
-  <div class="pnd" id="pnd-em">
-    <div class="pnd-label">Número e-Mola</div>
-    <div class="pnd-number">86 580 4379</div>
-    <div class="pnd-owner">Gildo Dove — DoveLingua</div>
-    <button class="pnd-copy" onclick="cpNum('865804379','e-Mola')">📋 Copiar Número</button>
-    <div class="pnd-instr" style="margin-top:12px;">
-      <span class="hi-red">Transfira exactamente</span> o valor indicado abaixo para o <span class="hi-teal">número acima</span>.<br/><br/>
-      Após o pagamento, volte à página de <span class="hi-teal">Verificação de Pagamento</span> para consultar o estado.<br/><br/>
-      <span class="hi-gold">Guarde o seu código de referência</span> e o comprovativo da transferência.
-    </div>
-  </div>
-
-  <!-- 3. REFERENCE CODE -->
-  <div class="ref-card">
-    <div class="ref-card-title">O Seu Código de Referência</div>
-    <div class="ref-inner">
-      <div class="ri-label">Guarde este código — é o único meio de verificar o estado da sua inscrição</div>
-      <div class="ri-code" id="riCode">—</div>
-      <div class="ri-warn">⚠️ Utilize este código como referência ao efectuar a transferência, se o método o permitir.</div>
-      <button class="ri-copy" onclick="cpRef()">📋 Copiar Código</button>
-    </div>
-  </div>
-
-  <!-- 4. AMOUNT -->
-  <div class="ab">
-    <div class="ab-label">Valor a Transferir</div>
-    <div class="ab-amt" id="abAmt">—</div>
-    <div class="ab-cur">MZN — Meticais Moçambicanos</div>
-  </div>
-
-  <!-- 5. PROOF -->
-  <div class="proof-section" id="proofSection">
-    <div class="proof-title">Comprovativo de Pagamento</div>
-    <div class="proof-sub">Preencha pelo menos um dos campos abaixo antes de submeter.</div>
-    <div class="proof-field" style="margin-bottom:10px;">
-      <label>ID de Pagamento (Código da Transacção)</label>
-      <input type="text" id="f-pid" placeholder="Ex: ID da transacao PP2026..." oninput="checkProof()"/>
-    </div>
-    <div class="proof-or">— ou —</div>
-    <div class="proof-field">
-      <label>Nome / Número do Remetente</label>
-      <input type="text" id="f-sender" placeholder="Ex: João Silva / +258 84 000 0000" oninput="checkProof()"/>
-    </div>
-  </div>
-
-  <!-- 6. COUNTDOWN -->
-  <div class="cd-box">
-    <div class="cd-label">Tempo Restante para Efectuar o Pagamento</div>
-    <div class="cd-timer" id="cdTimer">30:00</div>
-    <div class="cd-note">Efectue o pagamento dentro do prazo. Após o prazo, o código expira e o processo deve ser reiniciado.</div>
-  </div>
-
-  <!-- 7. SUBMIT -->
-  <button class="btn-submit" onclick="openConf()">✅ Confirmar e Submeter Inscrição</button>
-  <div class="step-nav" style="margin-top:12px;">
-    <button class="btn-back" onclick="showW4()">← Voltar</button>
-  </div>
-</div>
   </div>
 
   <!-- SUCCESS -->
@@ -829,7 +845,7 @@ footer{background:var(--navy);color:var(--white);padding:48px 5% 26px;}
     </div>
     <div class="mb-body" id="confBody"></div>
     <div class="mb-ft">
-      <button class="btn-back" style="flex:1;" onclick="closeMo('confMo')">📋 Editar</button>
+      <button class="btn-back" style="flex:1;" onclick="closeMo('confMo')">✏️ Editar</button>
       <button class="btn-fwd" style="flex:2;" onclick="submitEnrol()">✅ Confirmar e Submeter</button>
     </div>
   </div>
@@ -1062,14 +1078,8 @@ function togCp(el,val){el.classList.toggle('sel');var idx=S.avail.indexOf(val);i
 function selPres(el){document.getElementById('presMo').classList.add('open');}
 function chooseOnline(){closeMo('presMo');document.querySelectorAll('#pgMod .pill').forEach(function(p){p.classList.remove('sel');});document.querySelectorAll('#pgMod .pill')[0].classList.add('sel');S.modality='Online';}
 function acceptPres(){closeMo('presMo');document.querySelectorAll('#pgMod .pill').forEach(function(p){p.classList.remove('sel');});document.querySelectorAll('#pgMod .pill')[1].classList.add('sel');S.modality='Presencial';}
-function vf(el){
-  var filled=el.value.trim().length>0;
-  el.classList.toggle('ok',filled);
-  el.classList.toggle('er',false);
-}
+function vf(el){el.classList.toggle('ok',el.value.trim().length>0);}
 function vEmail(el){var ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value);el.classList.toggle('ok',ok);el.classList.toggle('er',!ok&&el.value.length>0);}
-function vPhone(el){var v=el.value.trim().replace(/\s/g,'');var ok=(/^\+258\d{9}$/.test(v))||(/^258\d{9}$/.test(v))||(/^[8]\d{8}$/.test(v));el.classList.toggle('ok',ok);el.classList.toggle('er',!ok&&v.length>0);}
-function vAge(el){var v=parseInt(el.value);var ok=!isNaN(v)&&v>=12&&v<=80;el.classList.toggle('ok',ok);el.classList.toggle('er',!ok&&el.value.length>0);} function vPhone(el){   var v=el.value.trim().replace(/\s/g,'');   /* Accept +258XXXXXXXXX (12 chars) or 258XXXXXXXXX or 8XXXXXXXX (9 digits Moz) */   var ok=(/^\+258\d{9}$/.test(v))||(/^258\d{9}$/.test(v))||(/^[8]\d{8}$/.test(v));   el.classList.toggle('ok',ok);   el.classList.toggle('er',!ok&&v.length>0); }
 function veStr(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
 
 function showW5(){
@@ -1170,7 +1180,7 @@ async function submitEnrol(){
     var cursoCl=S.payMod==='monthly'?p.monthly:p.full;var cDisc=S.payMod==='full'?Math.round(p.full*DISC):0;
     await emailjs.send(ESVC,ETPL,{
       to_email:'dovelingua78@gmail.com',
-      subject:'📋 Nova Inscrição — '+S.ref+' — '+S.name,
+      subject:'✏️ Nova Inscrição — '+S.ref+' — '+S.name,
       ref_code:S.ref,student_name:S.name,student_email:S.email,student_whatsapp:S.wa,student_phone:S.phone,
       level:p.cefr+' — '+p.namePT+' ('+p.nameEN+')',modality:S.modality,
       pay_mod:S.payMod==='monthly'?'Mensal':'Nível Completo ('+tw+' semanas)',
