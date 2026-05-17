@@ -635,7 +635,7 @@ footer{background:var(--navy);color:var(--white);padding:48px 5% 26px;}
         </div>
         <div class="field">
           <label>Idade <span class="req">*</span></label>
-          <input type="number" id="f-age" placeholder="Ex: 22" min="12" max="80" oninput="vf(this)"/>
+          <input type="number" id="f-age" placeholder="Ex: 22" min="12" max="80" oninput="vAge(this)"/>
         </div>
       </div>
       <div class="field">
@@ -653,7 +653,7 @@ footer{background:var(--navy);color:var(--white);padding:48px 5% 26px;}
         </div>
         <div class="field">
           <label>Número WhatsApp <span class="req">*</span></label>
-          <input type="tel" id="f-wa" placeholder="+258 82 000 0000" oninput="vf(this)"/>
+          <input type="tel" id="f-wa" placeholder="+258 82 000 0000" oninput="vPhone(this)"/>
         </div>
       </div>
       <div class="fr">
@@ -1084,6 +1084,8 @@ function vf(el){
   el.classList.toggle('er',false);
 }
 function vEmail(el){var ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value);el.classList.toggle('ok',ok);el.classList.toggle('er',!ok&&el.value.length>0);}
+function vPhone(el){var v=el.value.trim().replace(/\s/g,'');var ok=(/^\+258\d{9}$/.test(v))||(/^258\d{9}$/.test(v))||(/^[8]\d{8}$/.test(v));el.classList.toggle('ok',ok);el.classList.toggle('er',!ok&&v.length>0);}
+function vAge(el){var v=parseInt(el.value);var ok=!isNaN(v)&&v>=12&&v<=80;el.classList.toggle('ok',ok);el.classList.toggle('er',!ok&&el.value.length>0);} function vPhone(el){   var v=el.value.trim().replace(/\s/g,'');   /* Accept +258XXXXXXXXX (12 chars) or 258XXXXXXXXX or 8XXXXXXXX (9 digits Moz) */   var ok=(/^\+258\d{9}$/.test(v))||(/^258\d{9}$/.test(v))||(/^[8]\d{8}$/.test(v));   el.classList.toggle('ok',ok);   el.classList.toggle('er',!ok&&v.length>0); }
 function veStr(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
 
 function showW5(){
