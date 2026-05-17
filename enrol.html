@@ -459,7 +459,7 @@ footer{background:var(--navy);color:var(--white);padding:48px 5% 26px;}
     <div class="sdiv"></div>
     <a onclick="nav('about.html')"><span class="mi">📖</span>Sobre Nós</a>
     <a onclick="nav('programme.html')"><span class="mi">📚</span>O Nosso Programa</a>
-    <a onclick="nav('enrol.html')"><span class="mi">✏️</span>Inscrição</a>
+    <a onclick="nav('enrol.html')"><span class="mi">📋</span>Inscrição</a>
     <a href="https://classroom.dovelingua.com" target="_blank"><span class="mi">💻</span>DoveLingua Classroom</a>
     <div class="sdiv"></div>
     <a onclick="nav('library.html')"><span class="mi">📖</span>Biblioteca<span class="bsoon">Soon</span></a>
@@ -540,7 +540,7 @@ footer{background:var(--navy);color:var(--white);padding:48px 5% 26px;}
         </div>
         <!-- FIX 3: Iniciar Inscrição colour #ba07f6, soft bg -->
         <button class="cta-right" onclick="startEnrol()">
-          <h3>✏️ Iniciar Inscrição</h3>
+          <h3>📋 Iniciar Inscrição</h3>
           <p>Inscreva-se agora — vagas ilimitadas</p>
         </button>
       </div>
@@ -829,7 +829,7 @@ footer{background:var(--navy);color:var(--white);padding:48px 5% 26px;}
     </div>
     <div class="mb-body" id="confBody"></div>
     <div class="mb-ft">
-      <button class="btn-back" style="flex:1;" onclick="closeMo('confMo')">✏️ Editar</button>
+      <button class="btn-back" style="flex:1;" onclick="closeMo('confMo')">📋 Editar</button>
       <button class="btn-fwd" style="flex:2;" onclick="submitEnrol()">✅ Confirmar e Submeter</button>
     </div>
   </div>
@@ -1170,7 +1170,7 @@ async function submitEnrol(){
     var cursoCl=S.payMod==='monthly'?p.monthly:p.full;var cDisc=S.payMod==='full'?Math.round(p.full*DISC):0;
     await emailjs.send(ESVC,ETPL,{
       to_email:'dovelingua78@gmail.com',
-      subject:'✏️ Nova Inscrição — '+S.ref+' — '+S.name,
+      subject:'📋 Nova Inscrição — '+S.ref+' — '+S.name,
       ref_code:S.ref,student_name:S.name,student_email:S.email,student_whatsapp:S.wa,student_phone:S.phone,
       level:p.cefr+' — '+p.namePT+' ('+p.nameEN+')',modality:S.modality,
       pay_mod:S.payMod==='monthly'?'Mensal':'Nível Completo ('+tw+' semanas)',
