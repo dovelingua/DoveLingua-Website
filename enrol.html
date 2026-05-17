@@ -704,107 +704,91 @@ footer{background:var(--navy);color:var(--white);padding:48px 5% 26px;}
     <div class="win-hdr">
       <h3>Passo 4 — Método de Pagamento</h3>
       <p>Seleccione a carteira de pagamento e efectue a transferência.</p>
-    </div>
     <div class="win-body">
-      <div class="carteira-label">Seleccione a Carteira de Pagamento</div>
-      <!-- FIX 6: M-Pesa left, e-Mola right, always 2 columns -->
-      <div class="pay-mth-grid">
-        <div class="pmt mp" id="pmt-mp" onclick="selPayMth('mpesa')">
-          <div class="pmt-logo">M</div>
-          <div class="pmt-name">M-Pesa</div>
-        </div>
-        <div class="pmt em" id="pmt-em" onclick="selPayMth('emola')">
-          <div class="pmt-logo">e</div>
-          <div class="pmt-name">e-Mola</div>
-        </div>
-      </div>
-
-      <!-- M-Pesa details -->
-      <div class="pnd" id="pnd-mp">
-        <div class="pnd-label">Número M-Pesa</div>
-        <div class="pnd-number">84 892 0143</div>
-        <div class="pnd-owner">Gildo Dove — DoveLingua</div>
-        <button class="pnd-copy" onclick="cpNum('848920143','M-Pesa')">📋 Copiar Número</button>
-        <!-- FIX 6: pnd table with lateral coloured borders -->
-        <table class="pnd-table">
-          <tr><td>Número M-Pesa</td><td>84 892 0143</td></tr>
-          <tr><td>O Seu Código de Referência</td><td id="pnd-mp-ref">—</td></tr>
-          <tr><td>Tempo para Pagamento</td><td>30 minutos</td></tr>
-        </table>
-        <!-- FIX 6: instruction inside a beautiful card -->
-        <div class="pnd-instr">
-          <span class="hi-red">Transfira exactamente</span> o valor indicado abaixo para o <span class="hi-teal">número de telefone acima</span>.<br/><br/>
-          Após o pagamento, o seu pagamento será <span class="hi-teal">confirmado automaticamente</span>.<br/>
-          Pedimos que volte à página de <span class="hi-teal">Verificação de Pagamento</span> para consultar o estado.<br/><br/>
-          <span class="hi-gold">Guarde o seu código de referência</span> e o comprovativo da transferência.
-        </div>
-      </div>
-
-      <!-- e-Mola details -->
-      <div class="pnd" id="pnd-em">
-        <div class="pnd-label">Número e-Mola</div>
-        <div class="pnd-number">86 580 4379</div>
-        <div class="pnd-owner">Gildo Dove — DoveLingua</div>
-        <button class="pnd-copy" onclick="cpNum('865804379','e-Mola')">📋 Copiar Número</button>
-        <!-- FIX 6: pnd table with lateral coloured borders -->
-        <table class="pnd-table">
-          <tr><td>Número e-Mola</td><td>86 580 4379</td></tr>
-          <tr><td>O Seu Código de Referência</td><td id="pnd-em-ref">—</td></tr>
-          <tr><td>Tempo para Pagamento</td><td>30 minutos</td></tr>
-        </table>
-        <!-- FIX 6: instruction inside a beautiful card -->
-        <div class="pnd-instr">
-          <span class="hi-red">Transfira exactamente</span> o valor indicado abaixo para o <span class="hi-teal">número de telefone acima</span>.<br/><br/>
-          Após o pagamento, o seu pagamento será <span class="hi-teal">confirmado automaticamente</span>.<br/>
-          Pedimos que volte à página de <span class="hi-teal">Verificação de Pagamento</span> para consultar o estado.<br/><br/>
-          <span class="hi-gold">Guarde o seu código de referência</span> e o comprovativo da transferência.
-        </div>
-      </div>
-
-      <div class="proof-section" id="proofSection">
-        <div class="proof-title">Comprovativo de Pagamento</div>
-        <div class="proof-sub">Preencha pelo menos um dos campos abaixo antes de submeter.</div>
-        <div class="proof-field" style="margin-bottom:10px;">
-          <!-- FIX 6: proof labels bold coloured -->
-          <label>ID de Pagamento (Código da Transacção)</label>
-          <input type="text" id="f-pid" placeholder="Ex: ID da transacao PP2026..." oninput="checkProof()"/>
-        </div>
-        <div class="proof-or">— ou —</div>
-        <div class="proof-field">
-          <label>Nome / Número do Remetente</label>
-          <input type="text" id="f-sender" placeholder="Ex: João Silva / +258 84 000 0000" oninput="checkProof()"/>
-        </div>
-      </div>
-
-      <!-- FIX 6: ref-inner white background, code keeps red colour, Copiar keeps green -->
-      <div class="ref-card">
-        <div class="ref-card-title">O Seu Código de Referência</div>
-        <div class="ref-inner">
-          <div class="ri-label">Guarde este código! É o único meio de verificar o estado da sua inscrição</div>
-          <div class="ri-code" id="riCode">—</div>
-          <div class="ri-warn">⚠️ Utilize este código como referência ao efectuar a transferência, se o método de pagamento o permitir.</div>
-          <button class="ri-copy" onclick="cpRef()">📋 Copiar Código</button>
-        </div>
-      </div>
-
-      <!-- FIX 6: amount price coloured #c500ae -->
-      <div class="ab">
-        <div class="ab-label">Valor a Transferir</div>
-        <div class="ab-amt" id="abAmt">—</div>
-        <div class="ab-cur">MZN — Meticais Moçambicanos</div>
-      </div>
-
-      <div class="cd-box">
-        <div class="cd-label">Tempo Restante para Efectuar o Pagamento</div>
-        <div class="cd-timer" id="cdTimer">30:00</div>
-        <div class="cd-note">Efectue o pagamento dentro do prazo. Após o prazo, o código expira e o processo deve ser reiniciado.</div>
-      </div>
-
-      <button class="btn-submit" onclick="openConf()">✅ Confirmar e Submeter Inscrição</button>
-      <div class="step-nav" style="margin-top:12px;">
-        <button class="btn-back" onclick="showW4()">← Voltar</button>
-      </div>
+  <!-- 1. SELECT WALLET -->
+  <div class="carteira-label">Seleccione a Carteira de Pagamento</div>
+  <div class="pay-mth-grid">
+    <div class="pmt mp" id="pmt-mp" onclick="selPayMth('mpesa')">
+      <div class="pmt-logo">M</div>
+      <div class="pmt-name">M-Pesa</div>
     </div>
+    <div class="pmt em" id="pmt-em" onclick="selPayMth('emola')">
+      <div class="pmt-logo">e</div>
+      <div class="pmt-name">e-Mola</div>
+    </div>
+  </div>
+
+  <!-- 2. NUMBER + INSTRUCTIONS (shown after wallet selection) -->
+  <div class="pnd" id="pnd-mp">
+    <div class="pnd-label">Número M-Pesa</div>
+    <div class="pnd-number">84 892 0143</div>
+    <div class="pnd-owner">Gildo Dove — DoveLingua</div>
+    <button class="pnd-copy" onclick="cpNum('848920143','M-Pesa')">📋 Copiar Número</button>
+    <div class="pnd-instr" style="margin-top:12px;">
+      <span class="hi-red">Transfira exactamente</span> o valor indicado abaixo para o <span class="hi-teal">número acima</span>.<br/><br/>
+      Após o pagamento, volte à página de <span class="hi-teal">Verificação de Pagamento</span> para consultar o estado.<br/><br/>
+      <span class="hi-gold">Guarde o seu código de referência</span> e o comprovativo da transferência.
+    </div>
+  </div>
+
+  <div class="pnd" id="pnd-em">
+    <div class="pnd-label">Número e-Mola</div>
+    <div class="pnd-number">86 580 4379</div>
+    <div class="pnd-owner">Gildo Dove — DoveLingua</div>
+    <button class="pnd-copy" onclick="cpNum('865804379','e-Mola')">📋 Copiar Número</button>
+    <div class="pnd-instr" style="margin-top:12px;">
+      <span class="hi-red">Transfira exactamente</span> o valor indicado abaixo para o <span class="hi-teal">número acima</span>.<br/><br/>
+      Após o pagamento, volte à página de <span class="hi-teal">Verificação de Pagamento</span> para consultar o estado.<br/><br/>
+      <span class="hi-gold">Guarde o seu código de referência</span> e o comprovativo da transferência.
+    </div>
+  </div>
+
+  <!-- 3. REFERENCE CODE -->
+  <div class="ref-card">
+    <div class="ref-card-title">O Seu Código de Referência</div>
+    <div class="ref-inner">
+      <div class="ri-label">Guarde este código — é o único meio de verificar o estado da sua inscrição</div>
+      <div class="ri-code" id="riCode">—</div>
+      <div class="ri-warn">⚠️ Utilize este código como referência ao efectuar a transferência, se o método o permitir.</div>
+      <button class="ri-copy" onclick="cpRef()">📋 Copiar Código</button>
+    </div>
+  </div>
+
+  <!-- 4. AMOUNT -->
+  <div class="ab">
+    <div class="ab-label">Valor a Transferir</div>
+    <div class="ab-amt" id="abAmt">—</div>
+    <div class="ab-cur">MZN — Meticais Moçambicanos</div>
+  </div>
+
+  <!-- 5. PROOF -->
+  <div class="proof-section" id="proofSection">
+    <div class="proof-title">Comprovativo de Pagamento</div>
+    <div class="proof-sub">Preencha pelo menos um dos campos abaixo antes de submeter.</div>
+    <div class="proof-field" style="margin-bottom:10px;">
+      <label>ID de Pagamento (Código da Transacção)</label>
+      <input type="text" id="f-pid" placeholder="Ex: ID da transacao PP2026..." oninput="checkProof()"/>
+    </div>
+    <div class="proof-or">— ou —</div>
+    <div class="proof-field">
+      <label>Nome / Número do Remetente</label>
+      <input type="text" id="f-sender" placeholder="Ex: João Silva / +258 84 000 0000" oninput="checkProof()"/>
+    </div>
+  </div>
+
+  <!-- 6. COUNTDOWN -->
+  <div class="cd-box">
+    <div class="cd-label">Tempo Restante para Efectuar o Pagamento</div>
+    <div class="cd-timer" id="cdTimer">30:00</div>
+    <div class="cd-note">Efectue o pagamento dentro do prazo. Após o prazo, o código expira e o processo deve ser reiniciado.</div>
+  </div>
+
+  <!-- 7. SUBMIT -->
+  <button class="btn-submit" onclick="openConf()">✅ Confirmar e Submeter Inscrição</button>
+  <div class="step-nav" style="margin-top:12px;">
+    <button class="btn-back" onclick="showW4()">← Voltar</button>
+  </div>
+</div>
   </div>
 
   <!-- SUCCESS -->
