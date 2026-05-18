@@ -228,15 +228,13 @@ nav{position:sticky;top:0;z-index:999;background:var(--white);border-bottom:1px 
 .ps-row.tot .ps-k{font-size:14px;font-weight:700;color:var(--white);}
 .ps-row.tot .ps-v{color:#ffffff;font-family:'Playfair Display',serif;font-size:17px;font-weight:700;}
 
-/* FIX 5: Dados Pessoais labels coloured and highlighted */
 .field{margin-bottom:16px;}
-.field label{   display:block;font-size:12px;font-weight:800;color:#1A3A5C;margin-bottom:6px;   text-transform:uppercase;letter-spacing:.4px;   background:#ffffff;              /* ← white when empty */   display:inline-block;padding:2px 10px;border-radius:6px;   border-left:3px solid var(--accent,#1A3A5C);   transition: background .25s ease, border-left-color .25s ease; } 
+.field label{display:block;font-size:12px;font-weight:700;color:var(--blue-lbl);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px;}
 .field label .req{color:var(--red);margin-left:2px;}
-.field input,.field select{width:100%;padding:11px 14px;border:none;border-radius:var(--rs);font-size:14px;font-family:'Inter',sans-serif;color:var(--text);background:var(--white);outline:none;transition:background .25s;}
-.field input:focus,.field select:focus{background:#e8f7f9;outline:none;}
-.field input.ok{background:#8bdee9;color:var(--navy);}
-}
-.field input.er{background:#a34f48;}
+.field input,.field select{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:14px;font-family:'Inter',sans-serif;color:var(--text);background:var(--white);outline:none;transition:all .25s;}
+.field input:focus,.field select:focus{border-color:var(--tort);background:#f0fbfc;outline:none;}
+.field input.ok,.field select.ok{background:var(--tort-bg);border-color:var(--tort);}
+.field input.er,.field select.er{background:#fff0f0;border-color:var(--red);}
 .fr{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 .pill-g{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
 .pill{padding:8px 18px;border-radius:50px;border:1.5px solid var(--border);background:var(--white);font-size:13px;font-weight:500;color:var(--sub);cursor:pointer;transition:all .2s;}
@@ -459,7 +457,7 @@ footer{background:var(--navy);color:var(--white);padding:48px 5% 26px;}
     <div class="sdiv"></div>
     <a onclick="nav('about.html')"><span class="mi">📖</span>Sobre Nós</a>
     <a onclick="nav('programme.html')"><span class="mi">📚</span>O Nosso Programa</a>
-    <a onclick="nav('enrol.html')"><span class="mi">📋</span>Inscrição</a>
+    <a onclick="nav('enrol.html')"><span class="mi">✏️</span>Inscrição</a>
     <a href="https://classroom.dovelingua.com" target="_blank"><span class="mi">💻</span>DoveLingua Classroom</a>
     <div class="sdiv"></div>
     <a onclick="nav('library.html')"><span class="mi">📖</span>Biblioteca<span class="bsoon">Soon</span></a>
@@ -540,7 +538,7 @@ footer{background:var(--navy);color:var(--white);padding:48px 5% 26px;}
         </div>
         <!-- FIX 3: Iniciar Inscrição colour #ba07f6, soft bg -->
         <button class="cta-right" onclick="startEnrol()">
-          <h3>📋 Iniciar Inscrição</h3>
+          <h3>✏️ Iniciar Inscrição</h3>
           <p>Inscreva-se agora — vagas ilimitadas</p>
         </button>
       </div>
@@ -631,35 +629,35 @@ footer{background:var(--navy);color:var(--white);padding:48px 5% 26px;}
       <div class="fr">
         <div class="field">
           <label>Nome Completo <span class="req">*</span></label>
-          <input type="text" id="f-name" placeholder="Ex: Ana Machava" oninput="vf(this)"/>
+          <input type="text" id="f-name" placeholder="Ex: Jorge Machava" oninput="vName(this)"/>
         </div>
         <div class="field">
           <label>Idade <span class="req">*</span></label>
-          <input type="number" id="f-age" placeholder="Ex: 22" min="12" max="80" oninput="vf(this)"/>
+          <input type="number" id="f-age" placeholder="Ex: 22" min="12" max="80" oninput="vAge(this)"/>
         </div>
       </div>
       <div class="field">
-            <label>Género <span class="req">*</span></label>
-            <select id="f-gender" onchange="S.gender=this.value" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:14px;font-family:'Inter',sans-serif;color:var(--text);background:var(--white);outline:none;transition:border-color .2s;">
-              <option value="">— Seleccione —</option>
-              <option value="Masculino">Masculino</option>
-              <option value="Feminino">Feminino</option>
-            </select>
-          </div>
+        <label>Género <span class="req">*</span></label>
+        <select id="f-gender" onchange="S.gender=this.value;vf(this)">
+          <option value="">— Seleccione —</option>
+          <option value="Masculino">Masculino</option>
+          <option value="Feminino">Feminino</option>
+        </select>
+      </div>
       <div class="fr">
         <div class="field">
           <label>Endereço de E-mail <span class="req">*</span></label>
-          <input type="email" id="f-email" placeholder="exemplo@email.com" oninput="vEmail(this)"/>
+          <input type="email" id="f-email" placeholder="exemplo@gmail.com" oninput="vEmail(this)"/>
         </div>
         <div class="field">
           <label>Número WhatsApp <span class="req">*</span></label>
-          <input type="tel" id="f-wa" placeholder="+258 82 000 0000" oninput="vf(this)"/>
+          <input type="tel" id="f-wa" placeholder="+258 84 000 0000" oninput="vPhone(this)"/>
         </div>
       </div>
       <div class="fr">
         <div class="field">
           <label>Número de Chamadas <span class="req">*</span></label>
-          <input type="tel" id="f-phone" placeholder="+258 84 000 0000" oninput="vf(this)"/>
+          <input type="tel" id="f-phone" placeholder="+258 86 000 0000" oninput="vPhone(this)"/>
         </div>
         <div class="field">
           <label>Província <span class="req">*</span></label>
@@ -674,7 +672,7 @@ footer{background:var(--navy);color:var(--white);padding:48px 5% 26px;}
       </div>
       <div class="field">
         <label>Distrito <span class="req">*</span></label>
-        <input type="text" id="f-dist" placeholder="Ex:Maxixe" oninput="vf(this)"/>
+        <input type="text" id="f-dist" placeholder="Ex: Maxixe" oninput="vf(this)"/>
       </div>
       <div class="field">
         <label>Modalidade de Ensino <span class="req">*</span></label>
@@ -845,7 +843,7 @@ footer{background:var(--navy);color:var(--white);padding:48px 5% 26px;}
     </div>
     <div class="mb-body" id="confBody"></div>
     <div class="mb-ft">
-      <button class="btn-back" style="flex:1;" onclick="closeMo('confMo')">📋 Editar</button>
+      <button class="btn-back" style="flex:1;" onclick="closeMo('confMo')">✏️ Editar</button>
       <button class="btn-fwd" style="flex:2;" onclick="submitEnrol()">✅ Confirmar e Submeter</button>
     </div>
   </div>
@@ -1078,8 +1076,34 @@ function togCp(el,val){el.classList.toggle('sel');var idx=S.avail.indexOf(val);i
 function selPres(el){document.getElementById('presMo').classList.add('open');}
 function chooseOnline(){closeMo('presMo');document.querySelectorAll('#pgMod .pill').forEach(function(p){p.classList.remove('sel');});document.querySelectorAll('#pgMod .pill')[0].classList.add('sel');S.modality='Online';}
 function acceptPres(){closeMo('presMo');document.querySelectorAll('#pgMod .pill').forEach(function(p){p.classList.remove('sel');});document.querySelectorAll('#pgMod .pill')[1].classList.add('sel');S.modality='Presencial';}
-function vf(el){el.classList.toggle('ok',el.value.trim().length>0);}
-function vEmail(el){var ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value);el.classList.toggle('ok',ok);el.classList.toggle('er',!ok&&el.value.length>0);}
+function vf(el){
+  var filled=el.value.trim().length>0;
+  el.classList.toggle('ok',filled);
+  el.classList.toggle('er',false);
+}
+function vName(el){
+  var v=el.value.trim();
+  var ok=v.split(/\s+/).length>=2&&v.length>=4;
+  el.classList.toggle('ok',ok);
+  el.classList.toggle('er',!ok&&v.length>0);
+}
+function vAge(el){
+  var v=parseInt(el.value);
+  var ok=!isNaN(v)&&v>=12&&v<=80;
+  el.classList.toggle('ok',ok);
+  el.classList.toggle('er',!ok&&el.value.length>0);
+}
+function vPhone(el){
+  var v=el.value.trim().replace(/\s/g,'');
+  var ok=(/^\+258\d{9}$/.test(v))||(/^258\d{9}$/.test(v))||(/^[8]\d{8}$/.test(v));
+  el.classList.toggle('ok',ok);
+  el.classList.toggle('er',!ok&&v.length>0);
+}
+function vEmail(el){
+  var ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value);
+  el.classList.toggle('ok',ok);
+  el.classList.toggle('er',!ok&&el.value.length>0);
+}
 function veStr(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
 
 function showW5(){
@@ -1180,7 +1204,7 @@ async function submitEnrol(){
     var cursoCl=S.payMod==='monthly'?p.monthly:p.full;var cDisc=S.payMod==='full'?Math.round(p.full*DISC):0;
     await emailjs.send(ESVC,ETPL,{
       to_email:'dovelingua78@gmail.com',
-      subject:'📋 Nova Inscrição — '+S.ref+' — '+S.name,
+      subject:'✏️ Nova Inscrição — '+S.ref+' — '+S.name,
       ref_code:S.ref,student_name:S.name,student_email:S.email,student_whatsapp:S.wa,student_phone:S.phone,
       level:p.cefr+' — '+p.namePT+' ('+p.nameEN+')',modality:S.modality,
       pay_mod:S.payMod==='monthly'?'Mensal':'Nível Completo ('+tw+' semanas)',
@@ -1207,7 +1231,7 @@ function showSuc(rec,dueDate){
   ss.style.display='block';
   var fn=S.name.split(' ')[0];
   document.getElementById('sucTitle').textContent='Parabéns, '+fn+'!';
-  document.getElementById('sucSub').innerHTML='A sua inscrição foi submetida com sucesso. Guarde o seu Código de Referência abaixo.';
+  document.getElementById('sucSub').innerHTML='A sua inscrição foi submetida com sucesso. Guarde o seu Código de Referência abaixo. Não se esqueça de descarregar o Recibo da sua inscrição no botão abaixo. .';
   document.getElementById('sucCode').textContent=S.ref;
   window.lastRec=rec;window.lastDue=dueDate;
   setTimeout(function(){window.scrollTo(0,0);document.body.scrollTop=0;document.documentElement.scrollTop=0;},50);
@@ -1380,32 +1404,6 @@ window.addEventListener('load',function(){
   }
 });
 
-/* ═══ LABEL COLOR HIGHLIGHT ═══ */
-function updateFilledLabels() {
-  var fields = document.querySelectorAll('#win4 input, #win4 select');
-  fields.forEach(function(inp) {
-    var fieldDiv = inp.closest('.field');
-    if (!fieldDiv) return;
-    var lbl = fieldDiv.querySelector('label');
-    if (!lbl) return;
-
-    if (inp.value && inp.value.trim() !== '') {
-      lbl.classList.add('lbl-filled');
-    } else {
-      lbl.classList.remove('lbl-filled');
-    }
-  });
-}
-
-// Attach to typing & changing events
-document.addEventListener('DOMContentLoaded', function() {
-  var inputs = document.querySelectorAll('#win4 input, #win4 select');
-  inputs.forEach(function(inp) {
-    inp.addEventListener('input', updateFilledLabels);
-    inp.addEventListener('change', updateFilledLabels);
-  });
-  updateFilledLabels(); // check on first load
-});
 
 </script>
 </body>
