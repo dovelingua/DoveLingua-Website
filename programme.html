@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Programme — DoveLingua English Learning Academy</title>
+  <meta name="description" content="Explore the full DoveLingua English programme — seven levels from Pre-A1 to C1, clear goals, honest pricing and a path to real English fluency."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --g:#059669;--gd:#047857;--gm:#10b981;--gl:#d1fae5;--gx:#f0fdf4;
+      --navy:#0B2545;--navy2:#1e3a5f;
+      --gold:#E2B13C;--gold2:#f59e0b;--gold-light:#fef3c7;--gold-xlight:#fffbeb;
+      --white:#fff;--cream:#fafaf8;
+      --text:#1a2e1a;--text-mid:#374151;--text-light:#6b7280;
+      --border:#e5e7eb;--shadow:0 4px 24px rgba(5,150,105,0.09);--r:14px;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);line-height:1.7;}
+
+    /* ══ NAV ══ */
+    nav{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid var(--border);padding:0 clamp(1rem,4vw,2.5rem);display:flex;align-items:center;justify-content:space-between;height:64px;}
+    .nav-left{display:flex;align-items:center;gap:1rem;}
+    .hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+    .hamburger span{display:block;width:22px;height:2px;background:var(--text-mid);border-radius:2px;}
+    .nav-brand{text-decoration:none;font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;color:var(--g);}
+    .nav-centre{display:flex;gap:0.1rem;list-style:none;position:absolute;left:50%;transform:translateX(-50%);}
+    .nav-centre a{text-decoration:none;font-size:0.81rem;font-weight:500;color:var(--text-mid);padding:0.38rem 0.6rem;border-radius:6px;transition:background .2s,color .2s;}
+    .nav-centre a:hover{background:var(--gx);color:var(--g);}
+    .nav-centre a.active{color:var(--g);background:var(--gx);}
+    .nav-right{display:flex;align-items:center;gap:0.6rem;}
+    .lang-toggle{display:flex;border:1.5px solid var(--border);border-radius:20px;overflow:hidden;}
+    .lang-toggle button{border:none;background:transparent;padding:0.28rem 0.72rem;cursor:pointer;color:var(--text-light);font-size:0.72rem;font-weight:700;transition:background .2s,color .2s;}
+    .lang-toggle button.active{background:var(--g);color:#fff;}
+    .profile-icon{width:34px;height:34px;border-radius:50%;background:var(--gx);border:1.5px solid var(--gl);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1rem;}
+    .btn-enrol-nav{background:var(--navy);color:#fff;border:none;padding:0.42rem 1rem;border-radius:20px;font-size:0.78rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background .2s;white-space:nowrap;}
+    .btn-enrol-nav:hover{background:var(--gd);}
+    @media(max-width:860px){.nav-centre,.btn-enrol-nav{display:none;}}
+
+    /* ══ SIDE MENU ══ */
+    .so{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1100;}
+    .so.open{display:block;}
+    .sm{position:fixed;top:0;left:-280px;width:280px;height:100%;background:#fff;z-index:1200;transition:left .3s ease;display:flex;flex-direction:column;overflow:hidden;}
+    .sm.open{left:0;}
+    .sm-hdr{display:flex;align-items:center;padding:1rem 1rem 0.8rem;border-bottom:1px solid var(--border);gap:0.8rem;}
+    .sm-cl{background:none;border:1px solid var(--border);border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:1rem;color:var(--text-mid);}
+    .sb{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--g);}
+    .sm-nav{flex:1;overflow-y:auto;padding:0.5rem 0;}
+    .sm-nav a{display:flex;align-items:center;gap:0.75rem;padding:0.65rem 1.2rem;font-size:0.88rem;font-weight:500;color:var(--text-mid);text-decoration:none;cursor:pointer;transition:background .15s,color .15s;}
+    .sm-nav a:hover{background:var(--gx);color:var(--g);}
+    .mi{font-size:1rem;width:20px;text-align:center;}
+    .sdiv{height:1px;background:var(--border);margin:0.35rem 1.2rem;}
+    .bsoon{background:var(--gx);color:var(--g);font-size:0.62rem;font-weight:700;padding:0.15rem 0.45rem;border-radius:8px;margin-left:auto;}
+    .sm-ft{padding:1rem 1.2rem;border-top:1px solid var(--border);}
+    .sm-ft p{font-style:italic;font-size:0.75rem;color:var(--text-light);line-height:1.55;}
+
+    /* ══ SHARED ══ */
+    section{padding:clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,4rem);}
+    .max-w{max-width:1080px;margin:0 auto;}
+    .sec-title{font-family:'Playfair Display',serif;font-weight:700;color:var(--navy);line-height:1.2;margin-bottom:0.45rem;padding-left:0.8rem;border-left:4px solid var(--g);}
+    .sec-title.lg{font-size:2rem;}
+    .sec-title.md{font-size:1.65rem;}
+    .sec-title.sm{font-size:1.35rem;}
+    .sec-title.light{color:#fff;border-left-color:var(--gold);}
+    .sec-sub{font-family:'Playfair Display',serif;font-size:0.97rem;font-weight:400;font-style:italic;color:var(--text-light);margin-bottom:0.8rem;padding-left:0.8rem;line-height:1.4;}
+    .divider{width:52px;height:3px;background:linear-gradient(90deg,var(--g),var(--gold));border-radius:2px;margin:0.7rem 0 1.2rem;}
+    .sec-lead{font-size:0.93rem;color:var(--text-mid);max-width:660px;line-height:1.8;}
+    .fade-up{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease;}
+    .fade-up.visible{opacity:1;transform:translateY(0);}
+
+    /* ══ HERO ══ */
+    .hero{
+      background:linear-gradient(135deg,#1a3a2a 0%,#0B2545 50%,#1a2e1a 100%);
+      border-top:5px solid var(--gold);
+      padding:clamp(2rem,4vw,3rem) clamp(1.5rem,5vw,4rem) 0;
+      position:relative;overflow:hidden;
+    }
+    .hero::before{
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(ellipse at 10% 50%,rgba(226,177,60,0.12) 0%,transparent 55%),
+                  radial-gradient(ellipse at 90% 20%,rgba(5,150,105,0.15) 0%,transparent 50%);
+    }
+    .hero-inner{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding-bottom:3rem;}
+
+    /* Inner title card */
+    .hero-title-card{
+      background:rgba(255,255,255,0.08);
+      border:1.5px solid rgba(226,177,60,0.45);
+      border-radius:16px;
+      padding:1.4rem 2.5rem 1.6rem;
+      text-align:center;
+      margin-bottom:2rem;
+      box-shadow:0 0 32px rgba(226,177,60,0.1);
+    }
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(226,177,60,0.15);border:1px solid rgba(226,177,60,0.3);color:var(--gold);font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.28rem 0.9rem;border-radius:20px;margin-bottom:1rem;}
+    .hero-title-card h1{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(1.7rem,4vw,2.8rem);
+      font-weight:700;color:#fff;line-height:1.2;
+      white-space:nowrap;
+    }
+    .hero-title-card h1 em{color:var(--gold);font-style:italic;}
+
+    /* 4 pills — 2×2 grid like enrol.html */
+    .hero-pills{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:0.75rem;
+      max-width:480px;
+      margin:0 auto;
+    }
+    .hero-pill{
+      display:flex;align-items:center;justify-content:center;gap:0.5rem;
+      padding:0.65rem 1rem;
+      border-radius:30px;
+      font-size:0.82rem;font-weight:700;
+      white-space:nowrap;
+    }
+    .hp-1{background:rgba(5,150,105,0.15);border:2px solid #34d399;color:#fff;}
+    .hp-2{background:rgba(226,177,60,0.12);border:2px solid #f59e0b;color:#fff;}
+    .hp-3{background:rgba(124,58,237,0.15);border:2px solid #a78bfa;color:#fff;}
+    .hp-4{background:rgba(251,113,133,0.12);border:2px solid #fb7185;color:#fff;}
+
+    /* Anchor button below hero */
+    .hero-anchor-wrap{
+      position:relative;z-index:1;
+      display:flex;justify-content:center;
+      padding-bottom:1.5rem;
+      margin-top:-0.5rem;
+    }
+    .hero-anchor-btn{
+      display:inline-flex;align-items:center;gap:0.5rem;
+      background:var(--gold);color:var(--navy);
+      font-weight:700;font-size:0.85rem;
+      padding:0.72rem 1.8rem;border-radius:30px;
+      text-decoration:none;
+      box-shadow:0 4px 20px rgba(226,177,60,0.4);
+      transition:transform .2s,box-shadow .2s;
+    }
+    .hero-anchor-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(226,177,60,0.5);}
+
+    /* ══ INTRO CARD ══ */
+    .intro-section{background:var(--white);padding:0 clamp(1.5rem,5vw,4rem);}
+    .intro-card{
+      max-width:1080px;margin:0 auto;
+      background:linear-gradient(135deg,var(--gx),#e0f2f1);
+      border:1px solid var(--gl);
+      border-radius:16px;
+      padding:2rem 2.5rem;
+      display:flex;align-items:flex-start;gap:1.5rem;
+      transform:translateY(-28px);
+      box-shadow:0 8px 32px rgba(5,150,105,0.12);
+    }
+    .intro-card .ic-icon{font-size:2.2rem;flex-shrink:0;margin-top:2px;}
+    .intro-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:0.5rem;text-align:left;}
+    .intro-card p{font-size:0.9rem;color:var(--text-mid);line-height:1.8;text-align:justify;}
+
+    /* ══ STRUCTURED SECTION ══ */
+    .levels-section{background:#fff;padding-top:0;}
+    .levels-list{display:flex;flex-direction:column;gap:1.4rem;margin-top:2rem;}
+
+    /* Level card */
+    .level-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 20px rgba(5,150,105,0.1);border:1px solid rgba(5,150,105,0.08);}
+
+    /* Top bar — one line: number · name · CEFR · status */
+    .lc-top{
+      padding:0.85rem 1.4rem;
+      display:flex;align-items:center;justify-content:space-between;
+      flex-wrap:nowrap;
+      gap:0.5rem;
+    }
+    .lc-top-left{display:flex;align-items:center;gap:0.6rem;flex-shrink:0;}
+    .lc-num{font-size:0.82rem;font-weight:700;color:rgba(255,255,255,0.9);letter-spacing:0.04em;white-space:nowrap;}
+    .lc-name-top{font-family:'Playfair Display',serif;font-size:0.92rem;font-weight:700;color:#fff;white-space:nowrap;}
+    .lc-top-right{display:flex;align-items:center;gap:0.5rem;flex-shrink:0;}
+    .cefr-pill{font-size:0.72rem;font-weight:700;padding:0.22rem 0.75rem;border-radius:20px;background:rgba(255,255,255,0.22);color:#fff;letter-spacing:0.04em;white-space:nowrap;}
+    .open-badge{display:inline-flex;align-items:center;gap:0.25rem;font-size:0.78rem;font-weight:700;color:#166534;background:#dcfce7;padding:0.32rem 0.85rem;border-radius:20px;border:1.5px solid #86efac;white-space:nowrap;}
+    .soon-badge{font-size:0.68rem;font-weight:600;padding:0.18rem 0.55rem;border-radius:8px;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.15);white-space:nowrap;}
+    .free-badge{display:inline-flex;align-items:center;gap:0.25rem;background:rgba(226,177,60,0.2);border:1px solid rgba(226,177,60,0.4);color:var(--gold);font-size:0.68rem;font-weight:700;padding:0.18rem 0.55rem;border-radius:8px;white-space:nowrap;}
+
+    /* Body */
+    .lc-body{padding:1.4rem 1.5rem 1.6rem;display:flex;flex-direction:column;gap:1rem;}
+    .lc-main h3{
+      font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;
+      color:var(--navy);margin-bottom:0.7rem;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    }
+
+    /* Square bullet list */
+    .lc-abilities{list-style:none;display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1rem;}
+    .lc-abilities li{
+      display:flex;align-items:center;gap:0.55rem;
+      font-size:0.84rem;color:var(--text-mid);line-height:1.4;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    }
+    .lc-abilities li::before{
+      content:'';
+      display:inline-block;
+      width:7px;height:7px;
+      background:var(--g);
+      border-radius:1px;
+      flex-shrink:0;
+      margin-top:5px;
+    }
+
+    .lc-meta{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.2rem;}
+    .lc-tag{font-size:0.72rem;font-weight:600;padding:0.22rem 0.7rem;border-radius:10px;background:var(--gx);color:var(--gd);border:1px solid var(--gl);}
+    .lc-tag.soon-tag{background:#f3f4f6;color:#6b7280;border-color:#d1d5db;}
+
+    /* Duration box */
+    .lc-dur-box{background:var(--gx);border:1px solid var(--gl);border-radius:12px;padding:0.85rem 1.2rem;display:flex;align-items:center;gap:0.7rem;flex-shrink:0;min-width:unset;}
+.ldb-icon{font-size:1.3rem;flex-shrink:0;}
+.ldb-num{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--navy);}
+.ldb-label{font-size:0.63rem;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:0.07em;}
+.ldb-lessons{font-size:0.7rem;color:var(--text-light);}
+
+    /* Level header colours */
+    .lh-0{background:linear-gradient(135deg,#374151,#1f2937);}
+    .lh-1{background:linear-gradient(135deg,#059669,#047857);}
+    .lh-2{background:linear-gradient(135deg,#0e7c7b,#0b6362);}
+    .lh-3{background:linear-gradient(135deg,#2563eb,#1d4ed8);}
+    .lh-4{background:linear-gradient(135deg,#7c3aed,#6d28d9);}
+    .lh-5{background:linear-gradient(135deg,#db2777,#be185d);}
+    .lh-6{background:linear-gradient(135deg,#b45309,#92400e);}
+
+    /* ══ WHY IT TAKES THIS LONG ══ */
+    .why-section{background:linear-gradient(135deg,#0B2545,#1a3a2a);}
+    .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;margin-top:2rem;}
+    .why-quote{background:rgba(226,177,60,0.1);border:1px solid rgba(226,177,60,0.25);border-radius:var(--r);padding:1.6rem;margin-bottom:1.2rem;}
+    .why-quote p{font-family:'Playfair Display',serif;font-style:italic;color:var(--gold);font-size:1rem;line-height:1.7;}
+    .why-cards{display:flex;flex-direction:column;gap:0.85rem;}
+    .why-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);padding:1.1rem 1.3rem;display:flex;align-items:flex-start;gap:0.9rem;}
+    .why-card .wc-icon{font-size:1.4rem;flex-shrink:0;margin-top:2px;}
+    .why-card h4{font-size:0.85rem;font-weight:700;color:#fff;margin-bottom:0.25rem;}
+    .why-card p{font-size:0.81rem;color:rgba(255,255,255,0.62);line-height:1.65;}
+    .why-comparison{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r);padding:1.3rem;margin-top:1rem;}
+    .why-comparison h4{font-size:0.75rem;font-weight:700;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem;}
+    .wc-row{display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:0.82rem;}
+    .wc-row:last-child{border-bottom:none;}
+    .wc-inst{color:rgba(255,255,255,0.7);font-weight:600;}
+    .wc-hours{color:var(--gold);font-weight:700;}
+
+    /* ══ HOW LESSONS WORK ══ */
+    .how-section{background:var(--gx);}
+    .how-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-top:1.5rem;}
+    .stage-card{border-radius:var(--r);padding:1.2rem 1.4rem;border-left:4px solid var(--g);margin-bottom:0.9rem;}
+    .stage-card.s1{background:#fff;border-left-color:var(--g);}
+    .stage-card.s2{background:#fff;border-left-color:#0e7c7b;}
+    .stage-card.s3{background:var(--gold-xlight);border-left-color:var(--gold);}
+    .stage-card h4{font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;}
+    .stage-card.s1 h4{color:var(--g);}
+    .stage-card.s2 h4{color:#0e7c7b;}
+    .stage-card.s3 h4{color:#92610a;}
+    .stage-card p{font-size:0.86rem;color:var(--text-mid);line-height:1.65;}
+    .how-features{display:flex;flex-direction:column;gap:0.8rem;}
+    .how-feat{display:flex;align-items:flex-start;gap:0.9rem;padding:1rem 1.2rem;background:#fff;border-radius:10px;border:1px solid var(--border);}
+    .how-feat .hf-icon{font-size:1.3rem;flex-shrink:0;}
+    .how-feat h4{font-size:0.84rem;font-weight:700;color:var(--navy);margin-bottom:0.18rem;}
+    .how-feat p{font-size:0.8rem;color:var(--text-mid);line-height:1.6;}
+
+    /* ══ PRICING SECTION ══ */
+    .pricing-section{background:linear-gradient(160deg,#0B2545 0%,#0d3060 100%);position:relative;overflow:hidden;}
+    .pricing-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 0%,rgba(226,177,60,0.12) 0%,transparent 60%);}
+    .pricing-inner{position:relative;z-index:1;}
+    .pricing-eyebrow{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(226,177,60,0.15);border:1px solid rgba(226,177,60,0.3);color:var(--gold);font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.32rem 1rem;border-radius:20px;margin-bottom:1rem;}
+    /* Larger title for pricing */
+    .pricing-title{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2rem,4vw,2.8rem);
+      font-weight:700;color:#fff;
+      line-height:1.2;margin-bottom:0.4rem;
+      padding-left:0.8rem;border-left:4px solid var(--gold);
+    }
+    .pricing-subtitle{
+      font-family:'Playfair Display',serif;
+      font-size:0.85rem;font-weight:400;font-style:italic;
+      color:rgba(255,255,255,0.5);
+      padding-left:0.8rem;
+      margin-bottom:0.8rem;
+      white-space:nowrap;
+    }
+    .pricing-cards{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem;}
+
+    /* Pricing cards */
+    .price-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:20px;overflow:hidden;transition:transform .25s,box-shadow .25s;}
+    .price-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.25);}
+    .price-card.featured{border-color:var(--gold);background:rgba(226,177,60,0.06);}
+    .pc-header{padding:1.4rem 1.6rem 1.2rem;}
+    .pc-level-badge{display:inline-flex;align-items:center;gap:0.4rem;margin-bottom:0.8rem;}
+    .pc-cefr{font-size:0.72rem;font-weight:700;padding:0.2rem 0.65rem;border-radius:8px;}
+    .pc-open{display:inline-flex;align-items:center;gap:0.25rem;font-size:0.7rem;font-weight:700;color:#22c55e;background:rgba(34,197,94,0.1);padding:0.18rem 0.6rem;border-radius:8px;border:1px solid rgba(34,197,94,0.3);}
+    .pc-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:0.3rem;}
+    .pc-sub{font-size:0.82rem;color:rgba(255,255,255,0.55);}
+    .pc-body{padding:0 1.6rem 1.6rem;display:flex;flex-direction:column;gap:0.8rem;}
+
+    /* Modality cards — lighter background so they stand out */
+    .modality{
+      border-radius:12px;padding:1.1rem 1.3rem;
+      border:1px solid rgba(255,255,255,0.15);
+      background:rgba(255,255,255,0.1);
+    }
+    .modality.monthly{border-color:rgba(16,185,129,0.5);background:rgba(16,185,129,0.08);}
+    .modality.full{border-color:rgba(226,177,60,0.5);background:rgba(226,177,60,0.08);}
+    .mod-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.4rem;}
+    .mod-name{font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;}
+    .modality.monthly .mod-name{color:var(--gm);}
+    .modality.full .mod-name{color:var(--gold);}
+    .mod-price-wrap{text-align:right;}
+    .mod-original{font-size:0.72rem;color:rgba(255,255,255,0.35);text-decoration:line-through;}
+    .mod-price{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#fff;}
+    .mod-price.gold{color:var(--gold);}
+    .mod-period{font-size:0.68rem;color:rgba(255,255,255,0.45);font-weight:500;}
+    .mod-desc{font-size:0.78rem;color:rgba(255,255,255,0.65);line-height:1.6;}
+    .mod-badge{display:inline-flex;align-items:center;gap:0.25rem;font-size:0.68rem;font-weight:700;padding:0.18rem 0.6rem;border-radius:8px;margin-top:0.4rem;}
+    .mod-badge.discount{background:rgba(226,177,60,0.15);color:var(--gold);border:1px solid rgba(226,177,60,0.3);}
+    .mod-badge.auto{background:rgba(16,185,129,0.12);color:var(--gm);border:1px solid rgba(16,185,129,0.25);}
+    .material-box{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:0.9rem 1.1rem;display:flex;justify-content:space-between;align-items:center;margin-top:0.4rem;}
+    .material-box .mat-label{font-size:0.78rem;color:rgba(255,255,255,0.6);}
+    .material-box .mat-price{font-size:0.88rem;font-weight:700;color:rgba(255,255,255,0.85);}
+    .mat-note{font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:0.3rem;line-height:1.5;}
+    .pc-enrol-btn{display:block;text-align:center;background:var(--g);color:#fff;font-weight:700;font-size:0.88rem;padding:0.85rem;border-radius:12px;text-decoration:none;margin-top:1rem;transition:background .2s,transform .2s;}
+    .pc-enrol-btn:hover{background:var(--gd);transform:translateY(-2px);}
+    .pc-enrol-btn.gold-btn{background:var(--gold);color:var(--navy);}
+    .pc-enrol-btn.gold-btn:hover{background:#c99a30;}
+    .full-course-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:1.6rem 2rem;margin-top:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;}
+    .fcc-text h4{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold);margin-bottom:0.4rem;}
+    .fcc-text p{font-size:0.85rem;color:rgba(255,255,255,0.62);line-height:1.65;max-width:480px;}
+    .btn-contact-gold{display:inline-flex;align-items:center;gap:0.5rem;background:transparent;border:2px solid var(--gold);color:var(--gold);font-weight:700;font-size:0.85rem;padding:0.75rem 1.6rem;border-radius:30px;text-decoration:none;transition:background .2s,color .2s;white-space:nowrap;}
+    .btn-contact-gold:hover{background:var(--gold);color:var(--navy);}
+
+    /* Pricing notes — adjusted background */
+    .pricing-notes{
+      margin-top:1.8rem;
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.15);
+      border-radius:var(--r);
+      padding:1.2rem 1.5rem;
+      display:flex;flex-direction:column;gap:0.5rem;
+    }
+    .pn-row{display:flex;align-items:flex-start;gap:0.6rem;font-size:0.8rem;color:rgba(255,255,255,0.68);line-height:1.6;}
+    .pn-row span:first-child{font-size:0.9rem;flex-shrink:0;}
+
+    /* ══ CERTIFICATES ══ */
+    .cert-section{background:var(--cream);}
+    .cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-top:1.5rem;}
+    .cert-visual{background:var(--navy);border-radius:20px;padding:2.5rem;text-align:center;position:relative;overflow:hidden;}
+    .cert-visual::before{content:'';position:absolute;top:-40px;right:-40px;width:150px;height:150px;border-radius:50%;background:rgba(226,177,60,0.1);}
+    .cert-dove{font-size:3rem;display:block;margin-bottom:0.8rem;}
+    .cert-title-vis{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold);margin-bottom:0.4rem;}
+    .cert-subtitle-vis{font-size:0.78rem;color:rgba(255,255,255,0.45);margin-bottom:1.4rem;}
+    .cert-badge-row{display:flex;justify-content:center;gap:0.6rem;flex-wrap:wrap;}
+    .cert-badge{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.7);font-size:0.7rem;font-weight:600;padding:0.25rem 0.7rem;border-radius:8px;}
+    .cert-items{display:flex;flex-direction:column;gap:0.9rem;}
+    .cert-item{display:flex;align-items:flex-start;gap:0.9rem;padding:1rem 1.2rem;background:#fff;border-radius:var(--r);border:1px solid var(--border);}
+    .cert-item .ci-icon{font-size:1.4rem;flex-shrink:0;}
+    .cert-item h4{font-size:0.85rem;font-weight:700;color:var(--navy);margin-bottom:0.2rem;}
+    .cert-item p{font-size:0.8rem;color:var(--text-mid);line-height:1.6;}
+    .cert-honest-note{background:var(--gx);border:1px solid var(--gl);border-radius:var(--r);padding:1rem 1.3rem;margin-top:1rem;font-size:0.82rem;color:var(--gd);line-height:1.65;}
+
+    /* ══ APP SECTION ══ */
+    .app-section{background:#fff;}
+    .app-inner{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;}
+    .app-visual{background:linear-gradient(135deg,var(--navy),#1a3a2a);border-radius:20px;padding:2.5rem;text-align:center;}
+    .app-visual .app-big-icon{font-size:4rem;display:block;margin-bottom:1rem;}
+    .app-visual h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--gold);margin-bottom:0.5rem;}
+    .app-visual p{font-size:0.82rem;color:rgba(255,255,255,0.6);line-height:1.65;margin-bottom:1.2rem;}
+    .app-dl-btn{display:inline-flex;align-items:center;gap:0.5rem;background:var(--gold);color:var(--navy);font-weight:700;font-size:0.85rem;padding:0.75rem 1.6rem;border-radius:30px;text-decoration:none;transition:transform .2s;}
+    .app-dl-btn:hover{transform:translateY(-2px);}
+    .app-text h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--navy);margin-bottom:0.8rem;border-left:4px solid var(--g);padding-left:0.8rem;}
+    .app-text p{font-size:0.9rem;color:var(--text-mid);line-height:1.8;margin-bottom:1rem;}
+
+    /* ══ FINAL CTA ══ */
+    .cta-section{background:linear-gradient(135deg,var(--navy),#1a3a2a);padding:clamp(3.5rem,7vw,5.5rem) clamp(1.5rem,5vw,4rem);text-align:center;}
+    .cta-section h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3.5vw,2.4rem);color:#fff;margin-bottom:1rem;}
+    .cta-section h2 em{color:var(--gold);font-style:italic;}
+    .cta-section p{color:rgba(255,255,255,0.62);font-size:0.95rem;max-width:520px;margin:0 auto 2rem;}
+    .cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+    .btn-cta-gold{background:var(--gold);color:var(--navy);font-weight:700;font-size:0.9rem;padding:0.9rem 2.2rem;border-radius:30px;text-decoration:none;box-shadow:0 4px 20px rgba(226,177,60,0.4);transition:transform .2s,box-shadow .2s;}
+    .btn-cta-gold:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(226,177,60,0.5);}
+    .btn-cta-outline{background:transparent;color:#fff;font-weight:600;font-size:0.9rem;padding:0.9rem 2.2rem;border-radius:30px;border:2px solid rgba(255,255,255,0.28);text-decoration:none;transition:border-color .2s,background .2s;}
+    .btn-cta-outline:hover{border-color:rgba(255,255,255,0.65);background:rgba(255,255,255,0.06);}
+    .cta-level-note{margin-top:1rem;font-size:0.8rem;color:rgba(255,255,255,0.35);font-style:italic;}
+
+    /* ══ FOOTER ══ */
+    footer{background:var(--navy);color:#fff;padding:48px 5% 26px;text-align:center;}
+    .fg{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:32px;text-align:center;}
+    .fb .fname{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:10px;color:#fff;}
+    .fb p{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;margin-bottom:16px;}
+    .fsoc{display:flex;gap:10px;justify-content:center;}
+    .fsb{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;text-decoration:none;}
+    .fsb:hover{background:var(--g);}
+    .fc h4{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--gm);margin-bottom:12px;}
+    .fc a{display:block;font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:8px;cursor:pointer;transition:color .18s;text-decoration:none;}
+    .fc a:hover{color:var(--gold);}
+    .fbot{max-width:1100px;margin:0 auto;border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:14px;text-align:center;}
+    .fbot p{font-size:12px;color:rgba(255,255,255,0.3);}
+    .fbot a{color:rgba(255,255,255,0.4);font-size:12px;cursor:pointer;text-decoration:none;}
+    .fbot a:hover{color:rgba(255,255,255,0.7);}
+
+    /* ══ WA FLOAT ══ */
+    .waf{position:fixed;bottom:22px;right:22px;z-index:900;width:50px;height:50px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(37,211,102,.4);transition:all .3s;text-decoration:none;}
+    .waf:hover{transform:scale(1.1);}
+    .waf svg{width:26px;height:26px;fill:#fff;}
+
+    /* ══ RESPONSIVE ══ */
+    @media(max-width:860px){.fg{grid-template-columns:1fr 1fr;}}
+    @media(max-width:760px){
+      .why-grid,.how-grid,.cert-grid,.app-inner{grid-template-columns:1fr;gap:2rem;}
+      .pricing-cards{grid-template-columns:1fr;}
+      .lc-body{grid-template-columns:1fr;}
+      .hero-title-card h1{white-space:normal;font-size:1.5rem;}
+      .hero-pills{max-width:340px;}
+      .pricing-subtitle{white-space:normal;}
+      .lc-main h3{white-space:normal;}
+    }
+    @media(max-width:480px){
+      .fg{grid-template-columns:1fr;}
+      .hero-pills{grid-template-columns:1fr 1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-left">
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="index.html" class="nav-brand">DoveLingua</a>
+  </div>
+  <ul class="nav-centre">
+    <li><a href="index.html" data-en="Home" data-pt="Início">Home</a></li>
+    <li><a href="about.html" data-en="About" data-pt="Sobre">About</a></li>
+    <li><a href="programme.html" class="active" data-en="Programme" data-pt="Programa">Programme</a></li>
+    <li><a href="announcements.html" data-en="News" data-pt="Notícias">News</a></li>
+    <li><a href="library.html" data-en="Library" data-pt="Biblioteca">Library</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html" data-en="Contact" data-pt="Contacto">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+      <button id="btn-pt" onclick="setLang('pt')">PT</button>
+    </div>
+    <a href="enrol.html" class="profile-icon">👤</a>
+    <a href="enrol.html" class="btn-enrol-nav" data-en="Enrol Now" data-pt="Inscrever">Enrol Now</a>
+  </div>
+</nav>
+
+<!-- ══ SIDE MENU ══ -->
+<div class="so" id="sO" onclick="toggleMenu()"></div>
+<div class="sm" id="sM">
+  <div class="sm-hdr">
+    <button class="sm-cl" onclick="toggleMenu()">✕</button>
+    <div class="sb">🕊 DoveLingua</div>
+  </div>
+  <div class="sm-nav">
+    <a onclick="nav('index.html')"><span class="mi">🏠</span><span data-en="Home" data-pt="Início">Home</span></a>
+    <div class="sdiv"></div>
+    <a onclick="nav('about.html')"><span class="mi">📖</span><span data-en="About Us" data-pt="Sobre Nós">About Us</span></a>
+    <a onclick="nav('programme.html')"><span class="mi">📚</span><span data-en="Our Programme" data-pt="O Nosso Programa">Our Programme</span></a>
+    <a onclick="nav('enrol.html')"><span class="mi">✏️</span><span data-en="Enrol" data-pt="Inscrição">Enrol</span></a>
+    <a href="https://classroom.dovelingua.com" target="_blank"><span class="mi">💻</span>DoveLingua Classroom</a>
+    <div class="sdiv"></div>
+    <a onclick="nav('library.html')"><span class="mi">📖</span><span data-en="Library" data-pt="Biblioteca">Library</span><span class="bsoon">Soon</span></a>
+    <a onclick="nav('app.html')"><span class="mi">📱</span>English Dove App<span class="bsoon">Soon</span></a>
+    <div class="sdiv"></div>
+    <a onclick="nav('announcements.html')"><span class="mi">📢</span><span data-en="Announcements" data-pt="Avisos">Announcements</span></a>
+    <a onclick="nav('faq.html')"><span class="mi">❓</span>FAQ</a>
+    <a onclick="nav('evaluate.html')"><span class="mi">⭐</span><span data-en="Evaluate DoveLingua" data-pt="Avaliar DoveLingua">Evaluate DoveLingua</span></a>
+    <a href="https://whatsapp.com/channel/0029VbCKsViFCCoWvkhrYT2g" target="_blank"><span class="mi">📡</span><span data-en="WhatsApp Channel" data-pt="Canal WhatsApp">WhatsApp Channel</span></a>
+    <div class="sdiv"></div>
+    <a onclick="nav('donate.html')"><span class="mi">❤️</span><span data-en="Support DoveLingua" data-pt="Apoiar DoveLingua">Support DoveLingua</span></a>
+    <a onclick="nav('report.html')"><span class="mi">🚩</span><span data-en="Report a Problem" data-pt="Reportar Problema">Report a Problem</span></a>
+    <div class="sdiv"></div>
+    <a onclick="nav('contact.html')"><span class="mi">📧</span><span data-en="Contact Support" data-pt="Contactar Suporte">Contact Support</span></a>
+    <a onclick="nav('terms.html')"><span class="mi">📄</span><span data-en="Terms &amp; Policies" data-pt="Termos e Políticas">Terms &amp; Policies</span></a>
+  </div>
+  <div class="sm-ft" onclick="handleSecretTap()" style="cursor:default;">
+    <p data-en="&ldquo;Learn English today and connect with the World tomorrow&rdquo;" data-pt="&ldquo;Aprende inglês hoje e conecta-te com o Mundo amanhã&rdquo;">&ldquo;Learn English today and connect with the World tomorrow&rdquo;</p>
+  </div>
+</div>
+
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-inner">
+    <!-- Inner title card -->
+    <div class="hero-title-card fade-up">
+      <div class="hero-eyebrow">📚 <span data-en="DoveLingua English Course" data-pt="Curso de Inglês DoveLingua">DoveLingua English Course</span></div>
+      <h1 data-en="DoveLingua <em>English Course</em> Programme" data-pt="Programa do <em>Curso de Inglês</em> DoveLingua">DoveLingua <em>English Course</em> Programme</h1>
+    </div>
+    <!-- 4 pills 2×2 -->
+    <div class="hero-pills fade-up">
+      <div class="hero-pill hp-1">✅ <span data-en="308 Lessons" data-pt="308 Aulas">308 Lessons</span></div>
+      <div class="hero-pill hp-2">🕐 <span data-en="~20 Months" data-pt="~20 Meses">~20 Months</span></div>
+      <div class="hero-pill hp-3">📚 <span data-en="460–616 Hours" data-pt="460–616 Horas">460–616 Hours</span></div>
+      <div class="hero-pill hp-4">🎓 <span data-en="6 Full Levels" data-pt="6 Níveis">6 Full Levels</span></div>
+    </div>
+  </div>
+  <!-- Anchor button — sits on the bottom border -->
+  <div class="hero-anchor-wrap">
+    <a href="#open-now" class="hero-anchor-btn">
+      🟢 <span data-en="Levels Open for Enrolment" data-pt="Níveis com Inscrições Abertas">Levels Open for Enrolment</span> ↓
+    </a>
+  </div>
+</section>
+
+
+<!-- ══ INTRO CARD ══ -->
+<div class="intro-section">
+  <div class="intro-card fade-up">
+    <span class="ic-icon">🕊</span>
+    <div>
+      <h3 data-en="Everything you need to know about the DoveLingua English Course" data-pt="Tudo o que precisas de saber sobre o Curso de Inglês DoveLingua">Everything you need to know about the DoveLingua English Course</h3>
+      <p data-en="This page presents the complete DoveLingua English Course — its seven levels, what you will be able to do in English at each stage, how lessons work, how long the course takes and why, and how to enrol. Read carefully, and when you are ready, the path is open." data-pt="Esta página apresenta o Curso de Inglês DoveLingua completo — os seus sete níveis, o que serás capaz de fazer em inglês em cada etapa, como funcionam as aulas, quanto tempo demora o curso e porquê, e como te inscrever. Lê com atenção, e quando estiveres pronto, o caminho está aberto.">This page presents the complete DoveLingua English Course — its seven levels, what you will be able to do in English at each stage, how lessons work, how long the course takes and why, and how to enrol. Read carefully, and when you are ready, the path is open.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ HOW DOVELINGUA IS STRUCTURED ══ -->
+<section class="levels-section" style="padding-top:2rem;">
+  <div class="max-w">
+    <div class="fade-up">
+      <h2 class="sec-title md" data-en="DoveLingua's Course Structure" data-pt="Estrutura do Curso DoveLingua">DoveLingua's Course Structure</h2>
+      <p class="sec-sub" data-en="Seven levels. One clear path from zero to advanced." data-pt="Sete níveis. Um caminho claro do zero ao avançado.">Seven levels. One clear path from zero to advanced.</p>
+      <div class="divider"></div>
+      <p class="sec-lead" data-en="DoveLingua English Learning Academy offers a complete English course structured across seven levels — from Pre-A1 for absolute beginners to C1 for advanced communicators. Every level is aligned with the CEFR, the international framework used by universities, employers and governments worldwide to measure English ability. At DoveLingua, you do not simply attend lessons — you build real communication skills, level by level, until you arrive." data-pt="A Academia DoveLingua oferece um curso de inglês completo estruturado em sete níveis — do Pré-A1 para iniciantes absolutos ao C1 para comunicadores avançados. Cada nível está alinhado com o QECR, o referencial internacional usado por universidades, empregadores e governos em todo o mundo para medir a competência em inglês. Na DoveLingua, não te limitas a assistir às aulas — constróis competências de comunicação reais, nível a nível, até chegares lá.">DoveLingua English Learning Academy offers a complete English course structured across seven levels — from Pre-A1 for absolute beginners to C1 for advanced communicators. Every level is aligned with the CEFR, the international framework used by universities, employers and governments worldwide to measure English ability. At DoveLingua, you do not simply attend lessons — you build real communication skills, level by level, until you arrive.</p>
+    </div>
+
+    <div class="levels-list">
+
+      <!-- Level 0 -->
+      <div class="level-card fade-up">
+        <div class="lc-top lh-0">
+          <div class="lc-top-left">
+            <span class="lc-num">L0</span>
+            <span class="lc-name-top" data-en="First Steps" data-pt="1º Passos">First Steps</span>
+          </div>
+          <div class="lc-top-right">
+            <span class="cefr-pill">Pre-A1</span>
+            <span class="free-badge">⭐ <span data-en="Free" data-pt="Gratuito">Free</span></span>
+          </div>
+        </div>
+        <div class="lc-body">
+          <div class="lc-main">
+            <h3 data-en="Zero English? Start here — with confidence." data-pt="Zero inglês? Começa aqui — com confiança.">Zero English? Start here — with confidence.</h3>
+            <ul class="lc-abilities">
+              <li data-en="Say your first words and phrases in English" data-pt="Dizer as tuas primeiras palavras e frases em inglês">Say your first words and phrases in English</li>
+              <li data-en="Understand simple greetings and respond naturally" data-pt="Compreender saudações simples e responder naturalmente">Understand simple greetings and respond naturally</li>
+              <li data-en="Count, name colours, days of the week and common objects" data-pt="Contar, nomear cores, dias da semana e objectos comuns">Count, name colours, days of the week and common objects</li>
+              <li data-en="Remove the fear of English before formal learning begins" data-pt="Eliminar o medo do inglês antes do ensino formal começar">Remove the fear of English before formal learning begins</li>
+            </ul>
+            <div class="lc-meta">
+              <span class="lc-tag" data-en="✅ Free — included with Level 1 enrolment" data-pt="✅ Gratuito — incluído na inscrição do Nível 1">✅ Free — included with Level 1 enrolment</span>
+            </div>
+          </div>
+          <div class="lc-dur-box">
+            <span class="ldb-icon">🕐</span><span class="ldb-num">3</span>
+            <span class="ldb-label" data-en="Weeks" data-pt="Semanas">Weeks</span>
+            <div class="ldb-lessons" data-en="12 lessons" data-pt="12 aulas">12 lessons</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Level 1 -->
+      <div class="level-card fade-up">
+        <div class="lc-top lh-1">
+          <div class="lc-top-left">
+            <span class="lc-num">L1</span>
+            <span class="lc-name-top" data-en="Beginner" data-pt="Iniciante">Beginner</span>
+          </div>
+          <div class="lc-top-right">
+            <span class="cefr-pill">A1</span>
+            <span class="open-badge">🟢 <span data-en="Enrolment open" data-pt="Inscrições abertas">Enrolment open</span></span>
+          </div>
+        </div>
+        <div class="lc-body">
+          <div class="lc-main">
+            <h3 data-en="Start talking about your world." data-pt="Começa a falar sobre o teu mundo.">Start talking about your world.</h3>
+            <ul class="lc-abilities">
+              <li data-en="Introduce yourself and talk about your family and daily routine" data-pt="Apresentares-te e falares sobre a tua família e rotina diária">Introduce yourself and talk about your family and daily routine</li>
+              <li data-en="Describe where you live, what you do and what you like" data-pt="Descrever onde vives, o que fazes e o que gostas">Describe where you live, what you do and what you like</li>
+              <li data-en="Talk about things you did in the past — yesterday, last week" data-pt="Falar sobre coisas que fizeste no passado — ontem, na semana passada">Talk about things you did in the past — yesterday, last week</li>
+              <li data-en="Have a simple, real conversation in English for the first time" data-pt="Ter uma conversa simples e real em inglês pela primeira vez">Have a simple, real conversation in English for the first time</li>
+            </ul>
+            <div class="lc-meta">
+              <span class="open-badge">🟢 <span data-en="Enrolment open now" data-pt="Inscrições abertas agora">Enrolment open now</span></span>
+            </div>
+          </div>
+          <div class="lc-dur-box">
+            <span class="ldb-icon">🕐</span><span class="ldb-num">~12</span>
+            <span class="ldb-label" data-en="Weeks" data-pt="Semanas">Weeks</span>
+            <div class="ldb-lessons" data-en="48 lessons" data-pt="48 aulas">48 lessons</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Level 2 -->
+      <div class="level-card fade-up">
+        <div class="lc-top lh-2">
+          <div class="lc-top-left">
+            <span class="lc-num">L2</span>
+            <span class="lc-name-top" data-en="Elementary" data-pt="Básico">Elementary</span>
+          </div>
+          <div class="lc-top-right">
+            <span class="cefr-pill">A2</span>
+            <span class="open-badge">🟢 <span data-en="Enrolment open" data-pt="Inscrições abertas">Enrolment open</span></span>
+          </div>
+        </div>
+        <div class="lc-body">
+          <div class="lc-main">
+            <h3 data-en="Handle real-life situations in English." data-pt="Lidar com situações reais em inglês.">Handle real-life situations in English.</h3>
+            <ul class="lc-abilities">
+              <li data-en="Go shopping, order food and handle money conversations" data-pt="Fazer compras, pedir comida e lidar com conversas sobre dinheiro">Go shopping, order food and handle money conversations</li>
+              <li data-en="Talk about past events, experiences and tell stories" data-pt="Falar sobre eventos passados, experiências e contar histórias">Talk about past events, experiences and tell stories</li>
+              <li data-en="Make plans, accept and decline invitations" data-pt="Fazer planos, aceitar e recusar convites">Make plans, accept and decline invitations</li>
+              <li data-en="Ask for and give advice on everyday topics" data-pt="Pedir e dar conselhos sobre temas do dia-a-dia">Ask for and give advice on everyday topics</li>
+            </ul>
+            <div class="lc-meta">
+              <span class="open-badge">🟢 <span data-en="Enrolment open now" data-pt="Inscrições abertas agora">Enrolment open now</span></span>
+            </div>
+          </div>
+          <div class="lc-dur-box">
+            <span class="ldb-icon">🕐</span><span class="ldb-num">~13</span>
+            <span class="ldb-label" data-en="Weeks" data-pt="Semanas">Weeks</span>
+            <div class="ldb-lessons" data-en="51 lessons" data-pt="51 aulas">51 lessons</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Level 3 -->
+      <div class="level-card fade-up">
+        <div class="lc-top lh-3">
+          <div class="lc-top-left">
+            <span class="lc-num">L3</span>
+            <span class="lc-name-top" data-en="Pre-Intermediate" data-pt="Pré-Intermédio">Pre-Intermediate</span>
+          </div>
+          <div class="lc-top-right">
+            <span class="cefr-pill">A2+</span>
+            <span class="soon-badge" data-en="⏳ Coming soon" data-pt="⏳ Em breve">⏳ Coming soon</span>
+          </div>
+        </div>
+        <div class="lc-body">
+          <div class="lc-main">
+            <h3 data-en="Start expressing yourself with confidence." data-pt="Começa a expressar-te com confiança.">Start expressing yourself with confidence.</h3>
+            <ul class="lc-abilities">
+              <li data-en="Give your opinion and defend your point of view on familiar topics" data-pt="Dar a tua opinião e defender o teu ponto de vista sobre temas familiares">Give your opinion and defend your point of view on familiar topics</li>
+              <li data-en="Narrate events and tell stories in detail" data-pt="Narrar eventos e contar histórias em detalhe">Narrate events and tell stories in detail</li>
+              <li data-en="Talk about plans, wishes and hypothetical situations" data-pt="Falar sobre planos, desejos e situações hipotéticas">Talk about plans, wishes and hypothetical situations</li>
+              <li data-en="Report what others said in conversations" data-pt="Reportar o que outros disseram em conversas">Report what others said in conversations</li>
+            </ul>
+            <div class="lc-meta">
+              <span class="lc-tag soon-tag" data-en="⏳ Opening soon — stay tuned" data-pt="⏳ Abre em breve — fica atento">⏳ Opening soon — stay tuned</span>
+            </div>
+          </div>
+          <div class="lc-dur-box">
+            <span class="ldb-icon">🕐</span><span class="ldb-num">~14</span>
+            <span class="ldb-label" data-en="Weeks" data-pt="Semanas">Weeks</span>
+            <div class="ldb-lessons" data-en="55 lessons" data-pt="55 aulas">55 lessons</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Level 4 -->
+      <div class="level-card fade-up">
+        <div class="lc-top lh-4">
+          <div class="lc-top-left">
+            <span class="lc-num">L4</span>
+            <span class="lc-name-top" data-en="Intermediate" data-pt="Intermédio">Intermediate</span>
+          </div>
+          <div class="lc-top-right">
+            <span class="cefr-pill">B1</span>
+            <span class="soon-badge" data-en="⏳ Coming soon" data-pt="⏳ Em breve">⏳ Coming soon</span>
+          </div>
+        </div>
+        <div class="lc-body">
+          <div class="lc-main">
+            <h3 data-en="Communicate with accuracy and flexibility." data-pt="Comunicar com precisão e flexibilidade.">Communicate with accuracy and flexibility.</h3>
+            <ul class="lc-abilities">
+              <li data-en="Discuss work, travel, technology and society with confidence" data-pt="Discutir trabalho, viagens, tecnologia e sociedade com confiança">Discuss work, travel, technology and society with confidence</li>
+              <li data-en="Understand most conversations without asking people to repeat" data-pt="Compreender a maioria das conversas sem pedir às pessoas que repitam">Understand most conversations without asking people to repeat</li>
+              <li data-en="Write clear, organised texts — emails, messages and short essays" data-pt="Escrever textos claros e organizados — e-mails, mensagens e ensaios curtos">Write clear, organised texts — emails, messages and short essays</li>
+              <li data-en="Handle unexpected situations confidently in English" data-pt="Lidar com situações inesperadas com confiança em inglês">Handle unexpected situations confidently in English</li>
+            </ul>
+            <div class="lc-meta">
+              <span class="lc-tag soon-tag" data-en="⏳ Opening soon — stay tuned" data-pt="⏳ Abre em breve — fica atento">⏳ Opening soon — stay tuned</span>
+            </div>
+          </div>
+          <div class="lc-dur-box">
+            <span class="ldb-icon">🕐</span><span class="ldb-num">~12</span>
+            <span class="ldb-label" data-en="Weeks" data-pt="Semanas">Weeks</span>
+            <div class="ldb-lessons" data-en="49 lessons" data-pt="49 aulas">49 lessons</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Level 5 -->
+      <div class="level-card fade-up">
+        <div class="lc-top lh-5">
+          <div class="lc-top-left">
+            <span class="lc-num">L5</span>
+            <span class="lc-name-top" data-en="Upper Intermediate" data-pt="Interm. Avançado">Upper Intermediate</span>
+          </div>
+          <div class="lc-top-right">
+            <span class="cefr-pill">B2</span>
+            <span class="soon-badge" data-en="⏳ Coming soon" data-pt="⏳ Em breve">⏳ Coming soon</span>
+          </div>
+        </div>
+        <div class="lc-body">
+          <div class="lc-main">
+            <h3 data-en="English becomes your tool, not your challenge." data-pt="O inglês torna-se a tua ferramenta.">English becomes your tool, not your challenge.</h3>
+            <ul class="lc-abilities">
+              <li data-en="Participate in debates and complex conversations naturally" data-pt="Participar em debates e conversas complexas naturalmente">Participate in debates and complex conversations naturally</li>
+              <li data-en="Understand films, podcasts and news in English without subtitles" data-pt="Compreender filmes, podcasts e notícias em inglês sem legendas">Understand films, podcasts and news in English without subtitles</li>
+              <li data-en="Express nuanced ideas, feelings and arguments with precision" data-pt="Expressar ideias, sentimentos e argumentos com precisão">Express nuanced ideas, feelings and arguments with precision</li>
+              <li data-en="Write detailed, structured texts for academic or professional use" data-pt="Escrever textos detalhados e estruturados para uso académico ou profissional">Write detailed, structured texts for academic or professional use</li>
+            </ul>
+            <div class="lc-meta">
+              <span class="lc-tag soon-tag" data-en="⏳ Opening soon — stay tuned" data-pt="⏳ Abre em breve — fica atento">⏳ Opening soon — stay tuned</span>
+            </div>
+          </div>
+          <div class="lc-dur-box">
+            <span class="ldb-icon">🕐</span><span class="ldb-num">~12</span>
+            <span class="ldb-label" data-en="Weeks" data-pt="Semanas">Weeks</span>
+            <div class="ldb-lessons" data-en="47 lessons" data-pt="47 aulas">47 lessons</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Level 6 -->
+      <div class="level-card fade-up">
+        <div class="lc-top lh-6">
+          <div class="lc-top-left">
+            <span class="lc-num">L6</span>
+            <span class="lc-name-top" data-en="Advanced" data-pt="Avançado">Advanced</span>
+          </div>
+          <div class="lc-top-right">
+            <span class="cefr-pill">C1</span>
+            <span class="soon-badge" data-en="⏳ Coming soon" data-pt="⏳ Em breve">⏳ Coming soon</span>
+          </div>
+        </div>
+        <div class="lc-body">
+          <div class="lc-main">
+            <h3 data-en="Speak with fluency, precision and sophistication." data-pt="Falar com fluência, precisão e sofisticação.">Speak with fluency, precision and sophistication.</h3>
+            <ul class="lc-abilities">
+              <li data-en="Communicate spontaneously in any social or professional context" data-pt="Comunicar espontaneamente em qualquer contexto social ou profissional">Communicate spontaneously in any social or professional context</li>
+              <li data-en="Use sophisticated language — emphasis, nuance, humour and irony" data-pt="Usar linguagem sofisticada — ênfase, nuance, humor e ironia">Use sophisticated language — emphasis, nuance, humour and irony</li>
+              <li data-en="Produce clear, well-structured academic or professional writing" data-pt="Produzir escrita académica ou profissional clara e bem estruturada">Produce clear, well-structured academic or professional writing</li>
+              <li data-en="Understand virtually everything you read and hear in English" data-pt="Compreender praticamente tudo o que lês e ouves em inglês">Understand virtually everything you read and hear in English</li>
+            </ul>
+            <div class="lc-meta">
+              <span class="lc-tag soon-tag" data-en="⏳ Opening soon — stay tuned" data-pt="⏳ Abre em breve — fica atento">⏳ Opening soon — stay tuned</span>
+            </div>
+          </div>
+          <div class="lc-dur-box">
+            <span class="ldb-icon">🕐</span><span class="ldb-num">~12</span>
+            <span class="ldb-label" data-en="Weeks" data-pt="Semanas">Weeks</span>
+            <div class="ldb-lessons" data-en="46 lessons" data-pt="46 aulas">46 lessons</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end levels-list -->
+  </div>
+</section>
+
+
+<!-- ══ WHY QUALITY TAKES TIME ══ -->
+<section class="why-section">
+  <div class="max-w">
+    <div class="fade-up">
+      <h2 class="sec-title md light" data-en="The Reason Behind Level Duration" data-pt="A Razão da Duração dos Níveis">The Reason Behind Level Duration</h2>
+      <p class="sec-sub" style="color:rgba(255,255,255,0.5);padding-left:0.8rem;" data-en="A real answer to a fair question." data-pt="Uma resposta real a uma pergunta justa.">A real answer to a fair question.</p>
+      <div class="divider"></div>
+    </div>
+    <div class="why-grid">
+      <div class="fade-up">
+        <div class="why-quote">
+          <p data-en="&ldquo;There are people on social media who promise English fluency in three months. Some promise less. These promises are not honest — and most students who have tried those methods know it.&rdquo;" data-pt="&ldquo;Há pessoas nas redes sociais que prometem fluência em inglês em três meses. Algumas prometem menos. Essas promessas não são honestas — e a maioria dos alunos que já tentou esses métodos sabe disso.&rdquo;">&ldquo;There are people on social media who promise English fluency in three months. Some promise less. These promises are not honest — and most students who have tried those methods know it.&rdquo;</p>
+        </div>
+        <p style="color:rgba(255,255,255,0.65);font-size:0.9rem;line-height:1.8;margin-bottom:1.2rem;" data-en="DoveLingua does not make those promises. What we offer instead is something far more valuable — a commitment to doing this properly." data-pt="A DoveLingua não faz essas promessas. O que oferecemos em vez disso é algo muito mais valioso — o compromisso de fazer isto correctamente.">DoveLingua does not make those promises. What we offer instead is something far more valuable — a commitment to doing this properly.</p>
+        <p style="color:rgba(255,255,255,0.65);font-size:0.9rem;line-height:1.8;" data-en="The CEFR — the international standard our programme is built on — recommends approximately 100 to 200 guided learning hours per major level. DoveLingua delivers between 69 and 110 hours per level. We are not slow. We are honest." data-pt="O QECR — o referencial internacional no qual o nosso programa está construído — recomenda aproximadamente 100 a 200 horas de aprendizagem orientada por nível principal. A DoveLingua oferece entre 69 e 110 horas por nível. Não somos lentos. Somos honestos.">The CEFR — the international standard our programme is built on — recommends approximately 100 to 200 guided learning hours per major level. DoveLingua delivers between 69 and 110 hours per level. We are not slow. We are honest.</p>
+        <div class="why-comparison" style="margin-top:1.2rem;">
+          <h4 data-en="How DoveLingua compares internationally" data-pt="Como a DoveLingua se compara internacionalmente">How DoveLingua compares internationally</h4>
+          <div class="wc-row"><span class="wc-inst">British Council</span><span class="wc-hours">500–700+ hrs</span></div>
+          <div class="wc-row"><span class="wc-inst">Cambridge English</span><span class="wc-hours">600–800+ hrs</span></div>
+          <div class="wc-row"><span class="wc-inst" style="color:var(--gm);">DoveLingua</span><span class="wc-hours" style="color:var(--gm);">460–616 hrs</span></div>
+        </div>
+      </div>
+      <div class="fade-up">
+        <div class="why-cards">
+          <div class="why-card">
+            <span class="wc-icon">🏗️</span>
+            <div>
+              <h4 data-en="English is built, not downloaded" data-pt="O inglês constrói-se, não se descarrega">English is built, not downloaded</h4>
+              <p data-en="Each level builds on the one before. A student who rushes through A1 will struggle at B1. The time spent at each level is not wasted — it is invested." data-pt="Cada nível baseia-se no anterior. Um aluno que passa rapidamente pelo A1 vai ter dificuldades no B1. O tempo gasto em cada nível não é desperdiçado — é investido.">Each level builds on the one before. A student who rushes through A1 will struggle at B1. The time spent at each level is not wasted — it is invested.</p>
+            </div>
+          </div>
+          <div class="why-card">
+            <span class="wc-icon">🗣️</span>
+            <div>
+              <h4 data-en="Communication takes practice" data-pt="A comunicação requer prática">Communication takes practice</h4>
+              <p data-en="Reading about swimming and actually swimming are different things. You need time to practise speaking, listening, reading and writing — not just study rules." data-pt="Ler sobre natação e nadar de facto são coisas diferentes. Precisas de tempo para praticar falar, ouvir, ler e escrever — não apenas estudar regras.">Reading about swimming and actually swimming are different things. You need time to practise speaking, listening, reading and writing — not just study rules.</p>
+            </div>
+          </div>
+          <div class="why-card">
+            <span class="wc-icon">🧠</span>
+            <div>
+              <h4 data-en="The brain needs time to absorb" data-pt="O cérebro precisa de tempo para absorver">The brain needs time to absorb</h4>
+              <p data-en="Language learning is not memorisation. It is rewiring how your brain processes communication. That cannot be rushed — but it can be made efficient, which is exactly what DoveLingua lessons do." data-pt="A aprendizagem de línguas não é memorização. É reconfigurar como o teu cérebro processa a comunicação. Não pode ser apressada — mas pode ser tornada eficiente, que é exactamente o que as aulas DoveLingua fazem.">Language learning is not memorisation. It is rewiring how your brain processes communication. That cannot be rushed — but it can be made efficient, which is exactly what DoveLingua lessons do.</p>
+            </div>
+          </div>
+          <div class="why-card">
+            <span class="wc-icon">🎯</span>
+            <div>
+              <h4 data-en="You arrive. You do not just attend." data-pt="Tu chegas. Não apenas compareças.">You arrive. You do not just attend.</h4>
+              <p data-en="At DoveLingua, you move to the next level because you are ready — because you passed the exam. The certificate you receive means something real." data-pt="Na DoveLingua, avanças para o próximo nível porque estás preparado — porque passaste no exame. O certificado que recebes significa algo real.">At DoveLingua, you move to the next level because you are ready — because you passed the exam. The certificate you receive means something real.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ WHAT HAPPENS IN YOUR LESSONS ══ -->
+<section class="how-section">
+  <div class="max-w">
+    <div class="fade-up">
+      <h2 class="sec-title md" data-en="DoveLingua Lesson Happenings" data-pt="O Que Acontece nas Aulas DoveLingua">DoveLingua Lesson Happenings</h2>
+      <p class="sec-sub" data-en="From the moment a lesson begins to the moment it ends." data-pt="Desde o momento em que a aula começa até ao momento em que termina.">From the moment a lesson begins to the moment it ends.</p>
+      <div class="divider"></div>
+    </div>
+    <div class="how-grid">
+      <div class="fade-up">
+        <div class="stage-card s1">
+          <h4 data-en="Stage 1 — Encounter" data-pt="Etapa 1 — Encontro">Stage 1 — Encounter</h4>
+          <p data-en="You encounter new language through a real, meaningful context. You see it in use before you study it." data-pt="Encontras nova linguagem através de um contexto real e significativo. Vê-la em uso antes de a estudares.">You encounter new language through a real, meaningful context. You see it in use before you study it.</p>
+        </div>
+        <div class="stage-card s2">
+          <h4 data-en="Stage 2 — Practice" data-pt="Etapa 2 — Prática">Stage 2 — Practice</h4>
+          <p data-en="You practise through speaking, listening, reading and writing. All four skills, every lesson." data-pt="Praticas através de falar, ouvir, ler e escrever. As quatro competências, em cada aula.">You practise through speaking, listening, reading and writing. All four skills, every lesson.</p>
+        </div>
+        <div class="stage-card s3">
+          <h4 data-en="Stage 3 — Real Use" data-pt="Etapa 3 — Uso Real">Stage 3 — Real Use</h4>
+          <p data-en="You use what you learned independently — in a real conversation, to do something you could not do before this lesson." data-pt="Usas o que aprendeste de forma independente — numa conversa real, para fazer algo que não conseguias antes desta aula.">You use what you learned independently — in a real conversation, to do something you could not do before this lesson.</p>
+        </div>
+      </div>
+      <div class="fade-up">
+        <div class="how-features">
+          <div class="how-feat">
+            <span class="hf-icon">⏱️</span>
+            <div>
+              <h4 data-en="90 to 120 minutes per lesson" data-pt="90 a 120 minutos por aula">90 to 120 minutes per lesson</h4>
+              <p data-en="A DoveLingua lesson is significantly longer than a typical school lesson. This is deliberate — real communication cannot happen in 45 minutes." data-pt="Uma aula DoveLingua é significativamente mais longa do que uma aula escolar típica. Isto é deliberado — a comunicação real não pode acontecer em 45 minutos.">A DoveLingua lesson is significantly longer than a typical school lesson. This is deliberate — real communication cannot happen in 45 minutes.</p>
+            </div>
+          </div>
+          <div class="how-feat">
+            <span class="hf-icon">🖥️</span>
+            <div>
+              <h4 data-en="DoveLingua Classroom — not WhatsApp" data-pt="Sala de Aula DoveLingua — não WhatsApp">DoveLingua Classroom — not WhatsApp</h4>
+              <p data-en="Lessons take place on our dedicated professional platform — classroom.dovelingua.com. Students feel present, connected and focused — as if teacher and student share the same room." data-pt="As aulas decorrem na nossa plataforma profissional dedicada — classroom.dovelingua.com. Os alunos sentem-se presentes, ligados e focados — como se professor e aluno partilhassem a mesma sala.">Lessons take place on our dedicated professional platform — classroom.dovelingua.com. Students feel present, connected and focused.</p>
+            </div>
+          </div>
+          <div class="how-feat">
+            <span class="hf-icon">📊</span>
+            <div>
+              <h4 data-en="Assessment every two units" data-pt="Avaliação de duas em duas unidades">Assessment every two units</h4>
+              <p data-en="Every level includes regular unit tests and a final level exam. Students only progress when they are genuinely ready — not just because time has passed." data-pt="Cada nível inclui testes de unidade regulares e um exame final de nível. Os alunos só avançam quando estão genuinamente preparados.">Every level includes regular unit tests and a final level exam. Students only progress when they are genuinely ready — not just because time has passed.</p>
+            </div>
+          </div>
+          <div class="how-feat">
+            <span class="hf-icon">🌐</span>
+            <div>
+              <h4 data-en="Online and in-person" data-pt="Online e presencial">Online and in-person</h4>
+              <p data-en="Online students attend 3 lessons per week. In-person students attend 5 lessons per week in Maxixe, Inhambane, Mozambique." data-pt="Os alunos online assistem a 3 aulas por semana. Os alunos presenciais assistem a 5 aulas por semana na Maxixe, Inhambane, Moçambique.">Online students attend 3 lessons per week. In-person students attend 5 lessons per week in Maxixe, Inhambane, Mozambique.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ OPEN FOR ENROLMENT — PRICING ══ -->
+<section class="pricing-section" id="open-now">
+  <div class="max-w pricing-inner">
+    <div class="fade-up">
+      <div class="pricing-eyebrow">🟢 <span data-en="Open for Enrolment Now" data-pt="Inscrições Abertas Agora">Open for Enrolment Now</span></div>
+      <div class="pricing-title" data-en="Start Your English Journey Today" data-pt="Começa a Tua Jornada em Inglês Hoje">Start Your English Journey Today</div>
+      <div class="pricing-subtitle" data-en="Two levels open. Transparent prices. Enrol in minutes." data-pt="Dois níveis abertos. Preços transparentes. Inscreve-te em minutos.">Two levels open. Transparent prices. Enrol in minutes.</div>
+      <div class="divider"></div>
+      <p class="sec-lead" style="color:rgba(255,255,255,0.65);" data-en="Choose your level, choose how you want to pay, and enrol directly through our automatic system. Every enrolled student receives an official receipt. Prices may change over time — the prices shown here are valid today." data-pt="Escolhe o teu nível, escolhe como queres pagar e inscreve-te directamente através do nosso sistema automático. Cada aluno inscrito recebe um recibo oficial. Os preços podem mudar — os preços aqui apresentados são válidos hoje.">Choose your level, choose how you want to pay, and enrol directly through our automatic system. Every enrolled student receives an official receipt. Prices may change over time — the prices shown here are valid today.</p>
+    </div>
+
+    <div class="pricing-cards">
+
+      <!-- A1 -->
+      <div class="price-card fade-up">
+        <div class="pc-header">
+          <div class="pc-level-badge">
+            <span class="pc-cefr" style="background:#d1fae5;color:#065f46;">A1</span>
+            <span class="pc-open">🟢 <span data-en="Open" data-pt="Aberto">Open</span></span>
+          </div>
+          <div class="pc-title" data-en="Beginner" data-pt="Iniciante">Beginner</div>
+          <div class="pc-sub" data-en="Includes Level 0 — First Steps for free" data-pt="Inclui o Nível 0 — Primeiros Passos gratuitamente">Includes Level 0 — First Steps for free</div>
+        </div>
+        <div class="pc-body">
+          <div class="modality monthly">
+            <div class="mod-top">
+              <span class="mod-name" data-en="Monthly" data-pt="Mensal">Monthly</span>
+              <div class="mod-price-wrap">
+                <div class="mod-price">600 <span style="font-size:0.75rem;font-weight:400;color:rgba(255,255,255,0.5);">MZN</span></div>
+                <div class="mod-period" data-en="/ first month" data-pt="/ primeiro mês">/ first month</div>
+              </div>
+            </div>
+            <p class="mod-desc" data-en="Pay month by month until you complete the level. The course fee from the second month onwards is lower — the enrolment fee is automatically removed by the system." data-pt="Paga mês a mês até concluíres o nível. A taxa do curso a partir do segundo mês é mais baixa — a taxa de inscrição é removida automaticamente pelo sistema.">Pay month by month until you complete the level. The course fee from the second month onwards is lower — the enrolment fee is automatically removed by the system.</p>
+            <span class="mod-badge auto">⚙️ <span data-en="Registration fee included in 1st month only" data-pt="Taxa de inscrição incluída apenas no 1.º mês">Registration fee included in 1st month only</span></span>
+          </div>
+          <div class="modality full">
+            <div class="mod-top">
+              <span class="mod-name" data-en="Full Level" data-pt="Nível Completo">Full Level</span>
+              <div class="mod-price-wrap">
+                <div class="mod-original">1 600 MZN</div>
+                <div class="mod-price gold">1 440 <span style="font-size:0.75rem;font-weight:400;color:rgba(255,255,255,0.5);">MZN</span></div>
+                <div class="mod-period" data-en="one payment — full level" data-pt="pagamento único — nível completo">one payment — full level</div>
+              </div>
+            </div>
+            <p class="mod-desc" data-en="Pay once and study until the end of the level at your own pace. No further monthly fees." data-pt="Paga uma vez e estuda até ao final do nível ao teu ritmo. Sem taxas mensais adicionais.">Pay once and study until the end of the level at your own pace. No further monthly fees.</p>
+            <span class="mod-badge discount">✨ 10% <span data-en="discount applied" data-pt="desconto aplicado">discount applied</span></span>
+          </div>
+          <div class="material-box">
+            <div>
+              <div class="mat-label" data-en="📘 Teaching Material (optional)" data-pt="📘 Material Didáctico (opcional)">📘 Teaching Material (optional)</div>
+              <div class="mat-note" data-en="One-time payment. Can be added at any time." data-pt="Pagamento único. Pode ser adicionado a qualquer momento.">One-time payment. Can be added at any time.</div>
+            </div>
+            <div class="mat-price">250 MZN</div>
+          </div>
+          <a href="enrol.html" class="pc-enrol-btn" data-en="Enrol in A1 — Beginner →" data-pt="Inscrever no A1 — Iniciante →">Enrol in A1 — Beginner →</a>
+        </div>
+      </div>
+
+      <!-- A2 -->
+      <div class="price-card featured fade-up">
+        <div class="pc-header">
+          <div class="pc-level-badge">
+            <span class="pc-cefr" style="background:#cffafe;color:#164e63;">A2</span>
+            <span class="pc-open">🟢 <span data-en="Open" data-pt="Aberto">Open</span></span>
+          </div>
+          <div class="pc-title" data-en="Elementary" data-pt="Básico">Elementary</div>
+          <div class="pc-sub" data-en="For students who completed A1 — Beginner" data-pt="Para alunos que concluíram o A1 — Iniciante">For students who completed A1 — Beginner</div>
+        </div>
+        <div class="pc-body">
+          <div class="modality monthly">
+            <div class="mod-top">
+              <span class="mod-name" data-en="Monthly" data-pt="Mensal">Monthly</span>
+              <div class="mod-price-wrap">
+                <div class="mod-price">650 <span style="font-size:0.75rem;font-weight:400;color:rgba(255,255,255,0.5);">MZN</span></div>
+                <div class="mod-period" data-en="/ first month" data-pt="/ primeiro mês">/ first month</div>
+              </div>
+            </div>
+            <p class="mod-desc" data-en="Pay month by month until you complete the level. The course fee from the second month onwards is lower — the enrolment fee is automatically removed by the system." data-pt="Paga mês a mês até concluíres o nível. A taxa do curso a partir do segundo mês é mais baixa — a taxa de inscrição é removida automaticamente pelo sistema.">Pay month by month until you complete the level. The course fee from the second month onwards is lower — the enrolment fee is automatically removed by the system.</p>
+            <span class="mod-badge auto">⚙️ <span data-en="Registration fee included in 1st month only" data-pt="Taxa de inscrição incluída apenas no 1.º mês">Registration fee included in 1st month only</span></span>
+          </div>
+          <div class="modality full">
+            <div class="mod-top">
+              <span class="mod-name" data-en="Full Level" data-pt="Nível Completo">Full Level</span>
+              <div class="mod-price-wrap">
+                <div class="mod-original">1 850 MZN</div>
+                <div class="mod-price gold">1 665 <span style="font-size:0.75rem;font-weight:400;color:rgba(255,255,255,0.5);">MZN</span></div>
+                <div class="mod-period" data-en="one payment — full level" data-pt="pagamento único — nível completo">one payment — full level</div>
+              </div>
+            </div>
+            <p class="mod-desc" data-en="Pay once and study until the end of the level at your own pace. No further monthly fees." data-pt="Paga uma vez e estuda até ao final do nível ao teu ritmo. Sem taxas mensais adicionais.">Pay once and study until the end of the level at your own pace. No further monthly fees.</p>
+            <span class="mod-badge discount">✨ 10% <span data-en="discount applied" data-pt="desconto aplicado">discount applied</span></span>
+          </div>
+          <div class="material-box">
+            <div>
+              <div class="mat-label" data-en="📘 Teaching Material (optional)" data-pt="📘 Material Didáctico (opcional)">📘 Teaching Material (optional)</div>
+              <div class="mat-note" data-en="One-time payment. Can be added at any time." data-pt="Pagamento único. Pode ser adicionado a qualquer momento.">One-time payment. Can be added at any time.</div>
+            </div>
+            <div class="mat-price">300 MZN</div>
+          </div>
+          <a href="enrol.html" class="pc-enrol-btn gold-btn" data-en="Enrol in A2 — Elementary →" data-pt="Inscrever no A2 — Básico →">Enrol in A2 — Elementary →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Full course -->
+    <div class="full-course-card fade-up">
+      <div class="fcc-text">
+        <h4 data-en="Studying More Than One Level at Once?" data-pt="A Estudar Mais do Que Um Nível de Uma Vez?">Studying More Than One Level at Once?</h4>
+        <p data-en="DoveLingua offers a full course modality — for students who want to enrol in multiple levels at once. Pricing and assistance for this modality is personalised. Contact our support team to find out more." data-pt="A DoveLingua oferece uma modalidade de curso completo — para alunos que querem inscrever-se em vários níveis de uma vez. Os preços e a assistência para esta modalidade são personalizados. Contacta a nossa equipa de suporte para saber mais.">DoveLingua offers a full course modality — for students who want to enrol in multiple levels at once. Pricing and assistance for this modality is personalised. Contact our support team to find out more.</p>
+      </div>
+      <a href="contact.html" class="btn-contact-gold" data-en="Contact Support" data-pt="Contactar Suporte">Contact Support</a>
+    </div>
+
+    <!-- Notes -->
+    <div class="pricing-notes fade-up">
+      <div class="pn-row"><span>⚠️</span><span data-en="Prices shown are valid today and may be updated at any time. Always check this page before enrolling." data-pt="Os preços apresentados são válidos hoje e podem ser actualizados a qualquer momento. Verifica sempre esta página antes de te inscreveres.">Prices shown are valid today and may be updated at any time. Always check this page before enrolling.</span></div>
+      <div class="pn-row"><span>📄</span><span><a href="terms.html" style="color:var(--gm);text-decoration:underline;" data-en="Read our Terms and Policies" data-pt="Lê os nossos Termos e Políticas">Read our Terms and Policies</a> <span data-en="to understand your rights, duties and benefits as a DoveLingua student." data-pt="para conheceres os teus direitos, deveres e benefícios como aluno DoveLingua.">to understand your rights, duties and benefits as a DoveLingua student.</span></span></div>
+      <div class="pn-row"><span>🤔</span><span data-en="Not sure which level is right for you? Contact us for a free Level Placement Test." data-pt="Não tens a certeza de qual é o nível certo para ti? Contacta-nos para um Teste de Nivelamento gratuito.">Not sure which level is right for you? <a href="contact.html" style="color:var(--gm);text-decoration:underline;" data-en="Contact us for a free Level Placement Test" data-pt="Contacta-nos para um Teste de Nivelamento gratuito">Contact us for a free Level Placement Test</a>.</span></div>
+      <div class="pn-row"><span>🔄</span><span data-en="Enrolment is fully automatic. After completing payment, your access is confirmed and an official receipt is generated for you." data-pt="A matrícula é totalmente automática. Após a conclusão do pagamento, o teu acesso é confirmado e um recibo oficial é gerado para ti.">Enrolment is fully automatic. After completing payment, your access is confirmed and an official receipt is generated for you.</span></div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══ CERTIFICATES ══ -->
+<section class="cert-section">
+  <div class="max-w">
+    <div class="fade-up">
+      <h2 class="sec-title lg" data-en="Your Achievement, Recognised" data-pt="A Tua Conquista, Reconhecida">Your Achievement, Recognised</h2>
+      <p class="sec-sub" data-en="What you receive when you complete a level." data-pt="O que recebes quando concluis um nível.">What you receive when you complete a level.</p>
+      <div class="divider"></div>
+    </div>
+    <div class="cert-grid">
+      <div class="cert-visual fade-up">
+        <span class="cert-dove">🕊</span>
+        <div class="cert-title-vis" data-en="Certificate of Completion" data-pt="Certificado de Conclusão">Certificate of Completion</div>
+        <div class="cert-subtitle-vis">DoveLingua English Learning Academy</div>
+        <div class="cert-badge-row">
+          <span class="cert-badge">A1 — Beginner</span>
+          <span class="cert-badge">Mozambique 2026</span>
+          <span class="cert-badge">CEFR Aligned</span>
+        </div>
+      </div>
+      <div class="cert-items fade-up">
+        <div class="cert-item">
+          <span class="ci-icon">📜</span>
+          <div>
+            <h4 data-en="Certificate of Completion" data-pt="Certificado de Conclusão">Certificate of Completion</h4>
+            <p data-en="Every student who passes the final exam receives an official DoveLingua Certificate of Completion — a formal, documented record of what they achieved." data-pt="Cada aluno que passa no exame final recebe um Certificado de Conclusão DoveLingua oficial — um registo formal e documentado do que alcançou.">Every student who passes the final exam receives an official DoveLingua Certificate of Completion — a formal, documented record of what they achieved.</p>
+          </div>
+        </div>
+        <div class="cert-item">
+          <span class="ci-icon">🎽</span>
+          <div>
+            <h4 data-en="DoveLingua T-Shirt" data-pt="T-Shirt DoveLingua">DoveLingua T-Shirt</h4>
+            <p data-en="Students who complete from Level 0 through to Level 4 or beyond receive an official DoveLingua t-shirt as recognition of their commitment and dedication." data-pt="Os alunos que concluem desde o Nível 0 até ao Nível 4 ou além recebem uma t-shirt oficial DoveLingua como reconhecimento do seu compromisso e dedicação.">Students who complete from Level 0 through to Level 4 or beyond receive an official DoveLingua t-shirt as recognition of their commitment and dedication.</p>
+          </div>
+        </div>
+        <div class="cert-item">
+          <span class="ci-icon">🔍</span>
+          <div>
+            <h4 data-en="Certificate Verification" data-pt="Verificação de Certificados">Certificate Verification</h4>
+            <p data-en="Every DoveLingua certificate can be verified publicly at certify.dovelingua.com — ensuring it is genuine, honest and cannot be forged." data-pt="Cada certificado DoveLingua pode ser verificado publicamente em certify.dovelingua.com — garantindo que é genuíno, honesto e não pode ser falsificado.">Every DoveLingua certificate can be verified publicly at certify.dovelingua.com — ensuring it is genuine, honest and cannot be forged.</p>
+          </div>
+        </div>
+        <div class="cert-honest-note">
+          <strong data-en="A note on accreditation:" data-pt="Uma nota sobre acreditação:">A note on accreditation:</strong>
+          <span data-en=" DoveLingua certificates are currently issued by a qualified English teacher and represent an honest, professionally documented record of achievement. Government accreditation is part of DoveLingua's roadmap for the future." data-pt=" Os certificados DoveLingua são actualmente emitidos por um professor de inglês qualificado e representam um registo honesto e profissionalmente documentado. A acreditação governamental faz parte do roteiro futuro da DoveLingua."> DoveLingua certificates are currently issued by a qualified English teacher and represent an honest, professionally documented record of achievement. Government accreditation is part of DoveLingua's roadmap for the future.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ ENGLISH DOVE APP ══ -->
+<section class="app-section">
+  <div class="max-w">
+    <div class="app-inner">
+      <div class="app-visual fade-up">
+        <span class="app-big-icon">📱</span>
+        <h3 data-en="English Dove" data-pt="English Dove">English Dove</h3>
+        <p data-en="A free English learning app by DoveLingua — available to everyone, with no enrolment required." data-pt="Uma aplicação gratuita de aprendizagem de inglês pela DoveLingua — disponível para todos, sem necessidade de inscrição.">A free English learning app by DoveLingua — available to everyone, with no enrolment required.</p>
+        <a href="https://app.dovelingua.com" target="_blank" class="app-dl-btn" data-en="📱 Download for Free" data-pt="📱 Descarregar Gratuitamente">📱 Download for Free</a>
+      </div>
+      <div class="app-text fade-up">
+        <h3 data-en="Can't enrol right now?" data-pt="Não consegues inscrever-te agora?">Can't enrol right now?</h3>
+        <p data-en="DoveLingua believes that everyone deserves access to quality English learning — regardless of their financial situation. That is why we built English Dove: a free app for students who want to start learning English but cannot yet pay for a course." data-pt="A DoveLingua acredita que todos merecem acesso à aprendizagem de inglês de qualidade — independentemente da sua situação financeira. Por isso criámos o English Dove: uma aplicação gratuita para alunos que querem começar a aprender inglês mas ainda não podem pagar um curso.">DoveLingua believes that everyone deserves access to quality English learning — regardless of their financial situation. That is why we built English Dove: a free app for students who want to start learning English but cannot yet pay for a course.</p>
+        <p data-en="No payment. No enrolment. No barriers. Just English." data-pt="Sem pagamento. Sem inscrição. Sem barreiras. Apenas inglês.">No payment. No enrolment. No barriers. Just English.</p>
+        <a href="https://app.dovelingua.com" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;font-size:0.85rem;font-weight:600;color:var(--g);text-decoration:underline;" data-en="Visit app.dovelingua.com →" data-pt="Visitar app.dovelingua.com →">Visit app.dovelingua.com →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ FINAL CTA ══ -->
+<section class="cta-section">
+  <div class="max-w" style="text-align:center;">
+    <span style="font-size:2.4rem;display:block;margin-bottom:1rem;">🕊</span>
+    <h2 data-en="The path is clear.<br><em>The first step is yours.</em>" data-pt="O caminho está claro.<br><em>O primeiro passo é teu.</em>">The path is clear.<br><em>The first step is yours.</em></h2>
+    <p data-en="Join DoveLingua — a structured, honest English course that gives you real goals, real lessons, real assessment, and a certificate you earned." data-pt="Junta-te à DoveLingua — um curso de inglês estruturado e honesto que te dá objectivos reais, aulas reais, avaliação real e um certificado que conquistaste.">Join DoveLingua — a structured, honest English course that gives you real goals, real lessons, real assessment, and a certificate you earned.</p>
+    <div class="cta-btns">
+      <a href="enrol.html" class="btn-cta-gold" data-en="Enrol Now" data-pt="Inscrever Agora">Enrol Now</a>
+      <a href="contact.html" class="btn-cta-outline" data-en="Talk to Support First" data-pt="Falar Primeiro com o Suporte">Talk to Support First</a>
+    </div>
+    <p class="cta-level-note" data-en="Not sure of your level? Contact us for a free Level Placement Test." data-pt="Não tens a certeza do teu nível? Contacta-nos para um Teste de Nivelamento gratuito.">Not sure of your level? Contact us for a free Level Placement Test.</p>
+  </div>
+</section>
+
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="fg">
+    <div class="fb">
+      <div class="fname">DoveLingua English Learning Academy</div>
+      <p data-en="A structured, communicative and professionally designed English course — founded in Mozambique, April 2026." data-pt="Um curso de inglês estruturado, comunicativo e profissionalmente concebido — fundado em Moçambique, Abril de 2026.">A structured, communicative and professionally designed English course — founded in Mozambique, April 2026.</p>
+      <div class="fsoc">
+        <a href="https://www.facebook.com/DoveLingua" target="_blank" class="fsb"><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a href="https://wa.me/258828920143" target="_blank" class="fsb"><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+        <a href="mailto:info@dovelingua.com" class="fsb" style="font-size:14px;color:#fff;display:flex;align-items:center;justify-content:center;">✉️</a>
+      </div>
+    </div>
+    <div class="fc">
+      <h4 data-en="Learn" data-pt="Aprender">Learn</h4>
+      <a onclick="nav('programme.html')" data-en="Our Programme" data-pt="O Nosso Programa">Our Programme</a>
+      <a onclick="nav('enrol.html')" data-en="Enrol" data-pt="Inscrição">Enrol</a>
+      <a href="https://classroom.dovelingua.com" target="_blank">Classroom</a>
+    </div>
+    <div class="fc">
+      <h4 data-en="About" data-pt="Sobre">About</h4>
+      <a onclick="nav('about.html')" data-en="About DoveLingua" data-pt="Sobre a DoveLingua">About DoveLingua</a>
+      <a onclick="nav('faq.html')">FAQ</a>
+      <a onclick="nav('donate.html')" data-en="Support Us" data-pt="Apoiar-nos">Support Us</a>
+    </div>
+    <div class="fc">
+      <h4 data-en="Help" data-pt="Ajuda">Help</h4>
+      <a onclick="nav('contact.html')" data-en="Contact Support" data-pt="Contactar Suporte">Contact Support</a>
+      <a onclick="nav('status.html')" data-en="Payment Status" data-pt="Estado do Pagamento">Payment Status</a>
+      <a onclick="nav('terms.html')" data-en="Terms &amp; Policies" data-pt="Termos e Políticas">Terms &amp; Policies</a>
+    </div>
+  </div>
+  <div class="fbot">
+    <p data-en="DoveLingua © 2026 — All rights reserved." data-pt="DoveLingua © 2026 — Todos os direitos reservados.">DoveLingua © 2026 — All rights reserved.</p>
+    <a onclick="nav('terms.html')" data-en="Terms &amp; Policies" data-pt="Termos e Políticas">Terms &amp; Policies</a>
+    <a onclick="nav('contact.html')" data-en="Contact" data-pt="Contacto">Contact</a>
+  </div>
+</footer>
+
+
+<!-- ══ WA FLOAT ══ -->
+<a href="https://wa.me/258828920143" target="_blank" class="waf" title="WhatsApp DoveLingua">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+
+
+<script>
+  let lang=localStorage.getItem('dvl_lang')||'en';
+  function setLang(l){lang=l;localStorage.setItem('dvl_lang',l);applyLang();}
+  function applyLang(){
+    document.querySelectorAll('[data-en]').forEach(el=>{
+      const v=el.getAttribute('data-'+lang);
+      if(v!==null)el.innerHTML=v;
+    });
+    document.getElementById('btn-en').classList.toggle('active',lang==='en');
+    document.getElementById('btn-pt').classList.toggle('active',lang==='pt');
+    document.documentElement.lang=lang==='pt'?'pt':'en';
+  }
+  applyLang();
+
+  function toggleMenu(){
+    document.getElementById('sM').classList.toggle('open');
+    document.getElementById('sO').classList.toggle('open');
+  }
+  function nav(page){
+    document.getElementById('sM').classList.remove('open');
+    document.getElementById('sO').classList.remove('open');
+    window.location.href=page;
+  }
+
+  let taps=0,tapTimer=null;
+  function handleSecretTap(){
+    taps++;clearTimeout(tapTimer);
+    tapTimer=setTimeout(()=>taps=0,1500);
+    if(taps>=3){taps=0;window.location.href='admin.html';}
+  }
+
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*55);io.unobserve(e.target);}
+    });
+  },{threshold:0.07});
+  document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
