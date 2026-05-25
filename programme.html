@@ -143,9 +143,9 @@
     .hero-anchor-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(226,177,60,0.5);}
 
     /* ══ INTRO CARD ══ */
-    .intro-section{background:var(--white);padding:0 clamp(1.5rem,5vw,4rem);}
-    .intro-card{
-      max-width:1080px;margin:0 auto;
+    .intro-section{background:var(--white);padding:0 clamp(1rem,3vw,2.5rem);}
+.intro-card{
+      max-width:1080px;margin:0 auto;width:100%;
       background:linear-gradient(135deg,var(--gx),#e0f2f1);
       border:1px solid var(--gl);
       border-radius:16px;
@@ -496,10 +496,10 @@
     </div>
     <!-- 4 pills 2×2 -->
     <div class="hero-pills fade-up">
-      <div class="hero-pill hp-1">✅ <span data-en="308 Lessons" data-pt="308 Aulas">308 Lessons</span></div>
-      <div class="hero-pill hp-2">🕐 <span data-en="~20 Months" data-pt="~20 Meses">~20 Months</span></div>
-      <div class="hero-pill hp-3">📚 <span data-en="460–616 Hours" data-pt="460–616 Horas">460–616 Hours</span></div>
-      <div class="hero-pill hp-4">🎓 <span data-en="6 Full Levels" data-pt="6 Níveis">6 Full Levels</span></div>
+      <div class="hero-pill hp-1">✅ <span data-target="308" data-prefix="" data-suffix=" Lessons" data-en="308 Lessons" data-pt="308 Aulas">308 Lessons</span></div>
+      <div class="hero-pill hp-2">🕐 <span data-target="20" data-prefix="~" data-suffix=" Months" data-en="~20 Months" data-pt="~20 Meses">~20 Months</span></div>
+      <div class="hero-pill hp-3">📚 <span data-target="616" data-prefix="" data-suffix="+ Hours" data-en="460–616 Hours" data-pt="460–616 Horas">616+ Hours</span></div>
+      <div class="hero-pill hp-4">🎓 <span data-target="7" data-prefix="" data-suffix=" Levels" data-en="7 Full Levels" data-pt="7 Níveis Completos">7 Levels</span></div>
     </div>
   </div>
   <!-- Anchor button — sits on the bottom border -->
@@ -514,7 +514,7 @@
 <!-- ══ INTRO CARD ══ -->
 <div class="intro-section">
   <div class="intro-card fade-up">
-    <span class="ic-icon">🕊</span>
+    <span class="ic-icon"></span>
     <div>
       <h3 data-en="Everything you need to know about the DoveLingua English Course" data-pt="Tudo o que precisas de saber sobre o Curso de Inglês DoveLingua">Everything you need to know about the DoveLingua English Course</h3>
       <p data-en="This page presents the complete DoveLingua English Course — its seven levels, what you will be able to do in English at each stage, how lessons work, how long the course takes and why, and how to enrol. Read carefully, and when you are ready, the path is open." data-pt="Esta página apresenta o Curso de Inglês DoveLingua completo — os seus sete níveis, o que serás capaz de fazer em inglês em cada etapa, como funcionam as aulas, quanto tempo demora o curso e porquê, e como te inscrever. Lê com atenção, e quando estiveres pronto, o caminho está aberto.">This page presents the complete DoveLingua English Course — its seven levels, what you will be able to do in English at each stage, how lessons work, how long the course takes and why, and how to enrol. Read carefully, and when you are ready, the path is open.</p>
@@ -1185,6 +1185,31 @@
     });
   },{threshold:0.07});
   document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
+
+  /* COUNT-UP — pills */
+  function countUp(el){
+    const target=parseInt(el.getAttribute('data-target'));
+    const prefix=el.getAttribute('data-prefix')||'';
+    const suffix=el.getAttribute('data-suffix')||'';
+    const duration=1800;const steps=60;
+    let step=0;
+    const timer=setInterval(()=>{
+      step++;
+      const current=Math.min(Math.round((target/steps)*step),target);
+      el.textContent=prefix+current+suffix;
+      if(current>=target)clearInterval(timer);
+    },duration/steps);
+  }
+  const pillObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.querySelectorAll('[data-target]').forEach(el=>countUp(el));
+        pillObs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.4});
+  const pillsEl=document.querySelector('.hero-pills');
+  if(pillsEl)pillObs.observe(pillsEl);
 </script>
 
 </body>
