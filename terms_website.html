@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Terms &amp; Policies — DoveLingua English Learning Academy</title>
+  <meta name="description" content="DoveLingua Terms, Rights and Policies — the complete guide to student rights, duties, payments, certificates and more."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --g:#059669;--gd:#047857;--gm:#10b981;--gl:#d1fae5;--gx:#f0fdf4;
+      --navy:#0B2545;--gold:#E2B13C;--gold-light:#fef3c7;
+      --white:#fff;--cream:#fafaf8;
+      --text:#1a2e1a;--text-mid:#374151;--text-light:#6b7280;
+      --border:#e5e7eb;--shadow:0 4px 24px rgba(5,150,105,0.09);--r:14px;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);line-height:1.7;}
+
+    /* ══ NAV ══ */
+    nav{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid var(--border);padding:0 clamp(1rem,4vw,2.5rem);display:flex;align-items:center;justify-content:space-between;height:64px;}
+    .nav-left{display:flex;align-items:center;gap:1rem;}
+    .hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+    .hamburger span{display:block;width:22px;height:2px;background:var(--text-mid);border-radius:2px;}
+    .nav-brand{text-decoration:none;font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;color:var(--g);}
+    .nav-centre{display:flex;gap:0.1rem;list-style:none;position:absolute;left:50%;transform:translateX(-50%);}
+    .nav-centre a{text-decoration:none;font-size:0.81rem;font-weight:500;color:var(--text-mid);padding:0.38rem 0.6rem;border-radius:6px;transition:background .2s,color .2s;}
+    .nav-centre a:hover{background:var(--gx);color:var(--g);}
+    .nav-centre a.active{color:var(--g);background:var(--gx);}
+    .nav-right{display:flex;align-items:center;gap:0.6rem;}
+    .lang-toggle{display:flex;border:1.5px solid var(--border);border-radius:20px;overflow:hidden;}
+    .lang-toggle button{border:none;background:transparent;padding:0.28rem 0.72rem;cursor:pointer;color:var(--text-light);font-size:0.72rem;font-weight:700;transition:background .2s,color .2s;}
+    .lang-toggle button.active{background:var(--g);color:#fff;}
+    .profile-icon{width:34px;height:34px;border-radius:50%;background:var(--gx);border:1.5px solid var(--gl);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1rem;}
+    .btn-enrol-nav{background:var(--navy);color:#fff;border:none;padding:0.42rem 1rem;border-radius:20px;font-size:0.78rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background .2s;white-space:nowrap;}
+    .btn-enrol-nav:hover{background:var(--gd);}
+    @media(max-width:860px){.nav-centre,.btn-enrol-nav{display:none;}}
+
+    /* ══ SIDE MENU ══ */
+    .so{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1100;}
+    .so.open{display:block;}
+    .sm{position:fixed;top:0;left:-280px;width:280px;height:100%;background:#fff;z-index:1200;transition:left .3s ease;display:flex;flex-direction:column;overflow:hidden;}
+    .sm.open{left:0;}
+    .sm-hdr{display:flex;align-items:center;padding:1rem 1rem 0.8rem;border-bottom:1px solid var(--border);gap:0.8rem;}
+    .sm-cl{background:none;border:1px solid var(--border);border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:1rem;color:var(--text-mid);}
+    .sb{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--g);}
+    .sm-nav{flex:1;overflow-y:auto;padding:0.5rem 0;}
+    .sm-nav a{display:flex;align-items:center;gap:0.75rem;padding:0.65rem 1.2rem;font-size:0.88rem;font-weight:500;color:var(--text-mid);text-decoration:none;cursor:pointer;transition:background .15s,color .15s;}
+    .sm-nav a:hover{background:var(--gx);color:var(--g);}
+    .mi{font-size:1rem;width:20px;text-align:center;}
+    .sdiv{height:1px;background:var(--border);margin:0.35rem 1.2rem;}
+    .bsoon{background:var(--gx);color:var(--g);font-size:0.62rem;font-weight:700;padding:0.15rem 0.45rem;border-radius:8px;margin-left:auto;}
+    .sm-ft{padding:1rem 1.2rem;border-top:1px solid var(--border);}
+    .sm-ft p{font-style:italic;font-size:0.75rem;color:var(--text-light);line-height:1.55;}
+
+    /* ══ HERO ══ */
+    .hero{
+      background:linear-gradient(135deg,#0B2545 0%,#0d3060 55%,#1a3a2a 100%);
+      border-top:5px solid var(--gold);
+      padding:clamp(1rem,2vw,1.5rem) clamp(1.5rem,5vw,4rem) 0;
+      position:relative;overflow:hidden;
+    }
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 15% 60%,rgba(226,177,60,0.1) 0%,transparent 55%),radial-gradient(ellipse at 85% 20%,rgba(5,150,105,0.12) 0%,transparent 50%);}
+    .hero-inner{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding-bottom:3rem;}
+    .hero-title-card{background:rgba(255,255,255,0.08);border:1.5px solid rgba(226,177,60,0.45);border-radius:16px;padding:1.4rem 2.5rem 1.6rem;text-align:center;margin-bottom:1.5rem;box-shadow:0 0 32px rgba(226,177,60,0.1);}
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(226,177,60,0.15);border:1px solid rgba(226,177,60,0.3);color:var(--gold);font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.28rem 0.9rem;border-radius:20px;margin-bottom:1rem;}
+    .hero-title-card h1{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.8rem);font-weight:700;color:#fff;line-height:1.2;}
+    .hero-title-card h1 em{color:var(--gold);font-style:italic;}
+    .hero-meta{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;}
+    .hero-meta-item{display:flex;align-items:center;gap:0.4rem;font-size:0.78rem;color:rgba(255,255,255,0.55);}
+    .hero-meta-item strong{color:rgba(255,255,255,0.82);}
+    .hero-anchor-wrap{position:relative;z-index:1;display:flex;justify-content:center;padding-bottom:1.5rem;}
+    .hero-anchor-btn{display:inline-flex;align-items:center;gap:0.5rem;background:var(--gold);color:var(--navy);font-weight:700;font-size:0.85rem;padding:0.72rem 1.8rem;border-radius:30px;text-decoration:none;box-shadow:0 4px 20px rgba(226,177,60,0.4);transition:transform .2s;}
+    .hero-anchor-btn:hover{transform:translateY(-2px);}
+
+    /* ══ IMPORTANT NOTE CARD ══ */
+    .note-card-wrap{background:var(--white);padding:0 clamp(1.5rem,5vw,4rem);}
+    .note-card{max-width:1080px;margin:0 auto;background:linear-gradient(135deg,#fff7ed,#fef3c7);border:1.5px solid #fcd34d;border-radius:16px;padding:1.4rem 2rem;display:flex;align-items:flex-start;gap:1.2rem;transform:translateY(-28px);box-shadow:0 8px 32px rgba(226,177,60,0.15);}
+    .note-card .nc-icon{font-size:1.8rem;flex-shrink:0;margin-top:2px;}
+    .note-card p{font-size:0.88rem;color:#78350f;line-height:1.75;}
+    .note-card strong{color:#92400e;}
+    .note-card a{color:#059669;font-weight:600;text-decoration:none;}
+    .note-card a:hover{text-decoration:underline;}
+
+    /* ══ MAIN LAYOUT ══ */
+    .terms-main{max-width:1080px;margin:0 auto;padding:0 clamp(1.5rem,5vw,4rem) clamp(3rem,6vw,5rem);}
+    .terms-grid{display:grid;grid-template-columns:220px 1fr;gap:3rem;align-items:start;}
+
+    /* Sidebar */
+    .terms-sidebar{position:sticky;top:80px;}
+    .terms-sidebar h3{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-light);margin-bottom:0.8rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);}
+    .toc-item{display:flex;align-items:flex-start;gap:0.5rem;padding:0.45rem 0.7rem;border-radius:8px;font-size:0.78rem;font-weight:500;color:var(--text-mid);cursor:pointer;transition:background .15s,color .15s;text-decoration:none;margin-bottom:0.1rem;border:none;background:none;width:100%;text-align:left;line-height:1.35;}
+    .toc-item:hover{background:var(--gx);color:var(--g);}
+    .toc-item.active{background:var(--gx);color:var(--g);font-weight:600;}
+    .toc-num{font-size:0.65rem;font-weight:700;color:var(--g);min-width:18px;margin-top:1px;}
+    .toc-sep{height:1px;background:var(--border);margin:0.5rem 0;}
+
+    /* Content */
+    .terms-content{min-width:0;}
+
+    /* Chapter */
+    .chapter{margin-bottom:3.5rem;scroll-margin-top:90px;}
+    .chapter-header{background:linear-gradient(135deg,var(--navy),#1a3a2a);border-radius:14px;padding:1.2rem 1.8rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem;}
+    .chapter-num{font-family:'Playfair Display',serif;font-size:0.75rem;font-weight:700;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.1em;white-space:nowrap;}
+    .chapter-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#fff;}
+    .chapter-icon{font-size:1.4rem;flex-shrink:0;}
+
+    /* Article */
+    .article{border:1px solid var(--border);border-radius:var(--r);margin-bottom:1rem;overflow:hidden;transition:border-color .2s;}
+    .article:hover{border-color:var(--gl);}
+    .article-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0.95rem 1.3rem;cursor:pointer;background:#fff;transition:background .15s;user-select:none;}
+    .article-header:hover{background:var(--gx);}
+    .article.open .article-header{background:var(--gx);}
+    .article-num{font-size:0.7rem;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:0.08em;white-space:nowrap;flex-shrink:0;}
+    .article-title{font-size:0.9rem;font-weight:700;color:var(--navy);flex:1;line-height:1.4;}
+    .art-toggle{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:300;color:var(--text-light);cursor:pointer;flex-shrink:0;transition:background .2s,border-color .2s,color .2s,transform .3s;line-height:1;}
+    .article.open .art-toggle{background:var(--g);border-color:var(--g);color:#fff;transform:rotate(45deg);}
+
+    /* Article body */
+    .article-body{max-height:0;overflow:hidden;transition:max-height .4s ease;}
+    .article.open .article-body{max-height:1200px;}
+    .article-inner{padding:1rem 1.3rem 1.2rem;border-top:1px solid var(--gl);}
+    .article-inner p{font-size:0.87rem;color:var(--text-mid);line-height:1.82;margin-bottom:0.65rem;}
+    .article-inner p:last-child{margin-bottom:0;}
+    .article-inner strong{color:var(--navy);}
+    .article-inner a{color:var(--g);font-weight:600;text-decoration:none;}
+    .article-inner a:hover{text-decoration:underline;}
+    .article-inner ul{list-style:none;display:flex;flex-direction:column;gap:0.4rem;margin:0.5rem 0;}
+    .article-inner ul li{display:flex;align-items:flex-start;gap:0.5rem;font-size:0.87rem;color:var(--text-mid);line-height:1.6;}
+    .article-inner ul li::before{content:'';display:inline-block;width:7px;height:7px;background:var(--g);border-radius:1px;flex-shrink:0;margin-top:5px;}
+    /* Highlight boxes inside articles */
+    .art-box{border-radius:10px;padding:0.9rem 1.1rem;margin:0.7rem 0;font-size:0.84rem;line-height:1.7;}
+    .art-box.green{background:var(--gx);border:1px solid var(--gl);color:var(--gd);}
+    .art-box.gold{background:var(--gold-light);border:1px solid #fcd34d;color:#78350f;}
+    .art-box.navy{background:#e0e7ff;border:1px solid #a5b4fc;color:#1e3a8a;}
+    .art-box.red{background:#fef2f2;border:1px solid #fca5a5;color:#991b1b;}
+
+    /* Preamble */
+    .preamble{background:var(--cream);border:1px solid var(--border);border-left:4px solid var(--g);border-radius:var(--r);padding:1.5rem 1.8rem;margin-bottom:2.5rem;font-size:0.88rem;color:var(--text-mid);line-height:1.8;font-style:italic;}
+
+    /* Issue info */
+    .issue-card{background:linear-gradient(135deg,var(--navy),#1a3a2a);border-radius:var(--r);padding:1.8rem 2rem;margin-top:2.5rem;text-align:center;}
+    .issue-card .ic-dove{font-size:2rem;display:block;margin-bottom:0.6rem;}
+    .issue-card h4{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold);margin-bottom:0.4rem;}
+    .issue-card p{font-size:0.82rem;color:rgba(255,255,255,0.6);line-height:1.7;}
+    .issue-card a{color:var(--gm);text-decoration:none;}
+
+    /* ══ FOOTER ══ */
+    footer{background:var(--navy);color:#fff;padding:48px 5% 26px;text-align:center;}
+    .fg{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:32px;text-align:center;}
+    .fb .fname{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:10px;color:#fff;}
+    .fb p{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;margin-bottom:16px;}
+    .fsoc{display:flex;gap:10px;justify-content:center;}
+    .fsb{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;text-decoration:none;}
+    .fsb:hover{background:var(--g);}
+    .fc h4{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--gm);margin-bottom:12px;}
+    .fc a{display:block;font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:8px;cursor:pointer;transition:color .18s;text-decoration:none;}
+    .fc a:hover{color:var(--gold);}
+    .fbot{max-width:1100px;margin:0 auto;border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:14px;text-align:center;}
+    .fbot p{font-size:12px;color:rgba(255,255,255,0.3);}
+    .fbot a{color:rgba(255,255,255,0.4);font-size:12px;cursor:pointer;text-decoration:none;}
+    .fbot a:hover{color:rgba(255,255,255,0.7);}
+
+    /* ══ WA FLOAT ══ */
+    .waf{position:fixed;bottom:22px;right:22px;z-index:900;width:50px;height:50px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:justify;box-shadow:0 4px 18px rgba(37,211,102,.4);transition:all .3s;text-decoration:none;align-items:center;justify-content:center;}
+    .waf:hover{transform:scale(1.1);}
+    .waf svg{width:26px;height:26px;fill:#fff;}
+
+    /* ══ RESPONSIVE ══ */
+    @media(max-width:860px){
+      .fg{grid-template-columns:1fr 1fr;}
+      .terms-grid{grid-template-columns:1fr;}
+      .terms-sidebar{display:none;}
+    }
+    @media(max-width:480px){.fg{grid-template-columns:1fr;}}
+
+    .fade-up{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease;}
+    .fade-up.visible{opacity:1;transform:translateY(0);}
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-left">
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="index.html" class="nav-brand">DoveLingua</a>
+  </div>
+  <ul class="nav-centre">
+    <li><a href="index.html" data-en="Home" data-pt="Início">Home</a></li>
+    <li><a href="about.html" data-en="About" data-pt="Sobre">About</a></li>
+    <li><a href="programme.html" data-en="Programme" data-pt="Programa">Programme</a></li>
+    <li><a href="announcements.html" data-en="News" data-pt="Notícias">News</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html" data-en="Contact" data-pt="Contacto">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+      <button id="btn-pt" onclick="setLang('pt')">PT</button>
+    </div>
+    <a href="enrol.html" class="profile-icon">👤</a>
+    <a href="enrol.html" class="btn-enrol-nav" data-en="Enrol Now" data-pt="Inscrever">Enrol Now</a>
+  </div>
+</nav>
+
+<!-- ══ SIDE MENU ══ -->
+<div class="so" id="sO" onclick="toggleMenu()"></div>
+<div class="sm" id="sM">
+  <div class="sm-hdr">
+    <button class="sm-cl" onclick="toggleMenu()">✕</button>
+    <div class="sb">🕊 DoveLingua</div>
+  </div>
+  <div class="sm-nav">
+    <a onclick="nav('index.html')"><span class="mi">🏠</span><span data-en="Home" data-pt="Início">Home</span></a>
+    <div class="sdiv"></div>
+    <a onclick="nav('about.html')"><span class="mi">📖</span><span data-en="About Us" data-pt="Sobre Nós">About Us</span></a>
+    <a onclick="nav('programme.html')"><span class="mi">📚</span><span data-en="Our Programme" data-pt="O Nosso Programa">Our Programme</span></a>
+    <a onclick="nav('enrol.html')"><span class="mi">✏️</span><span data-en="Enrol" data-pt="Inscrição">Enrol</span></a>
+    <a href="https://classroom.dovelingua.com" target="_blank"><span class="mi">💻</span>DoveLingua Classroom</a>
+    <div class="sdiv"></div>
+    <a onclick="nav('library.html')"><span class="mi">📖</span><span data-en="Library" data-pt="Biblioteca">Library</span><span class="bsoon">Soon</span></a>
+    <a onclick="nav('app.html')"><span class="mi">📱</span>English Dove App<span class="bsoon">Soon</span></a>
+    <div class="sdiv"></div>
+    <a onclick="nav('announcements.html')"><span class="mi">📢</span><span data-en="Announcements" data-pt="Avisos">Announcements</span></a>
+    <a onclick="nav('faq.html')"><span class="mi">❓</span>FAQ</a>
+    <a onclick="nav('evaluate.html')"><span class="mi">⭐</span><span data-en="Evaluate DoveLingua" data-pt="Avaliar DoveLingua">Evaluate DoveLingua</span></a>
+    <a href="https://whatsapp.com/channel/0029VbCKsViFCCoWvkhrYT2g" target="_blank"><span class="mi">📡</span><span data-en="WhatsApp Channel" data-pt="Canal WhatsApp">WhatsApp Channel</span></a>
+    <div class="sdiv"></div>
+    <a onclick="nav('donate.html')"><span class="mi">❤️</span><span data-en="Support DoveLingua" data-pt="Apoiar DoveLingua">Support DoveLingua</span></a>
+    <a onclick="nav('report.html')"><span class="mi">🚩</span><span data-en="Report a Problem" data-pt="Reportar Problema">Report a Problem</span></a>
+    <div class="sdiv"></div>
+    <a onclick="nav('contact.html')"><span class="mi">📧</span><span data-en="Contact Support" data-pt="Contactar Suporte">Contact Support</span></a>
+    <a onclick="nav('terms.html')"><span class="mi">📄</span><span data-en="Terms &amp; Policies" data-pt="Termos e Políticas">Terms &amp; Policies</span></a>
+  </div>
+  <div class="sm-ft" onclick="handleSecretTap()" style="cursor:default;">
+    <p data-en="&ldquo;Learn English today and connect with the World tomorrow&rdquo;" data-pt="&ldquo;Aprende inglês hoje e conecta-te com o Mundo amanhã&rdquo;">&ldquo;Learn English today and connect with the World tomorrow&rdquo;</p>
+  </div>
+</div>
+
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-title-card fade-up">
+      <div class="hero-eyebrow">📄 <span data-en="Terms, Rights &amp; Policies" data-pt="Termos, Direitos e Políticas">Terms, Rights &amp; Policies</span></div>
+      <h1 data-en="Your Rights. Your Duties. <em>Our Commitment.</em>" data-pt="Os Teus Direitos. Os Teus Deveres. <em>O Nosso Compromisso.</em>">Your Rights. Your Duties. <em>Our Commitment.</em></h1>
+    </div>
+    <div class="hero-meta fade-up">
+      <span class="hero-meta-item">📅 <strong data-en="Issued: May 2026" data-pt="Emitido: Maio de 2026">Issued: May 2026</strong></span>
+      <span class="hero-meta-item">📋 <strong data-en="18 Articles · 8 Chapters" data-pt="18 Artigos · 8 Capítulos">18 Articles · 8 Chapters</strong></span>
+      <span class="hero-meta-item">🕊 <strong>DoveLingua English Learning Academy</strong></span>
+    </div>
+  </div>
+  <div class="hero-anchor-wrap">
+    <a href="#terms-top" class="hero-anchor-btn">
+      📄 <span data-en="Read the Full Terms" data-pt="Ler os Termos Completos">Read the Full Terms</span> ↓
+    </a>
+  </div>
+</section>
+
+
+<!-- ══ IMPORTANT NOTE CARD ══ -->
+<div class="note-card-wrap">
+  <div class="note-card fade-up">
+    <span class="nc-icon">⚠️</span>
+    <p data-en="By enrolling in any DoveLingua service or using any DoveLingua platform, you confirm that you have read, understood and accepted these Terms and Policies. <strong>Please read them carefully before making any payment.</strong> If you have any questions, contact us at <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a> before enrolling." data-pt="Ao inscrever-te em qualquer serviço DoveLingua ou ao utilizar qualquer plataforma DoveLingua, confirmas que leste, compreendeste e aceitaste estes Termos e Políticas. <strong>Por favor, lê-os cuidadosamente antes de efectuares qualquer pagamento.</strong> Se tiveres dúvidas, contacta-nos em <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a> antes de te inscreveres.">By enrolling in any DoveLingua service or using any DoveLingua platform, you confirm that you have read, understood and accepted these Terms and Policies. <strong>Please read them carefully before making any payment.</strong> If you have any questions, contact us at <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a> before enrolling.</p>
+  </div>
+</div>
+
+
+<!-- ══ MAIN ══ -->
+<div class="terms-main" id="terms-top">
+  <div class="terms-grid">
+
+    <!-- SIDEBAR TOC -->
+    <aside class="terms-sidebar">
+      <h3 data-en="Contents" data-pt="Índice">Contents</h3>
+      <a class="toc-item active" onclick="scrollToChapter('ch1')"><span class="toc-num">I</span><span data-en="General Provisions" data-pt="Disposições Gerais">General Provisions</span></a>
+      <a class="toc-item" onclick="scrollToChapter('ch2')"><span class="toc-num">II</span><span data-en="Enrolment &amp; Payment" data-pt="Matrícula e Pagamentos">Enrolment &amp; Payment</span></a>
+      <a class="toc-item" onclick="scrollToChapter('ch3')"><span class="toc-num">III</span><span data-en="Student Rights" data-pt="Direitos dos Alunos">Student Rights</span></a>
+      <a class="toc-item" onclick="scrollToChapter('ch4')"><span class="toc-num">IV</span><span data-en="Certificates" data-pt="Certificados">Certificates</span></a>
+      <a class="toc-item" onclick="scrollToChapter('ch5')"><span class="toc-num">V</span><span data-en="Free Platforms" data-pt="Plataformas Gratuitas">Free Platforms</span></a>
+      <a class="toc-item" onclick="scrollToChapter('ch6')"><span class="toc-num">VI</span><span data-en="Technology &amp; Access" data-pt="Tecnologia e Acesso">Technology &amp; Access</span></a>
+      <a class="toc-item" onclick="scrollToChapter('ch7')"><span class="toc-num">VII</span><span data-en="Intellectual Property &amp; Privacy" data-pt="Propriedade Intelectual e Privacidade">Intellectual Property &amp; Privacy</span></a>
+      <a class="toc-item" onclick="scrollToChapter('ch8')"><span class="toc-num">VIII</span><span data-en="Final Provisions" data-pt="Disposições Finais">Final Provisions</span></a>
+      <div class="toc-sep"></div>
+      <a class="toc-item" href="faq.html"><span class="toc-num">❓</span><span data-en="Read the FAQ" data-pt="Ler as FAQ">Read the FAQ</span></a>
+      <a class="toc-item" href="contact.html"><span class="toc-num">📧</span><span data-en="Contact Support" data-pt="Contactar Suporte">Contact Support</span></a>
+    </aside>
+
+
+    <!-- CONTENT -->
+    <div class="terms-content">
+
+      <!-- Preamble -->
+      <div class="preamble fade-up" data-en="This document sets out the Terms of Use of DoveLingua English Learning Academy services, the rights and duties of enrolled students, the rules governing the use of our digital platforms, and the general conditions of our educational services. It applies to all users — enrolled students, free platform users and website visitors. By enrolling or using any DoveLingua service, the user declares to have read, understood and accepted these terms." data-pt="Este documento estabelece os Termos de Utilização dos serviços da Academia de Aprendizagem DoveLingua, os direitos e deveres dos alunos inscritos, as normas que regem a utilização das nossas plataformas digitais e as condições gerais de prestação dos nossos serviços educativos. Aplica-se a todos os utilizadores — alunos inscritos, utilizadores das plataformas gratuitas e visitantes do sítio web. Ao inscrever-se ou utilizar qualquer serviço DoveLingua, o utilizador declara ter lido, compreendido e aceite os presentes termos.">This document sets out the Terms of Use of DoveLingua English Learning Academy services, the rights and duties of enrolled students, the rules governing the use of our digital platforms, and the general conditions of our educational services. It applies to all users — enrolled students, free platform users and website visitors. By enrolling or using any DoveLingua service, the user declares to have read, understood and accepted these terms.</div>
+
+
+      <!-- ══ CHAPTER I ══ -->
+      <div class="chapter fade-up" id="ch1">
+        <div class="chapter-header">
+          <span class="chapter-icon">📋</span>
+          <div>
+            <div class="chapter-num" data-en="Chapter I" data-pt="Capítulo I">Chapter I</div>
+            <div class="chapter-title" data-en="General Provisions" data-pt="Disposições Gerais">General Provisions</div>
+          </div>
+        </div>
+
+        <div class="article">
+          <div class="article-header" onclick="toggleArticle(this)">
+            <span class="article-num" data-en="Article 1" data-pt="Artigo 1º">Article 1</span>
+            <span class="article-title" data-en="Scope and Application" data-pt="Âmbito e Aplicação">Scope and Application</span>
+            <button class="art-toggle">+</button>
+          </div>
+          <div class="article-body"><div class="article-inner">
+            <p data-en="These terms apply to all users of DoveLingua English Learning Academy services — including enrolled students, users of free platforms and website visitors." data-pt="As presentes normas aplicam-se a todos os utilizadores dos serviços da Academia de Aprendizagem DoveLingua — incluindo alunos inscritos, utilizadores das plataformas gratuitas e visitantes do sítio web.">These terms apply to all users of DoveLingua English Learning Academy services — including enrolled students, users of free platforms and website visitors.</p>
+            <p data-en="The use of any DoveLingua platform or service implies full acceptance of these terms. DoveLingua reserves the right to update these terms at any time. Changes will be communicated in advance through all official platforms and channels." data-pt="A utilização de qualquer plataforma ou serviço da DoveLingua implica a aceitação integral das presentes normas. A DoveLingua reserva-se o direito de actualizar estas normas a qualquer momento. As alterações serão comunicadas com antecedência através de todas as plataformas e canais oficiais.">The use of any DoveLingua platform or service implies full acceptance of these terms. DoveLingua reserves the right to update these terms at any time. Changes will be communicated in advance through all official platforms and channels.</p>
+            <p data-en="For any questions about these terms, contact our support team at <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a>." data-pt="Em caso de dúvida sobre qualquer ponto destas normas, contacte a equipa de apoio através de <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a>.">For any questions about these terms, contact our support team at <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a>.</p>
+          </div></div>
+        </div>
+
+        <div class="article">
+          <div class="article-header" onclick="toggleArticle(this)">
+            <span class="article-num" data-en="Article 2" data-pt="Artigo 2º">Article 2</span>
+            <span class="article-title" data-en="Institutional Identity" data-pt="Identificação da Instituição">Institutional Identity</span>
+            <button class="art-toggle">+</button>
+          </div>
+          <div class="article-body"><div class="article-inner">
+            <p data-en="DoveLingua English Learning Academy is an English language academy founded in Mozambique in April 2026 by Gildo Angélica Dove (Teacher Dove) — holding a <em>Licenciatura em Inglês com Especialização ao Ensino</em> from Universidade Save, with over seven years of English teaching experience." data-pt="A Academia de Aprendizagem DoveLingua é uma academia de ensino do inglês fundada em Moçambique em Abril de 2026 por Gildo Angélica Dove (Teacher Dove) — Licenciado em Inglês com Especialização ao Ensino pela Universidade Save, com mais de sete anos de experiência de ensino de inglês.">DoveLingua English Learning Academy is an English language academy founded in Mozambique in April 2026 by Gildo Angélica Dove (Teacher Dove) — holding a <em>Licenciatura em Inglês com Especialização ao Ensino</em> from Universidade Save, with over seven years of English teaching experience.</p>
+            <p data-en="DoveLingua does not currently hold government accreditation. Certificates issued are official recognitions of the institution itself, issued by a qualified teacher. DoveLingua is committed to operating with transparency, honesty and respect for all its students and users." data-pt="A DoveLingua não possui actualmente acreditação governamental. Os certificados emitidos são reconhecimentos oficiais da própria instituição, emitidos por um professor qualificado. A DoveLingua compromete-se a operar com transparência, honestidade e respeito por todos os seus alunos e utilizadores.">DoveLingua does not currently hold government accreditation. Certificates issued are official recognitions of the institution itself, issued by a qualified teacher. DoveLingua is committed to operating with transparency, honesty and respect for all its students and users.</p>
+            <div class="art-box gold" data-en="Government registration and accreditation is a clearly defined goal in DoveLingua's institutional roadmap." data-pt="O registo governamental e a acreditação são um objectivo claramente definido no roteiro institucional da DoveLingua.">Government registration and accreditation is a clearly defined goal in DoveLingua's institutional roadmap.</div>
+          </div></div>
+        </div>
+
+      </div><!-- end ch1 -->
+
+
+      <!-- ══ CHAPTER II ══ -->
+      <div class="chapter fade-up" id="ch2">
+        <div class="chapter-header">
+          <span class="chapter-icon">💳</span>
+          <div>
+            <div class="chapter-num" data-en="Chapter II" data-pt="Capítulo II">Chapter II</div>
+            <div class="chapter-title" data-en="Enrolment &amp; Payments" data-pt="Matrícula e Pagamentos">Enrolment &amp; Payments</div>
+          </div>
+        </div>
+
+        <div class="article">
+          <div class="article-header" onclick="toggleArticle(this)">
+            <span class="article-num" data-en="Article 3" data-pt="Artigo 3º">Article 3</span>
+            <span class="article-title" data-en="Enrolment Process" data-pt="Processo de Matrícula">Enrolment Process</span>
+            <button class="art-toggle">+</button>
+          </div>
+          <div class="article-body"><div class="article-inner">
+            <p data-en="Enrolment at DoveLingua is available online through <a href='enrol.html'>www.dovelingua.com/enrol</a> or other official platforms indicated by the institution. Each student must provide truthful and up-to-date information at the time of enrolment." data-pt="A matrícula na DoveLingua está disponível online através de <a href='enrol.html'>www.dovelingua.com/enrol</a> ou de outras plataformas oficiais indicadas pela instituição. Cada aluno deve fornecer informações verdadeiras e actualizadas no momento da matrícula.">Enrolment at DoveLingua is available online through <a href='enrol.html'>www.dovelingua.com/enrol</a>. Each student must provide truthful and up-to-date information at the time of enrolment.</p>
+            <p data-en="Level 0 — First Steps — is free and automatic for all students who enrol in Level 1 — Beginner. No fees are associated with this level." data-pt="O Nível 0 — Primeiros Passos — é gratuito e automático para todos os alunos que se matriculam no Nível 1 — Iniciante. Não estão associadas quaisquer taxas a este nível.">Level 0 — First Steps — is free and automatic for all students who enrol in Level 1 — Beginner. No fees are associated with this level.</p>
+            <p data-en="Before enrolling, students must check the <a href='programme.html'>Programme page</a> to verify the duration, content and completion criteria of the level they intend to join. The first enrolment in each level includes a Taxa de Inscrição (registration fee), which is applied automatically by the system." data-pt="Antes de efectuar a matrícula, o aluno deve consultar a <a href='programme.html'>página do Programa</a> para verificar a duração, os conteúdos e os critérios de conclusão do nível que pretende frequentar. A primeira matrícula em cada nível inclui uma Taxa de Inscrição, aplicada automaticamente pelo sistema.">Before enrolling, students must check the <a href='programme.html'>Programme page</a>. The first enrolment in each level includes a Taxa de Inscrição (registration fee), applied automatically by the system.</p>
+            <div class="art-box green" data-en="Every enrolled student receives an official receipt generated automatically by the enrolment system." data-pt="Cada aluno inscrito recebe um recibo oficial gerado automaticamente pelo sistema de matrícula.">Every enrolled student receives an official receipt generated automatically by the enrolment system.</div>
+          </div></div>
+        </div>
+
+        <div class="article">
+          <div class="article-header" onclick="toggleArticle(this)">
+            <span class="article-num" data-en="Article 4" data-pt="Artigo 4º">Article 4</span>
+            <span class="article-title" data-en="Payment Modalities" data-pt="Modalidades de Pagamento">Payment Modalities</span>
+            <button class="art-toggle">+</button>
+          </div>
+          <div class="article-body"><div class="article-inner">
+            <p data-en="DoveLingua offers three payment modalities:" data-pt="A DoveLingua oferece três modalidades de pagamento:">DoveLingua offers three payment modalities:</p>
+            <ul>
+              <li data-en="<strong>Monthly (Mensal)</strong> — the student pays the Taxa de Inscrição and the first month's course fee at enrolment. From the second month onwards, only the Taxa do Curso (course fee) applies. The registration fee is removed automatically by the system." data-pt="<strong>Mensal</strong> — o aluno paga a Taxa de Inscrição e a taxa do curso do primeiro mês na matrícula. A partir do segundo mês, aplica-se apenas a Taxa do Curso. A taxa de inscrição é removida automaticamente pelo sistema."><strong>Monthly (Mensal)</strong> — the student pays the Taxa de Inscrição and the first month's course fee at enrolment. From the second month onwards, only the Taxa do Curso (course fee) applies. The registration fee is removed automatically by the system.</li>
+              <li data-en="<strong>Full Level (Nível Completo)</strong> — the student pays the full cost of the level in one payment. This modality includes a percentage discount that varies by level. The student studies until completing the level with no further monthly fees." data-pt="<strong>Nível Completo</strong> — o aluno paga o valor total do nível numa única vez. Esta modalidade inclui uma percentagem de desconto que varia de nível para nível. O aluno estuda até concluir o nível sem taxas mensais adicionais."><strong>Full Level (Nível Completo)</strong> — the student pays the full cost of the level in one payment. This modality includes a percentage discount that varies by level.</li>
+              <li data-en="<strong>Full Course</strong> — the student enrols in multiple levels at once. This modality is not available directly in the enrolment system. Students interested in this option must contact the support team for personalised pricing and assistance." data-pt="<strong>Curso Completo</strong> — o aluno inscreve-se em vários níveis de uma vez. Esta modalidade não está disponível directamente no sistema de matrícula. Os alunos interessados nesta opção devem contactar a equipa de suporte para preços personalizados e assistência."><strong>Full Course</strong> — the student enrols in multiple levels at once. Contact support for personalised pricing.</li>
+            </ul>
+            <p data-en="The optional <strong>Material Didáctico</strong> (teaching material) is paid once per level and can be purchased at any time, including after enrolment. Students who do not purchase it receive worksheets provided by the teacher and are not disadvantaged." data-pt="O <strong>Material Didáctico</strong> (material didáctico) opcional é pago uma vez por nível e pode ser adquirido a qualquer momento, inclusive após a matrícula. Os alunos que não o adquirem recebem fichas fornecidas pelo professor e não são prejudicados.">The optional <strong>Material Didáctico</strong> is paid once per level and can be purchased at any time. Students without it receive worksheets from the teacher.</p>
+          </div></div>
+        </div>
+
+        <div class="article">
+          <div class="article-header" onclick="toggleArticle(this)">
+            <span class="article-num" data-en="Article 5" data-pt="Artigo 5º">Article 5</span>
+            <span class="article-title" data-en="Accepted Payment Methods" data-pt="Meios de Pagamento Aceites">Accepted Payment Methods</span>
+            <button class="art-toggle">+</button>
+          </div>
+          <div class="article-body"><div class="article-inner">
+            <ul>
+              <li data-en="<strong>Students in Mozambique:</strong> M-Pesa, e-Mola, bank transfer or PayPal." data-pt="<strong>Alunos em Moçambique:</strong> M-Pesa, e-Mola, conta bancária ou PayPal."><strong>Students in Mozambique:</strong> M-Pesa, e-Mola, bank transfer or PayPal.</li>
+              <li data-en="<strong>Students outside Mozambique:</strong> PayPal or international bank transfer." data-pt="<strong>Alunos fora de Moçambique:</strong> PayPal ou transferência bancária internacional."><strong>Students outside Mozambique:</strong> PayPal or international bank transfer.</li>
+            </ul>
+            <p data-en="After making a payment, the student must keep the proof of payment until confirmation is received. After payment, the student must wait up to <strong>24 hours</strong> before contacting the support team. Confirmation may arrive sooner, but 24 hours is the maximum guaranteed by the institution." data-pt="Após efectuar um pagamento, o aluno deve guardar o comprovativo até à confirmação. Após o pagamento, o aluno deve aguardar até <strong>24 horas</strong> antes de contactar a equipa de suporte. A confirmação pode ocorrer em menos tempo, mas 24 horas é o prazo máximo garantido pela instituição.">After payment, keep the proof until confirmation is received. Wait up to <strong>24 hours</strong> before contacting support.</p>
+          </div></div>
+        </div>
+
+        <div class="article">
+          <div class="article-header" onclick="toggleArticle(this)">
+            <span class="article-num" data-en="Article 6" data-pt="Artigo 6º">Article 6</span>
+            <span class="article-title" data-en="Refund Policy &amp; Absences" data-pt="Política de Reembolso e Faltas">Refund Policy &amp; Absences</span>
+            <button class="art-toggle">+</button>
+          </div>
+          <div class="article-body"><div class="article-inner">
+            <div class="art-box red" data-en="DoveLingua does not issue refunds to students who enrolled and subsequently withdrew during the course." data-pt="A DoveLingua não efectua reembolsos a alunos que se matricularam e posteriormente desistiram durante o curso.">DoveLingua does not issue refunds to students who enrolled and subsequently withdrew during the course.</div>
+            <p data-en="A student who misses <strong>10 consecutive lessons without prior justification</strong> is automatically failed at that level. To re-enrol in the same level in a new group, the student pays only <strong>25% of the amount paid before the absences began</strong>." data-pt="Um aluno que falte a <strong>10 aulas consecutivas sem justificação prévia</strong> é automaticamente reprovado nesse nível. Para se re-inscrever no mesmo nível numa nova turma, o aluno paga apenas <strong>25% do valor pago antes do abandono</strong>.">A student who misses <strong>10 consecutive lessons without prior justification</strong> is automatically failed. To re-enrol, the student pays only <strong>25% of the previous amount</strong>.</p>
+            <p data-en="Justified absences — communicated to the teacher at least <strong>5 hours in advance</strong> with a valid reason — are treated differently from unjustified absences. Students must contact the support team for information about extended justified absences." data-pt="As faltas justificadas — comunicadas ao professor com pelo menos <strong>5 horas de antecedência</strong> e com motivo válido — são tratadas de forma diferente das faltas injustificadas. Os alunos devem contactar a equipa de suporte para informações sobre ausências justificadas prolongadas.">Justified absences must be communicated at least <strong>5 hours in advance</strong>. Contact support for extended justified absences.</p>
+            <p data-en="In the event of prolonged service interruption by DoveLingua due to technical or maintenance reasons, the institution will compensate affected students with equivalent additional lessons or time." data-pt="Em caso de interrupção prolongada dos serviços da DoveLingua por razões técnicas ou de manutenção, a instituição compromete-se a compensar os alunos afectados com aulas ou tempo adicional equivalente.">In the event of prolonged service interruption, DoveLingua will compensate affected students with equivalent additional lessons or time.</p>
+          </div></div>
+        </div>
+
+      </div><!-- end ch2 -->
+
+
+      <!-- ══ CHAPTER III ══ -->
+      <div class="chapter fade-up" id="ch3">
+        <div class="chapter-header">
+          <span class="chapter-icon">🎓</span>
+          <div>
+            <div class="chapter-num" data-en="Chapter III" data-pt="Capítulo III">Chapter III</div>
+            <div class="chapter-title" data-en="Rights of Enrolled Students" data-pt="Direitos dos Alunos Inscritos">Rights of Enrolled Students</div>
+          </div>
+        </div>
+
+        <div class="article">
+          <div class="article-header" onclick="toggleArticle(this)">
+            <span class="article-num" data-en="Article 7" data-pt="Artigo 7º">Article 7</span>
+            <span class="article-title" data-en="General Student Rights" data-pt="Direitos Gerais do Aluno">General Student Rights</span>
+            <button class="art-toggle">+</button>
+          </div>
+          <div class="article-body"><div class="article-inner">
+            <p data-en="Every enrolled student has the following rights:" data-pt="Cada aluno inscrito tem os seguintes direitos:">Every enrolled student has the following rights:</p>
+            <ul>
+              <li data-en="To receive the services they paid for, as described in the programme for their level." data-pt="Receber os serviços pelos quais pagou, conforme descrito no programa do nível correspondente.">To receive the services they paid for, as described in the programme for their level.</li>
+              <li data-en="To receive access credentials to DoveLingua Classroom upon confirmation of enrolment." data-pt="Ter credenciais de acesso à Plataforma de Ensino logo após a confirmação da matrícula.">To receive access credentials to DoveLingua Classroom upon confirmation of enrolment.</li>
+              <li data-en="To receive a clear presentation of what will be learned before each lesson begins." data-pt="Receber, antes do início de cada aula, uma apresentação clara do que será aprendido nessa aula.">To receive a clear presentation of what will be learned before each lesson begins.</li>
+              <li data-en="To participate in speaking activities, exercises and communicative practice in every lesson, regardless of their level or difficulties." data-pt="Participar em actividades de expressão oral, exercícios e prática comunicativa em cada aula, independentemente do seu nível ou dificuldades.">To participate in speaking activities and communicative practice in every lesson, regardless of level or difficulties.</li>
+              <li data-en="To have all personal records, grades and exam results stored securely on the platform." data-pt="Ter todos os registos pessoais, notas e resultados de exames guardados de forma segura na plataforma.">To have all personal records, grades and exam results stored securely on the platform.</li>
+              <li data-en="To receive an official receipt for every payment made." data-pt="Receber um recibo oficial por cada pagamento efectuado.">To receive an official receipt for every payment made.</li>
+            </ul>
+          </div></div>
+        </div>
+
+        <div class="article">
+          <div class="article-header" onclick="toggleArticle(this)">
+            <span class="article-num" data-en="Article 8" data-pt="Artigo 8º">Article 8</span>
+            <span class="article-title" data-en="Timetables &amp; Punctuality" data-pt="Horários e Pontualidade">Timetables &amp; Punctuality</span>
+            <button class="art-toggle">+</button>
+          </div>
+          <div class="article-body"><div class="article-inner">
+            <p data-en="Each level has an organised timetable communicated to students at enrolment. All students are expected to be punctual. In case of an unexpected situation, the student must inform the teacher at least <strong>5 hours before the lesson</strong>." data-pt="Cada nível tem um horário organizado que é comunicado aos alunos no momento da matrícula. Todos os alunos devem ser pontuais. Em caso de imprevisto, o aluno deve informar o professor com pelo menos <strong>5 horas de antecedência</strong>.">Each level has an organised timetable communicated at enrolment. Students must inform the teacher at least <strong>5 hours before a lesson</strong> in case of absence.</p>
+            <p data-en="The teacher may adjust the timetable of a lesson by agreement with the other students in the group. DoveLingua lessons take place on DoveLingua Classroom — <strong>not on WhatsApp or any messaging application</strong>." data-pt="O professor pode ajustar o horário de uma aula mediante acordo com os restantes alunos da turma. As aulas da DoveLingua decorrem na Plataforma de Ensino — <strong>não por WhatsApp ou qualquer outra aplicação de mensagens</strong>.">DoveLingua lessons take place on DoveLingua Classroom — <strong>not on WhatsApp or any messaging application</strong>.</p>
+          </div></div>
+        </div>
+
+        <div class="article">
+          <div class="article-header" onclick="toggleArticle(this)">
+            <span class="article-num" data-en="Article 9" data-pt="Artigo 9º">Article 9</span>
+            <span class="article-title" data-en="Assessment &amp; Progression" data-pt="Avaliação e Progressão">Assessment &amp; Progression</span>
+            <button class="art-toggle">+</button>
+          </div>
+          <div class="article-body"><div class="article-inner">
+            <p data-en="Each level includes formal unit tests after every two units and a final exam covering the entire level. Students progress to the next level only upon passing the final exam — not simply by attending lessons." data-pt="Cada nível inclui testes formais após cada duas unidades e um exame final que abrange todo o nível. Os alunos progridem para o nível seguinte apenas ao passar no exame final — não simplesmente por assistir às aulas.">Each level includes unit tests after every two units and a final exam. Students progress only upon <strong>passing the final exam</strong>.</p>
+            <p data-en="Students who do not submit homework for <strong>5 consecutive days</strong> will receive a deduction of 5 marks on the next test, which may affect their course average and influence the outcome of the level." data-pt="Os alunos que não entregarem trabalhos de casa durante <strong>5 dias consecutivos</strong> terão uma dedução de 5 valores na nota do teste seguinte, o que pode afectar a média do curso e influenciar a aprovação.">Students who do not submit homework for <strong>5 consecutive days</strong> receive a 5-mark deduction on the next test.</p>
+            <p data-en="The duration of each level may vary according to the individual student's routine. A student who misses lessons frequently may take longer than estimated to complete a level. This does not imply any additional cost, provided absences do not reach the limit set out in Article 6." data-pt="A duração de cada nível pode variar consoante a rotina individual do aluno. Um aluno que falte frequentemente pode demorar mais tempo a concluir o nível. Isso não implica qualquer custo adicional, desde que as ausências não atinjam o limite previsto no Artigo 6º.">A student's duration may vary. Longer duration does not imply additional cost, provided absences stay within the limit in Article 6.</p>
+          </div></div>
+        </div>
+
+      </div><!-- end ch3 -->
+
+
+      <!-- ══ CHAPTER IV ══ -->
+      <div class="chapter fade-up" id="ch4">
+        <div class="chapter-header">
+          <span class="chapter-icon">📜</span>
+          <div>
+            <div class="chapter-num" data-en="Chapter IV" data-pt="Capítulo IV">Chapter IV</div>
+            <div class="chapter-title" data-en="Certificates" data-pt="Certificados">Certificates</div>
+          </div>
+        </div>
+
+        <div class="article">
+          <div class="article-header" onclick="toggleArticle(this)">
+            <span class="article-num" data-en="Article 10" data-pt="Artigo 10º">Article 10</span>
+            <span class="article-title" data-en="Certificate Eligibility, Value and Verification" data-pt="Elegibilidade, Valor e Verificação de Certificados">Certificate Eligibility, Value and Verification</span>
+            <button class="art-toggle">+</button>
+          </div>
+          <div class="article-body"><div class="article-inner">
+            <p data-en="Students who pass the final exam of an eligible level receive a <strong>DoveLingua Certificate of Completion</strong>. However, <strong>not all levels include a certificate</strong>. Students must check this page and the Programme page before enrolling to confirm which levels include certification." data-pt="Os alunos que passam no exame final de um nível elegível recebem um <strong>Certificado de Conclusão DoveLingua</strong>. No entanto, <strong>nem todos os níveis incluem um certificado</strong>. Os alunos devem consultar esta página e a página do Programa antes de se inscreverem para confirmar quais os níveis que incluem certificação.">Students who pass the final exam of an eligible level receive a <strong>DoveLingua Certificate of Completion</strong>. <strong>Not all levels include a certificate.</strong> Check the Programme page to confirm.</p>
+            <p data-en="The <strong>weight (value) of each certificate varies</strong> according to the level completed. A certificate for Level 1 (A1) does not carry the same institutional weight as a certificate for Level 6 (C1). Each certificate reflects the specific communicative competences achieved at that level." data-pt="O <strong>peso (valor) de cada certificado varia</strong> de acordo com o nível concluído. Um certificado do Nível 1 (A1) não tem o mesmo peso institucional que um certificado do Nível 6 (C1). Cada certificado reflecte as competências comunicativas específicas alcançadas nesse nível.">The <strong>value of each certificate varies by level</strong>. A Level 1 certificate does not carry the same weight as a Level 6 certificate. Each reflects the specific competences achieved.</p>
+            <p data-en="DoveLingua certificates are currently issued by a qualified English teacher and are <strong>not yet government-accredited</strong>. They represent an honest, professionally documented record of achievement. Government accreditation is part of DoveLingua's institutional roadmap." data-pt="Os certificados DoveLingua são actualmente emitidos por um professor de inglês qualificado e <strong>ainda não possuem acreditação governamental</strong>. Representam um registo honesto e profissionalmente documentado de conquistas. A acreditação governamental faz parte do roteiro institucional da DoveLingua.">DoveLingua certificates are <strong>not yet government-accredited</strong>. They are honest, professionally documented records. Government accreditation is part of DoveLingua's roadmap.</p>
+            <p data-en="Every DoveLingua certificate can be publicly verified at <a href='https://certify.dovelingua.com' target='_blank'>certify.dovelingua.com</a>. Students who complete the programme from Level 0 through to Level 4 or above also receive an <strong>official DoveLingua t-shirt</strong> as recognition of their commitment." data-pt="Cada certificado DoveLingua pode ser verificado publicamente em <a href='https://certify.dovelingua.com' target='_blank'>certify.dovelingua.com</a>. Os alunos que concluem o programa do Nível 0 até ao Nível 4 ou superior também recebem uma <strong>t-shirt oficial DoveLingua</strong> como reconhecimento do seu compromisso.">Certificates can be verified at <a href='https://certify.dovelingua.com' target='_blank'>certify.dovelingua.com</a>. Students completing Level 0 through Level 4 or beyond also receive an <strong>official DoveLingua t-shirt</strong>.</p>
+          </div></div>
+        </div>
+
+      </div><!-- end ch4 -->
+
+
+      <!-- ══ CHAPTER V ══ -->
+      <div class="chapter fade-up" id="ch5">
+        <div class="chapter-header">
+          <span class="chapter-icon">🆓</span>
+          <div>
+            <div class="chapter-num" data-en="Chapter V" data-pt="Capítulo V">Chapter V</div>
+            <div class="chapter-title" data-en="Free Platforms &amp; Users" data-pt="Plataformas Gratuitas e Utilizadores">Free Platforms &amp; Users</div>
+          </div>
+        </div>
+
+        <div class="article">
+          <div class="article-header" onclick="toggleArticle(this)">
+            <span class="article-num" data-en="Article 11" data-pt="Artigo 11º">Article 11</span>
+            <span class="article-title" data-en="Rights and Rules for Non-Enrolled Users" data-pt="Direitos e Normas para Utilizadores Não Inscritos">Rights and Rules for Non-Enrolled Users</span>
+            <button class="art-toggle">+</button>
+          </div>
+          <div class="article-body"><div class="article-inner">
+            <p data-en="Anyone may access the following platforms freely, without enrolment or payment: the educational blog (learn.dovelingua.com), the resources centre (resources.dovelingua.com), the DoveLingua community (community.dovelingua.com) and the <strong>English Dove app</strong> (app.dovelingua.com)." data-pt="Qualquer pessoa pode aceder gratuitamente às seguintes plataformas, sem necessidade de matrícula ou pagamento: o blogue educativo (learn.dovelingua.com), o centro de recursos (resources.dovelingua.com), a comunidade DoveLingua (community.dovelingua.com) e a <strong>aplicação English Dove</strong> (app.dovelingua.com).">Anyone may access freely: the educational blog, resources centre, DoveLingua community and the <strong>English Dove app</strong> — all without enrolment or payment.</p>
+            <p data-en="Access to the DoveLingua Library (library.dovelingua.com) may include both free and paid materials. Prices are indicated for each resource." data-pt="O acesso à Biblioteca DoveLingua (library.dovelingua.com) pode incluir materiais gratuitos e materiais pagos. Os preços são indicados em cada recurso.">The DoveLingua Library may include both free and paid materials. Prices are indicated for each resource.</p>
+            <p data-en="Users of free platforms must respect community conduct rules: no offensive language, no spam and no sharing of inappropriate content." data-pt="Os utilizadores das plataformas gratuitas devem respeitar as normas de conduta da comunidade: sem linguagem ofensiva, sem spam e sem partilha de conteúdo inadequado.">Users of free platforms must respect community rules: no offensive language, no spam, no inappropriate content.</p>
+            <p data-en="All freely available content — articles, worksheets, resources — is the intellectual property of DoveLingua and may not be reproduced, sold or distributed without express authorisation from the institution." data-pt="Todos os conteúdos disponibilizados gratuitamente — artigos, fichas, recursos — são propriedade intelectual da DoveLingua e não podem ser reproduzidos, vendidos ou distribuídos sem autorização expressa da instituição.">All freely available content is DoveLingua's intellectual property and may not be reproduced, sold or distributed without express authorisation.</p>
+          </div></div>
+        </div>
+
+      </div><!-- end ch5 -->
+
+
+      <!-- ══ CHAPTER VI ══ -->
+      <div class="chapter fade-up" id="ch6">
+        <div class="chapter-header">
+          <span class="chapter-icon">💻</span>
+          <div>
+            <div class="chapter-num" data-en="Chapter VI" data-pt="Capítulo VI">Chapter VI</div>
+            <div class="chapter-title" data-en="Technology &amp; Access" data-pt="Tecnologia e Acesso">Technology &amp; Access</div>
+          </div>
+        </div>
+
+        <div class="article">
+          <div class="article-header" onclick="toggleArticle(this)">
+            <span class="article-num" data-en="Article 12" data-pt="Artigo 12º">Article 12</span>
+            <span class="article-title" data-en="Technical Requirements &amp; Platform Access" data-pt="Requisitos Técnicos e Acesso à Plataforma">Technical Requirements &amp; Platform Access</span>
+            <button class="art-toggle">+</button>
+          </div>
+          <div class="article-body"><div class="article-inner">
+            <p data-en="Online course students must have a smartphone, computer or tablet with an internet connection. No IT knowledge is required. Lessons take place on DoveLingua Classroom (classroom.dovelingua.com). Access credentials are provided after enrolment confirmation." data-pt="Os alunos do curso online devem dispor de um telemóvel, computador ou tablet com ligação à internet. Não são necessários conhecimentos de informática. As aulas decorrem na Sala de Aula DoveLingua (classroom.dovelingua.com). As credenciais de acesso são fornecidas após a confirmação da matrícula.">Online students need a device with internet. Lessons are on DoveLingua Classroom. Access credentials are provided after enrolment confirmation.</p>
+            <p data-en="Each student is responsible for the confidentiality and security of their own platform access credentials. A lost or forgotten password can be reset on the platform or via <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a>." data-pt="Cada aluno é responsável pela confidencialidade e segurança das suas credenciais de acesso à plataforma. Uma palavra-passe perdida ou esquecida pode ser redefinida na plataforma ou através de <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a>.">Each student is responsible for their own credentials. Lost passwords can be reset on the platform or via <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a>.</p>
+            <p data-en="DoveLingua platforms may be subject to maintenance periods. Students will be informed in advance through all official channels. In the event of unplanned interruptions, DoveLingua will compensate affected students." data-pt="As plataformas da DoveLingua podem estar sujeitas a períodos de manutenção. Os alunos serão informados com antecedência através de todos os canais oficiais. Em caso de interrupções não planeadas, a DoveLingua compensará os alunos afectados.">Platforms may undergo maintenance. Students are notified in advance. Unplanned interruptions are compensated.</p>
+          </div></div>
+        </div>
+
+      </div><!-- end ch6 -->
+
+
+      <!-- ══ CHAPTER VII ══ -->
+      <div class="chapter fade-up" id="ch7">
+        <div class="chapter-header">
+          <span class="chapter-icon">🔒</span>
+          <div>
+            <div class="chapter-num" data-en="Chapter VII" data-pt="Capítulo VII">Chapter VII</div>
+            <div class="chapter-title" data-en="Intellectual Property &amp; Privacy" data-pt="Propriedade Intelectual e Privacidade">Intellectual Property &amp; Privacy</div>
+          </div>
+        </div>
+
+        <div class="article">
+          <div class="article-header" onclick="toggleArticle(this)">
+            <span class="article-num" data-en="Article 13" data-pt="Artigo 13º">Article 13</span>
+            <span class="article-title" data-en="Intellectual Property" data-pt="Propriedade Intelectual">Intellectual Property</span>
+            <button class="art-toggle">+</button>
+          </div>
+          <div class="article-body"><div class="article-inner">
+            <p data-en="All content produced by DoveLingua — including the curriculum, syllabuses, lesson topic distributions, evaluation checklists, course materials, website content, branding, logos and any other institutional documents — is the exclusive intellectual property of DoveLingua English Learning Academy." data-pt="Todos os conteúdos produzidos pela DoveLingua — incluindo o currículo, programas, planos analíticos, listas de avaliação, materiais de curso, conteúdo do sítio web, marca, logótipos e quaisquer outros documentos institucionais — são propriedade intelectual exclusiva da Academia de Aprendizagem DoveLingua.">All DoveLingua content — curriculum, syllabuses, lesson plans, course materials, website content, branding and institutional documents — is DoveLingua's exclusive intellectual property.</p>
+            <p data-en="No content produced by DoveLingua may be copied, reproduced, adapted, sold, distributed or used for any commercial purpose without the express written authorisation of the institution." data-pt="Nenhum conteúdo produzido pela DoveLingua pode ser copiado, reproduzido, adaptado, vendido, distribuído ou utilizado para qualquer fim comercial sem a autorização expressa e escrita da instituição.">No DoveLingua content may be copied, reproduced, adapted, sold or distributed without express written authorisation.</p>
+            <div class="art-box red" data-en="Students who copy, sell or misrepresent DoveLingua's curriculum, materials or documents will have their enrolment immediately cancelled without refund." data-pt="Os alunos que copiem, vendam ou deturpem o currículo, materiais ou documentos da DoveLingua terão a sua matrícula imediatamente cancelada sem reembolso.">Students who copy, sell or misrepresent DoveLingua's curriculum, materials or documents will have their enrolment immediately cancelled without refund.</div>
+          </div></div>
+        </div>
+
+        <div class="article">
+          <div class="article-header" onclick="toggleArticle(this)">
+            <span class="article-num" data-en="Article 14" data-pt="Artigo 14º">Article 14</span>
+            <span class="article-title" data-en="Student Conduct" data-pt="Conduta dos Alunos">Student Conduct</span>
+            <button class="art-toggle">+</button>
+          </div>
+          <div class="article-body"><div class="article-inner">
+            <p data-en="All students are expected to behave with respect, honesty and dignity — towards the teacher, towards fellow students, and towards the institution. DoveLingua is a professional learning environment." data-pt="Todos os alunos devem comportar-se com respeito, honestidade e dignidade — para com o professor, para com os colegas e para com a instituição. A DoveLingua é um ambiente de aprendizagem profissional.">All students must behave with respect, honesty and dignity towards the teacher, fellow students and the institution.</p>
+            <ul>
+              <li data-en="Disruptive, offensive or disrespectful behaviour during lessons is not tolerated." data-pt="Comportamentos perturbadores, ofensivos ou desrespeitosos durante as aulas não são tolerados.">Disruptive, offensive or disrespectful behaviour during lessons is not tolerated.</li>
+              <li data-en="Students may not share their platform access credentials with third parties." data-pt="Os alunos não podem partilhar as suas credenciais de acesso à plataforma com terceiros.">Students may not share their platform access credentials with third parties.</li>
+              <li data-en="Students may not record, distribute or publish lesson content without express authorisation from DoveLingua." data-pt="Os alunos não podem gravar, distribuir ou publicar conteúdos das aulas sem autorização expressa da DoveLingua.">Students may not record, distribute or publish lesson content without express authorisation.</li>
+            </ul>
+            <p data-en="DoveLingua reserves the right to cancel the enrolment of any student whose conduct violates these rules, without refund." data-pt="A DoveLingua reserva-se o direito de cancelar a matrícula de qualquer aluno cujo comportamento viole estas normas, sem reembolso.">DoveLingua reserves the right to cancel enrolment for conduct violations, without refund.</p>
+          </div></div>
+        </div>
+
+        <div class="article">
+          <div class="article-header" onclick="toggleArticle(this)">
+            <span class="article-num" data-en="Article 15" data-pt="Artigo 15º">Article 15</span>
+            <span class="article-title" data-en="Privacy &amp; Personal Data" data-pt="Privacidade e Dados Pessoais">Privacy &amp; Personal Data</span>
+            <button class="art-toggle">+</button>
+          </div>
+          <div class="article-body"><div class="article-inner">
+            <p data-en="DoveLingua collects personal data from students at the time of enrolment — including name, age, gender, email address, phone number, province and district. This data is used exclusively for enrolment processing, communication, platform access and the issuance of receipts and certificates." data-pt="A DoveLingua recolhe dados pessoais dos alunos no momento da matrícula — incluindo nome, idade, género, endereço de e-mail, número de telefone, província e distrito. Estes dados são utilizados exclusivamente para o processamento da matrícula, comunicação, acesso à plataforma e emissão de recibos e certificados.">DoveLingua collects personal data at enrolment (name, age, gender, email, phone, location) used exclusively for enrolment processing, communication and issuing receipts and certificates.</p>
+            <p data-en="DoveLingua does not sell, share or transfer student personal data to third parties. Student data is stored securely and used only for the purposes described above." data-pt="A DoveLingua não vende, partilha nem transfere dados pessoais dos alunos a terceiros. Os dados dos alunos são guardados de forma segura e utilizados apenas para os fins descritos acima.">DoveLingua does not sell or share student data with third parties.</p>
+            <p data-en="Students have the right to request access to, correction of, or deletion of their personal data by contacting <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a>." data-pt="Os alunos têm o direito de solicitar o acesso, correcção ou eliminação dos seus dados pessoais contactando <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a>.">Students may request access, correction or deletion of their data at <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a>.</p>
+          </div></div>
+        </div>
+
+      </div><!-- end ch7 -->
+
+
+      <!-- ══ CHAPTER VIII ══ -->
+      <div class="chapter fade-up" id="ch8">
+        <div class="chapter-header">
+          <span class="chapter-icon">⚖️</span>
+          <div>
+            <div class="chapter-num" data-en="Chapter VIII" data-pt="Capítulo VIII">Chapter VIII</div>
+            <div class="chapter-title" data-en="Final Provisions" data-pt="Disposições Finais">Final Provisions</div>
+          </div>
+        </div>
+
+        <div class="article">
+          <div class="article-header" onclick="toggleArticle(this)">
+            <span class="article-num" data-en="Article 16" data-pt="Artigo 16º">Article 16</span>
+            <span class="article-title" data-en="Programme Changes &amp; Price Updates" data-pt="Alterações ao Programa e Actualização de Preços">Programme Changes &amp; Price Updates</span>
+            <button class="art-toggle">+</button>
+          </div>
+          <div class="article-body"><div class="article-inner">
+            <p data-en="DoveLingua reserves the right to update prices, open or close levels for enrolment, adjust programme durations and modify any aspect of its services at any time. Students will be notified of significant changes through official channels." data-pt="A DoveLingua reserva-se o direito de actualizar preços, abrir ou fechar níveis para inscrição, ajustar durações do programa e modificar qualquer aspecto dos seus serviços a qualquer momento. Os alunos serão notificados de alterações significativas através dos canais oficiais.">DoveLingua reserves the right to update prices, open or close levels, adjust durations and modify services at any time. Students will be notified of significant changes.</p>
+            <div class="art-box gold" data-en="Students are encouraged to check the Programme page and this Terms page regularly before making any payment — prices and conditions shown at the time of enrolment are those that apply to that enrolment." data-pt="Os alunos são encorajados a consultar a página do Programa e esta página de Termos regularmente antes de efectuarem qualquer pagamento — os preços e condições apresentados no momento da matrícula são os que se aplicam a essa matrícula.">Check the Programme page and this Terms page before making any payment. Prices and conditions at the time of enrolment apply to that enrolment.</div>
+          </div></div>
+        </div>
+
+        <div class="article">
+          <div class="article-header" onclick="toggleArticle(this)">
+            <span class="article-num" data-en="Article 17" data-pt="Artigo 17º">Article 17</span>
+            <span class="article-title" data-en="Limitation of Liability" data-pt="Limitação de Responsabilidade">Limitation of Liability</span>
+            <button class="art-toggle">+</button>
+          </div>
+          <div class="article-body"><div class="article-inner">
+            <p data-en="DoveLingua is committed to delivering high-quality English education and maintaining reliable platforms. However, DoveLingua is not liable for:" data-pt="A DoveLingua está comprometida em prestar educação de inglês de alta qualidade e manter plataformas fiáveis. No entanto, a DoveLingua não é responsável por:">DoveLingua is committed to quality education and reliable platforms. However, DoveLingua is not liable for:</p>
+            <ul>
+              <li data-en="Failure to learn English resulting from a student's own lack of engagement, attendance or effort." data-pt="A falta de aprendizagem de inglês resultante da falta de empenho, assiduidade ou esforço do próprio aluno.">Failure to learn resulting from the student's own lack of engagement or attendance.</li>
+              <li data-en="Disruptions caused by third-party internet service providers or devices used by the student." data-pt="Perturbações causadas por fornecedores de serviços de internet de terceiros ou dispositivos utilizados pelo aluno.">Disruptions caused by third-party internet providers or the student's own devices.</li>
+              <li data-en="Consequences arising from the student's use of their DoveLingua certificate outside the institution — including any rejection by external bodies not recognising DoveLingua's current non-accredited status." data-pt="Consequências decorrentes da utilização pelo aluno do seu certificado DoveLingua fora da instituição — incluindo qualquer rejeição por entidades externas que não reconheçam o actual estatuto não acreditado da DoveLingua.">Consequences of using a DoveLingua certificate externally — including rejection by bodies not recognising its current non-accredited status.</li>
+            </ul>
+          </div></div>
+        </div>
+
+        <div class="article">
+          <div class="article-header" onclick="toggleArticle(this)">
+            <span class="article-num" data-en="Article 18" data-pt="Artigo 18º">Article 18</span>
+            <span class="article-title" data-en="Transparency, Honesty &amp; Contact" data-pt="Transparência, Honestidade e Contacto">Transparency, Honesty &amp; Contact</span>
+            <button class="art-toggle">+</button>
+          </div>
+          <div class="article-body"><div class="article-inner">
+            <p data-en="DoveLingua does not promise fluency in three months. Every student should check the Programme page to understand what they will be able to do in English after each level. DoveLingua publishes clear information about prices, course duration and certification criteria on its website." data-pt="A DoveLingua não promete fluência em três meses. Cada aluno deve consultar a página do Programa para saber o que conseguirá fazer em inglês após cada nível. A DoveLingua publica informação clara sobre preços, duração dos cursos e critérios de certificação no seu sítio web.">DoveLingua does not promise fluency in three months. Check the Programme page for what each level delivers. All pricing and certification criteria are published transparently.</p>
+            <p data-en="Any questions, complaints or suggestions may be sent to <a href='mailto:info@dovelingua.com'>info@dovelingua.com</a> or <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a>. DoveLingua is committed to responding promptly and respectfully." data-pt="Qualquer questão, reclamação ou sugestão pode ser enviada para <a href='mailto:info@dovelingua.com'>info@dovelingua.com</a> ou <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a>. A DoveLingua compromete-se a responder de forma atempada e respeitosa.">Questions, complaints or suggestions: <a href='mailto:info@dovelingua.com'>info@dovelingua.com</a> or <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a>. DoveLingua responds promptly and respectfully.</p>
+            <div class="art-box green" data-en="DoveLingua operates with honesty. That honesty is itself a form of credibility." data-pt="A DoveLingua opera com honestidade. Essa honestidade é em si mesma uma forma de credibilidade.">DoveLingua operates with honesty. That honesty is itself a form of credibility.</div>
+          </div></div>
+        </div>
+
+      </div><!-- end ch8 -->
+
+
+      <!-- Issue card -->
+      <div class="issue-card fade-up">
+        <span class="ic-dove">🕊</span>
+        <h4 data-en="Issued by DoveLingua English Learning Academy" data-pt="Emitido pela Academia de Aprendizagem DoveLingua">Issued by DoveLingua English Learning Academy</h4>
+        <p data-en="Gildo Angélica Dove — Teacher Dove · Founder &amp; Director · Mozambique, May 2026" data-pt="Gildo Angélica Dove — Teacher Dove · Fundador e Director · Moçambique, Maio de 2026">Gildo Angélica Dove — Teacher Dove · Founder &amp; Director · Mozambique, May 2026</p>
+        <p style="margin-top:0.5rem;"><a href="https://www.dovelingua.com">www.dovelingua.com</a> &nbsp;│&nbsp; <a href="mailto:info@dovelingua.com">info@dovelingua.com</a> &nbsp;│&nbsp; <a href="tel:+258828920143">+258 82 892 0143</a></p>
+      </div>
+
+    </div><!-- end terms-content -->
+  </div><!-- end terms-grid -->
+</div><!-- end terms-main -->
+
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="fg">
+    <div class="fb">
+      <div class="fname">DoveLingua English Learning Academy</div>
+      <p data-en="A structured, communicative and professionally designed English course — founded in Mozambique, April 2026." data-pt="Um curso de inglês estruturado, comunicativo e profissionalmente concebido — fundado em Moçambique, Abril de 2026.">A structured, communicative and professionally designed English course — founded in Mozambique, April 2026.</p>
+      <div class="fsoc">
+        <a href="https://www.facebook.com/DoveLingua" target="_blank" class="fsb"><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a href="https://wa.me/258828920143" target="_blank" class="fsb"><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+        <a href="mailto:info@dovelingua.com" class="fsb" style="font-size:14px;color:#fff;display:flex;align-items:center;justify-content:center;">✉️</a>
+      </div>
+    </div>
+    <div class="fc">
+      <h4 data-en="Learn" data-pt="Aprender">Learn</h4>
+      <a onclick="nav('programme.html')" data-en="Our Programme" data-pt="O Nosso Programa">Our Programme</a>
+      <a onclick="nav('enrol.html')" data-en="Enrol" data-pt="Inscrição">Enrol</a>
+      <a href="https://classroom.dovelingua.com" target="_blank">Classroom</a>
+    </div>
+    <div class="fc">
+      <h4 data-en="About" data-pt="Sobre">About</h4>
+      <a onclick="nav('about.html')" data-en="About DoveLingua" data-pt="Sobre a DoveLingua">About DoveLingua</a>
+      <a onclick="nav('faq.html')">FAQ</a>
+      <a onclick="nav('donate.html')" data-en="Support Us" data-pt="Apoiar-nos">Support Us</a>
+    </div>
+    <div class="fc">
+      <h4 data-en="Help" data-pt="Ajuda">Help</h4>
+      <a onclick="nav('contact.html')" data-en="Contact Support" data-pt="Contactar Suporte">Contact Support</a>
+      <a onclick="nav('status.html')" data-en="Payment Status" data-pt="Estado do Pagamento">Payment Status</a>
+      <a onclick="nav('terms.html')" data-en="Terms &amp; Policies" data-pt="Termos e Políticas">Terms &amp; Policies</a>
+    </div>
+  </div>
+  <div class="fbot">
+    <p data-en="DoveLingua © 2026 — All rights reserved." data-pt="DoveLingua © 2026 — Todos os direitos reservados.">DoveLingua © 2026 — All rights reserved.</p>
+    <a onclick="nav('terms.html')" data-en="Terms &amp; Policies" data-pt="Termos e Políticas">Terms &amp; Policies</a>
+    <a onclick="nav('contact.html')" data-en="Contact" data-pt="Contacto">Contact</a>
+  </div>
+</footer>
+
+
+<!-- ══ WA FLOAT ══ -->
+<a href="https://wa.me/258828920143" target="_blank" class="waf" title="WhatsApp DoveLingua">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+
+
+<script>
+  /* LANGUAGE */
+  let lang=localStorage.getItem('dvl_lang')||'en';
+  function setLang(l){lang=l;localStorage.setItem('dvl_lang',l);applyLang();}
+  function applyLang(){
+    document.querySelectorAll('[data-en]').forEach(el=>{
+      const v=el.getAttribute('data-'+lang);
+      if(v!==null)el.innerHTML=v;
+    });
+    document.getElementById('btn-en').classList.toggle('active',lang==='en');
+    document.getElementById('btn-pt').classList.toggle('active',lang==='pt');
+    document.documentElement.lang=lang==='pt'?'pt':'en';
+  }
+  applyLang();
+
+  /* SIDE MENU */
+  function toggleMenu(){
+    document.getElementById('sM').classList.toggle('open');
+    document.getElementById('sO').classList.toggle('open');
+  }
+  function nav(page){
+    document.getElementById('sM').classList.remove('open');
+    document.getElementById('sO').classList.remove('open');
+    window.location.href=page;
+  }
+
+  /* SECRET ADMIN */
+  let taps=0,tapTimer=null;
+  function handleSecretTap(){
+    taps++;clearTimeout(tapTimer);
+    tapTimer=setTimeout(()=>taps=0,1500);
+    if(taps>=3){taps=0;window.location.href='admin.html';}
+  }
+
+  /* ARTICLE TOGGLE */
+  function toggleArticle(headerEl){
+    const article=headerEl.closest('.article');
+    const isOpen=article.classList.contains('open');
+    document.querySelectorAll('.article.open').forEach(a=>a.classList.remove('open'));
+    if(!isOpen) article.classList.add('open');
+    updateTOC();
+  }
+
+  /* CHAPTER SCROLL */
+  function scrollToChapter(id){
+    const el=document.getElementById(id);
+    if(!el)return;
+    const top=el.getBoundingClientRect().top+window.pageYOffset-90;
+    window.scrollTo({top,behavior:'smooth'});
+  }
+
+  /* UPDATE TOC ON SCROLL */
+  function updateTOC(){
+    const chapters=document.querySelectorAll('.chapter');
+    let current='';
+    chapters.forEach(c=>{
+      const rect=c.getBoundingClientRect();
+      if(rect.top<=130) current=c.id;
+    });
+    if(!current)return;
+    document.querySelectorAll('.toc-item').forEach(t=>{
+      const matches=t.getAttribute('onclick')&&t.getAttribute('onclick').includes(current);
+      t.classList.toggle('active',matches);
+    });
+  }
+  window.addEventListener('scroll',updateTOC,{passive:true});
+
+  /* FADE-UP */
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*55);io.unobserve(e.target);}
+    });
+  },{threshold:0.06});
+  document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
+ 
