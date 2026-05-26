@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FAQ — DoveLingua English Learning Academy</title>
+  <meta name="description" content="Frequently asked questions about DoveLingua English Learning Academy — programme, enrolment, lessons, certificates and more."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --g:#059669;--gd:#047857;--gm:#10b981;--gl:#d1fae5;--gx:#f0fdf4;
+      --navy:#0B2545;--gold:#E2B13C;--gold-light:#fef3c7;
+      --white:#fff;--cream:#fafaf8;
+      --text:#1a2e1a;--text-mid:#374151;--text-light:#6b7280;
+      --border:#e5e7eb;--shadow:0 4px 24px rgba(5,150,105,0.09);--r:14px;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);line-height:1.7;}
+
+    /* ══ NAV ══ */
+    nav{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid var(--border);padding:0 clamp(1rem,4vw,2.5rem);display:flex;align-items:center;justify-content:space-between;height:64px;}
+    .nav-left{display:flex;align-items:center;gap:1rem;}
+    .hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+    .hamburger span{display:block;width:22px;height:2px;background:var(--text-mid);border-radius:2px;}
+    .nav-brand{text-decoration:none;font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;color:var(--g);}
+    .nav-centre{display:flex;gap:0.1rem;list-style:none;position:absolute;left:50%;transform:translateX(-50%);}
+    .nav-centre a{text-decoration:none;font-size:0.81rem;font-weight:500;color:var(--text-mid);padding:0.38rem 0.6rem;border-radius:6px;transition:background .2s,color .2s;}
+    .nav-centre a:hover{background:var(--gx);color:var(--g);}
+    .nav-centre a.active{color:var(--g);background:var(--gx);}
+    .nav-right{display:flex;align-items:center;gap:0.6rem;}
+    .lang-toggle{display:flex;border:1.5px solid var(--border);border-radius:20px;overflow:hidden;}
+    .lang-toggle button{border:none;background:transparent;padding:0.28rem 0.72rem;cursor:pointer;color:var(--text-light);font-size:0.72rem;font-weight:700;transition:background .2s,color .2s;}
+    .lang-toggle button.active{background:var(--g);color:#fff;}
+    .profile-icon{width:34px;height:34px;border-radius:50%;background:var(--gx);border:1.5px solid var(--gl);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1rem;}
+    .btn-enrol-nav{background:var(--navy);color:#fff;border:none;padding:0.42rem 1rem;border-radius:20px;font-size:0.78rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background .2s;white-space:nowrap;}
+    .btn-enrol-nav:hover{background:var(--gd);}
+    @media(max-width:860px){.nav-centre,.btn-enrol-nav{display:none;}}
+
+    /* ══ SIDE MENU ══ */
+    .so{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1100;}
+    .so.open{display:block;}
+    .sm{position:fixed;top:0;left:-280px;width:280px;height:100%;background:#fff;z-index:1200;transition:left .3s ease;display:flex;flex-direction:column;overflow:hidden;}
+    .sm.open{left:0;}
+    .sm-hdr{display:flex;align-items:center;padding:1rem 1rem 0.8rem;border-bottom:1px solid var(--border);gap:0.8rem;}
+    .sm-cl{background:none;border:1px solid var(--border);border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:1rem;color:var(--text-mid);}
+    .sb{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--g);}
+    .sm-nav{flex:1;overflow-y:auto;padding:0.5rem 0;}
+    .sm-nav a{display:flex;align-items:center;gap:0.75rem;padding:0.65rem 1.2rem;font-size:0.88rem;font-weight:500;color:var(--text-mid);text-decoration:none;cursor:pointer;transition:background .15s,color .15s;}
+    .sm-nav a:hover{background:var(--gx);color:var(--g);}
+    .mi{font-size:1rem;width:20px;text-align:center;}
+    .sdiv{height:1px;background:var(--border);margin:0.35rem 1.2rem;}
+    .bsoon{background:var(--gx);color:var(--g);font-size:0.62rem;font-weight:700;padding:0.15rem 0.45rem;border-radius:8px;margin-left:auto;}
+    .sm-ft{padding:1rem 1.2rem;border-top:1px solid var(--border);}
+    .sm-ft p{font-style:italic;font-size:0.75rem;color:var(--text-light);line-height:1.55;}
+
+    /* ══ HERO ══ */
+    .hero{
+      background:linear-gradient(135deg,#0B2545 0%,#0d3060 55%,#1a3a2a 100%);
+      border-top:5px solid var(--gold);
+      padding:clamp(1rem,2vw,1.5rem) clamp(1.5rem,5vw,4rem) 0;
+      position:relative;overflow:hidden;
+    }
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 15% 60%,rgba(226,177,60,0.1) 0%,transparent 55%),radial-gradient(ellipse at 85% 20%,rgba(5,150,105,0.12) 0%,transparent 50%);}
+    .hero-inner{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding-bottom:3rem;}
+    .hero-title-card{background:rgba(255,255,255,0.08);border:1.5px solid rgba(226,177,60,0.45);border-radius:16px;padding:1.4rem 2.5rem 1.6rem;text-align:center;margin-bottom:2rem;box-shadow:0 0 32px rgba(226,177,60,0.1);}
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(226,177,60,0.15);border:1px solid rgba(226,177,60,0.3);color:var(--gold);font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.28rem 0.9rem;border-radius:20px;margin-bottom:1rem;}
+    .hero-title-card h1{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.8rem);font-weight:700;color:#fff;line-height:1.2;}
+    .hero-title-card h1 em{color:var(--gold);font-style:italic;}
+    .hero-desc{font-size:0.93rem;color:rgba(255,255,255,0.68);text-align:center;max-width:560px;margin:0 auto;}
+
+    /* Anchor bottom button */
+    .hero-anchor-wrap{position:relative;z-index:1;display:flex;justify-content:center;padding-bottom:1.5rem;margin-top:1.5rem;}
+    .hero-anchor-btn{display:inline-flex;align-items:center;gap:0.5rem;background:var(--gold);color:var(--navy);font-weight:700;font-size:0.85rem;padding:0.72rem 1.8rem;border-radius:30px;text-decoration:none;box-shadow:0 4px 20px rgba(226,177,60,0.4);transition:transform .2s,box-shadow .2s;}
+    .hero-anchor-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(226,177,60,0.5);}
+
+    /* ══ CATEGORY NAV TABS ══ */
+    .cat-nav-wrap{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:64px;z-index:900;overflow-x:auto;}
+    .cat-nav{max-width:1080px;margin:0 auto;display:flex;gap:0;padding:0 clamp(1rem,4vw,2.5rem);}
+    .cat-tab{display:inline-flex;align-items:center;gap:0.4rem;padding:0.85rem 1rem;font-size:0.78rem;font-weight:600;color:var(--text-light);white-space:nowrap;cursor:pointer;border-bottom:3px solid transparent;transition:color .2s,border-color .2s;background:none;border-top:none;border-left:none;border-right:none;}
+    .cat-tab:hover{color:var(--g);}
+    .cat-tab.active{color:var(--g);border-bottom-color:var(--g);}
+
+    /* ══ MAIN LAYOUT ══ */
+    .faq-main{max-width:1080px;margin:0 auto;padding:clamp(2.5rem,5vw,4rem) clamp(1.5rem,5vw,4rem);}
+    .faq-grid{display:grid;grid-template-columns:240px 1fr;gap:3rem;align-items:start;}
+
+    /* Sidebar — sticky category list */
+    .faq-sidebar{position:sticky;top:120px;}
+    .faq-sidebar h3{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-light);margin-bottom:0.8rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);}
+    .sidebar-cat{display:flex;align-items:center;gap:0.6rem;padding:0.55rem 0.8rem;border-radius:8px;font-size:0.82rem;font-weight:500;color:var(--text-mid);cursor:pointer;transition:background .15s,color .15s;text-decoration:none;margin-bottom:0.2rem;border:none;background:none;width:100%;text-align:left;}
+    .sidebar-cat:hover{background:var(--gx);color:var(--g);}
+    .sidebar-cat.active{background:var(--gx);color:var(--g);font-weight:600;}
+    .sidebar-cat .sc-icon{font-size:0.9rem;flex-shrink:0;}
+    .sidebar-count{margin-left:auto;background:var(--border);color:var(--text-light);font-size:0.65rem;font-weight:700;padding:0.1rem 0.45rem;border-radius:8px;}
+    .sidebar-cat.active .sidebar-count{background:var(--g);color:#fff;}
+
+    /* ══ FAQ CONTENT ══ */
+    .faq-content{min-width:0;}
+    .faq-category{margin-bottom:3rem;scroll-margin-top:130px;}
+    .faq-cat-header{display:flex;align-items:center;gap:0.8rem;margin-bottom:1.5rem;padding-bottom:0.7rem;border-bottom:2px solid var(--gl);}
+    .faq-cat-icon{font-size:1.4rem;}
+    .faq-cat-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--navy);}
+    .faq-cat-count{font-size:0.72rem;font-weight:700;background:var(--gx);color:var(--g);padding:0.2rem 0.6rem;border-radius:10px;border:1px solid var(--gl);}
+
+    /* FAQ item */
+    .faq-item{border:1px solid var(--border);border-radius:var(--r);margin-bottom:0.7rem;overflow:hidden;transition:border-color .2s;}
+    .faq-item.open{border-color:var(--g);}
+    .faq-q{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1.2rem;cursor:pointer;background:#fff;transition:background .15s;}
+    .faq-q:hover{background:var(--gx);}
+    .faq-item.open .faq-q{background:var(--gx);}
+    .faq-q-text{font-size:0.88rem;font-weight:600;color:var(--navy);line-height:1.45;flex:1;}
+    .faq-toggle{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:300;color:var(--text-light);cursor:pointer;flex-shrink:0;transition:background .2s,border-color .2s,color .2s,transform .3s;line-height:1;}
+    .faq-item.open .faq-toggle{background:var(--g);border-color:var(--g);color:#fff;transform:rotate(45deg);}
+
+    /* Answer */
+    .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;}
+    .faq-item.open .faq-a{max-height:600px;}
+    .faq-a-inner{padding:0 1.2rem 1.1rem;border-top:1px solid var(--gl);}
+    .faq-a-inner p{font-size:0.84rem;color:var(--text-mid);line-height:1.78;margin-bottom:0.5rem;}
+    .faq-a-inner p:last-child{margin-bottom:0;}
+    .faq-a-inner a{color:var(--g);font-weight:600;text-decoration:none;}
+    .faq-a-inner a:hover{text-decoration:underline;}
+    .faq-a-inner strong{color:var(--navy);}
+    /* Small inline tag */
+    .ans-tag{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.72rem;font-weight:700;padding:0.18rem 0.6rem;border-radius:8px;margin-top:0.4rem;}
+    .ans-tag.green{background:var(--gx);color:var(--gd);border:1px solid var(--gl);}
+    .ans-tag.gold{background:var(--gold-light);color:#78350f;border:1px solid #fcd34d;}
+    .ans-tag.navy{background:#e0e7ff;color:#1e3a8a;border:1px solid #a5b4fc;}
+
+    /* ══ SEARCH BOX ══ */
+    .faq-search-wrap{margin-bottom:2rem;}
+    .faq-search{width:100%;padding:0.85rem 1.1rem 0.85rem 2.8rem;border:1.5px solid var(--border);border-radius:30px;font-size:0.88rem;font-family:'Inter',sans-serif;color:var(--text);outline:none;transition:border-color .2s;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E") no-repeat 0.9rem center;}
+    .faq-search:focus{border-color:var(--g);}
+    .search-empty{display:none;text-align:center;padding:2rem;color:var(--text-light);font-size:0.88rem;}
+    .search-empty.show{display:block;}
+
+    /* ══ STILL NEED HELP ══ */
+    .still-help{background:linear-gradient(135deg,var(--navy),#1a3a2a);border-radius:20px;padding:2.5rem;text-align:center;margin-top:2rem;}
+    .still-help h3{font-family:'Playfair Display',serif;font-size:1.3rem;color:#fff;margin-bottom:0.6rem;}
+    .still-help p{font-size:0.88rem;color:rgba(255,255,255,0.62);max-width:440px;margin:0 auto 1.5rem;line-height:1.7;}
+    .help-btns{display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;}
+    .btn-help-gold{display:inline-flex;align-items:center;gap:0.5rem;background:var(--gold);color:var(--navy);font-weight:700;font-size:0.85rem;padding:0.7rem 1.6rem;border-radius:30px;text-decoration:none;transition:transform .2s;}
+    .btn-help-gold:hover{transform:translateY(-2px);}
+    .btn-help-outline{display:inline-flex;align-items:center;gap:0.5rem;background:transparent;color:#fff;font-weight:600;font-size:0.85rem;padding:0.7rem 1.6rem;border-radius:30px;border:2px solid rgba(255,255,255,0.3);text-decoration:none;transition:border-color .2s;}
+    .btn-help-outline:hover{border-color:rgba(255,255,255,0.7);}
+
+    /* ══ FOOTER ══ */
+    footer{background:var(--navy);color:#fff;padding:48px 5% 26px;text-align:center;}
+    .fg{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:32px;text-align:center;}
+    .fb .fname{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:10px;color:#fff;}
+    .fb p{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;margin-bottom:16px;}
+    .fsoc{display:flex;gap:10px;justify-content:center;}
+    .fsb{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;text-decoration:none;}
+    .fsb:hover{background:var(--g);}
+    .fc h4{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--gm);margin-bottom:12px;}
+    .fc a{display:block;font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:8px;cursor:pointer;transition:color .18s;text-decoration:none;}
+    .fc a:hover{color:var(--gold);}
+    .fbot{max-width:1100px;margin:0 auto;border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:14px;text-align:center;}
+    .fbot p{font-size:12px;color:rgba(255,255,255,0.3);}
+    .fbot a{color:rgba(255,255,255,0.4);font-size:12px;cursor:pointer;text-decoration:none;}
+    .fbot a:hover{color:rgba(255,255,255,0.7);}
+
+    /* ══ WA FLOAT ══ */
+    .waf{position:fixed;bottom:22px;right:22px;z-index:900;width:50px;height:50px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(37,211,102,.4);transition:all .3s;text-decoration:none;}
+    .waf:hover{transform:scale(1.1);}
+    .waf svg{width:26px;height:26px;fill:#fff;}
+
+    /* ══ RESPONSIVE ══ */
+    @media(max-width:860px){
+      .faq-grid{grid-template-columns:1fr;}
+      .faq-sidebar{display:none;}
+      .cat-nav-wrap{display:block;}
+      .fg{grid-template-columns:1fr 1fr;}
+    }
+    @media(max-width:480px){
+      .fg{grid-template-columns:1fr;}
+      .cat-nav{gap:0;}
+      .cat-tab{font-size:0.72rem;padding:0.75rem 0.7rem;}
+    }
+
+    .fade-up{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease;}
+    .fade-up.visible{opacity:1;transform:translateY(0);}
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-left">
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="index.html" class="nav-brand">🕊 DoveLingua</a>
+  </div>
+  <ul class="nav-centre">
+    <li><a href="index.html" data-en="Home" data-pt="Início">Home</a></li>
+    <li><a href="about.html" data-en="About" data-pt="Sobre">About</a></li>
+    <li><a href="programme.html" data-en="Programme" data-pt="Programa">Programme</a></li>
+    <li><a href="announcements.html" data-en="News" data-pt="Notícias">News</a></li>
+    <li><a href="library.html" data-en="Library" data-pt="Biblioteca">Library</a></li>
+    <li><a href="faq.html" class="active">FAQ</a></li>
+    <li><a href="contact.html" data-en="Contact" data-pt="Contacto">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+      <button id="btn-pt" onclick="setLang('pt')">PT</button>
+    </div>
+    <a href="enrol.html" class="profile-icon">👤</a>
+    <a href="enrol.html" class="btn-enrol-nav" data-en="Enrol Now" data-pt="Inscrever">Enrol Now</a>
+  </div>
+</nav>
+
+<!-- ══ SIDE MENU ══ -->
+<div class="so" id="sO" onclick="toggleMenu()"></div>
+<div class="sm" id="sM">
+  <div class="sm-hdr">
+    <button class="sm-cl" onclick="toggleMenu()">✕</button>
+    <div class="sb">🕊 DoveLingua</div>
+  </div>
+  <div class="sm-nav">
+    <a onclick="nav('index.html')"><span class="mi">🏠</span><span data-en="Home" data-pt="Início">Home</span></a>
+    <div class="sdiv"></div>
+    <a onclick="nav('about.html')"><span class="mi">📖</span><span data-en="About Us" data-pt="Sobre Nós">About Us</span></a>
+    <a onclick="nav('programme.html')"><span class="mi">📚</span><span data-en="Our Programme" data-pt="O Nosso Programa">Our Programme</span></a>
+    <a onclick="nav('enrol.html')"><span class="mi">✏️</span><span data-en="Enrol" data-pt="Inscrição">Enrol</span></a>
+    <a href="https://classroom.dovelingua.com" target="_blank"><span class="mi">💻</span>DoveLingua Classroom</a>
+    <div class="sdiv"></div>
+    <a onclick="nav('library.html')"><span class="mi">📖</span><span data-en="Library" data-pt="Biblioteca">Library</span><span class="bsoon">Soon</span></a>
+    <a onclick="nav('app.html')"><span class="mi">📱</span>English Dove App<span class="bsoon">Soon</span></a>
+    <div class="sdiv"></div>
+    <a onclick="nav('announcements.html')"><span class="mi">📢</span><span data-en="Announcements" data-pt="Avisos">Announcements</span></a>
+    <a onclick="nav('faq.html')"><span class="mi">❓</span>FAQ</a>
+    <a onclick="nav('evaluate.html')"><span class="mi">⭐</span><span data-en="Evaluate DoveLingua" data-pt="Avaliar DoveLingua">Evaluate DoveLingua</span></a>
+    <a href="https://whatsapp.com/channel/0029VbCKsViFCCoWvkhrYT2g" target="_blank"><span class="mi">📡</span><span data-en="WhatsApp Channel" data-pt="Canal WhatsApp">WhatsApp Channel</span></a>
+    <div class="sdiv"></div>
+    <a onclick="nav('donate.html')"><span class="mi">❤️</span><span data-en="Support DoveLingua" data-pt="Apoiar DoveLingua">Support DoveLingua</span></a>
+    <a onclick="nav('report.html')"><span class="mi">🚩</span><span data-en="Report a Problem" data-pt="Reportar Problema">Report a Problem</span></a>
+    <div class="sdiv"></div>
+    <a onclick="nav('contact.html')"><span class="mi">📧</span><span data-en="Contact Support" data-pt="Contactar Suporte">Contact Support</span></a>
+    <a onclick="nav('terms.html')"><span class="mi">📄</span><span data-en="Terms &amp; Policies" data-pt="Termos e Políticas">Terms &amp; Policies</span></a>
+  </div>
+  <div class="sm-ft" onclick="handleSecretTap()" style="cursor:default;">
+    <p data-en="&ldquo;Learn English today and connect with the World tomorrow&rdquo;" data-pt="&ldquo;Aprende inglês hoje e conecta-te com o Mundo amanhã&rdquo;">&ldquo;Learn English today and connect with the World tomorrow&rdquo;</p>
+  </div>
+</div>
+
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-title-card fade-up">
+      <div class="hero-eyebrow">❓ <span data-en="Frequently Asked Questions" data-pt="Perguntas Frequentes">Frequently Asked Questions</span></div>
+      <h1 data-en="Your questions. <em>Answered.</em>" data-pt="As tuas perguntas. <em>Respondidas.</em>">Your questions. <em>Answered.</em></h1>
+    </div>
+    <p class="hero-desc fade-up" data-en="Everything you need to know about DoveLingua — the programme, enrolment, lessons, certificates and more. Can't find your answer? Our team is always available." data-pt="Tudo o que precisas de saber sobre a DoveLingua — o programa, inscrições, aulas, certificados e muito mais. Não encontras a tua resposta? A nossa equipa está sempre disponível.">Everything you need to know about DoveLingua — the programme, enrolment, lessons, certificates and more. Can't find your answer? Our team is always available.</p>
+  </div>
+  <div class="hero-anchor-wrap">
+    <a href="#faq-top" class="hero-anchor-btn">
+      ❓ <span data-en="Browse All Questions" data-pt="Ver Todas as Perguntas">Browse All Questions</span> ↓
+    </a>
+  </div>
+</section>
+
+
+<!-- ══ CATEGORY NAV (mobile/tablet) ══ -->
+<div class="cat-nav-wrap">
+  <div class="cat-nav">
+    <button class="cat-tab active" onclick="scrollToCat('cat-about')" data-en="🏫 About" data-pt="🏫 Sobre">🏫 About</button>
+    <button class="cat-tab" onclick="scrollToCat('cat-programme')" data-en="📚 Programme" data-pt="📚 Programa">📚 Programme</button>
+    <button class="cat-tab" onclick="scrollToCat('cat-lessons')" data-en="🎓 Lessons" data-pt="🎓 Aulas">🎓 Lessons</button>
+    <button class="cat-tab" onclick="scrollToCat('cat-enrol')" data-en="💳 Enrolment" data-pt="💳 Inscrição">💳 Enrolment</button>
+    <button class="cat-tab" onclick="scrollToCat('cat-absences')" data-en="🔄 Absences" data-pt="🔄 Faltas">🔄 Absences</button>
+    <button class="cat-tab" onclick="scrollToCat('cat-certs')" data-en="📜 Certificates" data-pt="📜 Certificados">📜 Certificates</button>
+    <button class="cat-tab" onclick="scrollToCat('cat-tech')" data-en="💻 Technology" data-pt="💻 Tecnologia">💻 Technology</button>
+    <button class="cat-tab" onclick="scrollToCat('cat-free')" data-en="🆓 Free Resources" data-pt="🆓 Recursos Gratuitos">🆓 Free Resources</button>
+    <button class="cat-tab" onclick="scrollToCat('cat-support')" data-en="📞 Support" data-pt="📞 Suporte">📞 Support</button>
+  </div>
+</div>
+
+
+<!-- ══ MAIN FAQ ══ -->
+<div class="faq-main" id="faq-top">
+  <div class="faq-grid">
+
+    <!-- SIDEBAR -->
+    <aside class="faq-sidebar">
+      <h3 data-en="Categories" data-pt="Categorias">Categories</h3>
+      <button class="sidebar-cat active" onclick="scrollToCat('cat-about')"><span class="sc-icon">🏫</span><span data-en="About DoveLingua" data-pt="Sobre a DoveLingua">About DoveLingua</span><span class="sidebar-count">6</span></button>
+      <button class="sidebar-cat" onclick="scrollToCat('cat-programme')"><span class="sc-icon">📚</span><span data-en="Programme &amp; Levels" data-pt="Programa e Níveis">Programme &amp; Levels</span><span class="sidebar-count">9</span></button>
+      <button class="sidebar-cat" onclick="scrollToCat('cat-lessons')"><span class="sc-icon">🎓</span><span data-en="Lessons &amp; Learning" data-pt="Aulas e Aprendizagem">Lessons &amp; Learning</span><span class="sidebar-count">8</span></button>
+      <button class="sidebar-cat" onclick="scrollToCat('cat-enrol')"><span class="sc-icon">💳</span><span data-en="Enrolment &amp; Payment" data-pt="Inscrição e Pagamento">Enrolment &amp; Payment</span><span class="sidebar-count">11</span></button>
+      <button class="sidebar-cat" onclick="scrollToCat('cat-absences')"><span class="sc-icon">🔄</span><span data-en="Absences &amp; Interruptions" data-pt="Faltas e Interrupções">Absences &amp; Interruptions</span><span class="sidebar-count">4</span></button>
+      <button class="sidebar-cat" onclick="scrollToCat('cat-certs')"><span class="sc-icon">📜</span><span data-en="Certificates" data-pt="Certificados">Certificates</span><span class="sidebar-count">4</span></button>
+      <button class="sidebar-cat" onclick="scrollToCat('cat-tech')"><span class="sc-icon">💻</span><span data-en="Technology" data-pt="Tecnologia">Technology</span><span class="sidebar-count">5</span></button>
+      <button class="sidebar-cat" onclick="scrollToCat('cat-free')"><span class="sc-icon">🆓</span><span data-en="Free Resources" data-pt="Recursos Gratuitos">Free Resources</span><span class="sidebar-count">3</span></button>
+      <button class="sidebar-cat" onclick="scrollToCat('cat-support')"><span class="sc-icon">📞</span><span data-en="Support &amp; Contact" data-pt="Suporte e Contacto">Support &amp; Contact</span><span class="sidebar-count">4</span></button>
+    </aside>
+
+    <!-- FAQ CONTENT -->
+    <div class="faq-content">
+
+      <!-- Search -->
+      <div class="faq-search-wrap fade-up">
+        <input class="faq-search" type="text" id="faqSearch" placeholder="Search questions..." oninput="searchFAQ(this.value)" data-en-placeholder="Search questions..." data-pt-placeholder="Pesquisar perguntas..."/>
+      </div>
+      <div class="search-empty" id="searchEmpty" data-en="No questions found for your search." data-pt="Nenhuma pergunta encontrada para a tua pesquisa.">No questions found for your search.</div>
+
+
+      <!-- ══ 1. ABOUT DOVELINGUA ══ -->
+      <div class="faq-category fade-up" id="cat-about">
+        <div class="faq-cat-header">
+          <span class="faq-cat-icon">🏫</span>
+          <span class="faq-cat-title" data-en="About DoveLingua" data-pt="Sobre a DoveLingua">About DoveLingua</span>
+          <span class="faq-cat-count">6</span>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="What exactly is DoveLingua?" data-pt="O que é exactamente a DoveLingua?">What exactly is DoveLingua?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="DoveLingua is a professional English learning academy founded in Mozambique in April 2026. It is a structured, communicative English course — not explanation sessions (*explicações*). DoveLingua offers a complete programme from Pre-A1 to C1, with defined levels, clear goals, formal assessments and certificates for students who complete each level." data-pt="A DoveLingua é uma academia profissional de aprendizagem de inglês fundada em Moçambique em Abril de 2026. É um curso de inglês estruturado e comunicativo — não explicações. A DoveLingua oferece um programa completo do Pré-A1 ao C1, com níveis definidos, objectivos claros, avaliações formais e certificados para os alunos que concluem cada nível.">DoveLingua is a professional English learning academy founded in Mozambique in April 2026. It is a structured, communicative English course — not explanation sessions. DoveLingua offers a complete programme from Pre-A1 to C1, with defined levels, clear goals, formal assessments and certificates for students who complete each level.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="Is DoveLingua officially registered with the government?" data-pt="A DoveLingua está oficialmente registada junto do governo?">Is DoveLingua officially registered with the government?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="DoveLingua is not yet formally registered as a government-accredited institution. It operates transparently as a professional English academy founded by a qualified teacher. Government registration and accreditation is a clear goal in DoveLingua's roadmap — it is where this institution is heading." data-pt="A DoveLingua ainda não está formalmente registada como instituição acreditada pelo governo. Opera de forma transparente como uma academia profissional de inglês fundada por um professor qualificado. O registo governamental e a acreditação são um objectivo claro no roteiro da DoveLingua — é para onde esta instituição se encaminha.">DoveLingua is not yet formally registered as a government-accredited institution. It operates transparently as a professional English academy founded by a qualified teacher. Government registration and accreditation is a clear goal in DoveLingua's roadmap — it is where this institution is heading.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="Where is DoveLingua based? Can I study from anywhere?" data-pt="Onde está sediada a DoveLingua? Posso estudar de qualquer lugar?">Where is DoveLingua based? Can I study from anywhere?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="DoveLingua was founded in Mozambique. In-person lessons are held in <strong>Maxixe city, Inhambane Province</strong>. Online lessons are available to anyone in Mozambique and worldwide — all you need is a phone, tablet or computer with internet." data-pt="A DoveLingua foi fundada em Moçambique. As aulas presenciais realizam-se na <strong>cidade da Maxixe, Província de Inhambane</strong>. As aulas online estão disponíveis para qualquer pessoa em Moçambique e em todo o mundo — precisas apenas de um telemóvel, tablet ou computador com internet.">DoveLingua was founded in Mozambique. In-person lessons are held in <strong>Maxixe city, Inhambane Province</strong>. Online lessons are available to anyone in Mozambique and worldwide — all you need is a phone, tablet or computer with internet.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="What are DoveLingua's vision and future plans?" data-pt="Qual é a visão e os planos futuros da DoveLingua?">What are DoveLingua's vision and future plans?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="DoveLingua's vision is to become a formally registered, respected English language institution in Mozambique — with a physical location, government-accredited certificates and a reputation for producing confident, fluent English speakers ready for academic, professional and international opportunities." data-pt="A visão da DoveLingua é tornar-se uma instituição de língua inglesa formalmente registada e respeitada em Moçambique — com um espaço físico, certificados acreditados pelo governo e uma reputação por produzir falantes de inglês confiantes e fluentes, prontos para oportunidades académicas, profissionais e internacionais.">DoveLingua's vision is to become a formally registered, respected English language institution in Mozambique — with a physical location, government-accredited certificates and a reputation for producing confident, fluent English speakers ready for academic, professional and international opportunities.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="What makes DoveLingua different from other English classes?" data-pt="O que torna a DoveLingua diferente das outras aulas de inglês?">What makes DoveLingua different from other English classes?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Many English classes in Mozambique have no structure, no levels, no defined goals and no formal recognition. DoveLingua is built differently — it has a complete, documented curriculum: a <strong>syllabus for every level</strong>, a <strong>lesson topic distribution (plano analítico)</strong> showing exactly what is taught in every single lesson, a <strong>level evaluation checklist</strong> and an <strong>official curriculum development record</strong>. We can show all of it. That transparency is our credibility." data-pt="Muitas aulas de inglês em Moçambique não têm estrutura, níveis, objectivos definidos nem reconhecimento formal. A DoveLingua é construída de forma diferente — tem um currículo completo e documentado: um <strong>programa para cada nível</strong>, um <strong>plano analítico</strong> que mostra exactamente o que é ensinado em cada aula, uma <strong>lista de avaliação por nível</strong> e um <strong>registo oficial de desenvolvimento curricular</strong>. Podemos mostrar tudo isso. Essa transparência é a nossa credibilidade.">Many English classes in Mozambique have no structure, no levels, no defined goals and no formal recognition. DoveLingua is built differently — it has a complete, documented curriculum: a <strong>syllabus for every level</strong>, a <strong>lesson topic distribution (plano analítico)</strong> showing exactly what is taught in every single lesson, a <strong>level evaluation checklist</strong> and an <strong>official curriculum development record</strong>. We can show all of it. That transparency is our credibility.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="What is DoveLingua's teaching philosophy?" data-pt="Qual é a filosofia de ensino da DoveLingua?">What is DoveLingua's teaching philosophy?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="DoveLingua follows the <strong>Communicative Language Teaching (CLT)</strong> approach — the most respected methodology in modern English education. The founding principle is simple: <em>grammar is the tool, communication is the goal.</em> Students do not study grammar for its own sake — they use it to say something real. Every lesson has a communicative purpose." data-pt="A DoveLingua segue a abordagem do <strong>Ensino Comunicativo de Línguas (CLT)</strong> — a metodologia mais respeitada no ensino moderno do inglês. O princípio fundador é simples: <em>a gramática é a ferramenta, a comunicação é o objectivo.</em> Os alunos não estudam gramática por si mesma — usam-na para dizer algo real. Cada aula tem um propósito comunicativo.">DoveLingua follows the <strong>Communicative Language Teaching (CLT)</strong> approach — the most respected methodology in modern English education. The founding principle is simple: <em>grammar is the tool, communication is the goal.</em> Students do not study grammar for its own sake — they use it to say something real. Every lesson has a communicative purpose.</p>
+          </div></div>
+        </div>
+
+      </div><!-- end cat-about -->
+
+
+      <!-- ══ 2. PROGRAMME & LEVELS ══ -->
+      <div class="faq-category fade-up" id="cat-programme">
+        <div class="faq-cat-header">
+          <span class="faq-cat-icon">📚</span>
+          <span class="faq-cat-title" data-en="Programme &amp; Levels" data-pt="Programa e Níveis">Programme &amp; Levels</span>
+          <span class="faq-cat-count">9</span>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="How many levels does DoveLingua have?" data-pt="Quantos níveis tem a DoveLingua?">How many levels does DoveLingua have?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="DoveLingua has <strong>7 levels</strong>: Level 0 (Pre-A1 — First Steps), Level 1 (A1 — Beginner), Level 2 (A2 — Elementary), Level 3 (A2+ — Pre-Intermediate), Level 4 (B1 — Intermediate), Level 5 (B2 — Upper Intermediate) and Level 6 (C1 — Advanced). All levels are aligned with the international CEFR standard." data-pt="A DoveLingua tem <strong>7 níveis</strong>: Nível 0 (Pré-A1 — Primeiros Passos), Nível 1 (A1 — Iniciante), Nível 2 (A2 — Básico), Nível 3 (A2+ — Pré-Intermédio), Nível 4 (B1 — Intermédio), Nível 5 (B2 — Intermédio Avançado) e Nível 6 (C1 — Avançado). Todos os níveis estão alinhados com o referencial internacional QECR.">DoveLingua has <strong>7 levels</strong>: Level 0 (Pre-A1 — First Steps), Level 1 (A1 — Beginner), Level 2 (A2 — Elementary), Level 3 (A2+ — Pre-Intermediate), Level 4 (B1 — Intermediate), Level 5 (B2 — Upper Intermediate) and Level 6 (C1 — Advanced). All levels are aligned with the international CEFR standard.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="What is the CEFR and why does DoveLingua use it?" data-pt="O que é o QECR e por que é que a DoveLingua o utiliza?">What is the CEFR and why does DoveLingua use it?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="The CEFR (Common European Framework of Reference for Languages) is the international standard used by universities, employers, governments and language institutions worldwide to describe English ability. DoveLingua uses it for one reason: <strong>honesty</strong>. When a student completes B1 at DoveLingua, that label means the same thing in London, Lisbon, Johannesburg or anywhere else in the world." data-pt="O QECR (Quadro Europeu Comum de Referência para as Línguas) é o referencial internacional usado por universidades, empregadores, governos e instituições linguísticas em todo o mundo para descrever a competência em inglês. A DoveLingua utiliza-o por uma razão: <strong>honestidade</strong>. Quando um aluno conclui o B1 na DoveLingua, esse rótulo significa o mesmo em Londres, Lisboa, Joanesburgo ou em qualquer outro lugar do mundo.">The CEFR (Common European Framework of Reference for Languages) is the international standard used by universities, employers, governments and language institutions worldwide to describe English ability. DoveLingua uses it for one reason: <strong>honesty</strong>. When a student completes B1 at DoveLingua, that label means the same thing in London, Lisbon, Johannesburg or anywhere else in the world.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="What is Level 0 — First Steps? Is it free?" data-pt="O que é o Nível 0 — Primeiros Passos? É gratuito?">What is Level 0 — First Steps? Is it free?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Level 0 is a 3-week welcome programme designed for absolute beginners — students with zero English. Its purpose is not to teach grammar but to remove fear, build confidence and give students their very first real English communication experience. <strong>It is completely free</strong> and automatically included for every student who enrols in Level 1." data-pt="O Nível 0 é um programa de boas-vindas de 3 semanas desenhado para iniciantes absolutos — alunos com zero inglês. O seu propósito não é ensinar gramática, mas eliminar o medo, construir confiança e dar aos alunos a sua primeira experiência real de comunicação em inglês. <strong>É completamente gratuito</strong> e automaticamente incluído para todos os alunos que se inscrevem no Nível 1.">Level 0 is a 3-week welcome programme designed for absolute beginners. Its purpose is to remove fear, build confidence and give students their very first real English communication experience. <strong>It is completely free</strong> and automatically included for every student who enrols in Level 1.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="How do I know which level is right for me?" data-pt="Como sei qual é o nível certo para mim?">How do I know which level is right for me?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="If you are unsure of your level, contact our support team to take a <strong>free Level Placement Test</strong>. You will be placed in the correct level before enrolment. If you enrol in Level 1 without a test, our team will still assess your level during the early lessons and guide you accordingly." data-pt="Se não tens a certeza do teu nível, contacta a nossa equipa de suporte para realizar um <strong>Teste de Nivelamento gratuito</strong>. Serás colocado no nível correcto antes da inscrição. Se te inscreveres no Nível 1 sem teste, a nossa equipa ainda avaliará o teu nível durante as primeiras aulas e guiar-te-á de acordo.">If you are unsure of your level, contact our support team to take a <strong>free Level Placement Test</strong>. You will be placed in the correct level before enrolment.</p>
+            <span class="ans-tag navy">📧 <a href="contact.html" data-en="Contact us to book your test" data-pt="Contacta-nos para marcar o teu teste">Contact us to book your test</a></span>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="Which levels are currently open for enrolment?" data-pt="Quais os níveis actualmente abertos para inscrição?">Which levels are currently open for enrolment?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Currently <strong>Level 1 (A1 — Beginner)</strong> and <strong>Level 2 (A2 — Elementary)</strong> are open for enrolment. Higher levels will open progressively. Check the <a href='programme.html'>Programme page</a> for the latest status." data-pt="Actualmente o <strong>Nível 1 (A1 — Iniciante)</strong> e o <strong>Nível 2 (A2 — Básico)</strong> estão abertos para inscrição. Os níveis superiores abrirão progressivamente. Consulta a <a href='programme.html'>página do Programa</a> para o estado mais recente.">Currently <strong>Level 1 (A1 — Beginner)</strong> and <strong>Level 2 (A2 — Elementary)</strong> are open for enrolment. Higher levels will open progressively.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="Can I skip a level if I already know some English?" data-pt="Posso saltar um nível se já sei algum inglês?">Can I skip a level if I already know some English?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Yes — that is exactly what the Level Placement Test is for. It ensures you start at the right level for your current ability. Contact our support team before enrolling and we will assess the appropriate starting point for you." data-pt="Sim — é exactamente para isso que serve o Teste de Nivelamento. Garante que começas no nível certo para a tua capacidade actual. Contacta a nossa equipa de suporte antes de te inscreveres e avaliaremos o ponto de partida adequado para ti.">Yes — that is exactly what the Level Placement Test is for. Contact our support team before enrolling and we will assess the appropriate starting point for you.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="How does a student progress from one level to the next?" data-pt="Como é que um aluno progride de um nível para o seguinte?">How does a student progress from one level to the next?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Students progress by passing the <strong>final level exam</strong> — not simply by attending lessons. Each level also includes unit tests after every two units. Students who do not pass the final exam repeat the level before advancing. At DoveLingua, progression means something real." data-pt="Os alunos progridem passando no <strong>exame final de nível</strong> — não simplesmente por assistir às aulas. Cada nível inclui também testes de unidade após cada duas unidades. Os alunos que não passam no exame final repetem o nível antes de avançar. Na DoveLingua, progressão significa algo real.">Students progress by passing the <strong>final level exam</strong> — not simply by attending lessons. Each level also includes unit tests after every two units.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="How long does the full programme take?" data-pt="Quanto tempo demora o programa completo?">How long does the full programme take?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="The full programme from Level 0 (Pre-A1) to Level 6 (C1) takes approximately <strong>20 months</strong>, with 308 lessons and between 460–616 contact hours. This is consistent with internationally recognised institutions such as the British Council (500–700+ hours) and Cambridge English (600–800+ hours). Quality takes the time it takes." data-pt="O programa completo do Nível 0 (Pré-A1) ao Nível 6 (C1) demora aproximadamente <strong>20 meses</strong>, com 308 aulas e entre 460–616 horas de contacto. Isso é consistente com instituições internacionalmente reconhecidas como o British Council (500–700+ horas) e Cambridge English (600–800+ horas). A qualidade demora o que demora.">The full programme takes approximately <strong>20 months</strong>, with 308 lessons and 460–616 contact hours. This is consistent with internationally recognised institutions such as the British Council and Cambridge English.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="Why does each level take weeks instead of days?" data-pt="Por que é que cada nível demora semanas em vez de dias?">Why does each level take weeks instead of days?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Language is not memorisation — it is rewiring how the brain processes communication. That takes time. Anyone promising fluency in three months cannot show you a syllabus, a lesson plan or a curriculum record. <strong>DoveLingua can show all of it.</strong> The time invested in each level is not a weakness — it is the reason our students actually arrive at the destination." data-pt="A língua não é memorização — é reconfigurar como o cérebro processa a comunicação. Isso leva tempo. Qualquer pessoa que prometa fluência em três meses não consegue mostrar-te um programa, um plano analítico ou um registo curricular. <strong>A DoveLingua pode mostrar tudo isso.</strong> O tempo investido em cada nível não é uma fraqueza — é a razão pela qual os nossos alunos chegam efectivamente ao destino.">Language is not memorisation — it is rewiring how the brain processes communication. Anyone promising fluency in three months cannot show you a syllabus, a lesson plan or a curriculum record. <strong>DoveLingua can show all of it.</strong></p>
+          </div></div>
+        </div>
+
+      </div><!-- end cat-programme -->
+
+
+      <!-- ══ 3. LESSONS & LEARNING ══ -->
+      <div class="faq-category fade-up" id="cat-lessons">
+        <div class="faq-cat-header">
+          <span class="faq-cat-icon">🎓</span>
+          <span class="faq-cat-title" data-en="Lessons &amp; Learning" data-pt="Aulas e Aprendizagem">Lessons &amp; Learning</span>
+          <span class="faq-cat-count">8</span>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="Do lessons take place on WhatsApp?" data-pt="As aulas acontecem no WhatsApp?">Do lessons take place on WhatsApp?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="<strong>No.</strong> Lessons at DoveLingua do not take place on WhatsApp or any messaging application. All lessons are delivered through our dedicated professional platform — <strong>DoveLingua Classroom</strong> at classroom.dovelingua.com. Students feel present, connected and focused — as if teacher and student share the same room." data-pt="<strong>Não.</strong> As aulas na DoveLingua não acontecem no WhatsApp ou em qualquer aplicação de mensagens. Todas as aulas são ministradas através da nossa plataforma profissional dedicada — <strong>Sala de Aula DoveLingua</strong> em classroom.dovelingua.com. Os alunos sentem-se presentes, ligados e focados — como se professor e aluno partilhassem a mesma sala."><strong>No.</strong> Lessons do not take place on WhatsApp or any messaging application. All lessons are delivered through <strong>DoveLingua Classroom</strong> at classroom.dovelingua.com.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="How long is each lesson?" data-pt="Quanto tempo dura cada aula?">How long is each lesson?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Each DoveLingua lesson runs for <strong>90 to 120 minutes</strong>. This is significantly longer than a typical school lesson (45 minutes). The extra time is deliberate — real communication practice cannot happen in 45 minutes. Three stages are covered in every lesson: encounter, practice and real use." data-pt="Cada aula DoveLingua dura <strong>90 a 120 minutos</strong>. É significativamente mais longa do que uma aula escolar típica (45 minutos). O tempo extra é deliberado — a prática de comunicação real não pode acontecer em 45 minutos.">Each DoveLingua lesson runs for <strong>90 to 120 minutes</strong>. This is deliberate — real communication practice cannot happen in 45 minutes.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="How many lessons per week?" data-pt="Quantas aulas por semana?">How many lessons per week?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Online students attend <strong>3 lessons per week</strong>. In-person students attend <strong>5 lessons per week</strong>. The schedule for each group is communicated after enrolment confirmation." data-pt="Os alunos online assistem a <strong>3 aulas por semana</strong>. Os alunos presenciais assistem a <strong>5 aulas por semana</strong>. O horário de cada turma é comunicado após a confirmação da inscrição.">Online students attend <strong>3 lessons per week</strong>. In-person students attend <strong>5 lessons per week</strong>. The schedule is communicated after enrolment confirmation.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="What are the lessons like — what happens in a DoveLingua lesson?" data-pt="Como são as aulas — o que acontece numa aula DoveLingua?">What are the lessons like — what happens in a DoveLingua lesson?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Every lesson follows three stages: <strong>Encounter</strong> (you meet new language in a real context), <strong>Practice</strong> (you practise speaking, listening, reading and writing), and <strong>Real Use</strong> (you use the language independently in actual conversation). Every lesson ends with something you can do in English that you could not do when it started." data-pt="Cada aula segue três etapas: <strong>Encontro</strong> (conheces nova linguagem num contexto real), <strong>Prática</strong> (praticas falar, ouvir, ler e escrever) e <strong>Uso Real</strong> (usas a língua de forma independente em conversa real). Cada aula termina com algo que consegues fazer em inglês que não conseguias quando começou.">Every lesson follows three stages: <strong>Encounter</strong>, <strong>Practice</strong>, and <strong>Real Use</strong>. Every lesson ends with something you can do in English that you could not do when it started.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="Are lessons available online and in-person?" data-pt="As aulas estão disponíveis online e presencialmente?">Are lessons available online and in-person?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Yes. DoveLingua offers both modalities. <strong>Online</strong> lessons are delivered through DoveLingua Classroom and are available from anywhere in the world. <strong>In-person</strong> lessons take place in <strong>Maxixe city, Inhambane Province, Mozambique</strong>." data-pt="Sim. A DoveLingua oferece ambas as modalidades. As aulas <strong>online</strong> são ministradas através da Sala de Aula DoveLingua e estão disponíveis em qualquer parte do mundo. As aulas <strong>presenciais</strong> realizam-se na <strong>cidade da Maxixe, Província de Inhambane, Moçambique</strong>.">Yes. Online lessons are available from anywhere worldwide. In-person lessons take place in <strong>Maxixe city, Inhambane Province, Mozambique</strong>.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="Before each lesson, do students know what they will learn?" data-pt="Antes de cada aula, os alunos sabem o que vão aprender?">Before each lesson, do students know what they will learn?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Yes. Every DoveLingua student has the right to receive a clear presentation of what will be learned at the beginning of each lesson. This is part of our commitment to transparency — students always know the purpose and goal of what they are studying." data-pt="Sim. Cada aluno DoveLingua tem o direito de receber uma apresentação clara do que será aprendido no início de cada aula. Isto faz parte do nosso compromisso com a transparência — os alunos conhecem sempre o propósito e o objectivo do que estão a estudar.">Yes. Every student has the right to receive a clear presentation of what will be learned at the beginning of each lesson.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="Are student grades and progress saved anywhere?" data-pt="As notas e o progresso dos alunos são guardados em algum lado?">Are student grades and progress saved anywhere?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Yes. All student records, grades and exam results are saved on the DoveLingua Classroom platform. Students can review their progress months later to see exactly how far they have come with DoveLingua." data-pt="Sim. Todos os registos dos alunos, notas e resultados de exames são guardados na plataforma Sala de Aula DoveLingua. Os alunos podem rever o seu progresso meses depois para ver exactamente o quanto avançaram na DoveLingua.">Yes. All student records, grades and exam results are saved on the DoveLingua Classroom platform.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="What equipment do I need to attend online lessons?" data-pt="Que equipamento preciso para assistir às aulas online?">What equipment do I need to attend online lessons?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="You need a <strong>phone, tablet or computer</strong> with an internet connection. No special technical knowledge is required. Access to DoveLingua Classroom is provided after enrolment confirmation through your personal login credentials." data-pt="Precisas de um <strong>telemóvel, tablet ou computador</strong> com ligação à internet. Não são necessários conhecimentos técnicos especiais. O acesso à Sala de Aula DoveLingua é fornecido após a confirmação da inscrição através das tuas credenciais de acesso pessoais.">You need a <strong>phone, tablet or computer</strong> with internet. No technical knowledge required. Access credentials are provided after enrolment confirmation.</p>
+          </div></div>
+        </div>
+
+      </div><!-- end cat-lessons -->
+
+
+      <!-- ══ 4. ENROLMENT & PAYMENT ══ -->
+      <div class="faq-category fade-up" id="cat-enrol">
+        <div class="faq-cat-header">
+          <span class="faq-cat-icon">💳</span>
+          <span class="faq-cat-title" data-en="Enrolment &amp; Payment" data-pt="Inscrição e Pagamento">Enrolment &amp; Payment</span>
+          <span class="faq-cat-count">11</span>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="How do I enrol at DoveLingua?" data-pt="Como me inscrevo na DoveLingua?">How do I enrol at DoveLingua?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Enrolment is fully automatic. Visit the <a href='enrol.html'>Enrolment page</a>, choose your level and payment modality, complete your personal details, make your payment via M-Pesa or e-Mola, and submit. An official receipt is generated automatically. Access to DoveLingua Classroom is confirmed within 24 hours." data-pt="A inscrição é totalmente automática. Visita a <a href='enrol.html'>página de Inscrição</a>, escolhe o teu nível e modalidade de pagamento, preenche os teus dados pessoais, efectua o pagamento via M-Pesa ou e-Mola e submete. Um recibo oficial é gerado automaticamente. O acesso à Sala de Aula DoveLingua é confirmado em 24 horas.">Enrolment is fully automatic through the <a href='enrol.html'>Enrolment page</a>. An official receipt is generated automatically and access is confirmed within 24 hours.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="What payment methods are accepted?" data-pt="Que métodos de pagamento são aceites?">What payment methods are accepted?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Students in Mozambique can pay via <strong>M-Pesa, e-Mola, bank transfer or PayPal</strong>. Students outside Mozambique can pay via <strong>PayPal or international bank transfer</strong>." data-pt="Os alunos em Moçambique podem pagar via <strong>M-Pesa, e-Mola, transferência bancária ou PayPal</strong>. Os alunos fora de Moçambique podem pagar via <strong>PayPal ou transferência bancária internacional</strong>.">Students in Mozambique: <strong>M-Pesa, e-Mola, bank transfer or PayPal</strong>. Students outside Mozambique: <strong>PayPal or international bank transfer</strong>.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="What payment modalities are available?" data-pt="Que modalidades de pagamento estão disponíveis?">What payment modalities are available?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="DoveLingua offers three modalities: <strong>Monthly</strong> (pay month by month until the level is complete), <strong>Full Level</strong> (pay the full level at once with a 10% discount), and <strong>Full Course</strong> (enrol in multiple levels at once — contact support for personalised pricing)." data-pt="A DoveLingua oferece três modalidades: <strong>Mensal</strong> (pagar mês a mês até ao nível estar completo), <strong>Nível Completo</strong> (pagar o nível completo de uma vez com 10% de desconto) e <strong>Curso Completo</strong> (inscrever em vários níveis de uma vez — contactar o suporte para preços personalizados).">Three modalities: <strong>Monthly</strong>, <strong>Full Level</strong> (with 10% discount), and <strong>Full Course</strong> (contact support).</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="What is the Taxa de Inscrição (Registration Fee)?" data-pt="O que é a Taxa de Inscrição?">What is the Taxa de Inscrição (Registration Fee)?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="The Taxa de Inscrição is a one-time registration fee applied automatically in the <strong>first month of each level only</strong>. From the second month onwards, only the Taxa do Curso (course fee) applies — the registration fee is automatically removed by the system. Students do not need to calculate this manually." data-pt="A Taxa de Inscrição é uma taxa de inscrição única aplicada automaticamente apenas no <strong>primeiro mês de cada nível</strong>. A partir do segundo mês, aplica-se apenas a Taxa do Curso — a taxa de inscrição é automaticamente removida pelo sistema. Os alunos não precisam de calcular isto manualmente.">The Taxa de Inscrição applies only in the <strong>first month of each level</strong>. From the second month, only the Taxa do Curso applies — the system removes it automatically.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="Is there a discount for paying the full level at once?" data-pt="Há desconto por pagar o nível completo de uma vez?">Is there a discount for paying the full level at once?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Yes. Students who choose the <strong>Full Level</strong> modality receive a <strong>10% discount</strong> on the total level price. The discount varies by level and may change over time — always check the <a href='programme.html'>Programme page</a> for current prices before enrolling." data-pt="Sim. Os alunos que escolhem a modalidade <strong>Nível Completo</strong> recebem um <strong>desconto de 10%</strong> no preço total do nível. O desconto varia por nível e pode mudar com o tempo — verifica sempre a <a href='programme.html'>página do Programa</a> para os preços actuais antes de te inscreveres.">Yes — <strong>10% discount</strong> for the Full Level modality. Prices may change — always check the <a href='programme.html'>Programme page</a> before enrolling.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="What is the Material Didáctico and is it mandatory?" data-pt="O que é o Material Didáctico e é obrigatório?">What is the Material Didáctico and is it mandatory?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="The Material Didáctico is the official DoveLingua teaching book for each level. It is <strong>optional</strong> and paid once for the entire level. Students who do not purchase it will receive worksheets and teaching materials provided by the teacher during lessons — participation and learning are not affected." data-pt="O Material Didáctico é o livro oficial de ensino DoveLingua para cada nível. É <strong>opcional</strong> e pago uma única vez para todo o nível. Os alunos que não o adquirem receberão fichas de trabalho e materiais de ensino fornecidos pelo professor durante as aulas — a participação e aprendizagem não são afectadas.">The Material Didáctico is <strong>optional</strong> and paid once per level. Students without it receive worksheets from the teacher — learning is not affected.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="Do I receive a receipt after paying?" data-pt="Recebo um recibo depois de pagar?">Do I receive a receipt after paying?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Yes. Every student who enrols through DoveLingua is entitled to an <strong>official receipt</strong>. The receipt is generated automatically by the enrolment system immediately after your submission and can be downloaded as a PDF." data-pt="Sim. Cada aluno que se inscreve na DoveLingua tem direito a um <strong>recibo oficial</strong>. O recibo é gerado automaticamente pelo sistema de inscrição imediatamente após a tua submissão e pode ser descarregado em PDF.">Yes. An <strong>official PDF receipt</strong> is generated automatically by the enrolment system immediately after submission.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="Can prices change after I enrol?" data-pt="Os preços podem mudar depois de me inscrever?">Can prices change after I enrol?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Prices shown on the website are valid at the time of viewing and may be updated. We recommend always checking the <a href='programme.html'>Programme page</a> and reading the <a href='terms.html'>Terms and Policies</a> before making any payment. Once enrolled and confirmed, your agreed price is honoured for that enrolment." data-pt="Os preços apresentados no sítio web são válidos no momento da visualização e podem ser actualizados. Recomendamos verificar sempre a <a href='programme.html'>página do Programa</a> e ler os <a href='terms.html'>Termos e Políticas</a> antes de efectuar qualquer pagamento.">Prices may be updated. Always check the <a href='programme.html'>Programme page</a> and <a href='terms.html'>Terms and Policies</a> before any payment.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="Can I enrol in more than one level at once?" data-pt="Posso inscrever-me em mais do que um nível de uma vez?">Can I enrol in more than one level at once?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Yes — through the <strong>Full Course modality</strong>. This option is not available directly in the enrolment system. Contact our support team for personalised pricing and assistance." data-pt="Sim — através da <strong>modalidade Curso Completo</strong>. Esta opção não está disponível directamente no sistema de inscrição. Contacta a nossa equipa de suporte para preços personalizados e assistência.">Yes — through the <strong>Full Course modality</strong>. Contact our support team for personalised pricing.</p>
+            <span class="ans-tag navy">📧 <a href="contact.html" data-en="Contact support" data-pt="Contactar suporte">Contact support</a></span>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="What happens if I want a refund?" data-pt="O que acontece se quiser um reembolso?">What happens if I want a refund?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="DoveLingua does not issue refunds to students who enrolled and later dropped out during the course. Students who need to pause should contact support. Please read the full refund and interruption policy in our <a href='terms.html'>Terms and Policies</a>." data-pt="A DoveLingua não efectua reembolsos a alunos que se inscreveram e posteriormente desistiram durante o curso. Os alunos que precisem de fazer uma pausa devem contactar o suporte. Lê a política completa de reembolso e interrupção nos nossos <a href='terms.html'>Termos e Políticas</a>.">DoveLingua does not issue refunds for drop-outs. Read the full policy in <a href='terms.html'>Terms and Policies</a>.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="Are prices the same for online and in-person students?" data-pt="Os preços são iguais para alunos online e presenciais?">Are prices the same for online and in-person students?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Current pricing is the same for both modalities. Always check the <a href='programme.html'>Programme page</a> for the latest pricing, as this may change over time." data-pt="Os preços actuais são os mesmos para ambas as modalidades. Verifica sempre a <a href='programme.html'>página do Programa</a> para os preços mais recentes, pois podem mudar com o tempo.">Current pricing is the same for both modalities. Check the <a href='programme.html'>Programme page</a> for latest pricing.</p>
+          </div></div>
+        </div>
+
+      </div><!-- end cat-enrol -->
+
+
+      <!-- ══ 5. ABSENCES & INTERRUPTIONS ══ -->
+      <div class="faq-category fade-up" id="cat-absences">
+        <div class="faq-cat-header">
+          <span class="faq-cat-icon">🔄</span>
+          <span class="faq-cat-title" data-en="Absences &amp; Interruptions" data-pt="Faltas e Interrupções">Absences &amp; Interruptions</span>
+          <span class="faq-cat-count">4</span>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="What happens if I miss too many lessons?" data-pt="O que acontece se faltar a demasiadas aulas?">What happens if I miss too many lessons?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="A student who misses <strong>10 consecutive lessons without prior justification</strong> is automatically failed at that level. To re-enrol in the same level in a new group, the student pays only <strong>25% of their previous payment</strong>. Justified absences — communicated at least 5 hours in advance — are treated differently. Contact support for details." data-pt="Um aluno que falte a <strong>10 aulas consecutivas sem justificação prévia</strong> é automaticamente reprovado nesse nível. Para se re-inscrever no mesmo nível numa nova turma, o aluno paga apenas <strong>25% do valor anteriormente pago</strong>. As faltas justificadas — comunicadas com pelo menos 5 horas de antecedência — são tratadas de forma diferente. Contacta o suporte para mais detalhes.">Missing <strong>10 consecutive unjustified lessons</strong> results in automatic failure. Re-enrolment costs <strong>25% of the previous payment</strong>. Justified absences are treated differently — contact support.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="What if I need to pause my studies for a while?" data-pt="E se precisar de pausar os estudos por um tempo?">What if I need to pause my studies for a while?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="If you need to pause, contact our support team as early as possible. Prolonged justified absences are assessed on a case-by-case basis. Do not simply stop attending — communicate with us and we will find the best solution for your situation." data-pt="Se precisares de pausar, contacta a nossa equipa de suporte o mais cedo possível. As ausências justificadas prolongadas são avaliadas caso a caso. Não deixes simplesmente de assistir — comunica connosco e encontraremos a melhor solução para a tua situação.">Contact our support team as early as possible. Prolonged absences are assessed case by case.</p>
+            <span class="ans-tag green">📧 <a href="contact.html" data-en="Contact support" data-pt="Contactar suporte">Contact support</a></span>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="What if I don't submit homework?" data-pt="E se não entregar os trabalhos de casa?">What if I don't submit homework?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Students who do not submit homework for <strong>5 consecutive days</strong> receive a deduction of 5 marks on the next test, which may affect their course average and progression. Consistent engagement with homework is part of the DoveLingua learning commitment." data-pt="Os alunos que não entregam trabalhos de casa durante <strong>5 dias consecutivos</strong> recebem uma dedução de 5 valores no próximo teste, o que pode afectar a sua média e progressão. O envolvimento consistente com os trabalhos de casa faz parte do compromisso de aprendizagem DoveLingua.">Missing homework for <strong>5 consecutive days</strong> results in a 5-mark deduction on the next test, which may affect progression.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="How do I justify an absence?" data-pt="Como justifico uma falta?">How do I justify an absence?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Inform your teacher at least <strong>5 hours before the lesson</strong> with a valid reason. Absences communicated in advance are treated differently from unjustified ones. If the reason arises suddenly, contact support as soon as possible." data-pt="Informa o teu professor com pelo menos <strong>5 horas de antecedência</strong> com um motivo válido. As faltas comunicadas com antecedência são tratadas de forma diferente das não justificadas. Se o motivo surgir de repente, contacta o suporte o mais cedo possível.">Inform your teacher at least <strong>5 hours before the lesson</strong> with a valid reason.</p>
+          </div></div>
+        </div>
+
+      </div><!-- end cat-absences -->
+
+
+      <!-- ══ 6. CERTIFICATES ══ -->
+      <div class="faq-category fade-up" id="cat-certs">
+        <div class="faq-cat-header">
+          <span class="faq-cat-icon">📜</span>
+          <span class="faq-cat-title" data-en="Certificates" data-pt="Certificados">Certificates</span>
+          <span class="faq-cat-count">4</span>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="Do I receive a certificate when I complete a level?" data-pt="Recebo um certificado quando concluo um nível?">Do I receive a certificate when I complete a level?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Yes — students who pass the final exam of an eligible level receive a <strong>DoveLingua Certificate of Completion</strong>. However, <strong>not all levels include a certificate</strong>. The weight (value) of each certificate also varies according to the level completed. Please check the <a href='terms.html'>Terms and Policies page</a> to confirm which levels include certification and what each certificate represents." data-pt="Sim — os alunos que passam no exame final de um nível elegível recebem um <strong>Certificado de Conclusão DoveLingua</strong>. No entanto, <strong>nem todos os níveis incluem um certificado</strong>. O peso (valor) de cada certificado também varia de acordo com o nível concluído. Por favor, consulta a <a href='terms.html'>página de Termos e Políticas</a> para confirmar quais os níveis que incluem certificação e o que cada certificado representa.">Yes — but <strong>not all levels include a certificate</strong>. The value of each certificate varies by level. Check the <a href='terms.html'>Terms and Policies</a> for full details.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="Are DoveLingua certificates government-accredited?" data-pt="Os certificados DoveLingua são acreditados pelo governo?">Are DoveLingua certificates government-accredited?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Not yet. DoveLingua certificates are currently issued by a qualified English teacher and represent an honest, professionally documented record of achievement. Government accreditation is a clear goal in DoveLingua's roadmap. <strong>That honesty is itself a form of credibility.</strong>" data-pt="Ainda não. Os certificados DoveLingua são actualmente emitidos por um professor de inglês qualificado e representam um registo honesto e profissionalmente documentado de conquistas. A acreditação governamental é um objectivo claro no roteiro da DoveLingua. <strong>Essa honestidade é em si mesma uma forma de credibilidade.</strong>">Not yet — but they are issued by a qualified teacher and are honest, documented and verifiable. Government accreditation is on DoveLingua's roadmap.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="How can I verify a DoveLingua certificate?" data-pt="Como posso verificar um certificado DoveLingua?">How can I verify a DoveLingua certificate?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Every DoveLingua certificate can be publicly verified at <a href='https://certify.dovelingua.com' target='_blank'>certify.dovelingua.com</a>. This ensures that every certificate issued is genuine, honest and cannot be falsified." data-pt="Cada certificado DoveLingua pode ser verificado publicamente em <a href='https://certify.dovelingua.com' target='_blank'>certify.dovelingua.com</a>. Isto garante que cada certificado emitido é genuíno, honesto e não pode ser falsificado.">Every certificate can be verified at <a href='https://certify.dovelingua.com' target='_blank'>certify.dovelingua.com</a>.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="Is there any other recognition besides a certificate?" data-pt="Existe algum outro reconhecimento além do certificado?">Is there any other recognition besides a certificate?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Yes. Students who complete from <strong>Level 0 through to Level 4 (Intermediate) or beyond</strong> receive an <strong>official DoveLingua t-shirt</strong> as recognition of their commitment and dedication throughout the journey." data-pt="Sim. Os alunos que concluem desde o <strong>Nível 0 até ao Nível 4 (Intermédio) ou além</strong> recebem uma <strong>t-shirt oficial DoveLingua</strong> como reconhecimento do seu compromisso e dedicação ao longo da jornada.">Yes — students completing <strong>Level 0 through Level 4 or beyond</strong> receive an <strong>official DoveLingua t-shirt</strong>.</p>
+          </div></div>
+        </div>
+
+      </div><!-- end cat-certs -->
+
+
+      <!-- ══ 7. TECHNOLOGY ══ -->
+      <div class="faq-category fade-up" id="cat-tech">
+        <div class="faq-cat-header">
+          <span class="faq-cat-icon">💻</span>
+          <span class="faq-cat-title" data-en="Technology &amp; Platform" data-pt="Tecnologia e Plataforma">Technology &amp; Platform</span>
+          <span class="faq-cat-count">5</span>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="What is DoveLingua Classroom?" data-pt="O que é a Sala de Aula DoveLingua?">What is DoveLingua Classroom?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="DoveLingua Classroom is our dedicated professional learning platform at <a href='https://classroom.dovelingua.com' target='_blank'>classroom.dovelingua.com</a>. It is where all online lessons take place. It hosts lesson content, activities, assessments and student records. Access is provided to enrolled students after payment confirmation." data-pt="A Sala de Aula DoveLingua é a nossa plataforma de aprendizagem profissional dedicada em <a href='https://classroom.dovelingua.com' target='_blank'>classroom.dovelingua.com</a>. É onde decorrem todas as aulas online. Aloja conteúdos de aulas, actividades, avaliações e registos de alunos. O acesso é fornecido aos alunos inscritos após a confirmação do pagamento.">Our dedicated learning platform at <a href='https://classroom.dovelingua.com' target='_blank'>classroom.dovelingua.com</a> — where all online lessons, activities and student records live.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="What if I have technical problems with the platform?" data-pt="E se tiver problemas técnicos com a plataforma?">What if I have technical problems with the platform?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Contact our support team immediately at <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a>. If the platform experiences maintenance, students will be notified in advance through all official DoveLingua channels. In such cases, DoveLingua compensates affected students with equivalent extra lessons or time." data-pt="Contacta a nossa equipa de suporte imediatamente em <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a>. Se a plataforma estiver em manutenção, os alunos serão notificados com antecedência através de todos os canais oficiais DoveLingua. Nesses casos, a DoveLingua compensa os alunos afectados com aulas ou tempo extra equivalente.">Contact <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a>. Planned maintenance is notified in advance, and DoveLingua compensates affected students.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="I forgot my platform password. What do I do?" data-pt="Esqueci a senha da plataforma. O que faço?">I forgot my platform password. What do I do?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="You can reset your password directly on the DoveLingua Classroom platform, or contact our support team at <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a> for assistance." data-pt="Podes redefinir a tua senha directamente na plataforma Sala de Aula DoveLingua, ou contactar a nossa equipa de suporte em <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a> para obter assistência.">Reset it directly on DoveLingua Classroom, or contact <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a>.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="Does DoveLingua have a WhatsApp channel?" data-pt="A DoveLingua tem um canal de WhatsApp?">Does DoveLingua have a WhatsApp channel?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Yes — DoveLingua has an official WhatsApp broadcast channel for announcements, news and updates. You can join at <a href='https://whatsapp.com/channel/0029VbCKsViFCCoWvkhrYT2g' target='_blank'>whatsapp.com/channel/0029VbCKsViFCCoWvkhrYT2g</a>. This channel is for information only — lessons and support do not happen through WhatsApp." data-pt="Sim — a DoveLingua tem um canal oficial de difusão WhatsApp para anúncios, notícias e actualizações. Podes juntar-te em <a href='https://whatsapp.com/channel/0029VbCKsViFCCoWvkhrYT2g' target='_blank'>whatsapp.com/channel/...</a>. Este canal é apenas para informação — as aulas e o suporte não acontecem pelo WhatsApp.">Yes — join our official channel for announcements. Lessons and support do <strong>not</strong> happen through WhatsApp.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="Does DoveLingua have a library or educational blog?" data-pt="A DoveLingua tem uma biblioteca ou blogue educativo?">Does DoveLingua have a library or educational blog?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Yes. DoveLingua operates several free platforms: an <strong>educational blog</strong> at learn.dovelingua.com, a <strong>library</strong> at library.dovelingua.com (with free and paid resources), and a <strong>community space</strong> at community.dovelingua.com. These are open to everyone — no enrolment required." data-pt="Sim. A DoveLingua opera várias plataformas gratuitas: um <strong>blogue educativo</strong> em learn.dovelingua.com, uma <strong>biblioteca</strong> em library.dovelingua.com (com recursos gratuitos e pagos) e um <strong>espaço comunitário</strong> em community.dovelingua.com. Estes estão abertos a todos — sem necessidade de inscrição.">Yes — educational blog at learn.dovelingua.com, library at library.dovelingua.com, and community at community.dovelingua.com. All open to everyone.</p>
+          </div></div>
+        </div>
+
+      </div><!-- end cat-tech -->
+
+
+      <!-- ══ 8. FREE RESOURCES ══ -->
+      <div class="faq-category fade-up" id="cat-free">
+        <div class="faq-cat-header">
+          <span class="faq-cat-icon">🆓</span>
+          <span class="faq-cat-title" data-en="Free Resources" data-pt="Recursos Gratuitos">Free Resources</span>
+          <span class="faq-cat-count">3</span>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="What if I want to learn English but cannot pay for a course?" data-pt="E se quiser aprender inglês mas não conseguir pagar um curso?">What if I want to learn English but cannot pay for a course?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="DoveLingua believes everyone deserves access to quality English learning. That is why we developed <strong>English Dove</strong> — a completely free English learning app available to anyone with a phone. English Dove includes structured lessons, grammar content, a points system to track your progress, and a community of learners to practise and connect with. No payment. No enrolment. No barriers." data-pt="A DoveLingua acredita que todos merecem acesso à aprendizagem de inglês de qualidade. Por isso desenvolvemos o <strong>English Dove</strong> — uma aplicação de aprendizagem de inglês completamente gratuita, disponível para qualquer pessoa com um telemóvel. O English Dove inclui aulas estruturadas, conteúdos de gramática, um sistema de pontos para acompanhar o teu progresso e uma comunidade de aprendentes para praticar e conectar. Sem pagamento. Sem inscrição. Sem barreiras.">DoveLingua developed <strong>English Dove</strong> — a completely free English app with structured lessons, a points system and a community of learners. No payment, no enrolment needed.</p>
+            <span class="ans-tag green">📱 <a href="https://app.dovelingua.com" target="_blank" data-en="Download English Dove free" data-pt="Descarregar English Dove gratuitamente">Download English Dove free</a></span>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="What free resources does DoveLingua offer besides the app?" data-pt="Que recursos gratuitos a DoveLingua oferece além da aplicação?">What free resources does DoveLingua offer besides the app?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="DoveLingua offers several free platforms open to everyone: the <strong>educational blog</strong> (learn.dovelingua.com) with articles, tips and English learning resources; the <strong>resources centre</strong> (resources.dovelingua.com) with downloadable materials; and the <strong>community</strong> (community.dovelingua.com) where learners interact and practise English together. All available without registration." data-pt="A DoveLingua oferece várias plataformas gratuitas abertas a todos: o <strong>blogue educativo</strong> (learn.dovelingua.com) com artigos, dicas e recursos; o <strong>centro de recursos</strong> (resources.dovelingua.com) com materiais para descarregar; e a <strong>comunidade</strong> (community.dovelingua.com) onde os aprendentes interagem e praticam inglês juntos. Tudo disponível sem registo.">Educational blog, resources centre and community — all free and open to everyone without registration.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="Can I use DoveLingua's free resources even if I'm not enrolled?" data-pt="Posso usar os recursos gratuitos da DoveLingua mesmo sem estar inscrito?">Can I use DoveLingua's free resources even if I'm not enrolled?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Absolutely yes. DoveLingua's free platforms — the educational blog, resources centre, community and English Dove app — are open to everyone in the world without any registration or payment. Only the formal course (DoveLingua Classroom lessons) requires enrolment." data-pt="Absolutamente sim. As plataformas gratuitas da DoveLingua — o blogue educativo, o centro de recursos, a comunidade e a aplicação English Dove — estão abertas a toda a gente no mundo sem qualquer registo ou pagamento. Apenas o curso formal (aulas na Sala de Aula DoveLingua) requer inscrição.">Absolutely yes. All free platforms are open to everyone worldwide. Only the formal course requires enrolment.</p>
+          </div></div>
+        </div>
+
+      </div><!-- end cat-free -->
+
+
+      <!-- ══ 9. SUPPORT & CONTACT ══ -->
+      <div class="faq-category fade-up" id="cat-support">
+        <div class="faq-cat-header">
+          <span class="faq-cat-icon">📞</span>
+          <span class="faq-cat-title" data-en="Support &amp; Contact" data-pt="Suporte e Contacto">Support &amp; Contact</span>
+          <span class="faq-cat-count">4</span>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="How do I contact DoveLingua support?" data-pt="Como contacto o suporte da DoveLingua?">How do I contact DoveLingua support?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="You can reach us by email at <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a>, via WhatsApp at <a href='https://wa.me/258828920143'>+258 82 892 0143</a>, or through the <a href='contact.html'>Contact page</a>. General inquiries can also be sent to <a href='mailto:info@dovelingua.com'>info@dovelingua.com</a>." data-pt="Podes contactar-nos por e-mail em <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a>, via WhatsApp em <a href='https://wa.me/258828920143'>+258 82 892 0143</a>, ou através da <a href='contact.html'>página de Contacto</a>. As consultas gerais também podem ser enviadas para <a href='mailto:info@dovelingua.com'>info@dovelingua.com</a>.">Email: <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a> · WhatsApp: <a href='https://wa.me/258828920143'>+258 82 892 0143</a> · <a href='contact.html'>Contact page</a></p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="How quickly does DoveLingua respond to messages?" data-pt="Com que rapidez a DoveLingua responde às mensagens?">How quickly does DoveLingua respond to messages?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="DoveLingua is committed to responding to every message promptly and respectfully. Payment confirmations are processed within <strong>24 hours</strong>. General support inquiries are typically answered within the same day." data-pt="A DoveLingua está comprometida a responder a todas as mensagens de forma rápida e respeitosa. As confirmações de pagamento são processadas em <strong>24 horas</strong>. As consultas gerais de suporte são normalmente respondidas no mesmo dia.">Payment confirmations within <strong>24 hours</strong>. General inquiries typically same day.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="How do I report a problem or make a complaint?" data-pt="Como reporto um problema ou faço uma reclamação?">How do I report a problem or make a complaint?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="Use the <a href='report.html'>Report a Problem page</a> or contact us directly at <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a>. DoveLingua takes every complaint seriously and responds to all reports respectfully and promptly." data-pt="Usa a <a href='report.html'>página Reportar Problema</a> ou contacta-nos directamente em <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a>. A DoveLingua leva cada reclamação a sério e responde a todos os relatórios de forma respeitosa e rápida.">Use the <a href='report.html'>Report a Problem page</a> or email <a href='mailto:support@dovelingua.com'>support@dovelingua.com</a>.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q-text" data-en="Where can I read DoveLingua's full Terms and Policies?" data-pt="Onde posso ler os Termos e Políticas completos da DoveLingua?">Where can I read DoveLingua's full Terms and Policies?</span>
+            <button class="faq-toggle">+</button>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p data-en="The full Terms and Policies document is available at the <a href='terms.html'>Terms and Policies page</a>. It covers student rights, duties, benefits, the refund policy, attendance rules, certificate eligibility and more. Every student is encouraged to read it before enrolling." data-pt="O documento completo de Termos e Políticas está disponível na <a href='terms.html'>página de Termos e Políticas</a>. Cobre os direitos, deveres, benefícios dos alunos, a política de reembolso, as regras de assiduidade, a elegibilidade para certificados e muito mais. Todos os alunos são encorajados a lê-lo antes de se inscreverem.">Full document available at <a href='terms.html'>Terms and Policies page</a> — covers rights, duties, refunds, attendance and certificates. Read before enrolling.</p>
+          </div></div>
+        </div>
+
+      </div><!-- end cat-support -->
+
+
+      <!-- Still need help -->
+      <div class="still-help fade-up">
+        <h3 data-en="Still have a question?" data-pt="Ainda tens uma dúvida?">Still have a question?</h3>
+        <p data-en="Our support team is always available. We respond promptly and respectfully to every message." data-pt="A nossa equipa de suporte está sempre disponível. Respondemos de forma rápida e respeitosa a todas as mensagens.">Our support team is always available. We respond promptly and respectfully to every message.</p>
+        <div class="help-btns">
+          <a href="contact.html" class="btn-help-gold" data-en="💬 Contact Support" data-pt="💬 Contactar Suporte">💬 Contact Support</a>
+          <a href="https://wa.me/258828920143" target="_blank" class="btn-help-outline">
+            <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:#fff;flex-shrink:0;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            WhatsApp
+          </a>
+          <a href="enrol.html" class="btn-help-outline" data-en="✏️ Enrol Now" data-pt="✏️ Inscrever Agora">✏️ Enrol Now</a>
+        </div>
+      </div>
+
+    </div><!-- end faq-content -->
+  </div><!-- end faq-grid -->
+</div><!-- end faq-main -->
+
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="fg">
+    <div class="fb">
+      <div class="fname">DoveLingua English Learning Academy</div>
+      <p data-en="A structured, communicative and professionally designed English course — founded in Mozambique, April 2026." data-pt="Um curso de inglês estruturado, comunicativo e profissionalmente concebido — fundado em Moçambique, Abril de 2026.">A structured, communicative and professionally designed English course — founded in Mozambique, April 2026.</p>
+      <div class="fsoc">
+        <a href="https://www.facebook.com/DoveLingua" target="_blank" class="fsb"><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a href="https://wa.me/258828920143" target="_blank" class="fsb"><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+        <a href="mailto:info@dovelingua.com" class="fsb" style="font-size:14px;color:#fff;display:flex;align-items:center;justify-content:center;">✉️</a>
+      </div>
+    </div>
+    <div class="fc">
+      <h4 data-en="Learn" data-pt="Aprender">Learn</h4>
+      <a onclick="nav('programme.html')" data-en="Our Programme" data-pt="O Nosso Programa">Our Programme</a>
+      <a onclick="nav('enrol.html')" data-en="Enrol" data-pt="Inscrição">Enrol</a>
+      <a href="https://classroom.dovelingua.com" target="_blank">Classroom</a>
+    </div>
+    <div class="fc">
+      <h4 data-en="About" data-pt="Sobre">About</h4>
+      <a onclick="nav('about.html')" data-en="About DoveLingua" data-pt="Sobre a DoveLingua">About DoveLingua</a>
+      <a onclick="nav('faq.html')">FAQ</a>
+      <a onclick="nav('donate.html')" data-en="Support Us" data-pt="Apoiar-nos">Support Us</a>
+    </div>
+    <div class="fc">
+      <h4 data-en="Help" data-pt="Ajuda">Help</h4>
+      <a onclick="nav('contact.html')" data-en="Contact Support" data-pt="Contactar Suporte">Contact Support</a>
+      <a onclick="nav('status.html')" data-en="Payment Status" data-pt="Estado do Pagamento">Payment Status</a>
+      <a onclick="nav('terms.html')" data-en="Terms &amp; Policies" data-pt="Termos e Políticas">Terms &amp; Policies</a>
+    </div>
+  </div>
+  <div class="fbot">
+    <p data-en="DoveLingua © 2026 — All rights reserved." data-pt="DoveLingua © 2026 — Todos os direitos reservados.">DoveLingua © 2026 — All rights reserved.</p>
+    <a onclick="nav('terms.html')" data-en="Terms &amp; Policies" data-pt="Termos e Políticas">Terms &amp; Policies</a>
+    <a onclick="nav('contact.html')" data-en="Contact" data-pt="Contacto">Contact</a>
+  </div>
+</footer>
+
+
+<!-- ══ WA FLOAT ══ -->
+<a href="https://wa.me/258828920143" target="_blank" class="waf" title="WhatsApp DoveLingua">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+
+
+<script>
+  /* LANGUAGE */
+  let lang=localStorage.getItem('dvl_lang')||'en';
+  function setLang(l){lang=l;localStorage.setItem('dvl_lang',l);applyLang();}
+  function applyLang(){
+    document.querySelectorAll('[data-en]').forEach(el=>{
+      const v=el.getAttribute('data-'+lang);
+      if(v!==null)el.innerHTML=v;
+    });
+    document.getElementById('btn-en').classList.toggle('active',lang==='en');
+    document.getElementById('btn-pt').classList.toggle('active',lang==='pt');
+    document.documentElement.lang=lang==='pt'?'pt':'en';
+    // update search placeholder
+    const s=document.getElementById('faqSearch');
+    if(s){s.placeholder=lang==='pt'?'Pesquisar perguntas...':'Search questions...';}
+  }
+  applyLang();
+
+  /* SIDE MENU */
+  function toggleMenu(){
+    document.getElementById('sM').classList.toggle('open');
+    document.getElementById('sO').classList.toggle('open');
+  }
+  function nav(page){
+    document.getElementById('sM').classList.remove('open');
+    document.getElementById('sO').classList.remove('open');
+    window.location.href=page;
+  }
+
+  /* SECRET ADMIN */
+  let taps=0,tapTimer=null;
+  function handleSecretTap(){
+    taps++;clearTimeout(tapTimer);
+    tapTimer=setTimeout(()=>taps=0,1500);
+    if(taps>=3){taps=0;window.location.href='admin.html';}
+  }
+
+  /* FADE-UP */
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*55);io.unobserve(e.target);}
+    });
+  },{threshold:0.07});
+  document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
+
+  /* FAQ TOGGLE */
+  function toggleFAQ(qEl){
+    const item=qEl.closest('.faq-item');
+    const isOpen=item.classList.contains('open');
+    // close all
+    document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+    // open this one if it was closed
+    if(!isOpen) item.classList.add('open');
+    // update sidebar active
+    updateSidebarActive();
+  }
+
+  /* CATEGORY SCROLL */
+  function scrollToCat(id){
+    const el=document.getElementById(id);
+    if(!el)return;
+    const top=el.getBoundingClientRect().top+window.pageYOffset-140;
+    window.scrollTo({top,behavior:'smooth'});
+    // update tabs
+    document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('active'));
+    event.target.classList.add('active');
+    // update sidebar
+    document.querySelectorAll('.sidebar-cat').forEach(s=>s.classList.remove('active'));
+    const sideBtn=document.querySelector(`.sidebar-cat[onclick="scrollToCat('${id}')"]`);
+    if(sideBtn)sideBtn.classList.add('active');
+  }
+
+  /* UPDATE SIDEBAR ON SCROLL */
+  function updateSidebarActive(){
+    const cats=document.querySelectorAll('.faq-category');
+    let current='';
+    cats.forEach(c=>{
+      const rect=c.getBoundingClientRect();
+      if(rect.top<=160) current=c.id;
+    });
+    if(!current) return;
+    document.querySelectorAll('.sidebar-cat').forEach(s=>{
+      const matches=s.getAttribute('onclick')&&s.getAttribute('onclick').includes(current);
+      s.classList.toggle('active',matches);
+    });
+    document.querySelectorAll('.cat-tab').forEach(t=>{
+      const matches=t.getAttribute('onclick')&&t.getAttribute('onclick').includes(current);
+      t.classList.toggle('active',matches);
+    });
+  }
+  window.addEventListener('scroll',updateSidebarActive,{passive:true});
+
+  /* SEARCH */
+  function searchFAQ(val){
+    const q=val.trim().toLowerCase();
+    const items=document.querySelectorAll('.faq-item');
+    const cats=document.querySelectorAll('.faq-category');
+    let anyVisible=false;
+
+    cats.forEach(cat=>cat.style.display='block');
+
+    items.forEach(item=>{
+      const text=item.querySelector('.faq-q-text').textContent.toLowerCase();
+      const ansText=item.querySelector('.faq-a-inner')?item.querySelector('.faq-a-inner').textContent.toLowerCase():'';
+      const match=!q||text.includes(q)||ansText.includes(q);
+      item.style.display=match?'':'none';
+      if(match)anyVisible=true;
+    });
+
+    // hide categories with no visible items
+    cats.forEach(cat=>{
+      const visible=Array.from(cat.querySelectorAll('.faq-item')).some(i=>i.style.display!=='none');
+      cat.style.display=visible?'block':'none';
+    });
+
+    document.getElementById('searchEmpty').classList.toggle('show',!anyVisible);
+  }
+</script>
+
+</body>
+</html>
