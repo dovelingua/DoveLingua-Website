@@ -1,1344 +1,1521 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Inscrição — DoveLingua English Learning Academy</title>
-<meta name="description" content="Inscreve-te na DoveLingua English Learning Academy."/>
-<link rel="canonical" href="https://www.dovelingua.com/enrol.html"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<style>
-:root{
-  --g:#059669;--gd:#047857;--gm:#10b981;--gl:#34d399;--gw:#f0fdf4;
-  --navy:#0D1B2A;--deep:#1A2E45;--enrol-bg:#0B2545;--gold:#C9A84C;--gold-acc:#E2B13C;
-  --teal:#0E7C7B;--teal-l:#14A89A;--tort:#2ab7ca;--tort-bg:rgba(42,183,202,0.22);
-  --white:#FFFFFF;--cream:#F9F5EF;--gray:#6B7A8D;--lg:#E8EDF2;
-  --red:#e74c3c;--grn:#27ae60;--border:#D4DCE6;--blue-lbl:#1A3A5C;
-  --text:#1A2E45;--sub:#6B7A8D;--r:14px;--rs:8px;
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{font-family:'Inter',sans-serif;color:var(--text);background:#f0f2f5;overflow-x:hidden;}
-a{text-decoration:none;color:inherit;}
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Apoiar DoveLingua</title>
+  <meta name="description" content="Apoie a DoveLingua e ajude-nos a construir o futuro da educação em Moçambique."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --g:#059669;--gd:#047857;--gm:#10b981;--gl:#d1fae5;--gx:#f0fdf4;
+      --navy:#0B2545;--navy2:#1e3a5f;
+      --gold:#E2B13C;--gold-l:#fef3c7;
+      --teal:#0E7C7B;--teal-l:#e0f2f1;
+      --tort:#2ab7ca;--tort-bg:rgba(42,183,202,0.12);
+      --rose:#c0392b;--rose-soft:#e74c3c;--rose-l:#fef2f2;--rose-b:#fecaca;
+      --white:#fff;--cream:#fafaf8;
+      --text:#1a2e1a;--text-mid:#374151;--text-light:#6b7280;
+      --border:#e5e7eb;--r:14px;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);line-height:1.7;overflow-x:hidden;}
 
-.pt{position:fixed;inset:0;background:linear-gradient(135deg,var(--gd),var(--g));z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s;}
-.pt.on{opacity:1;pointer-events:all;}
-.pt-txt{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--white);}
-.ptd{display:inline-block;animation:ptd 1s infinite;}
-.ptd:nth-child(2){animation-delay:.2s;}.ptd:nth-child(3){animation-delay:.4s;}
-@keyframes ptd{0%,80%,100%{opacity:.3;transform:translateY(0);}40%{opacity:1;transform:translateY(-5px);}}
+    /* ══ NAV ══ */
+    nav{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid var(--border);padding:0 clamp(1rem,4vw,2.5rem);display:flex;align-items:center;justify-content:space-between;height:64px;}
+    .nav-left{display:flex;align-items:center;gap:1rem;}
+    .hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+    .hamburger span{display:block;width:22px;height:2px;background:var(--text-mid);border-radius:2px;}
+    .nav-brand{text-decoration:none;font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;color:var(--g);}
+    .nav-centre{display:flex;gap:0.1rem;list-style:none;position:absolute;left:50%;transform:translateX(-50%);}
+    .nav-centre a{text-decoration:none;font-size:0.81rem;font-weight:500;color:var(--text-mid);padding:0.38rem 0.6rem;border-radius:6px;transition:background .2s,color .2s;}
+    .nav-centre a:hover{background:var(--gx);color:var(--g);}
+    .nav-right{display:flex;align-items:center;gap:0.6rem;}
+    .lang-toggle{display:flex;border:1.5px solid var(--border);border-radius:20px;overflow:hidden;}
+    .lang-toggle button{border:none;background:transparent;padding:0.28rem 0.72rem;cursor:pointer;color:var(--text-light);font-size:0.72rem;font-weight:700;transition:background .2s,color .2s;}
+    .lang-toggle button.active{background:var(--g);color:#fff;}
+    .profile-icon{width:34px;height:34px;border-radius:50%;background:var(--gx);border:1.5px solid var(--gl);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1rem;}
+    .btn-enrol-nav{background:var(--navy);color:#fff;border:none;padding:0.42rem 1rem;border-radius:20px;font-size:0.78rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background .2s;white-space:nowrap;}
+    .btn-enrol-nav:hover{background:var(--gd);}
+    @media(max-width:860px){.nav-centre,.btn-enrol-nav{display:none;}}
 
-.spin-ov{position:fixed;inset:0;background:rgba(13,27,42,.55);z-index:7000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:18px;}
-.spin-ov.on{display:flex;}
-.spin{width:52px;height:52px;border:4px solid rgba(255,255,255,.2);border-top-color:var(--gl);border-radius:50%;animation:sp .9s linear infinite;}
-@keyframes sp{to{transform:rotate(360deg);}}
-.spin-ov p{color:var(--white);font-size:14px;font-weight:500;}
+    /* ══ SIDE MENU ══ */
+    .so{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1100;}
+    .so.open{display:block;}
+    .sm{position:fixed;top:0;left:-280px;width:280px;height:100%;background:#fff;z-index:1200;transition:left .3s ease;display:flex;flex-direction:column;overflow:hidden;}
+    .sm.open{left:0;}
+    .sm-hdr{display:flex;align-items:center;padding:1rem 1rem 0.8rem;border-bottom:1px solid var(--border);gap:0.8rem;}
+    .sm-cl{background:none;border:1px solid var(--border);border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:1rem;color:var(--text-mid);}
+    .sb{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--g);}
+    .sm-nav{flex:1;overflow-y:auto;padding:0.5rem 0;}
+    .sm-nav a{display:flex;align-items:center;gap:0.75rem;padding:0.65rem 1.2rem;font-size:0.88rem;font-weight:500;color:var(--text-mid);text-decoration:none;cursor:pointer;transition:background .15s,color .15s;}
+    .sm-nav a:hover{background:var(--gx);color:var(--g);}
+    .mi{font-size:1rem;width:20px;text-align:center;}
+    .sdiv{height:1px;background:var(--border);margin:0.35rem 1.2rem;}
+    .bsoon{background:var(--gx);color:var(--g);font-size:0.62rem;font-weight:700;padding:0.15rem 0.45rem;border-radius:8px;margin-left:auto;}
+    .sm-ft{padding:1rem 1.2rem;border-top:1px solid var(--border);}
+    .sm-ft p{font-style:italic;font-size:0.75rem;color:var(--text-light);line-height:1.55;}
 
-.tw{position:fixed;top:76px;right:18px;z-index:8000;display:flex;flex-direction:column;gap:8px;max-width:320px;}
-.tm{background:var(--white);border-radius:var(--rs);box-shadow:0 4px 18px rgba(13,27,42,.13);padding:11px 15px;display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--text);line-height:1.5;transform:translateX(110%);transition:transform .32s cubic-bezier(.4,0,.2,1);border-left:4px solid var(--grn);}
-.tm.show{transform:translateX(0);}
-.tm.w{border-left-color:var(--gold);}
-.tm.e{border-left-color:var(--red);}
-.tm.i{border-left-color:var(--teal);}
+    /* ══ TOAST ══ */
+    .tw{position:fixed;top:76px;right:18px;z-index:9000;display:flex;flex-direction:column;gap:8px;max-width:320px;}
+    .tm{background:#fff;border-radius:10px;box-shadow:0 4px 18px rgba(13,27,42,.13);padding:11px 15px;display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--text);line-height:1.5;transform:translateX(110%);transition:transform .32s cubic-bezier(.4,0,.2,1);border-left:4px solid var(--g);}
+    .tm.show{transform:translateX(0);}
+    .tm.e{border-left-color:var(--rose);}
+    .tm.w{border-left-color:var(--gold);}
+    .tm.i{border-left-color:var(--teal);}
 
-nav{position:sticky;top:0;z-index:999;background:var(--white);border-bottom:1px solid var(--border);padding:0 5%;}
-.nav-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;}
-.nav-brand{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--gd);cursor:pointer;letter-spacing:.3px;}
-.nav-r{display:flex;align-items:center;gap:10px;}
-.nav-back{display:flex;align-items:center;gap:6px;background:var(--gw);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:13px;font-weight:600;color:var(--gd);cursor:pointer;transition:all .2s;}
-.nav-back:hover{background:var(--lg);}
-.nav-avatar{width:36px;height:36px;border-radius:50%;background:var(--gw);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;}
-.hamburger{background:none;border:none;cursor:pointer;padding:6px;display:flex;flex-direction:column;gap:4px;}
-.hamburger span{display:block;width:22px;height:2px;background:var(--gd);border-radius:2px;}
+    /* ══ SPINNER ══ */
+    .spin-ov{position:fixed;inset:0;background:rgba(11,37,69,0.7);z-index:8000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:1rem;}
+    .spin-ov.on{display:flex;}
+    .spin{width:52px;height:52px;border:4px solid rgba(255,255,255,0.2);border-top-color:#fff;border-radius:50%;animation:sp .9s linear infinite;}
+    @keyframes sp{to{transform:rotate(360deg);}}
+    .spin-ov p{color:#fff;font-size:0.9rem;font-weight:500;text-align:center;max-width:240px;}
 
-.so{position:fixed;inset:0;background:rgba(4,120,87,.3);z-index:1100;opacity:0;pointer-events:none;transition:opacity .3s;}
-.so.open{opacity:1;pointer-events:all;}
-.sm{position:fixed;left:-300px;top:0;bottom:0;width:280px;background:var(--white);z-index:1101;transition:left .32s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column;}
-.sm.open{left:0;}
-.sm-hdr{background:linear-gradient(160deg,var(--gd),var(--g));padding:26px 20px 18px;color:var(--white);position:relative;}
-.sm-hdr .sb{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;}
-.sm-cl{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.15);border:none;color:var(--white);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;}
-.sm-nav{padding:8px 0;flex:1;}
-.sm-nav a{display:flex;align-items:center;gap:12px;padding:12px 20px;font-size:14px;font-weight:500;color:var(--text);transition:background .15s;border-left:3px solid transparent;cursor:pointer;}
-.sm-nav a:hover{background:var(--gw);border-left-color:var(--g);color:var(--gd);}
-.sm-nav .mi{font-size:15px;width:18px;text-align:center;}
-.sdiv{height:1px;background:var(--border);margin:6px 20px;}
-.bsoon{font-size:10px;background:#fef9c3;color:#854d0e;padding:2px 7px;border-radius:10px;margin-left:auto;font-weight:600;}
-.sm-ft{padding:16px 20px;border-top:1px solid var(--border);background:var(--gw);}
-.sm-ft p{font-size:11px;color:var(--sub);line-height:1.5;font-style:italic;}
+    /* ══ SCREENS ══ */
+    .screen{display:none;}
+    .screen.active{display:block;}
 
-/* ═══ HERO ═══ */
-.hero-wrap{background:linear-gradient(160deg,var(--gd) 0%,var(--g) 60%,var(--gm) 100%);border-top:4px solid var(--gold);padding:32px 5% 36px;}
-.hero-inner{max-width:1100px;margin:0 auto;}
-/* FIX 1: title card with blue text */
-.hero-title-card{background:rgba(14,124,123,.35);border:1px solid rgba(255,255,255,.2);border-radius:var(--r);padding:14px 24px;margin-bottom:24px;text-align:center;backdrop-filter:blur(4px);}
-.htc-text{font-family:'Playfair Display',serif;font-size:clamp(15px,2.2vw,20px);font-weight:700;color:#7ec8e3;letter-spacing:1px;text-transform:uppercase;}
-.hero-pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
-/* FIX 2: 4 different coloured borders on pills */
-.hp{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);padding:8px 16px;border-radius:30px;font-size:12px;font-weight:600;color:var(--white);}
-.hp:nth-child(1){border:2px solid #34d399;}
-.hp:nth-child(2){border:2px solid #f59e0b;}
-.hp:nth-child(3){border:2px solid #a78bfa;}
-.hp:nth-child(4){border:2px solid #fb7185;}
+    /* ══════════════════════
+       SCREEN 1 — MAIN PAGE
+    ══════════════════════ */
 
-/* ═══ MAIN ═══ */
-.main{padding:32px 5% 60px;max-width:1100px;margin:0 auto;}
+    /* HERO */
+    .hero{
+      background:linear-gradient(135deg,#0d1f35 0%,var(--navy) 50%,#1a2e0d 100%);
+      border-top:4px solid var(--rose);
+      padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,5vw,4rem) 0;
+      position:relative;overflow:hidden;
+    }
+    .hero::before{content:'';position:absolute;inset:0;
+      background:radial-gradient(ellipse at 15% 60%,rgba(192,57,43,0.12) 0%,transparent 50%),
+                  radial-gradient(ellipse at 85% 20%,rgba(5,150,105,0.1) 0%,transparent 50%);}
+    .hero-inner{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding-bottom:0;}
 
-/* ═══ VERIFICATION CARD ═══ */
-.verif-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);border-top:4px solid var(--teal);padding:28px 32px;margin-bottom:24px;text-align:center;}
-.vc-heading{font-family:'Playfair Display',serif;font-size:clamp(18px,2.5vw,24px);font-weight:700;color:var(--navy);margin-bottom:14px;display:inline-block;padding:6px 20px;background:linear-gradient(135deg,#e0f7f7,#b2ebf2);border-radius:var(--rs);}
-.vc-text{font-size:14px;color:var(--sub);line-height:1.8;max-width:600px;margin:0 auto 20px;text-align:justify;}
-.vc-text strong{color:var(--navy);}
-.vc-text em{color:var(--teal);font-style:normal;font-weight:600;}
+    /* Title card */
+    .hero-title-card{
+      background:rgba(255,255,255,0.07);
+      border:1.5px solid rgba(192,57,43,0.5);
+      border-radius:16px;
+      padding:1.5rem 2rem 1.8rem;
+      text-align:center;
+      margin-bottom:1.5rem;
+      box-shadow:0 0 40px rgba(192,57,43,0.1);
+    }
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(192,57,43,0.18);border:1px solid rgba(192,57,43,0.4);color:#f87171;font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.28rem 0.9rem;border-radius:20px;margin-bottom:1rem;}
+    .hero-title-card h1{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:700;color:#fff;line-height:1.25;}
+    .hero-title-card h1 em{color:#f87171;font-style:italic;}
 
-/* FIX 3: verification button with red border + shimmer */
-@keyframes shimmer{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
-.btn-animated{background:linear-gradient(270deg,var(--teal),var(--gd),var(--teal-l),var(--g));background-size:400% 400%;animation:shimmer 3s ease infinite;color:var(--white);border:2px solid var(--red);border-radius:50px;padding:13px 32px;font-size:14px;font-weight:700;cursor:pointer;transition:transform .2s,box-shadow .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:8px;}
-.btn-animated:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(14,124,123,.4);}
+    /* Pills — OUTSIDE card, below it */
+    .hero-pills-row{
+      display:flex;justify-content:center;gap:0.7rem;
+      padding-bottom:2.5rem;
+      flex-wrap:wrap;
+    }
+    .hero-pill{
+      display:inline-flex;align-items:center;gap:0.4rem;
+      padding:0.45rem 1.1rem;
+      border-radius:30px;
+      font-size:0.82rem;font-weight:700;
+      white-space:nowrap;color:#fff;
+    }
+    .hp1{background:rgba(192,57,43,0.2);border:1.5px solid rgba(192,57,43,0.55);}
+    .hp2{background:rgba(5,150,105,0.15);border:1.5px solid rgba(5,150,105,0.45);}
+    .hp3{background:rgba(226,177,60,0.15);border:1.5px solid rgba(226,177,60,0.45);}
+    .hp4{background:rgba(14,124,123,0.15);border:1.5px solid rgba(14,124,123,0.45);}
 
-/* ═══ ANNOUNCEMENT CARD ═══ */
-.ann-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);border-top:4px solid var(--gold);overflow:hidden;margin-bottom:24px;}
-.ann-hdr{background:linear-gradient(135deg,var(--navy),var(--deep));padding:18px 28px;}
-.ann-hdr h2{font-family:'Playfair Display',serif;font-size:clamp(20px,3vw,28px);color:var(--gold-acc);line-height:1.2;}
-.ann-body{padding:22px 28px;}
-.ann-lvl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
-.alc{border-radius:var(--rs);padding:12px 10px;text-align:center;background:var(--white);transition:all .2s;}
-/* FIX 4: A1 and A2 with limegreen borders */
-.alc.open{border:2px solid #32CD32;}
-.alc.soon{border:2px solid var(--border);opacity:.6;}
-.alc-badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;margin-bottom:6px;}
-.alc-badge.a1{background:#dcfce7;color:#166534;}
-.alc-badge.a2{background:#dbeafe;color:#1e40af;}
-.alc-badge.g{background:var(--lg);color:var(--gray);}
-.alc-name{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:2px;}
-.alc-en{font-size:10px;color:var(--sub);}
-.alc-st{font-size:11px;font-weight:600;margin-top:5px;}
-.alc-st.o{color:var(--g);}
-.alc-st.s{color:var(--gray);}
-.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:22px;}
-.feat-card{background:var(--gw);border-radius:var(--rs);border:1px solid var(--border);border-left:3px solid var(--g);padding:14px 16px;}
-.feat-card h4{font-size:13px;font-weight:700;color:var(--gd);margin-bottom:6px;}
-.feat-card p{font-size:12px;color:var(--sub);line-height:1.6;}
-.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px;}
-.cta-left{border:2px solid var(--border);border-radius:var(--r);padding:20px;cursor:pointer;transition:all .25s;background:var(--cream);text-align:center;}
-.cta-left:hover{border-color:var(--gm);background:var(--white);}
-.cta-left h3{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:4px;}
-.cta-left p{font-size:12px;color:var(--sub);}
-/* FIX 5: Iniciar Inscrição — yellow borders top+left, gold text, shimmer bg */
-@keyframes ctaShimmer{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
-.cta-right{border-radius:var(--r);padding:20px;cursor:pointer;text-align:center;background:linear-gradient(270deg,var(--gd),var(--g),var(--teal),var(--gm),var(--gd));background-size:400% 400%;animation:ctaShimmer 4s ease infinite;border:none;border-top:3px solid #E2B13C;border-left:3px solid #E2B13C;transition:transform .2s,box-shadow .2s;}
-.cta-right:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(5,150,105,.4);}
-.cta-right h3{font-size:16px;font-weight:700;color:var(--gold-acc);margin-bottom:4px;}
-.cta-right p{font-size:12px;color:rgba(255,255,255,.85);}
+    /* Anchor button */
+    .hero-anchor-wrap{position:relative;z-index:1;display:flex;justify-content:center;padding-bottom:1.8rem;margin-top:-0.5rem;}
+    .hero-anchor-btn{
+      display:inline-flex;align-items:center;gap:0.6rem;
+      background:var(--rose);color:#fff;
+      font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;
+      padding:0.9rem 2.5rem;border-radius:50px;
+      border:none;cursor:pointer;
+      box-shadow:0 4px 24px rgba(192,57,43,0.4);
+      transition:transform .2s,box-shadow .2s;
+    }
+    .hero-anchor-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(192,57,43,0.5);}
 
-/* ═══════════════════════════════
-   ENROLMENT WINDOWS
-   FIX: navy bg + gold title ONLY on win-hdr
-   win-body is white background
-═══════════════════════════════ */
-.win{border-radius:var(--r);overflow:hidden;margin-bottom:20px;box-shadow:0 4px 20px rgba(11,37,69,.18);}
-.win-hdr{background:var(--enrol-bg);padding:20px 28px;}
-.win-hdr h3{font-family:'Playfair Display',serif;font-size:20px;color:var(--gold-acc);margin-bottom:3px;}
-.win-hdr p{font-size:12px;color:rgba(255,255,255,.65);}
-/* WHITE body for all windows */
-.win-body{background:var(--white);padding:22px 28px 28px;}
+    /* MAIN CONTENT */
+    .main-wrap{max-width:1080px;margin:0 auto;padding:1.8rem clamp(1.5rem,5vw,4rem) 3rem;}
 
-/* TYPE CARDS — white, colourful borders, tortoise when selected */
-.type-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.tc{border:2px solid var(--border);border-radius:var(--r);padding:22px 16px;cursor:pointer;transition:all .25s;background:var(--white);text-align:center;}
-/* FIX: different colourful borders */
-#tcN{border-color:#16a34a;}
-#tcR{border-color:#2563eb;}
-.tc:hover{opacity:.85;}
-/* FIX: selected = tortoise background fill */
-.tc.sel{background:var(--tort-bg);border-color:var(--tort);}
-.tc-ico{font-size:32px;margin-bottom:10px;}
-.tc-name{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:4px;}
-.tc-desc{font-size:12px;color:var(--sub);line-height:1.5;}
+    /* Quick buttons — ONE ROW */
+    .quick-btns{
+      display:grid;grid-template-columns:repeat(3,1fr);
+      gap:0.7rem;margin-bottom:2.5rem;
+      background:var(--gx);
+      border:1px solid var(--gl);
+      border-radius:var(--r);
+      padding:0.6rem;
+    }
+    .quick-btn{
+      display:flex;align-items:center;justify-content:center;gap:0.45rem;
+      padding:0.6rem 0.5rem;border-radius:10px;
+      border:1px solid var(--gl);background:#fff;
+      font-size:0.8rem;font-weight:600;color:var(--gd);
+      cursor:pointer;text-decoration:none;transition:all .2s;
+    }
+    .quick-btn:hover{background:var(--gl);border-color:var(--gd);}
 
-/* LEVEL CARDS — white, colourful borders, tortoise fill when selected */
-.lv-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.lvc{border-radius:var(--r);padding:16px;cursor:pointer;transition:all .25s;background:var(--white);text-align:center;}
-.lvc.a1{border:2px solid #16a34a;}
-.lvc.a2{border:2px solid #2563eb;}
-.lvc:hover{transform:translateY(-2px);}
-.lvc.sel{background:var(--tort-bg);border-color:var(--tort);}
-/* FIX: unknown — white bg, purple border */
-.lvc.unk{border:2px solid #7c3aed;background:var(--white);text-align:left;display:flex;align-items:center;gap:14px;}
-.lvc.unk.sel{background:var(--tort-bg);border-color:var(--tort);}
-.lv-badge{display:inline-block;font-size:12px;font-weight:700;padding:4px 12px;border-radius:8px;margin-bottom:8px;}
-.lv-badge.a1{background:#dcfce7;color:#166534;}
-.lv-badge.a2{background:#dbeafe;color:#1e40af;}
-.lv-name{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:2px;}
-.lv-en{font-size:11px;color:var(--sub);margin-bottom:10px;}
-.lv-price-a{border-top:1px solid var(--border);padding-top:8px;margin-top:4px;}
-.lv-pl{font-size:10px;color:var(--sub);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;}
-.lv-pm{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--teal);}
-.lv-pm span{font-size:11px;font-weight:400;color:var(--sub);}
-.lv-pf{font-size:11px;color:var(--sub);margin-top:2px;}
-.lv-pf strong{color:var(--gold);}
-.lv-disc{font-size:11px;color:var(--grn);font-weight:600;}
-/* FIX: only the word Duração coloured */
-.lv-dur{font-size:11px;font-weight:600;margin-top:3px;}
-.lv-dur .dur-label{color:var(--teal);}
-.lv-dur .dur-val{color:var(--sub);}
-.soon-note{background:var(--gw);border:1px solid var(--border);border-radius:var(--rs);padding:10px 14px;font-size:12px;color:var(--sub);margin-top:14px;display:flex;align-items:center;gap:8px;}
-/* FIX: "Níveis Disponíveis" label blue */
-.lvl-section-label{font-size:12px;font-weight:700;color:#1d4ed8;text-transform:uppercase;letter-spacing:.4px;margin-bottom:14px;}
+    /* Impact section wrapper */
+    .impact-section{
+      background:var(--cream);
+      border:1px solid var(--border);
+      border-radius:20px;
+      overflow:hidden;
+      margin-bottom:2rem;
+    }
+    .impact-header{
+      background:linear-gradient(135deg,var(--navy),#1a3a2a);
+      padding:1.4rem 2rem;
+    }
+    .impact-title{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,2.5vw,1.6rem);font-weight:700;color:#fff;margin-bottom:0.3rem;}
+    .impact-sub{font-size:0.85rem;color:rgba(255,255,255,0.6);line-height:1.6;}
+    .impact-cards-wrap{padding:1.4rem;}
 
-/* PAY MOD CARDS — white, tortoise fill when selected */
-.pm-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.pmc{border-radius:var(--r);padding:18px;cursor:pointer;transition:all .25s;background:var(--white);text-align:center;}
-.pmc.monthly{border:2px solid var(--teal);}
-.pmc.full{border:2px solid var(--gold);}
-.pmc:hover{transform:translateY(-2px);}
-.pmc.sel{background:var(--tort-bg);border-color:var(--tort);}
-.pmc-ico{font-size:26px;margin-bottom:8px;}
-.pmc-name{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:4px;}
-.pmc-desc{font-size:12px;color:var(--sub);line-height:1.5;margin-bottom:10px;}
-.pmc-price{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--teal);}
-.pmc-price span{font-size:11px;font-weight:400;color:var(--sub);}
-.pmc-orig{font-size:11px;color:var(--sub);text-decoration:line-through;}
-.pmc-disc{font-size:11px;color:var(--grn);font-weight:600;margin-top:2px;}
+    /* 5 cards grid */
+    .cards-row1{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1rem;}
+    .cards-row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
 
-/* MATERIAL — inside its own card, toggle inside, tortoise when selected */
-.mat-outer{border:2px solid var(--teal-l);border-radius:var(--r);padding:16px;margin-top:14px;background:var(--white);}
-.mat-outer-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px;}
-.mat-outer-desc{font-size:13px;color:var(--sub);line-height:1.6;margin-bottom:10px;}
-/* FIX: mat-c starts unselected */
-.mat-c{border:2px dashed var(--border);border-radius:var(--rs);padding:12px 16px;cursor:pointer;transition:all .25s;background:var(--white);display:flex;align-items:center;gap:14px;}
-.mat-c:hover{border-color:var(--tort);}
-.mat-c.sel{background:var(--tort-bg);border-color:var(--tort);border-style:solid;}
-.mat-chk{width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-left:auto;transition:all .2s;font-size:12px;}
-.mat-chk.on{background:var(--tort);border-color:var(--tort);color:var(--white);}
+    /* Individual card */
+    .ic{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:var(--r);
+      overflow:hidden;
+      transition:transform .2s,box-shadow .2s;
+    }
+    .ic:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(11,37,69,0.1);}
+    .ic-bar{height:4px;}
+    .ic-bar.b1{background:linear-gradient(90deg,#f43f5e,#fb923c);}
+    .ic-bar.b2{background:linear-gradient(90deg,#8b5cf6,#3b82f6);}
+    .ic-bar.b3{background:linear-gradient(90deg,var(--teal),var(--tort));}
+    .ic-bar.b4{background:linear-gradient(90deg,var(--gold),#f59e0b);}
+    .ic-bar.b5{background:linear-gradient(90deg,var(--g),#14b8a6);}
+    .ic-body{padding:1.1rem 1.2rem 1.3rem;text-align:center;}
+    .ic-icon{font-size:1.7rem;display:block;margin-bottom:0.5rem;}
+    .ic-title{font-family:'Playfair Display',serif;font-size:0.9rem;font-weight:700;color:var(--navy);margin-bottom:0.35rem;}
+    .ic-desc{font-size:0.78rem;color:var(--text-light);line-height:1.65;text-align:left;}
 
-/* PRICE SUMMARY — soft background, red top+left border */
-.ps-box{background:#f8fcff;border:1px solid var(--border);border-top:3px solid var(--red);border-left:3px solid var(--red);border-radius:var(--r);padding:16px 18px;margin-top:18px;}
-.ps-title{font-size:12px;font-weight:700;color:#7ec8e3;text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px;}
-.ps-row{display:flex;justify-content:space-between;font-size:13px;color:var(--sub);margin-bottom:6px;}
-.ps-row .ps-v{font-weight:600;color:var(--text);}
-.ps-row.disc .ps-v{color:var(--grn);}
-/* FIX: total row soft green background */
-.ps-row.tot{background:#f0fdf4;border-radius:var(--rs);padding:8px 10px;margin-top:6px;border-top:1px solid var(--border);}
-.ps-row.tot .ps-k{font-size:14px;font-weight:700;color:var(--navy);}
-.ps-row.tot .ps-v{color:#b57aff;font-family:'Playfair Display',serif;font-size:17px;}
+    /* Big CTA */
+    .cta-wrap{text-align:center;margin-bottom:1.5rem;}
+    .btn-cta-main{
+      display:inline-flex;align-items:center;gap:0.7rem;
+      background:linear-gradient(135deg,var(--rose),#a93226);
+      color:#fff;font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;
+      padding:1rem 3rem;border-radius:50px;border:none;cursor:pointer;
+      box-shadow:0 4px 24px rgba(192,57,43,0.35);transition:transform .2s,box-shadow .2s;
+    }
+    .btn-cta-main:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(192,57,43,0.45);}
 
-/* FORM FIELDS — white background, blue labels */
-.field{margin-bottom:16px;}
-.field label{display:block;font-size:12px;font-weight:700;color:var(--blue-lbl);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px;}
-.field label .req{color:var(--red);margin-left:2px;}
-.field input,.field select{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:14px;font-family:'Inter',sans-serif;color:var(--text);background:var(--white);outline:none;transition:border-color .2s;}
-.field input:focus,.field select:focus{border-color:var(--tort);}
-.field input.ok{border-color:var(--grn);}
-.field input.er{border-color:var(--red);}
-.fr{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-.pill-g{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
-.pill{padding:8px 18px;border-radius:50px;border:1.5px solid var(--border);background:var(--white);font-size:13px;font-weight:500;color:var(--sub);cursor:pointer;transition:all .2s;}
-.pill:hover{border-color:var(--tort);}
-.pill.sel{border-color:var(--tort);background:var(--tort-bg);color:var(--navy);font-weight:600;}
-.cpill{padding:8px 18px;border-radius:50px;border:1.5px solid var(--border);background:var(--white);font-size:13px;font-weight:500;color:var(--sub);cursor:pointer;transition:all .2s;user-select:none;}
-.cpill:hover{border-color:var(--tort);}
-.cpill.sel{border-color:var(--tort);background:var(--tort-bg);color:var(--navy);}
-.field-note{font-size:12px;color:var(--sub);margin-top:6px;padding:8px 12px;background:var(--gw);border-radius:var(--rs);line-height:1.55;}
+    /* Security box */
+    .security-box{
+      display:flex;align-items:center;justify-content:center;gap:0.6rem;
+      background:var(--gx);border:1px solid var(--gl);border-radius:30px;
+      padding:0.6rem 1.4rem;margin-bottom:1.2rem;
+      font-size:0.78rem;font-weight:600;color:var(--gd);text-align:center;
+    }
 
-/* PAYMENT METHOD — 2 cols 1 row */
-.pay-mth-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;}
-.pmt{border-radius:var(--r);padding:18px;cursor:pointer;transition:all .25s;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;}
-.pmt.mp{background:#8b0000;border:3px solid #8b0000;}
-.pmt.em{background:#cc5500;border:3px solid #cc5500;}
-.pmt:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.2);}
-.pmt.sel{outline:3px solid var(--tort);outline-offset:2px;}
-.pmt-logo{font-size:18px;font-weight:900;color:var(--white);font-family:'Playfair Display',serif;width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;}
-.pmt-name{font-size:14px;font-weight:700;color:var(--white);}
+    /* Bottom 2 buttons */
+    .bottom-btns{
+      display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;
+      background:var(--gx);border:1px solid var(--gl);border-radius:var(--r);padding:0.6rem;
+    }
+    .btn-bottom{
+      display:flex;align-items:center;justify-content:center;gap:0.5rem;
+      padding:0.7rem;border-radius:10px;
+      border:1px solid var(--gl);background:#fff;
+      font-size:0.84rem;font-weight:600;color:var(--gd);
+      cursor:pointer;text-decoration:none;transition:all .2s;
+    }
+    .btn-bottom:hover{background:var(--gl);}
 
-/* PAY NUMBER DISPLAY — white background */
-.pnd{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:18px 22px;display:none;margin-bottom:14px;}
-.pnd.show{display:block;}
-.pnd-label{font-size:11px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
-/* FIX: phone number blue, normal font, bigger */
-.pnd-number{font-size:26px;font-weight:700;color:#1d4ed8;letter-spacing:2px;margin-bottom:4px;}
-/* FIX: owner name gold */
-.pnd-owner{font-size:13px;color:var(--gold);font-weight:600;margin-bottom:12px;}
-.pnd-copy{display:inline-flex;align-items:center;gap:6px;background:var(--teal);color:var(--white);border:none;border-radius:50px;padding:8px 18px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
-.pnd-copy:hover{background:var(--teal-l);}
-/* FIX: instruction text with coloured key words, white bg */
-.pnd-instr{background:var(--gw);border-radius:var(--rs);padding:12px 14px;margin-top:12px;font-size:13px;color:var(--sub);line-height:1.9;}
-.pnd-instr strong{color:var(--navy);}
-.pnd-instr .hi-red{color:var(--red);font-weight:600;}
-.pnd-instr .hi-teal{color:var(--teal);font-weight:600;}
-.pnd-instr .hi-gold{color:var(--gold);font-weight:600;}
+    /* ══════════════════════
+       SCREEN 2 — PAYMENT
+    ══════════════════════ */
+    .pay-screen{background:var(--cream);min-height:calc(100vh - 64px);padding:2rem clamp(1rem,5vw,4rem) 4rem;}
+    .pay-inner{max-width:640px;margin:0 auto;}
 
-/* PROOF SECTION — white */
-.proof-section{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:18px 22px;margin-top:0;display:none;}
-.proof-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px;}
-.proof-sub{font-size:12px;color:var(--sub);margin-bottom:14px;line-height:1.6;}
-.proof-or{text-align:center;font-size:12px;color:var(--gray);margin:10px 0;}
-.proof-field input{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:14px;font-family:'Inter',sans-serif;color:var(--text);background:var(--white);outline:none;transition:border-color .2s;}
-.proof-field input:focus{border-color:var(--tort);}
-.proof-field label{display:block;font-size:12px;font-weight:700;color:var(--blue-lbl);margin-bottom:6px;}
+    /* Big outer card */
+    .pay-outer-card{
+      background:#fff;
+      border:2px solid var(--teal);
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow:0 4px 32px rgba(14,124,123,0.12);
+    }
+    .pay-card-header{
+      background:linear-gradient(135deg,var(--navy),var(--navy2));
+      padding:1.4rem 2rem;
+    }
+    .pay-card-header h2{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(1.2rem,2.5vw,1.6rem);
+      color:var(--gold);margin-bottom:0.2rem;
+    }
+    .pay-card-header p{font-size:0.82rem;color:rgba(255,255,255,0.55);}
+    .pay-card-body{padding:1.8rem 2rem;}
 
-/* FIX: "Seleccione a Carteira" label blue */
-.carteira-label{font-size:12px;font-weight:700;color:#1d4ed8;text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px;}
+    /* Step block */
+    .step-block{
+      background:var(--cream);
+      border:1px solid var(--border);
+      border-radius:var(--r);
+      padding:1.1rem 1.2rem;
+      margin-bottom:1rem;
+    }
+    .step-label{
+      display:flex;align-items:center;gap:0.5rem;
+      margin-bottom:0.8rem;
+    }
+    .step-num{
+      width:22px;height:22px;border-radius:50%;
+      background:var(--teal);color:#fff;
+      font-size:0.68rem;font-weight:700;
+      display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    }
+    .step-title{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--navy);}
+    .step-desc{font-size:0.75rem;color:var(--text-light);margin-bottom:0.8rem;margin-left:1.8rem;}
 
-/* REF CODE — white card */
-.ref-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-top:14px;}
-.ref-card-title{font-size:11px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;}
-.ref-inner{background:var(--gw);border:2px solid var(--g);border-radius:var(--rs);padding:16px 18px;text-align:center;}
-.ri-label{font-size:11px;color:var(--sub);margin-bottom:6px;}
-/* FIX: ref code red, normal font */
-.ri-code{font-size:clamp(18px,3vw,24px);font-weight:700;color:var(--red);letter-spacing:2px;margin-bottom:8px;}
-.ri-warn{font-size:12px;color:var(--sub);line-height:1.6;margin-bottom:10px;}
-.ri-copy{display:inline-flex;align-items:center;gap:6px;background:var(--g);color:var(--white);border:none;border-radius:50px;padding:8px 18px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
-.ri-copy:hover{background:var(--gd);}
+    /* Amount input — number BEFORE MZN */
+    .amt-input-row{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.8rem;}
+    .amt-field{
+      flex:1;padding:0.8rem 1rem;
+      border:2px solid var(--border);border-radius:10px;
+      font-size:0.95rem;font-weight:700;font-family:'Inter',sans-serif;
+      color:var(--navy);outline:none;
+      transition:border-color .2s,background .2s;
+    }
+    .amt-field:focus{border-color:var(--teal);}
+    .amt-field.has-val{border-color:var(--rose-soft);background:var(--rose-l);}
+    .amt-suffix{font-size:0.88rem;font-weight:700;color:var(--text-light);flex-shrink:0;}
+    .amt-pills{display:flex;flex-wrap:wrap;gap:0.5rem;}
+    .ap{
+      padding:0.4rem 0.8rem;border-radius:20px;
+      border:1.5px solid var(--border);background:#fff;
+      font-size:0.8rem;font-weight:600;color:var(--text-mid);
+      cursor:pointer;transition:all .2s;
+    }
+    .ap:hover{border-color:var(--teal);color:var(--teal);}
+    .ap.sel{border-color:var(--teal);background:var(--teal-l);color:var(--teal);}
 
-/* AMOUNT BOX — soft blue */
-.ab{background:linear-gradient(135deg,#dbeafe,#eff6ff);border:1px solid #bfdbfe;border-radius:var(--r);padding:18px 24px;text-align:center;margin-top:14px;}
-.ab-label{font-size:11px;color:var(--blue-lbl);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;font-weight:600;}
-.ab-amt{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,40px);font-weight:700;color:var(--navy);}
-.ab-cur{font-size:12px;color:var(--sub);margin-top:4px;}
+    /* Field */
+    .f{margin-bottom:0.8rem;}
+    .f:last-child{margin-bottom:0;}
+    .f label{display:block;font-size:0.72rem;font-weight:700;color:var(--navy);margin-bottom:0.4rem;text-transform:uppercase;letter-spacing:0.04em;}
+    .f label .req{color:var(--rose);margin-left:2px;}
+    .f input,.f select{
+      width:100%;padding:0.75rem 0.9rem;
+      border:1.5px solid var(--border);border-radius:10px;
+      font-size:0.88rem;font-family:'Inter',sans-serif;
+      color:var(--text);outline:none;transition:all .2s;background:#fff;
+    }
+    .f input:focus,.f select:focus{border-color:var(--teal);}
+    .f input.ok,.f select.ok{border-color:var(--rose-soft);background:var(--rose-l);}
 
-/* COUNTDOWN — red timer */
-.cd-box{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:16px 24px;text-align:center;margin-top:14px;}
-.cd-label{font-size:11px;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
-.cd-timer{font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,34px);font-weight:700;color:var(--red);letter-spacing:4px;}
-.cd-note{font-size:12px;color:var(--sub);margin-top:6px;line-height:1.5;}
+    /* Method toggle */
+    .method-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;}
+    .method-btn{
+      padding:1rem;border-radius:var(--r);cursor:pointer;
+      text-align:center;transition:all .25s;background:#fff;
+    }
+    .method-btn.auto-btn{border:2px solid var(--teal);}
+    .method-btn.manual-btn{border:2px solid var(--gold);}
+    .method-btn:hover{transform:translateY(-1px);}
+    .method-btn.sel.auto-btn{background:var(--teal-l);border-color:var(--teal);box-shadow:0 0 0 3px rgba(14,124,123,0.15);}
+    .method-btn.sel.manual-btn{background:var(--gold-l);border-color:var(--gold);box-shadow:0 0 0 3px rgba(226,177,60,0.15);}
+    .mb-icon{font-size:1.4rem;display:block;margin-bottom:0.3rem;}
+    .mb-name{font-size:0.9rem;font-weight:700;color:var(--navy);}
+    .mb-sub{font-size:0.7rem;color:var(--text-light);margin-top:0.15rem;}
 
-/* CONFIRM MODAL */
-.mo{position:fixed;inset:0;background:rgba(11,37,69,.55);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s;}
-.mo.open{opacity:1;pointer-events:all;}
-.mb{background:var(--white);border-radius:18px;max-width:520px;width:100%;overflow:hidden;transform:scale(.95);transition:transform .3s;max-height:90vh;overflow-y:auto;}
-.mo.open .mb{transform:scale(1);}
-.mb-hdr{background:var(--enrol-bg);padding:20px 24px;}
-.mb-hdr h3{font-family:'Playfair Display',serif;font-size:20px;color:var(--gold-acc);margin-bottom:3px;}
-.mb-hdr p{font-size:12px;color:rgba(255,255,255,.65);}
-.mb-body{padding:18px 24px;background:var(--white);}
-.cs{margin-bottom:14px;}
-.cs-title{font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid var(--border);}
-.cr{display:flex;justify-content:space-between;align-items:flex-start;padding:5px 0;font-size:13px;border-bottom:1px solid #f0f0f0;}
-.cr:last-child{border-bottom:none;}
-/* FIX: labels bold dark navy, values normal weight */
-.ck{color:var(--blue-lbl);font-weight:700;padding-right:10px;flex-shrink:0;min-width:120px;}
-.cv{color:var(--text);font-weight:400;text-align:right;}
-.conf-ref{background:#fff3f3;border:2px solid var(--red);border-radius:var(--rs);padding:10px 14px;text-align:center;margin:12px 0;}
-.conf-ref .crl{font-size:11px;color:var(--sub);margin-bottom:3px;}
-.conf-ref .crc{font-size:20px;font-weight:700;color:var(--red);letter-spacing:2px;}
-/* PRICE TABLE IN MODAL — same as ps-box */
-.cpt{background:#f8fcff;border:1px solid var(--border);border-top:3px solid var(--red);border-left:3px solid var(--red);border-radius:var(--rs);padding:12px 14px;}
-.cpt-title{font-size:11px;font-weight:700;color:#7ec8e3;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;}
-.cpt-r{display:flex;justify-content:space-between;font-size:13px;color:var(--sub);margin-bottom:5px;}
-/* FIX: label in cpt bold, not coloured */
-.cpt-r .cpt-k{font-weight:700;color:var(--text);}
-.cpt-r.disc .cpt-k{font-weight:700;color:var(--text);}
-.cpt-r.disc .cpt-v{color:var(--grn);}
-/* FIX: total row soft green background */
-.cpt-r.tot{background:#f0fdf4;border-radius:var(--rs);padding:8px 10px;margin-top:6px;border-top:1px solid var(--border);}
-.cpt-r.tot .cpt-k{font-size:14px;font-weight:700;color:var(--navy);}
-.cpt-r.tot .cpt-v{color:#b57aff;font-family:'Playfair Display',serif;font-size:17px;}
-.mb-ft{padding:12px 24px 20px;display:flex;gap:10px;background:var(--white);}
+    /* Wallet grid */
+    .wallet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.7rem;}
+    .wallet-btn{
+      padding:0.85rem 0.4rem;border-radius:var(--r);
+      border:2px solid var(--border);background:#fff;
+      cursor:pointer;text-align:center;transition:all .25s;
+    }
+    .wallet-btn:hover{transform:translateY(-2px);}
+    .wallet-btn.sel{box-shadow:0 0 0 3px rgba(42,183,202,0.25);}
+    .wallet-btn.mpesa-w{border-top:4px solid #c0392b;}
+    .wallet-btn.emola-w{border-top:4px solid #f97316;}
+    .wallet-btn.mkesh-w{border-top:4px solid #d4a017;}
+    .wallet-btn.mpesa-w.sel{border-color:#c0392b;}
+    .wallet-btn.emola-w.sel{border-color:#f97316;}
+    .wallet-btn.mkesh-w.sel{border-color:#d4a017;}
+    .wb-icon{font-size:1.3rem;display:block;margin-bottom:0.3rem;}
+    .wb-name{font-size:0.82rem;font-weight:700;color:var(--navy);}
+    .wb-op{font-size:0.65rem;color:var(--text-light);margin-top:0.1rem;}
 
-/* BUTTONS */
-.btn{display:inline-flex;align-items:center;gap:7px;padding:11px 22px;border-radius:50px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:all .22s;}
-.btn-g{background:var(--g);color:var(--white);}
-.btn-g:hover{background:var(--gd);}
-.btn-teal{background:var(--teal);color:var(--white);}
-.btn-teal:hover{background:var(--teal-l);}
-.btn-gold{background:var(--gold);color:var(--white);}
-.btn-ghost{background:var(--gw);color:var(--navy);border:1px solid var(--border);}
-.btn-ghost:hover{background:var(--lg);}
-.btn-blue{background:#1a56db;color:var(--white);}
-.btn-blue:hover{background:#1e40af;}
-.btn-submit{width:100%;background:var(--g);color:var(--white);padding:14px;border-radius:50px;font-size:15px;font-weight:700;cursor:pointer;border:none;transition:all .2s;margin-top:16px;}
-.btn-submit:hover{background:var(--gd);}
-.step-nav{display:flex;gap:10px;margin-top:22px;}
-.btn-back{background:var(--lg);border:1px solid var(--border);color:var(--navy);padding:11px 20px;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
-.btn-back:hover{background:var(--border);}
-.btn-fwd{flex:1;background:var(--teal);color:var(--white);padding:11px 20px;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .2s;}
-.btn-fwd:hover{background:var(--teal-l);}
+    /* Auto pay box */
+    .auto-box{
+      background:var(--teal-l);border:1.5px solid var(--teal);
+      border-radius:var(--r);padding:1.1rem 1.2rem;
+    }
+    .auto-box .ab-title{font-size:0.75rem;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.6rem;}
+    .auto-box p{font-size:0.82rem;color:var(--text-mid);line-height:1.6;margin-bottom:0.7rem;}
 
-/* SUCCESS */
-.suc{background:var(--white);border-radius:var(--r);border:1px solid var(--border);padding:40px 32px;text-align:center;display:none;}
-.suc-anim{font-size:64px;animation:popIn .5s cubic-bezier(.175,.885,.32,1.275);}
-@keyframes popIn{0%{transform:scale(0);opacity:0;}100%{transform:scale(1);opacity:1;}}
-/* FIX: Parabéns highlighted blue */
-.suc-title{font-family:'Playfair Display',serif;font-size:clamp(22px,3.5vw,32px);margin:14px 0 8px;display:inline-block;background:linear-gradient(135deg,#dbeafe,#bfdbfe);color:#1e40af;padding:6px 20px;border-radius:var(--rs);}
-.suc-sub{font-size:14px;color:var(--sub);line-height:1.75;max-width:460px;margin:0 auto 20px;}
-.suc-ref-row{display:inline-flex;align-items:center;gap:10px;background:#fff3f3;border:2px solid var(--red);border-radius:var(--rs);padding:10px 18px;margin-bottom:20px;flex-wrap:wrap;justify-content:center;}
-.suc-ref-label{font-size:11px;color:var(--sub);}
-.suc-ref-code{font-size:clamp(16px,2.5vw,22px);font-weight:700;color:var(--red);letter-spacing:2px;}
-.suc-ref-copy{background:var(--g);color:var(--white);border:none;border-radius:var(--rs);padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;}
-.suc-info{background:var(--gw);border:1px solid var(--border);border-radius:var(--r);padding:14px 18px;text-align:left;max-width:460px;margin:0 auto 22px;}
-.suc-info p{font-size:13px;color:var(--sub);line-height:1.7;margin-bottom:5px;display:flex;gap:8px;}
-.suc-info strong{color:var(--navy);}
-.suc-dl-btns{display:flex;flex-direction:column;gap:10px;max-width:400px;margin:0 auto 16px;}
-.suc-dl-btns button{width:100%;padding:13px;border-radius:50px;font-size:14px;font-weight:700;cursor:pointer;border:none;transition:all .2s;}
-.suc-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+    /* Manual pay box */
+    .manual-box{
+      background:var(--gold-l);border:1.5px solid var(--gold);
+      border-radius:var(--r);padding:1.1rem 1.2rem;
+    }
+    .manual-box .mb-title{font-size:0.88rem;font-weight:700;color:var(--navy);margin-bottom:0.8rem;}
 
-/* ORIENT & PRES MODALS */
-.ori-box,.pres-box{background:var(--white);border-radius:18px;max-width:440px;width:100%;overflow:hidden;}
-.ori-hdr,.pres-hdr{background:var(--enrol-bg);padding:20px 24px;}
-.ori-hdr h3,.pres-hdr h3{font-family:'Playfair Display',serif;font-size:18px;color:var(--gold-acc);margin-bottom:3px;}
-.ori-hdr p,.pres-hdr p{font-size:12px;color:rgba(255,255,255,.65);}
-.ori-body,.pres-body{padding:22px 24px;background:var(--white);}
+    /* Instruction banner */
+    .instr-banner{
+      background:var(--navy);border-radius:10px;
+      padding:0.7rem 1rem;margin-bottom:0.9rem;
+      font-size:0.8rem;color:rgba(255,255,255,0.9);
+      line-height:1.55;
+    }
+    .instr-banner strong{color:var(--gold);}
 
-/* FOOTER */
-footer{background:var(--navy);color:var(--white);padding:48px 5% 26px;}
-.fg{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:32px;text-align:center;}
-.fb .fname{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:10px;}
-.fb p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.7;margin-bottom:16px;}
-.fsoc{display:flex;gap:10px;justify-content:center;}
-.fsb{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;}
-.fsb:hover{background:var(--g);}
-.fc h4{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--gl);margin-bottom:12px;}
-.fc a{display:block;font-size:13px;color:rgba(255,255,255,.6);margin-bottom:8px;cursor:pointer;transition:color .18s;}
-.fc a:hover{color:var(--gold-acc);}
-.fbot{max-width:1100px;margin:0 auto;border-top:1px solid rgba(255,255,255,.08);padding-top:20px;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:14px;text-align:center;}
-.fbot p{font-size:12px;color:rgba(255,255,255,.3);}
-.fbot a{color:rgba(255,255,255,.4);font-size:12px;cursor:pointer;}
-.waf{position:fixed;bottom:22px;right:22px;z-index:900;width:50px;height:50px;border-radius:50%;background:#25D366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(37,211,102,.4);transition:all .3s;}
-.waf:hover{transform:scale(1.1);}
-.waf svg{width:24px;height:24px;fill:var(--white);}
+    /* Wallet display row */
+    .wd-row{
+      background:#fff;border-radius:10px;
+      border:1px solid rgba(226,177,60,0.35);
+      padding:0.9rem 1rem;
+      display:flex;justify-content:space-between;align-items:center;
+      margin-bottom:0.7rem;
+    }
+    .wd-left{display:flex;align-items:center;gap:0.7rem;}
+    .wd-icon{font-size:1.2rem;}
+    .wd-info h5{font-size:0.85rem;font-weight:700;color:var(--navy);}
+    .wd-num{font-size:1rem;font-weight:700;letter-spacing:0.05em;color:var(--teal);}
+    .wd-titular{font-size:0.68rem;color:var(--text-light);margin-top:0.1rem;}
+    .copy-btn{background:var(--gold);color:#fff;border:none;border-radius:8px;padding:0.3rem 0.7rem;font-size:0.72rem;font-weight:700;cursor:pointer;transition:background .15s;flex-shrink:0;}
+    .copy-btn:hover{background:#c99a30;}
 
-@media(max-width:680px){
-  .type-grid,.lv-grid,.pm-grid,.fr,.cta-grid,.pay-mth-grid{grid-template-columns:1fr;}
-  .win-body,.mb-body,.ori-body,.pres-body{padding:16px 14px;}
-  .ann-hdr,.ann-body{padding:16px;}
-  .ann-lvl-grid{grid-template-columns:repeat(3,1fr);}
-  nav{padding:0 4%;}
-  .main{padding:20px 4% 50px;}
-  .suc{padding:28px 16px;}
-  .mb-ft{flex-direction:column;}
-  .fg{grid-template-columns:1fr 1fr;}
-  .hero-wrap{padding:24px 4% 28px;}
-}
-@media(max-width:420px){.fg{grid-template-columns:1fr;}.ann-lvl-grid{grid-template-columns:repeat(2,1fr);}}
-</style>
+    /* Amount summary */
+    .amt-summary{
+      background:var(--gx);border:2px solid var(--gl);
+      border-radius:var(--r);padding:1rem 1.4rem;
+      display:flex;justify-content:space-between;align-items:center;
+      margin-bottom:1.2rem;
+    }
+    .as-left{font-size:0.75rem;color:var(--gd);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;}
+    .as-amount{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--g);}
+    .as-cur{font-size:0.7rem;color:var(--text-light);margin-left:0.3rem;}
+
+    /* Submit */
+    .btn-submit{
+      width:100%;background:linear-gradient(135deg,var(--rose),#a93226);
+      color:#fff;border:none;border-radius:50px;padding:1rem;
+      font-size:0.95rem;font-weight:700;cursor:pointer;
+      transition:all .25s;display:flex;align-items:center;justify-content:center;gap:0.6rem;
+      box-shadow:0 4px 20px rgba(192,57,43,0.3);
+    }
+    .btn-submit:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(192,57,43,0.4);}
+    .btn-submit:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+
+    /* Back button — BOTTOM */
+    .btn-back-bottom{
+      width:100%;background:var(--cream);color:var(--text-mid);
+      border:1.5px solid var(--border);border-radius:50px;padding:0.75rem;
+      font-size:0.88rem;font-weight:600;cursor:pointer;margin-top:0.8rem;
+      transition:all .2s;display:flex;align-items:center;justify-content:center;gap:0.5rem;
+    }
+    .btn-back-bottom:hover{border-color:var(--teal);color:var(--teal);}
+
+    /* ══ POLLING SCREEN ══ */
+    .poll-screen{background:var(--cream);min-height:calc(100vh - 64px);display:flex;align-items:center;justify-content:center;padding:2rem;}
+    .poll-card{background:#fff;border-radius:20px;border:2px solid var(--teal);box-shadow:0 4px 32px rgba(14,124,123,0.1);padding:2.5rem 2rem;text-align:center;max-width:420px;width:100%;}
+    .poll-spin{width:56px;height:56px;border:5px solid var(--gl);border-top-color:var(--g);border-radius:50%;animation:sp .9s linear infinite;margin:0 auto 1.2rem;}
+    .poll-card h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--navy);margin-bottom:0.6rem;}
+    .poll-card p{font-size:0.85rem;color:var(--text-light);line-height:1.7;margin-bottom:1rem;}
+    .poll-timer{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--teal);margin-bottom:0.5rem;}
+    .poll-note{font-size:0.75rem;color:var(--text-light);font-style:italic;}
+    .btn-cancel-poll{margin-top:1.2rem;background:none;border:1.5px solid var(--border);border-radius:30px;padding:0.55rem 1.4rem;font-size:0.82rem;color:var(--text-light);cursor:pointer;transition:all .2s;}
+    .btn-cancel-poll:hover{border-color:var(--rose);color:var(--rose);}
+
+    /* ══════════════════════
+       SCREEN 3 — THANK YOU
+    ══════════════════════ */
+    .thanks-screen{background:linear-gradient(160deg,#f8fffe 0%,var(--white) 60%);min-height:calc(100vh - 64px);padding:3rem clamp(1rem,5vw,4rem) 4rem;text-align:center;position:relative;overflow:hidden;}
+    .thanks-inner{max-width:580px;margin:0 auto;position:relative;z-index:1;}
+
+    /* Emoji rain */
+    .emoji-rain{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden;}
+    .emoji-drop{position:absolute;top:-60px;animation:fall linear forwards;}
+    @keyframes fall{to{transform:translateY(110vh) rotate(360deg);opacity:0;}}
+
+    /* Thanks card */
+    .thanks-card{
+      background:#fff;border-radius:20px;
+      box-shadow:0 8px 48px rgba(14,124,123,0.12);
+      border:2px solid var(--teal);
+      overflow:hidden;margin-bottom:1.5rem;
+    }
+    .thanks-heart-wrap{padding:2rem 2rem 1rem;background:#fff;}
+    .thanks-heart{font-size:3.5rem;display:block;animation:hb 1.6s ease-in-out infinite;margin-bottom:0.8rem;}
+    @keyframes hb{0%,100%{transform:scale(1);}14%{transform:scale(1.18);}28%{transform:scale(1);}42%{transform:scale(1.1);}70%{transform:scale(1);}}
+    .thanks-title{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(1.2rem,3vw,1.8rem);
+      font-weight:700;color:var(--rose);
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+      margin-bottom:0.7rem;
+    }
+    .thanks-msg{font-size:0.88rem;color:var(--text-mid);line-height:1.75;max-width:440px;margin:0 auto;}
+    .thanks-body{padding:1.5rem 2rem 2rem;}
+    .thanks-ref{display:inline-flex;align-items:center;gap:0.7rem;background:var(--gx);border:1.5px solid var(--gl);border-radius:10px;padding:0.6rem 1.1rem;margin-bottom:1.4rem;flex-wrap:wrap;justify-content:center;}
+    .thanks-ref-label{font-size:0.72rem;color:var(--text-light);}
+    .thanks-ref-code{font-size:0.95rem;font-weight:700;color:var(--g);letter-spacing:1.5px;}
+    .thanks-ref-copy{background:var(--g);color:#fff;border:none;border-radius:6px;padding:0.28rem 0.65rem;font-size:0.7rem;font-weight:600;cursor:pointer;}
+
+    /* Buttons */
+    .btn-dl{width:100%;background:linear-gradient(135deg,var(--navy),#1a3a2a);color:#fff;border:none;border-radius:50px;padding:1rem;font-size:0.95rem;font-weight:700;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:0.6rem;box-shadow:0 4px 20px rgba(11,37,69,0.2);margin-bottom:0.8rem;}
+    .btn-dl:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(11,37,69,0.3);}
+    .btn-share{width:100%;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:50px;padding:0.9rem;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:0.6rem;box-shadow:0 4px 20px rgba(37,211,102,0.25);margin-bottom:1.4rem;}
+    .btn-share:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(37,211,102,0.35);}
+    .nav-cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.7rem;}
+    .nav-card{display:flex;flex-direction:column;align-items:center;gap:0.3rem;padding:0.9rem 0.5rem;background:#fff;border:1.5px solid var(--border);border-radius:var(--r);cursor:pointer;text-decoration:none;transition:all .2s;}
+    .nav-card:hover{border-color:var(--teal);transform:translateY(-2px);}
+    .nc-icon{font-size:1.3rem;}
+    .nc-label{font-size:0.72rem;font-weight:600;color:var(--navy);}
+
+    /* ══ FOOTER ══ */
+    footer{background:var(--navy);color:#fff;padding:48px 5% 26px;}
+    .fg{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:32px;}
+    .fb .fname{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:10px;color:#fff;}
+    .fb p{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;margin-bottom:16px;}
+    .fsoc{display:flex;gap:10px;justify-content:center;}
+    .fsb{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;text-decoration:none;}
+    .fsb:hover{background:var(--g);}
+    .fc h4{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--gm);margin-bottom:12px;}
+    .fc a{display:block;font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:8px;cursor:pointer;transition:color .18s;text-decoration:none;}
+    .fc a:hover{color:var(--gold);}
+    .fbot{max-width:1100px;margin:0 auto;border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:14px;}
+    .fbot p{font-size:12px;color:rgba(255,255,255,0.3);}
+    .fbot a{color:rgba(255,255,255,0.4);font-size:12px;cursor:pointer;text-decoration:none;}
+    .fbot a:hover{color:rgba(255,255,255,0.7);}
+    .waf{position:fixed;bottom:22px;right:22px;z-index:900;width:50px;height:50px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(37,211,102,.4);transition:all .3s;text-decoration:none;}
+    .waf:hover{transform:scale(1.1);}
+    .waf svg{width:26px;height:26px;fill:#fff;}
+
+    /* ══ RESPONSIVE ══ */
+    @media(max-width:680px){
+      .cards-row1{grid-template-columns:1fr;}
+      .cards-row2{grid-template-columns:1fr;}
+      .fg{grid-template-columns:1fr 1fr;}
+      .nav-cards-grid{grid-template-columns:repeat(2,1fr);}
+      .pay-card-body{padding:1.4rem 1.2rem;}
+    }
+    @media(max-width:420px){
+      .fg{grid-template-columns:1fr;}
+      .hero-pills-row{gap:0.5rem;}
+      .hero-pill{font-size:0.75rem;padding:0.4rem 0.9rem;}
+    }
+
+    .fade-up{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease;}
+    .fade-up.visible{opacity:1;transform:translateY(0);}
+  </style>
 </head>
 <body>
 
-<div class="pt" id="pt"><div class="pt-txt">DoveLingua<span class="ptd">.</span><span class="ptd">.</span><span class="ptd">.</span></div></div>
 <div class="tw" id="tw"></div>
-<div class="spin-ov" id="spinOv"><div class="spin"></div><p>A processar a sua inscrição...</p></div>
+<div class="spin-ov" id="spinOv"><div class="spin"></div><p id="spinMsg">A processar...</p></div>
 
-<!-- NAV -->
+<!-- ══ NAV ══ -->
 <nav>
-  <div class="nav-in">
-    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
-    <div class="nav-brand" onclick="nav('index.html')">DoveLingua</div>
-    <div class="nav-r">
-      <div class="nav-back" onclick="nav('index.html')">← Início</div>
-      <div class="nav-avatar" title="Perfil / Login">👤</div>
+  <div class="nav-left">
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    <a href="index.html" class="nav-brand">🕊 DoveLingua</a>
+  </div>
+  <ul class="nav-centre">
+    <li><a href="index.html" data-en="Home" data-pt="Início">Início</a></li>
+    <li><a href="about.html" data-en="About" data-pt="Sobre">Sobre</a></li>
+    <li><a href="programme.html" data-en="Programme" data-pt="Programa">Programa</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html" data-en="Contact" data-pt="Contacto">Contacto</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+      <button id="btn-pt" class="active" onclick="setLang('pt')">PT</button>
     </div>
+    <a href="enrol.html" class="profile-icon">👤</a>
+    <a href="enrol.html" class="btn-enrol-nav" data-en="Enrol Now" data-pt="Inscrever">Inscrever</a>
   </div>
 </nav>
 
-<!-- SIDE MENU -->
+<!-- ══ SIDE MENU ══ -->
 <div class="so" id="sO" onclick="toggleMenu()"></div>
 <div class="sm" id="sM">
-  <div class="sm-hdr"><button class="sm-cl" onclick="toggleMenu()">✕</button><div class="sb">DoveLingua</div></div>
+  <div class="sm-hdr"><button class="sm-cl" onclick="toggleMenu()">✕</button><div class="sb">🕊 DoveLingua</div></div>
   <div class="sm-nav">
-    <a onclick="nav('index.html')"><span class="mi">🏠</span>Início</a>
+    <a onclick="nav('index.html')"><span class="mi">🏠</span><span data-en="Home" data-pt="Início">Início</span></a>
     <div class="sdiv"></div>
-    <a onclick="nav('about.html')"><span class="mi">📖</span>Sobre Nós</a>
-    <a onclick="nav('programme.html')"><span class="mi">📚</span>O Nosso Programa</a>
-    <a onclick="nav('enrol.html')"><span class="mi">✏️</span>Inscrição</a>
+    <a onclick="nav('about.html')"><span class="mi">📖</span><span data-en="About Us" data-pt="Sobre Nós">Sobre Nós</span></a>
+    <a onclick="nav('programme.html')"><span class="mi">📚</span><span data-en="Our Programme" data-pt="O Nosso Programa">O Nosso Programa</span></a>
+    <a onclick="nav('enrol.html')"><span class="mi">✏️</span><span data-en="Enrol" data-pt="Inscrição">Inscrição</span></a>
     <a href="https://classroom.dovelingua.com" target="_blank"><span class="mi">💻</span>DoveLingua Classroom</a>
     <div class="sdiv"></div>
-    <a onclick="nav('library.html')"><span class="mi">📖</span>Biblioteca<span class="bsoon">Soon</span></a>
+    <a onclick="nav('library.html')"><span class="mi">📖</span><span data-en="Library" data-pt="Biblioteca">Biblioteca</span><span class="bsoon">Soon</span></a>
     <a onclick="nav('app.html')"><span class="mi">📱</span>English Dove App<span class="bsoon">Soon</span></a>
     <div class="sdiv"></div>
-    <a onclick="nav('announcements.html')"><span class="mi">📢</span>Avisos</a>
+    <a onclick="nav('announcements.html')"><span class="mi">📢</span><span data-en="Announcements" data-pt="Avisos">Avisos</span></a>
     <a onclick="nav('faq.html')"><span class="mi">❓</span>FAQ</a>
-    <a onclick="nav('evaluate.html')"><span class="mi">⭐</span>Avaliar DoveLingua</a>
+    <a onclick="nav('evaluate.html')"><span class="mi">⭐</span><span data-en="Evaluate" data-pt="Avaliar">Avaliar DoveLingua</span></a>
     <a href="https://whatsapp.com/channel/0029VbCKsViFCCoWvkhrYT2g" target="_blank"><span class="mi">📡</span>Canal WhatsApp</a>
     <div class="sdiv"></div>
-    <a onclick="nav('donate.html')"><span class="mi">❤️</span>Apoiar DoveLingua</a>
-    <a onclick="nav('report.html')"><span class="mi">🚩</span>Reportar Problema</a>
+    <a onclick="nav('donate.html')"><span class="mi">❤️</span><span data-en="Support DoveLingua" data-pt="Apoiar DoveLingua">Apoiar DoveLingua</span></a>
+    <a onclick="nav('report.html')"><span class="mi">🚩</span><span data-en="Report a Problem" data-pt="Reportar Problema">Reportar Problema</span></a>
     <div class="sdiv"></div>
-    <a onclick="nav('contact.html')"><span class="mi">📧</span>Contactar Suporte</a>
-    <a onclick="nav('terms.html')"><span class="mi">📄</span>Termos e Políticas</a>
+    <a onclick="nav('contact.html')"><span class="mi">📧</span><span data-en="Contact Support" data-pt="Contactar Suporte">Contactar Suporte</span></a>
+    <a onclick="nav('terms.html')"><span class="mi">📄</span><span data-en="Terms" data-pt="Termos">Termos e Políticas</span></a>
   </div>
-  <div class="sm-ft"><p>"Aprende inglês hoje e conecta-te com o Mundo amanhã"</p></div>
-</div>
-
-<!-- HERO -->
-<div class="hero-wrap">
-  <div class="hero-inner">
-    <div class="hero-title-card">
-      <div class="htc-text">Página de Inscrição na Academia DoveLingua</div>
-    </div>
-    <div class="hero-pills">
-      <div class="hp">✅ Imediato</div>
-      <div class="hp">🔒 Seguro</div>
-      <div class="hp">📋 Transparente</div>
-      <div class="hp">⚡ Automático</div>
-    </div>
+  <div class="sm-ft" onclick="handleSecretTap()" style="cursor:default;">
+    <p data-en="&ldquo;Learn English today and connect with the World tomorrow&rdquo;" data-pt="&ldquo;Aprende inglês hoje e conecta-te com o Mundo amanhã&rdquo;">&ldquo;Aprende inglês hoje e conecta-te com o Mundo amanhã&rdquo;</p>
   </div>
 </div>
 
-<!-- MAIN -->
-<div class="main" id="mainTop">
 
-  <!-- VERIFICATION CARD -->
-  <div class="verif-card" id="verifCard">
-    <div class="vc-heading">Consulta de Estado de Pagamento</div>
-    <p class="vc-text">
-      Se já fez a inscrição anteriormente, pode verificar o estado do seu pagamento usando o <em>Código de Referência</em> que recebeu durante a inscrição.
-      Se ainda não se inscreveu nos nossos cursos, siga as instruções desta página e inscreva-se, porque as <strong>vagas são ilimitadas</strong>.
-    </p>
-    <button class="btn-animated" onclick="nav('status.html')">🔍 Verificar Estado do Pagamento</button>
-  </div>
+<!-- ════════════════════════════
+     SCREEN 1 — MAIN PAGE
+════════════════════════════ -->
+<div class="screen active" id="screen1">
 
-  <!-- ANNOUNCEMENT CARD -->
-  <div class="ann-card" id="annCard">
-    <div class="ann-hdr">
-      <h2>📢 Inscrições Abertas 2026</h2>
-    </div>
-    <div class="ann-body">
-      <p style="font-size:14px;color:var(--sub);line-height:1.8;margin-bottom:20px;">
-        A <strong style="color:var(--navy);">DoveLingua English Learning Academy</strong> tem o prazer de anunciar que as inscrições para os cursos de inglês estão oficialmente abertas.
-        Dois níveis estão disponíveis neste momento. As <strong style="color:var(--navy);">vagas são ilimitadas</strong> — qualquer pessoa pode inscrever-se.
-        Para conhecer melhor os nossos programas, visite a página do <strong style="color:var(--navy);">Programa Completo</strong>.
-      </p>
-      <div style="font-size:12px;font-weight:700;color:var(--gd);text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px;">Estado dos Níveis</div>
-      <div class="ann-lvl-grid">
-        <div class="alc open"><div class="alc-badge a1">A1</div><div class="alc-name">Iniciante</div><div class="alc-en">Beginner</div><div class="alc-st o">✅ Aberto</div></div>
-        <div class="alc open"><div class="alc-badge a2">A2</div><div class="alc-name">Básico</div><div class="alc-en">Elementary</div><div class="alc-st o">✅ Aberto</div></div>
-        <div class="alc soon"><div class="alc-badge g">A2+</div><div class="alc-name">Pré-Interm.</div><div class="alc-en">Pre-Intermediate</div><div class="alc-st s">⏳ Em Breve</div></div>
-        <div class="alc soon"><div class="alc-badge g">B1</div><div class="alc-name">Intermediário</div><div class="alc-en">Intermediate</div><div class="alc-st s">⏳ Em Breve</div></div>
-        <div class="alc soon"><div class="alc-badge g">B2</div><div class="alc-name">Interm. Sup.</div><div class="alc-en">Upper Intermediate</div><div class="alc-st s">⏳ Em Breve</div></div>
-        <div class="alc soon"><div class="alc-badge g">C1</div><div class="alc-name">Avançado</div><div class="alc-en">Advanced</div><div class="alc-st s">⏳ Em Breve</div></div>
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-title-card fade-up">
+        <div class="hero-eyebrow">❤️ <span data-en="Support DoveLingua" data-pt="Apoiar DoveLingua">Apoiar DoveLingua</span></div>
+        <h1 data-en="Every contribution <em>builds something real.</em>" data-pt="Cada contribuição <em>constrói algo real.</em>">Cada contribuição <em>constrói algo real.</em></h1>
       </div>
-      <div class="feat-grid">
-        <div class="feat-card"><h4>📚 Programa Completo CEFR</h4><p>Alinhado com os padrões internacionais do Quadro Europeu Comum de Referência para as Línguas, do A1 ao C1.</p></div>
-        <div class="feat-card"><h4>🌐 Modalidades Disponíveis</h4><p>Online — de qualquer lugar do mundo. Presencial — Cidade da Maxixe, Inhambane.</p></div>
-        <div class="feat-card"><h4>🎓 Certificado de Reconhecimento</h4><p>Emitido pela DoveLingua após a conclusão bem-sucedida de cada nível.</p></div>
-        <div class="feat-card"><h4>🔒 Seguro e Transparente</h4><p>Processo de inscrição guiado, seguro e completamente transparente do início ao fim.</p></div>
-      </div>
-      <div class="cta-grid">
-        <div class="cta-left" onclick="nav('programme.html')">
-          <h3>📚 Ver Programa Completo</h3>
-          <p>Conheça todos os nossos níveis e currículos</p>
-        </div>
-        <button class="cta-right" onclick="startEnrol()">
-          <h3>✏️ Iniciar Inscrição</h3>
-          <p>Inscreva-se agora — vagas ilimitadas</p>
-        </button>
+      <!-- Pills OUTSIDE the card -->
+      <div class="hero-pills-row">
+        <div class="hero-pill hp1">❤️ <span data-en="Support" data-pt="Apoio">Apoio</span></div>
+        <div class="hero-pill hp2">🤝 <span data-en="Gratitude" data-pt="Gratidão">Gratidão</span></div>
+        <div class="hero-pill hp3">⚡ <span data-en="System" data-pt="Sistema">Sistema</span></div>
+        <div class="hero-pill hp4">🔐 <span data-en="Secure" data-pt="Seguro">Seguro</span></div>
       </div>
     </div>
-  </div>
-
-  <!-- WIN 1: NOVO OU RENOVAR -->
-  <div class="win" id="win1" style="display:none;">
-    <div class="win-hdr">
-      <h3>Início da Inscrição</h3>
-      <p>Preencha os seus dados correctamente. Essas informações serão usadas nas notas, exames e no seu certificado.</p>
+    <div class="hero-anchor-wrap">
+      <button class="hero-anchor-btn" onclick="goToScreen('screen2')">
+        ❤️ <span data-en="Support Now" data-pt="Apoiar Agora">Apoiar Agora</span>
+      </button>
     </div>
-    <div class="win-body">
-      <div class="type-grid">
-        <div class="tc" id="tcN" onclick="selType('new')">
-          <div class="tc-ico">🆕</div>
-          <div class="tc-name">Nova Inscrição</div>
-          <div class="tc-desc">Estou a inscrever-me na DoveLingua pela primeira vez</div>
-        </div>
-        <div class="tc" id="tcR" onclick="selType('renew')">
-          <div class="tc-ico">🔄</div>
-          <div class="tc-name">Renovação de Inscrição</div>
-          <div class="tc-desc">Já estudei na DoveLingua e estou a renovar a minha inscrição</div>
-        </div>
+  </section>
+
+  <div class="main-wrap">
+
+    <!-- Quick buttons — ONE ROW -->
+    <div class="quick-btns fade-up">
+      <a href="about.html" class="quick-btn">📖 <span data-en="About DoveLingua" data-pt="Sobre a DoveLingua">Sobre a DoveLingua</span></a>
+      <a href="programme.html" class="quick-btn">📚 <span data-en="Courses" data-pt="Cursos">Programa e Cursos</span></a>
+      <a href="faq.html" class="quick-btn">❓ <span data-en="FAQ" data-pt="Perguntas Frequentes">Perguntas Frequentes</span></a>
+    </div>
+
+    <!-- Impact section — big container -->
+    <div class="impact-section fade-up">
+      <div class="impact-header">
+        <div class="impact-title" data-en="Where Your Support Goes" data-pt="Para Onde Vai o Teu Apoio">Para Onde Vai o Teu Apoio</div>
+        <div class="impact-sub" data-en="Every meticai received is invested directly in growing DoveLingua." data-pt="Cada metical recebido é investido directamente no crescimento da DoveLingua.">Cada metical recebido é investido directamente no crescimento da DoveLingua.</div>
       </div>
-    </div>
-  </div>
-
-  <!-- WIN 2: NÍVEL -->
-  <div class="win" id="win2" style="display:none;">
-    <div class="win-hdr">
-      <h3>Passo 1 — Nível de Inscrição</h3>
-      <p>Seleccione o nível em que deseja inscrever-se.</p>
-    </div>
-    <div class="win-body">
-      <div class="lvl-section-label">Níveis Disponíveis</div>
-      <div class="lv-grid" id="lvGrid"></div>
-      <!-- FIX: unknown hidden for renovação -->
-      <div class="lvc unk" id="lvcUnk" onclick="openOrient()" style="margin-top:14px;">
-        <div style="font-size:22px;">🤔</div>
-        <div>
-          <div style="font-size:14px;font-weight:700;color:var(--navy);">Não tenho a certeza do meu nível</div>
-          <div style="font-size:12px;color:var(--sub);">Será inscrito/a no Nível A1 e realizado um Teste de Nível</div>
-        </div>
-      </div>
-      <div class="soon-note" style="margin-top:14px;">⏳ <span><strong>Mais níveis em breve:</strong> Pré-Intermediário, Intermediário, Intermediário Superior e Avançado.</span></div>
-    </div>
-  </div>
-
-  <!-- WIN 3: MODALIDADE DE PAGAMENTO -->
-  <div class="win" id="win3" style="display:none;">
-    <div class="win-hdr">
-      <h3>Passo 2 — Modalidade de Pagamento</h3>
-      <p>Escolha como prefere pagar o seu curso.</p>
-    </div>
-    <div class="win-body">
-      <div class="pm-grid" id="pmGrid"></div>
-      <!-- FIX: Material inside its own outer card, starts unselected -->
-      <div class="mat-outer">
-        <div class="mat-outer-title">📚 Material Didáctico</div>
-        <div class="mat-outer-desc">Opcional — 250 MZN, pagamento único por nível. Sem o material, terá acesso a fichas gratuitas do professor.</div>
-        <div class="mat-c" id="matC" onclick="togMat()">
-          <div style="font-size:22px;">📚</div>
-          <div style="flex:1;">
-            <div style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:2px;">Incluir Material Didáctico</div>
-            <div style="font-size:12px;color:var(--sub);">250 MZN — pagamento único</div>
+      <div class="impact-cards-wrap">
+        <div class="cards-row1">
+          <div class="ic">
+            <div class="ic-bar b1"></div>
+            <div class="ic-body">
+              <span class="ic-icon">📱</span>
+              <div class="ic-title" data-en="English Dove App" data-pt="Aplicação English Dove">Aplicação English Dove</div>
+              <p class="ic-desc" data-en="A free English app for everyone — no enrolment needed. Your support pays for the servers and new content so it stays free." data-pt="Uma aplicação gratuita de inglês para todos — sem precisar de se inscrever. O teu apoio paga os servidores e o novo conteúdo para que continue gratuita.">Uma aplicação gratuita de inglês para todos — sem precisar de se inscrever. O seu apoio paga os servidores e o novo conteúdo para que continue gratuita.</p>
+            </div>
           </div>
-          <div class="mat-chk" id="matChk"></div>
+          <div class="ic">
+            <div class="ic-bar b2"></div>
+            <div class="ic-body">
+              <span class="ic-icon">🎓</span>
+              <div class="ic-title" data-en="Teaching Quality" data-pt="Qualidade de Ensino">Qualidade de Ensino</div>
+              <p class="ic-desc" data-en="More teaching materials, better lesson conditions, stronger online capacity. More students reached, better results." data-pt="Mais materiais de ensino, melhores condições de aula, maior capacidade online. Mais alunos alcançados, melhores resultados.">Mais materiais de ensino, melhores condições de aula, maior capacidade online. Mais alunos alcançados, melhores resultados.</p>
+            </div>
+          </div>
+          <div class="ic">
+            <div class="ic-bar b3"></div>
+            <div class="ic-body">
+              <span class="ic-icon">💻</span>
+              <div class="ic-title" data-en="Improve Our Platforms" data-pt="Melhorar e Expandir as Plataformas">Melhorar e Expandir as Plataformas</div>
+              <p class="ic-desc" data-en="Website, classroom, payment system, library, certificate verification — all DoveLingua platforms improved and expanded." data-pt="Sítio web, sala de aula, pagamentos, biblioteca, verificação de certificados — todas as plataformas DoveLingua melhoradas e expandidas.">Sítio web, sala de aula, pagamentos, biblioteca, verificação de certificados — todas as plataformas DoveLingua melhoradas.</p>
+            </div>
+          </div>
+        </div>
+        <div class="cards-row2">
+          <div class="ic">
+            <div class="ic-bar b4"></div>
+            <div class="ic-body">
+              <span class="ic-icon">📜</span>
+              <div class="ic-title" data-en="Certificate Accreditation" data-pt="Acreditação dos Certificados">Acreditação dos Certificados</div>
+              <p class="ic-desc" data-en="DoveLingua aims for government-recognised certificates. Your support funds the legal and institutional process to make that happen." data-pt="A DoveLingua quer certificados reconhecidos pelo governo. O seu apoio financia o processo legal e institucional para que isso aconteça.">A DoveLingua quer certificados reconhecidos pelo governo. O seu apoio financia o processo legal e institucional para que isso aconteça.</p>
+            </div>
+          </div>
+          <div class="ic">
+            <div class="ic-bar b5"></div>
+            <div class="ic-body">
+              <span class="ic-icon">🏫</span>
+              <div class="ic-title" data-en="A Physical Centre" data-pt="Um Centro Físico">Um Centro Físico</div>
+              <p class="ic-desc" data-en="Our dream is a real professional building — a place where students can learn, grow and belong. Your support makes that dream closer." data-pt="O nosso sonho é ter um centro profissional real — um lugar onde os alunos possam aprender, crescer e pertencer. O seu apoio aproxima-nos desse sonho.">O nosso sonho é ter um centro profissional real — um lugar onde os alunos possam aprender, crescer e pertencer. O seu apoio aproxima-nos desse sonho.</p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="ps-box" id="psBox" style="display:none;">
-        <div class="ps-title">Resumo de Custos</div>
-        <div id="psRows"></div>
+    </div>
+
+    <!-- BIG CTA -->
+    <div class="cta-wrap fade-up">
+      <button class="btn-cta-main" onclick="goToScreen('screen2')">
+        ❤️ <span data-en="Start My Contribution" data-pt="Iniciar Contribuição">Iniciar Contribuição</span>
+      </button>
+    </div>
+
+    <!-- Security box -->
+    <div class="security-box fade-up">
+      🔒 <span data-en="All payments are processed securely. Your details are protected." data-pt="Todos os pagamentos são processados com segurança. Os seus dados estão protegidos.">Todos os pagamentos são processados com segurança. Os seus dados estão protegidos.</span>
+    </div>
+
+    <!-- Bottom 2 buttons -->
+    <div class="bottom-btns fade-up">
+      <a href="enrol.html" class="btn-bottom">✏️ <span data-en="Enrol in a Course" data-pt="Inscrever num Curso">Inscrever num Curso</span></a>
+      <a href="contact.html" class="btn-bottom">📧 <span data-en="Contact DoveLingua" data-pt="Contactar a DoveLingua">Contactar a DoveLingua</span></a>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="fg">
+      <div class="fb">
+        <div class="fname">DoveLingua English Learning Academy</div>
+        <p data-en="A structured, communicative English course founded in Mozambique, April 2026." data-pt="Um curso de inglês estruturado e comunicativo, fundado em Moçambique, Abril de 2026.">Um curso de inglês estruturado e comunicativo, fundado em Moçambique, Abril de 2026.</p>
+        <div class="fsoc">
+          <a href="https://www.facebook.com/DoveLingua" target="_blank" class="fsb"><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a href="https://wa.me/258828920143" target="_blank" class="fsb"><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+          <a href="mailto:info@dovelingua.com" class="fsb" style="font-size:14px;color:#fff;display:flex;align-items:center;justify-content:center;">✉️</a>
+        </div>
       </div>
-      <div class="step-nav">
-        <button class="btn-fwd btn-full" onclick="showW4()">Continuar para os Dados Pessoais →</button>
+      <div class="fc"><h4 data-en="Learn" data-pt="Aprender">Aprender</h4><a onclick="nav('programme.html')" data-en="Our Programme" data-pt="O Nosso Programa">O Nosso Programa</a><a onclick="nav('enrol.html')" data-en="Enrol" data-pt="Inscrição">Inscrição</a><a href="https://classroom.dovelingua.com" target="_blank">Classroom</a></div>
+      <div class="fc"><h4 data-en="About" data-pt="Sobre">Sobre</h4><a onclick="nav('about.html')" data-en="About DoveLingua" data-pt="Sobre a DoveLingua">Sobre a DoveLingua</a><a onclick="nav('faq.html')">FAQ</a><a onclick="nav('donate.html')" data-en="Support Us" data-pt="Apoiar-nos">Apoiar-nos</a></div>
+      <div class="fc"><h4 data-en="Help" data-pt="Ajuda">Ajuda</h4><a onclick="nav('contact.html')" data-en="Contact" data-pt="Contacto">Contactar Suporte</a><a onclick="nav('terms.html')" data-en="Terms" data-pt="Termos">Termos e Políticas</a><a onclick="nav('report.html')" data-en="Report" data-pt="Reportar">Reportar Problema</a></div>
+    </div>
+    <div class="fbot">
+      <p data-en="DoveLingua © 2026 — All rights reserved." data-pt="DoveLingua © 2026 — Todos os direitos reservados.">DoveLingua © 2026 — Todos os direitos reservados.</p>
+      <a onclick="nav('terms.html')" data-en="Terms" data-pt="Termos">Termos e Políticas</a>
+      <a onclick="nav('contact.html')" data-en="Contact" data-pt="Contacto">Contacto</a>
+    </div>
+  </footer>
+
+</div><!-- end screen1 -->
+
+
+<!-- ════════════════════════════
+     SCREEN 2 — PAYMENT WINDOW
+════════════════════════════ -->
+<div class="screen" id="screen2">
+  <div class="pay-screen">
+    <div class="pay-inner">
+      <div class="pay-outer-card">
+        <div class="pay-card-header">
+          <h2 data-en="Make a Contribution" data-pt="Fazer uma Contribuição">Fazer uma Contribuição</h2>
+          <p data-en="Safe, simple and transparent. Every amount makes a difference." data-pt="Seguro, simples e transparente. Qualquer valor faz diferença.">Seguro, simples e transparente. Qualquer valor faz diferença.</p>
+        </div>
+        <div class="pay-card-body">
+
+          <!-- STEP 1: AMOUNT -->
+          <div class="step-block">
+            <div class="step-label">
+              <span class="step-num">1</span>
+              <span class="step-title" data-en="Contribution Amount" data-pt="Valor da Contribuição">Valor da Contribuição</span>
+            </div>
+            <div class="step-desc" data-en="Even 1 MZN makes a difference." data-pt="Mesmo 1 MZN faz diferença.">Mesmo 1 MZN faz diferença.</div>
+            <div class="amt-input-row">
+              <input class="amt-field" type="number" id="amtInput" min="1" placeholder="Digite o valor. Ex: 10" oninput="onAmt(this)"/>
+              <span class="amt-suffix">MZN</span>
+            </div>
+            <div class="amt-pills">
+              <div class="ap" onclick="pickAmt(1)">1</div>
+              <div class="ap" onclick="pickAmt(10)">10</div>
+              <div class="ap" onclick="pickAmt(15)">15</div>
+              <div class="ap" onclick="pickAmt(50)">50</div>
+              <div class="ap" onclick="pickAmt(100)">100</div>
+              <div class="ap" onclick="pickAmt(250)">250</div>
+              <div class="ap" onclick="pickAmt(500)">500</div>
+              <div class="ap" onclick="pickAmt(1000)">1000</div>
+            </div>
+          </div>
+
+          <!-- STEP 2: NAME -->
+          <div class="step-block">
+            <div class="step-label">
+              <span class="step-num">2</span>
+              <span class="step-title" data-en="Your Name" data-pt="Nome">Nome</span>
+            </div>
+            <div class="f">
+              <label data-en="Full Name <span class='req'>*</span>" data-pt="Nome Completo <span class='req'>*</span>">Nome Completo <span class="req">*</span></label>
+              <input type="text" id="fName" placeholder="Ex: Maria da Graça Machava" oninput="vf(this)"/>
+            </div>
+          </div>
+
+          <!-- STEP 3: PROVINCE -->
+          <div class="step-block">
+            <div class="step-label">
+              <span class="step-num">3</span>
+              <span class="step-title" data-en="Province" data-pt="Província">Província</span>
+            </div>
+            <div class="f">
+              <label data-en="Select Your Province <span class='req'>*</span>" data-pt="Seleccione a Sua Província <span class='req'>*</span>">Seleccione a Sua Província <span class="req">*</span></label>
+              <select id="fProv" onchange="vf(this)">
+                <option value="">— Seleccione —</option>
+                <option>Maputo Cidade</option><option>Maputo Província</option>
+                <option>Gaza</option><option>Inhambane</option><option>Sofala</option>
+                <option>Manica</option><option>Tete</option><option>Zambézia</option>
+                <option>Nampula</option><option>Niassa</option><option>Cabo Delgado</option>
+                <option>Fora de Moçambique</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- STEP 4: REASON -->
+          <div class="step-block">
+            <div class="step-label">
+              <span class="step-num">4</span>
+              <span class="step-title" data-en="Reason for Supporting" data-pt="Motivo do Apoio">Motivo do Apoio</span>
+            </div>
+            <div class="f">
+              <label data-en="Why do you want to support DoveLingua? <span class='req'>*</span>" data-pt="Porque deseja apoiar a DoveLingua? <span class='req'>*</span>">Porque deseja apoiar a DoveLingua? <span class="req">*</span></label>
+              <select id="fReason" onchange="vf(this)">
+                <option value="">— Seleccione —</option>
+                <option value="mission" data-en="I believe in DoveLingua's mission" data-pt="Acredito na missão da DoveLingua">Acredito na missão da DoveLingua</option>
+                <option value="student" data-en="I am or was a DoveLingua student" data-pt="Sou ou fui aluno(a) da DoveLingua">Sou ou fui aluno(a) da DoveLingua</option>
+                <option value="app" data-en="I use the English Dove app" data-pt="Uso a aplicação English Dove">Uso a aplicação English Dove</option>
+                <option value="classroom" data-en="I use DoveLingua Classroom" data-pt="Uso a Sala de Aula DoveLingua">Uso a Sala de Aula DoveLingua</option>
+                <option value="community" data-en="I am part of the DoveLingua community" data-pt="Faço parte da comunidade DoveLingua">Faço parte da comunidade DoveLingua</option>
+                <option value="whatsapp" data-en="I follow the DoveLingua WhatsApp channel" data-pt="Acompanho o canal WhatsApp da DoveLingua">Acompanho o canal WhatsApp da DoveLingua</option>
+                <option value="free" data-en="I want to support the free resources" data-pt="Quero apoiar os recursos gratuitos">Quero apoiar os recursos gratuitos</option>
+                <option value="school" data-en="I want to help build the physical centre" data-pt="Quero ajudar a construir o centro físico">Quero ajudar a construir o centro físico</option>
+                <option value="certs" data-en="I want to support certificate accreditation" data-pt="Quero apoiar a acreditação dos certificados">Quero apoiar a acreditação dos certificados</option>
+                <option value="quality" data-en="I want to improve teaching quality" data-pt="Quero melhorar a qualidade do ensino">Quero melhorar a qualidade do ensino</option>
+                <option value="mozambique" data-en="I believe in education in Mozambique" data-pt="Acredito no futuro da educação em Moçambique">Acredito no futuro da educação em Moçambique</option>
+                <option value="gratitude" data-en="I want to express my gratitude" data-pt="Quero expressar a minha gratidão">Quero expressar a minha gratidão</option>
+                <option value="other" data-en="Other reason" data-pt="Outro motivo">Outro motivo</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- STEP 5: PAYMENT METHOD -->
+          <div class="step-block">
+            <div class="step-label">
+              <span class="step-num">5</span>
+              <span class="step-title" data-en="Payment Method" data-pt="Método de Pagamento">Método de Pagamento</span>
+            </div>
+            <div class="method-grid" style="margin-bottom:0;">
+              <div class="method-btn auto-btn" id="mAuto" onclick="selMethod('auto')">
+                <span class="mb-icon">⚡</span>
+                <div class="mb-name" data-en="Automatic" data-pt="Automático">Automático</div>
+                <div class="mb-sub" data-en="Instant confirmation" data-pt="Confirmação instantânea">Confirmação instantânea</div>
+              </div>
+              <div class="method-btn manual-btn" id="mManual" onclick="selMethod('manual')">
+                <span class="mb-icon">💳</span>
+                <div class="mb-name" data-en="Manual" data-pt="Manual">Manual</div>
+                <div class="mb-sub" data-en="Direct transfer" data-pt="Transferência directa">Transferência directa</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 6: WALLET (shown after method) -->
+          <div class="step-block" id="walletBlock" style="display:none;">
+            <div class="step-label">
+              <span class="step-num">6</span>
+              <span class="step-title" data-en="Select Wallet" data-pt="Seleccione a Carteira">Seleccione a Carteira</span>
+            </div>
+            <div class="wallet-grid">
+              <div class="wallet-btn mpesa-w" id="wMpesa" onclick="selWallet('mpesa')">
+                <span class="wb-icon">📲</span>
+                <span class="wb-name">M-Pesa</span>
+                <span class="wb-op">Vodacom</span>
+              </div>
+              <div class="wallet-btn emola-w" id="wEmola" onclick="selWallet('emola')">
+                <span class="wb-icon">📳</span>
+                <span class="wb-name">e-Mola</span>
+                <span class="wb-op">Movitel</span>
+              </div>
+              <div class="wallet-btn mkesh-w" id="wMkesh" onclick="selWallet('mkesh')">
+                <span class="wb-icon">💸</span>
+                <span class="wb-name">mKesh</span>
+                <span class="wb-op">Tmcel</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 7: PAYMENT DETAIL (auto or manual) -->
+          <div id="payDetailBlock" style="display:none;">
+
+            <!-- AUTO -->
+            <div class="step-block" id="autoBox" style="display:none;">
+              <div class="step-label">
+                <span class="step-num">7</span>
+                <span class="step-title" data-en="Your Phone Number" data-pt="Número de Telefone">Número de Telefone</span>
+              </div>
+              <div class="auto-box">
+                <div class="ab-title" data-en="Automatic Payment" data-pt="Pagamento Automático">Pagamento Automático</div>
+                <p id="autoInstrText" data-en="Enter the number linked to your wallet. A payment request will be sent to your phone." data-pt="Introduza o número associado à sua carteira. Será enviado um pedido de pagamento para o seu telemóvel.">Introduza o número associado à sua carteira. Será enviado um pedido de pagamento para o seu telemóvel.</p>
+                <div class="f" style="margin-bottom:0;">
+                  <label data-en="Wallet Number <span class='req'>*</span>" data-pt="Número da Carteira <span class='req'>*</span>">Número da Carteira <span class="req">*</span></label>
+                  <input type="tel" id="fPhone" placeholder="84 000 0000" oninput="vf(this)" style="font-size:0.85rem;"/>
+                </div>
+              </div>
+            </div>
+
+            <!-- MANUAL -->
+            <div class="step-block" id="manualBox" style="display:none;">
+              <div class="step-label">
+                <span class="step-num">7</span>
+                <span class="step-title" data-en="Payment Instructions" data-pt="Instruções de Pagamento">Instruções de Pagamento</span>
+              </div>
+              <div class="manual-box">
+                <div class="mb-title" data-en="Transfer Details" data-pt="Dados para Transferência">Instruções de Pagamento</div>
+                <!-- Instruction banner -->
+                <div class="instr-banner" id="instrBanner">
+                  <span data-en="Transfer the amount" data-pt="Transfira o valor">Transfira o valor</span>
+                  <strong id="instrAmt"> — </strong>
+                  <span data-en="to the number below:" data-pt="para o número abaixo:">para o número abaixo:</span>
+                </div>
+                <!-- Wallet number display -->
+                <div class="wd-row" id="walletDisplayRow">
+                  <div class="wd-left">
+                    <span class="wd-icon" id="wdIcon">📲</span>
+                    <div class="wd-info">
+                      <h5 id="wdName">M-Pesa</h5>
+                      <div class="wd-num" id="wdNum">84 892 0143</div>
+                      <div class="wd-titular">
+                        <span data-en="Account Holder:" data-pt="Titular da Conta:">Titular da Conta:</span><br/>
+                        Gildo Angélica Dove
+                      </div>
+                    </div>
+                  </div>
+                  <button class="copy-btn" id="wdCopyBtn" onclick="cp('848920143')">Copiar</button>
+                </div>
+                <!-- Their phone -->
+                <div class="f" style="margin-bottom:0;">
+                  <label data-en="Phone Number Used for Transfer <span class='req'>*</span>" data-pt="Número de Telefone Usado na Transferência <span class='req'>*</span>">Número de Telefone Usado na Transferência <span class="req">*</span></label>
+                  <input type="tel" id="fManualPhone" placeholder="84 000 0000" oninput="vf(this)" style="font-size:0.85rem;"/>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Amount summary -->
+          <div class="amt-summary" id="amtSummary" style="display:none;">
+            <div>
+              <div class="as-left" data-en="Contribution amount" data-pt="Valor da contribuição">Valor da contribuição</div>
+              <div style="font-size:0.7rem;color:var(--text-light);" data-en="MZN — Mozambican Meticais" data-pt="MZN — Meticais Moçambicanos">MZN — Meticais Moçambicanos</div>
+            </div>
+            <div>
+              <span class="as-amount" id="asSummaryVal">0</span>
+              <span class="as-cur">MZN</span>
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <button class="btn-submit" id="btnPay" onclick="submitDonation()">
+            ❤️ <span data-en="Confirm Contribution" data-pt="Confirmar Contribuição">Confirmar Contribuição</span>
+          </button>
+
+          <!-- BACK button — BOTTOM -->
+          <button class="btn-back-bottom" onclick="goBack()">
+            ← <span data-en="Back" data-pt="Voltar">Voltar</span>
+          </button>
+
+        </div>
       </div>
     </div>
   </div>
+</div><!-- end screen2 -->
 
-  <!-- WIN 4: DADOS PESSOAIS -->
-  <div class="win" id="win4" style="display:none;">
-    <div class="win-hdr">
-      <h3>Passo 3 — Dados Pessoais</h3>
-      <p>Preencha os seus dados com exactidão. Serão utilizados no recibo e para entrar em contacto consigo.</p>
-    </div>
-    <div class="win-body">
-      <div class="fr">
-        <div class="field">
-          <label>Nome Completo <span class="req">*</span></label>
-          <input type="text" id="f-name" placeholder="Ex: Ana Machava" oninput="vf(this)"/>
-        </div>
-        <div class="field">
-          <label>Idade <span class="req">*</span></label>
-          <input type="number" id="f-age" placeholder="Ex: 22" min="12" max="80" oninput="vf(this)"/>
-        </div>
-      </div>
-      <div class="field">
-        <label>Género <span class="req">*</span></label>
-        <div class="pill-g" id="pgG">
-          <div class="pill" onclick="sPill('pgG',this,'Masculino')">Masculino</div>
-          <div class="pill" onclick="sPill('pgG',this,'Feminino')">Feminino</div>
-        </div>
-      </div>
-      <div class="fr">
-        <div class="field">
-          <label>Endereço de E-mail <span class="req">*</span></label>
-          <input type="email" id="f-email" placeholder="exemplo@email.com" oninput="vEmail(this)"/>
-        </div>
-        <div class="field">
-          <label>Número WhatsApp <span class="req">*</span></label>
-          <input type="tel" id="f-wa" placeholder="+258 82 000 0000" oninput="vf(this)"/>
-        </div>
-      </div>
-      <div class="fr">
-        <div class="field">
-          <label>Número de Chamadas <span class="req">*</span></label>
-          <input type="tel" id="f-phone" placeholder="+258 84 000 0000" oninput="vf(this)"/>
-        </div>
-        <div class="field">
-          <label>Província <span class="req">*</span></label>
-          <select id="f-prov" onchange="vf(this)">
-            <option value="">— Seleccione —</option>
-            <option>Maputo Cidade</option><option>Maputo Província</option><option>Gaza</option>
-            <option>Inhambane</option><option>Sofala</option><option>Manica</option>
-            <option>Tete</option><option>Zambézia</option><option>Nampula</option>
-            <option>Niassa</option><option>Cabo Delgado</option><option>Fora de Moçambique</option>
-          </select>
-        </div>
-      </div>
-      <div class="field">
-        <label>Distrito <span class="req">*</span></label>
-        <input type="text" id="f-dist" placeholder="Ex: KaMpfumo" oninput="vf(this)"/>
-      </div>
-      <div class="field">
-        <label>Modalidade de Ensino <span class="req">*</span></label>
-        <div class="pill-g" id="pgMod">
-          <div class="pill" onclick="sPill('pgMod',this,'Online')">💻 Online</div>
-          <div class="pill" onclick="selPres(this)">🏫 Presencial</div>
-        </div>
-      </div>
-      <div class="field">
-        <label>Disponibilidade <span class="req">*</span></label>
-        <div class="pill-g" id="pgAvail">
-          <div class="cpill" onclick="togCp(this,'Manhã')">🌅 Manhã</div>
-          <div class="cpill" onclick="togCp(this,'Tarde')">☀️ Tarde</div>
-          <div class="cpill" onclick="togCp(this,'Noite')">🌙 Noite</div>
-        </div>
-        <div class="field-note">ℹ️ A disponibilidade indicada não define automaticamente o horário das aulas. Contribui para a decisão do horário, que será comunicado após a confirmação da inscrição.</div>
-      </div>
-      <div class="step-nav">
-        <button class="btn-back" onclick="showW3()">← Voltar</button>
-        <button class="btn-fwd" onclick="showW5()">Continuar para o Pagamento →</button>
-      </div>
-    </div>
-  </div>
 
-  <!-- WIN 5: MÉTODO DE PAGAMENTO -->
-  <div class="win" id="win5" style="display:none;">
-    <div class="win-hdr">
-      <h3>Passo 4 — Método de Pagamento</h3>
-      <p>Seleccione a carteira de pagamento e efectue a transferência.</p>
-    </div>
-    <div class="win-body">
-      <div class="carteira-label">Seleccione a Carteira de Pagamento</div>
-      <div class="pay-mth-grid">
-        <div class="pmt mp" id="pmt-mp" onclick="selPayMth('mpesa')">
-          <div class="pmt-logo">M</div>
-          <div class="pmt-name">M-Pesa</div>
-        </div>
-        <div class="pmt em" id="pmt-em" onclick="selPayMth('emola')">
-          <div class="pmt-logo">e</div>
-          <div class="pmt-name">e-Mola</div>
-        </div>
-      </div>
-
-      <div class="pnd" id="pnd-mp">
-        <div class="pnd-label">Número M-Pesa</div>
-        <div class="pnd-number">84 892 0143</div>
-        <div class="pnd-owner">Gildo Dove — DoveLingua</div>
-        <button class="pnd-copy" onclick="cpNum('848920143','M-Pesa')">📋 Copiar Número</button>
-        <div class="pnd-instr">
-          <span class="hi-red">Transfira exactamente</span> o valor indicado abaixo para o <span class="hi-teal">número de telefone acima</span>.<br/><br/>
-          Após o pagamento, o seu pagamento será <span class="hi-teal">confirmado automaticamente</span>.<br/>
-          Pedimos que volte à página de <span class="hi-teal">Verificação de Pagamento</span> para consultar o estado.<br/><br/>
-          <span class="hi-gold">Guarde o seu código de referência</span> e o comprovativo da transferência.
-        </div>
-      </div>
-
-      <div class="pnd" id="pnd-em">
-        <div class="pnd-label">Número e-Mola</div>
-        <div class="pnd-number">86 580 4379</div>
-        <div class="pnd-owner">Gildo Dove — DoveLingua</div>
-        <button class="pnd-copy" onclick="cpNum('865804379','e-Mola')">📋 Copiar Número</button>
-        <div class="pnd-instr">
-          <span class="hi-red">Transfira exactamente</span> o valor indicado abaixo para o <span class="hi-teal">número de telefone acima</span>.<br/><br/>
-          Após o pagamento, o seu pagamento será <span class="hi-teal">confirmado automaticamente</span>.<br/>
-          Pedimos que volte à página de <span class="hi-teal">Verificação de Pagamento</span> para consultar o estado.<br/><br/>
-          <span class="hi-gold">Guarde o seu código de referência</span> e o comprovativo da transferência.
-        </div>
-      </div>
-
-      <div class="proof-section" id="proofSection">
-        <div class="proof-title">Comprovativo de Pagamento</div>
-        <div class="proof-sub">Preencha pelo menos um dos campos abaixo antes de submeter.</div>
-        <div class="proof-field" style="margin-bottom:10px;">
-          <label>ID de Pagamento (Código da Transacção)</label>
-          <input type="text" id="f-pid" placeholder="Ex: TXN123456789" oninput="checkProof()"/>
-        </div>
-        <div class="proof-or">— ou —</div>
-        <div class="proof-field">
-          <label>Nome / Número do Remetente</label>
-          <input type="text" id="f-sender" placeholder="Ex: João Silva / +258 84 000 0000" oninput="checkProof()"/>
-        </div>
-      </div>
-
-      <div class="ref-card">
-        <div class="ref-card-title">O Seu Código de Referência</div>
-        <div class="ref-inner">
-          <div class="ri-label">Guarde este código — é o único meio de verificar o estado da sua inscrição</div>
-          <div class="ri-code" id="riCode">—</div>
-          <div class="ri-warn">⚠️ Utilize este código como referência ao efectuar a transferência, se o método de pagamento o permitir.</div>
-          <button class="ri-copy" onclick="cpRef()">📋 Copiar Código</button>
-        </div>
-      </div>
-
-      <div class="ab">
-        <div class="ab-label">Valor a Transferir</div>
-        <div class="ab-amt" id="abAmt">—</div>
-        <div class="ab-cur">MZN — Meticais Moçambicanos</div>
-      </div>
-
-      <div class="cd-box">
-        <div class="cd-label">Tempo Restante para Efectuar o Pagamento</div>
-        <div class="cd-timer" id="cdTimer">30:00</div>
-        <div class="cd-note">Efectue o pagamento dentro do prazo. Após o prazo, o código expira e o processo deve ser reiniciado.</div>
-      </div>
-
-      <button class="btn-submit" onclick="openConf()">✅ Confirmar e Submeter Inscrição</button>
-      <div class="step-nav" style="margin-top:12px;">
-        <button class="btn-back" onclick="showW4()">← Voltar</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- SUCCESS -->
-  <div class="suc" id="sucScreen">
-    <div class="suc-anim">🎉</div>
-    <div class="suc-title" id="sucTitle">Inscrição Submetida!</div>
-    <p class="suc-sub" id="sucSub"></p>
-    <div class="suc-ref-row">
-      <span class="suc-ref-label">Código:</span>
-      <span class="suc-ref-code" id="sucCode">—</span>
-      <button class="suc-ref-copy" onclick="cpRef()">Copiar</button>
-    </div>
-    <div class="suc-info">
-      <p>⏱️ <span><strong>Confirmação:</strong> O sistema confirmará o seu pagamento em até <strong>12 horas</strong>.</span></p>
-      <p>🔍 <span><strong>Verificar:</strong> Clique em "Verificar Estado" abaixo e insira o seu Código de Referência.</span></p>
-      <p>📋 <span><strong>Importante:</strong> Guarde o seu Código. Sem ele não conseguirá verificar o estado.</span></p>
-    </div>
-    <div class="suc-dl-btns">
-      <button style="background:var(--gold);color:var(--white);" onclick="downloadReceipt()">📥 Baixar Recibo de Inscrição</button>
-      <button style="background:var(--teal);color:var(--white);" onclick="nav('status.html')">🔍 Verificar Estado do Pagamento</button>
-    </div>
-    <div class="suc-actions">
-      <button class="btn btn-ghost" onclick="nav('index.html')">🏠 Página Inicial</button>
-      <button class="btn btn-ghost" onclick="nav('contact.html')">📧 Contacto</button>
-      <button class="btn btn-ghost" onclick="nav('terms.html')">📄 Termos</button>
-      <button class="btn btn-ghost" onclick="nav('evaluate.html')">⭐ Avaliar</button>
-    </div>
-  </div>
-
-</div><!-- end main -->
-
-<!-- CONFIRM MODAL -->
-<div class="mo" id="confMo">
-  <div class="mb">
-    <div class="mb-hdr">
-      <h3>Confirmar Inscrição</h3>
-      <p>Reveja todos os seus dados antes de submeter.</p>
-    </div>
-    <div class="mb-body" id="confBody"></div>
-    <div class="mb-ft">
-      <button class="btn-back" style="flex:1;" onclick="closeMo('confMo')">✏️ Editar</button>
-      <button class="btn-fwd" style="flex:2;" onclick="submitEnrol()">✅ Confirmar e Submeter</button>
+<!-- ════════════════════════════
+     SCREEN 2b — POLLING (waiting PIN)
+════════════════════════════ -->
+<div class="screen" id="screen2b">
+  <div class="poll-screen">
+    <div class="poll-card">
+      <div class="poll-spin"></div>
+      <h3 data-en="Waiting for PIN confirmation..." data-pt="A aguardar confirmação do PIN...">A aguardar confirmação do PIN...</h3>
+      <p data-en="A payment request was sent to your phone. Please approve the PIN to complete your contribution." data-pt="Foi enviado um pedido de pagamento para o seu telemóvel. Por favor, aprove o PIN para completar a sua contribuição.">Foi enviado um pedido de pagamento para o seu telemóvel. Por favor, aprove o PIN para completar a sua contribuição.</p>
+      <div class="poll-timer" id="pollTimer">3:00</div>
+      <div class="poll-note" data-en="The request will expire after 3 minutes." data-pt="O pedido expirará após 3 minutos.">O pedido expirará após 3 minutos.</div>
+      <button class="btn-cancel-poll" onclick="cancelPolling()" data-en="Cancel and go back" data-pt="Cancelar e voltar">Cancelar e voltar</button>
     </div>
   </div>
 </div>
 
-<!-- ORIENT MODAL -->
-<div class="mo" id="oriMo">
-  <div class="ori-box">
-    <div class="ori-hdr">
-      <h3>Sem problema!</h3>
-      <p>Vamos ajudá-lo/a a encontrar o nível certo.</p>
-    </div>
-    <div class="ori-body">
-      <p style="font-size:14px;color:var(--sub);line-height:1.75;margin-bottom:12px;">Será inscrito/a no <strong>Nível A1 — Iniciante</strong>. Após a confirmação, um assistente realizará um <strong>Teste de Nível</strong> e colocá-lo-á na turma adequada.</p>
-      <p style="font-size:13px;color:var(--g);font-weight:600;margin-bottom:16px;">✅ O Nível A1 inclui o programa First Steps, ideal para qualquer iniciante.</p>
-      <div style="display:flex;gap:10px;">
-        <button class="btn btn-ghost" style="flex:1;" onclick="closeMo('oriMo')">← Voltar</button>
-        <button class="btn btn-teal" style="flex:2;" onclick="closeMo('oriMo');selLv('a1',true);">Continuar como Nível A1 →</button>
+
+<!-- ════════════════════════════
+     SCREEN 3 — THANK YOU
+════════════════════════════ -->
+<div class="screen" id="screen3">
+  <div class="emoji-rain" id="emojiRain"></div>
+  <div class="thanks-screen">
+    <div class="thanks-inner">
+      <div class="thanks-card">
+        <div class="thanks-heart-wrap">
+          <span class="thanks-heart">❤️</span>
+          <div class="thanks-title" id="thanksTitle">Muito Obrigado! 🙏</div>
+          <p class="thanks-msg" id="thanksMsg">A sua contribuição foi recebida com gratidão. Cada metical recebido é investido no crescimento da Academia DoveLingua. Obrigado por acreditar neste projecto. 🫂</p>
+        </div>
+        <div class="thanks-body">
+          <div class="thanks-ref">
+            <span class="thanks-ref-label" data-en="Reference:" data-pt="Referência:">Referência:</span>
+            <span class="thanks-ref-code" id="thanksRef">—</span>
+            <button class="thanks-ref-copy" onclick="cp(document.getElementById('thanksRef').textContent)" data-en="Copy" data-pt="Copiar">Copiar</button>
+          </div>
+          <button class="btn-dl" onclick="downloadReceipt()">
+            📥 <span data-en="Download Contribution Receipt" data-pt="Descarregar Recibo da Contribuição">Descarregar Recibo da Contribuição</span>
+          </button>
+          <button class="btn-share" onclick="shareSupport()">
+            📤 <span data-en="Share — Invite Others to Support" data-pt="Partilhar — Convide Outros a Apoiar">Partilhar — Convide Outros a Apoiar</span>
+          </button>
+          <div class="nav-cards-grid">
+            <a href="index.html" class="nav-card"><span class="nc-icon">🏠</span><span class="nc-label" data-en="Home" data-pt="Início">Início</span></a>
+            <a href="programme.html" class="nav-card"><span class="nc-icon">📚</span><span class="nc-label" data-en="Courses" data-pt="Cursos">Cursos</span></a>
+            <a href="enrol.html" class="nav-card"><span class="nc-icon">✏️</span><span class="nc-label" data-en="Enrol" data-pt="Inscrição">Inscrição</span></a>
+            <a href="https://classroom.dovelingua.com" target="_blank" class="nav-card"><span class="nc-icon">💻</span><span class="nc-label">Classroom</span></a>
+            <a href="evaluate.html" class="nav-card"><span class="nc-icon">⭐</span><span class="nc-label" data-en="Evaluate" data-pt="Avaliar">Avaliar</span></a>
+            <a href="donate.html" class="nav-card"><span class="nc-icon">❤️</span><span class="nc-label" data-en="Support" data-pt="Apoiar">Apoiar</span></a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- PRESENCIAL MODAL -->
-<div class="mo" id="presMo">
-  <div class="pres-box">
-    <div class="pres-hdr">
-      <h3>Aulas Presenciais</h3>
-      <p>Informação importante antes de continuar</p>
-    </div>
-    <div class="pres-body">
-      <p style="font-size:14px;color:var(--sub);line-height:1.75;margin-bottom:14px;">As aulas presenciais da DoveLingua realizam-se na <strong>Cidade da Maxixe, Província de Inhambane</strong>, Moçambique.</p>
-      <p style="font-size:14px;color:var(--sub);line-height:1.75;margin-bottom:18px;">Se não se encontra nessa área, recomendamos a modalidade <strong>Online</strong>.</p>
-      <div style="display:flex;gap:10px;">
-        <button class="btn btn-ghost" style="flex:1;" onclick="chooseOnline()">💻 Escolher Online</button>
-        <button class="btn btn-blue" style="flex:1;" onclick="acceptPres()">✅ Aceito — Sou de Maxixe</button>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="fg">
-    <div class="fb">
-      <div class="fname">DoveLingua English Learning Academy</div>
-      <p>Um programa de aprendizagem de inglês estruturado, comunicativo e profissionalmente concebido — fundado em Moçambique, Abril de 2026.</p>
-      <div class="fsoc">
-        <a href="https://www.facebook.com/DoveLingua" target="_blank" class="fsb"><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-        <a href="https://wa.me/258828920143" target="_blank" class="fsb"><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
-        <a href="mailto:info@dovelingua.com" class="fsb">✉️</a>
-      </div>
-    </div>
-    <div class="fc"><h4>Aprender</h4><a onclick="nav('programme.html')">O Nosso Programa</a><a onclick="nav('enrol.html')">Inscrição</a><a href="https://classroom.dovelingua.com" target="_blank">Classroom</a></div>
-    <div class="fc"><h4>Sobre</h4><a onclick="nav('about.html')">Sobre a DoveLingua</a><a onclick="nav('faq.html')">FAQ</a><a onclick="nav('donate.html')">Apoiar-nos</a></div>
-    <div class="fc"><h4>Ajuda</h4><a onclick="nav('contact.html')">Contactar Suporte</a><a onclick="nav('status.html')">Estado do Pagamento</a><a onclick="nav('terms.html')">Termos e Políticas</a></div>
-  </div>
-  <div class="fbot">
-    <p>DoveLingua © 2026 — Todos os direitos reservados.</p>
-    <a onclick="nav('terms.html')">Termos e Políticas</a>
-    <a onclick="nav('contact.html')">Contacto</a>
-  </div>
-</footer>
+<a href="https://wa.me/258828920143" target="_blank" class="waf">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
 
-<a href="https://wa.me/258828920143" target="_blank" class="waf"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
 
 <script>
-emailjs.init('zQIXwW1L815svMGyW');
-var JBIN='6a04f4e6adc21f119a979a92';
-var JKEY='$2a$10$j12F7a0fMxviwChcCb/Ad.RGSS3mmQ.fPa636oflL5BmxqKyLZovW';
-var JURL='https://api.jsonbin.io/v3/b/'+JBIN;
-var ESVC='service_r35gwa1',ETPL='template_9kulhqd';
+  /* ══ CONFIG ══ */
+  emailjs.init('lwN4ZtkmoevQ0qkQT');
+  const ESVC='service_akj25qj', ETPL='template_qvh9pe6';
+  const MERCHANT_ID='6305b574-a631-47ae-ba04-3a124a0bfc27';
+  const WALLETS={mpesa:'91843',emola:'91037',mkesh:'76868'};
+  const WALLET_NUMS={mpesa:'84 892 0143',emola:'86 580 4379',mkesh:'82 892 0143'};
+  const WALLET_PLACEHOLDERS={mpesa:'84 000 0000 ou 85 000 0000',emola:'86 000 0000 ou 87 000 0000',mkesh:'82 000 0000 ou 83 000 0000'};
+  const WALLET_ICONS={mpesa:'📲',emola:'📳',mkesh:'💸'};
+  const WALLET_LABELS={mpesa:'M-Pesa',emola:'e-Mola',mkesh:'mKesh'};
+  const WALLET_OWNER='Gildo Angélica Dove';
+  const API_URL='https://pay.dovelingua.com';
+  const POLL_MAX=180; // 180 seconds
 
-var PR={
-  a1:{namePT:'Iniciante',nameEN:'Beginner',cefr:'A1',monthly:500,full:1500,mat:100,weeks:12,lessons:48,fsW:3},
-  a2:{namePT:'Básico',nameEN:'Elementary',cefr:'A2',monthly:600,full:1800,mat:50,weeks:13,lessons:51,fsW:0}
-};
-var MAT=250,DISC=0.10;
-var S={type:'',level:'',payMod:'',inclMat:false,payMethod:'',name:'',age:'',gender:'',email:'',wa:'',phone:'',prov:'',dist:'',modality:'',avail:[],ref:'',total:0,bd:{},cdInt:null,expired:false,pid:'',sender:''};
+  /* ══ STATE ══ */
+  let lang=localStorage.getItem('dvl_lang')||'pt';
+  let screenHistory=[];
+  let pollInterval=null;
+  let pollSeconds=0;
+  let pollTimerInterval=null;
+  let pendingPaymentId=null;
+  let S={amount:0,name:'',province:'',reason:'',method:'',wallet:'',phone:'',ref:'',txId:'',status:'pending'};
 
-/* ═══ NAV ═══ */
-function nav(url){var p=document.getElementById('pt');p.classList.add('on');setTimeout(function(){window.location.href=url;},380);}
-document.addEventListener('click',function(e){var el=e.target.closest('a[href]');if(!el)return;var h=el.getAttribute('href');if(!h||h.startsWith('http')||h.startsWith('mailto')||h.startsWith('tel')||h.startsWith('#')||el.target==='_blank')return;e.preventDefault();nav(h);});
-function toggleMenu(){var m=document.getElementById('sM'),o=document.getElementById('sO');var op=m.classList.contains('open');m.classList.toggle('open',!op);o.classList.toggle('open',!op);document.body.style.overflow=op?'':'hidden';}
-function closeMo(id){document.getElementById(id).classList.remove('open');}
-
-/* FIX: scroll to element, not top of page for wins, but top of page for startEnrol */
-function scrollTo(id){setTimeout(function(){var el=document.getElementById(id);if(!el)return;var top=el.getBoundingClientRect().top+window.pageYOffset-76;window.scrollTo({top:top,behavior:'smooth'});},80);}
-
-/* TOAST */
-function toast(msg,t,dur){t=t||'s';dur=dur||3500;var ic={s:'✅',w:'⚠️',e:'❌',i:'ℹ️'};var tc={s:'',w:'w',e:'e',i:'i'};var wrap=document.getElementById('tw');var el=document.createElement('div');el.className='tm '+tc[t];el.innerHTML='<span style="font-size:15px;flex-shrink:0;">'+ic[t]+'</span><span>'+msg+'</span>';wrap.appendChild(el);requestAnimationFrame(function(){el.classList.add('show');});setTimeout(function(){el.classList.remove('show');setTimeout(function(){el.remove();},400);},dur);}
-
-/* ═══ HIDE ALL WINS ═══ */
-function hideAllWins(){
-  ['win1','win2','win3','win4','win5'].forEach(function(id){document.getElementById(id).style.display='none';});
-}
-
-/* ═══ START ═══ */
-function startEnrol(){
-  document.getElementById('annCard').style.display='none';
-  document.getElementById('verifCard').style.display='none';
-  hideAllWins();
-  document.getElementById('win1').style.display='block';
-  /* FIX: scroll to top not footer */
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-/* ═══ WIN 1: TYPE ═══ */
-function selType(t){
-  S.type=t;
-  document.getElementById('tcN').classList.toggle('sel',t==='new');
-  document.getElementById('tcR').classList.toggle('sel',t==='renew');
-  /* FIX: hide "Não tenho certeza" for renovação */
-  setTimeout(function(){
-    hideAllWins();
-    buildLvCards();
-    /* Show/hide unknown option based on type */
-    document.getElementById('lvcUnk').style.display = (t==='renew') ? 'none' : 'flex';
-    document.getElementById('win2').style.display='block';
-    scrollTo('win2');
-  },220);
-}
-
-/* ═══ WIN 2: LEVEL ═══ */
-function buildLvCards(){
-  var isNew=S.type==='new';
-  var grid=document.getElementById('lvGrid');grid.innerHTML='';
-  ['a1','a2'].forEach(function(lvl){
-    var p=PR[lvl];var mFee=isNew?p.mat:0;
-    var mT=p.monthly+mFee;var fB=p.full+mFee;var fD=Math.round(fB*(1-DISC));var sv=fB-fD;
-    var tw=lvl==='a1'?p.weeks+p.fsW:p.weeks;
-    var el=document.createElement('div');
-    el.className='lvc '+lvl;el.id='lvc-'+lvl;
-    el.onclick=function(){selLv(lvl);};
-    el.innerHTML=
-      '<div class="lv-badge '+lvl+'">'+p.cefr+'</div>'+
-      '<div class="lv-name">'+p.namePT+'</div>'+
-      '<div class="lv-en">'+p.nameEN+'</div>'+
-      '<div class="lv-price-a">'+
-        '<div class="lv-pl">Mensalidade</div>'+
-        '<div class="lv-pm">'+mT.toLocaleString('pt-MZ')+' <span>MZN/mês</span></div>'+
-        '<div class="lv-pf">Nível completo: <strong>'+fD.toLocaleString('pt-MZ')+' MZN</strong> <span style="text-decoration:line-through;font-size:10px;color:var(--sub)">'+fB.toLocaleString('pt-MZ')+'</span></div>'+
-        '<div class="lv-disc">✨ Poupa '+sv.toLocaleString('pt-MZ')+' MZN (10%)</div>'+
-        '<div class="lv-dur"><span class="dur-label">Duração: </span><span class="dur-val">'+tw+' semanas · '+p.lessons+' lições'+(lvl==='a1'?' (incl. '+p.fsW+' sem. First Steps)':'')+'</span></div>'+
-      '</div>';
-    grid.appendChild(el);
-  });
-}
-
-function selLv(lvl,fromOrient){
-  S.level=lvl;
-  /* FIX: reset mat to unselected */
-  S.inclMat=false;
-  setTimeout(function(){
-    hideAllWins();
-    buildPmCards();
-    /* reset mat UI */
-    document.getElementById('matChk').classList.remove('on');
-    document.getElementById('matChk').textContent='';
-    document.getElementById('matC').classList.remove('sel');
-    document.getElementById('psBox').style.display='none';
-    document.getElementById('psRows').innerHTML='';
-    document.getElementById('win3').style.display='block';
-    scrollTo('win3');
-  },220);
-}
-function openOrient(){document.getElementById('oriMo').classList.add('open');}
-
-/* ═══ WIN 3: PAY MOD ═══ */
-function buildPmCards(){
-  var lvl=S.level;var p=PR[lvl];var isNew=S.type==='new';var mFee=isNew?p.mat:0;
-  var mT=p.monthly+mFee;var fB=p.full+mFee;var fD=Math.round(fB*(1-DISC));var sv=fB-fD;
-  document.getElementById('pmGrid').innerHTML=
-    '<div class="pmc monthly" id="pm-m" onclick="selPm(\'monthly\')"><div class="pmc-ico">📅</div><div class="pmc-name">Pagamento Mensal</div><div class="pmc-desc">Pague mês a mês. Flexível e acessível.</div><div class="pmc-price">'+mT.toLocaleString('pt-MZ')+' <span>MZN/mês</span></div></div>'+
-    '<div class="pmc full" id="pm-f" onclick="selPm(\'full\')"><div class="pmc-ico">🎯</div><div class="pmc-name">Nível Completo</div><div class="pmc-desc">Pague o nível inteiro e poupe.</div><div class="pmc-orig">'+fB.toLocaleString('pt-MZ')+' MZN</div><div class="pmc-price">'+fD.toLocaleString('pt-MZ')+' <span>MZN</span></div><div class="pmc-disc">✨ Poupa '+sv.toLocaleString('pt-MZ')+' MZN</div></div>';
-  /* reset payMod */
-  S.payMod='';
-}
-
-function selPm(mod){
-  S.payMod=mod;
-  document.getElementById('pm-m').classList.toggle('sel',mod==='monthly');
-  document.getElementById('pm-f').classList.toggle('sel',mod==='full');
-  updatePS();
-  document.getElementById('psBox').style.display='block';
-}
-
-function togMat(){
-  S.inclMat=!S.inclMat;
-  var c=document.getElementById('matC'),ck=document.getElementById('matChk');
-  c.classList.toggle('sel',S.inclMat);
-  ck.classList.toggle('on',S.inclMat);
-  ck.textContent=S.inclMat?'✓':'';
-  if(S.payMod) updatePS();
-}
-
-function updatePS(){
-  var lvl=S.level;if(!lvl)return;
-  var p=PR[lvl];var isNew=S.type==='new';var mFee=isNew?p.mat:0;
-  var rows='';var bd={};
-  if(S.payMod==='monthly'){var tc=p.monthly+mFee;bd.curso=tc;bd.matInt=mFee;rows+=psR('Taxa do Curso (mensal)',tc);}
-  else if(S.payMod==='full'){var base=p.full+mFee;var disc=Math.round(base*DISC);bd.curso=base;bd.desconto=-disc;bd.matInt=mFee;rows+=psR('Taxa do Curso (nível completo)',base);rows+=psR('Desconto 10%',-disc,'disc');}
-  if(S.inclMat){bd.material=MAT;rows+=psR('Material Didáctico',MAT);}else{bd.material=0;}
-  var total=S.payMod==='monthly'?(bd.curso||0)+(bd.material||0):(bd.curso||0)+(bd.desconto||0)+(bd.material||0);
-  bd.total=total;S.bd=bd;S.total=total;
-  rows+='<div class="ps-row tot"><span class="ps-k">Total</span><span class="ps-v">'+total.toLocaleString('pt-MZ')+' MZN</span></div>';
-  document.getElementById('psRows').innerHTML=rows;
-}
-function psR(lbl,val,cls){var c=cls?'ps-row '+cls:'ps-row';var d=(val<0?'- ':'')+Math.abs(val).toLocaleString('pt-MZ')+' MZN';return '<div class="'+c+'"><span>'+lbl+'</span><span class="ps-v">'+d+'</span></div>';}
-
-/* FIX: validate payMod before continuing, close win3 */
-function showW4(){
-  if(!S.payMod){toast('Por favor, seleccione a modalidade de pagamento (Mensal ou Nível Completo).','w');return;}
-  hideAllWins();
-  document.getElementById('win4').style.display='block';
-  scrollTo('win4');
-}
-function showW3(){
-  hideAllWins();
-  document.getElementById('win3').style.display='block';
-  scrollTo('win3');
-}
-
-/* ═══ WIN 4: PERSONAL ═══ */
-function sPill(gid,el,val){document.querySelectorAll('#'+gid+' .pill').forEach(function(p){p.classList.remove('sel');});el.classList.add('sel');if(gid==='pgG')S.gender=val;if(gid==='pgMod')S.modality=val;}
-function togCp(el,val){el.classList.toggle('sel');var idx=S.avail.indexOf(val);if(el.classList.contains('sel')){if(idx<0)S.avail.push(val);}else{if(idx>=0)S.avail.splice(idx,1);}}
-function selPres(el){document.getElementById('presMo').classList.add('open');}
-function chooseOnline(){closeMo('presMo');document.querySelectorAll('#pgMod .pill').forEach(function(p){p.classList.remove('sel');});document.querySelectorAll('#pgMod .pill')[0].classList.add('sel');S.modality='Online';}
-function acceptPres(){closeMo('presMo');document.querySelectorAll('#pgMod .pill').forEach(function(p){p.classList.remove('sel');});document.querySelectorAll('#pgMod .pill')[1].classList.add('sel');S.modality='Presencial';}
-function vf(el){el.classList.toggle('ok',el.value.trim().length>0);}
-function vEmail(el){var ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value);el.classList.toggle('ok',ok);el.classList.toggle('er',!ok&&el.value.length>0);}
-function veStr(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
-
-function showW5(){
-  var name=document.getElementById('f-name').value.trim();
-  var age=parseInt(document.getElementById('f-age').value);
-  var email=document.getElementById('f-email').value.trim();
-  var wa=document.getElementById('f-wa').value.trim();
-  var phone=document.getElementById('f-phone').value.trim();
-  var prov=document.getElementById('f-prov').value;
-  var dist=document.getElementById('f-dist').value.trim();
-  if(!name||name.trim().split(/\s+/).length<2){toast('Por favor, insira o seu nome completo (nome e apelido).','w');return;}
-  if(!age||age<12||age>80){toast('Por favor, insira uma idade válida (12 a 80 anos).','w');return;}
-  if(!S.gender){toast('Por favor, seleccione o seu género.','w');return;}
-  if(!veStr(email)){toast('Por favor, insira um e-mail válido.','e');return;}
-  if(!wa){toast('Por favor, insira o seu número WhatsApp.','w');return;}
-  if(!phone){toast('Por favor, insira o seu número de chamadas.','w');return;}
-  if(!prov){toast('Por favor, seleccione a sua província.','w');return;}
-  if(!dist){toast('Por favor, insira o seu distrito.','w');return;}
-  if(!S.modality){toast('Por favor, seleccione a modalidade de ensino.','w');return;}
-  if(S.avail.length===0){toast('Por favor, seleccione a sua disponibilidade.','w');return;}
-  S.name=name;S.age=document.getElementById('f-age').value.trim();S.email=email;S.wa=wa;S.phone=phone;S.prov=prov;S.dist=dist;
-  /* FIX: close all wins before opening win5 */
-  hideAllWins();
-  document.getElementById('win5').style.display='block';
-  genRef();
-  document.getElementById('abAmt').textContent=S.total.toLocaleString('pt-MZ');
-  startCD(30*60);
-  scrollTo('win5');
-}
-function showW4(){
-  hideAllWins();
-  document.getElementById('win4').style.display='block';
-  scrollTo('win4');
-}
-
-/* ═══ WIN 5: PAYMENT ═══ */
-function selPayMth(m){
-  S.payMethod=m;
-  document.getElementById('pmt-mp').classList.toggle('sel',m==='mpesa');
-  document.getElementById('pmt-em').classList.toggle('sel',m==='emola');
-  document.getElementById('pnd-mp').classList.toggle('show',m==='mpesa');
-  document.getElementById('pnd-em').classList.toggle('show',m==='emola');
-  document.getElementById('proofSection').style.display='block';
-}
-function checkProof(){S.pid=document.getElementById('f-pid').value.trim();S.sender=document.getElementById('f-sender').value.trim();}
-function genRef(){if(S.ref){document.getElementById('riCode').textContent=S.ref;return;}var lc=S.level.toUpperCase();var r=Math.floor(1000+Math.random()*9000);S.ref='DVL-'+new Date().getFullYear()+lc+r;document.getElementById('riCode').textContent=S.ref;}
-function cpRef(){cp(S.ref);toast('Código copiado: '+S.ref,'s');}
-function cpNum(num,prov){cp(num);toast('Número '+prov+' copiado: '+num,'s');}
-function cp(t){if(navigator.clipboard){navigator.clipboard.writeText(t);}else{var x=document.createElement('textarea');x.value=t;document.body.appendChild(x);x.select();document.execCommand('copy');document.body.removeChild(x);}}
-function startCD(secs){if(S.cdInt)clearInterval(S.cdInt);S.expired=false;var rem=secs;var el=document.getElementById('cdTimer');S.cdInt=setInterval(function(){rem--;if(rem<=0){clearInterval(S.cdInt);S.expired=true;el.textContent='00:00';return;}var m=Math.floor(rem/60),s=rem%60;el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;},1000);}
-
-/* ═══ CONFIRM ═══ */
-function openConf(){
-  if(S.expired){toast('O prazo expirou. Por favor, reinicie a inscrição.','e',6000);return;}
-  if(!S.payMethod){toast('Por favor, seleccione a carteira de pagamento (M-Pesa ou e-Mola).','w');return;}
-  S.pid=document.getElementById('f-pid').value.trim();
-  S.sender=document.getElementById('f-sender').value.trim();
-  if(!S.pid&&!S.sender){toast('Por favor, preencha o ID de Pagamento ou o Nome/Número do Remetente.','w');return;}
-  var lvl=S.level;var p=PR[lvl];var bd=S.bd;var isNew=S.type==='new';var mFee=isNew?p.mat:0;
-  var tw=lvl==='a1'?p.weeks+p.fsW:p.weeks;
-  var cursoCl=S.payMod==='monthly'?p.monthly:p.full;
-  var cDisc=S.payMod==='full'?Math.round(p.full*DISC):0;
-  var pHtml='<div class="cpt"><div class="cpt-title">Resumo de Pagamento</div>'+
-    cptR('Taxa do Curso',cursoCl)+
-    cptR('Taxa de Matrícula',mFee)+
-    (cDisc>0?cptR('Desconto (10%)',-cDisc,true):'')+
-    cptR('Material Didáctico',S.inclMat?MAT:0)+
-    '<div class="cpt-r tot"><span class="cpt-k">Total</span><span class="cpt-v">'+S.total.toLocaleString('pt-MZ')+' MZN</span></div></div>';
-  document.getElementById('confBody').innerHTML=
-    '<div class="cs"><div class="cs-title">Dados do Aluno</div>'+
-      cR('Nome',S.name)+cR('Idade',S.age+' anos')+cR('Género',S.gender)+
-      cR('Tipo',isNew?'Nova Inscrição':'Renovação')+cR('E-mail',S.email)+
-      cR('WhatsApp',S.wa)+cR('Chamadas',S.phone)+cR('Província',S.prov)+cR('Distrito',S.dist)+
-    '</div>'+
-    '<div class="cs"><div class="cs-title">Inscrição</div>'+
-      cR('Nível',p.cefr+' — '+p.namePT)+cR('Duração',tw+' semanas')+
-      cR('Ensino',S.modality)+cR('Pagamento',S.payMod==='monthly'?'Mensal':'Nível Completo')+
-      cR('Carteira',S.payMethod==='mpesa'?'M-Pesa':'e-Mola')+
-      cR('Disponibilidade',S.avail.join(', '))+cR('Material',S.inclMat?'Incluído':'Não incluído')+
-    '</div>'+
-    '<div class="conf-ref"><div class="crl">Código de Referência</div><div class="crc">'+S.ref+'</div></div>'+
-    pHtml;
-  document.getElementById('confMo').classList.add('open');
-}
-function cR(k,v){return '<div class="cr"><span class="ck">'+k+'</span><span class="cv">'+v+'</span></div>';}
-function cptR(k,v,d){var ds=(v<0?'- ':'')+Math.abs(v).toLocaleString('pt-MZ')+' MZN';return '<div class="cpt-r'+(d?' disc':'')+'"><span class="cpt-k">'+k+'</span><span class="cpt-v">'+ds+'</span></div>';}
-
-/* ═══ SUBMIT ═══ */
-async function submitEnrol(){
-  closeMo('confMo');
-  document.getElementById('spinOv').classList.add('on');
-  var now=new Date();var lvl=S.level;var p=PR[lvl];var isNew=S.type==='new';var mFee=isNew?p.mat:0;
-  var tw=lvl==='a1'?p.weeks+p.fsW:p.weeks;
-  var due=new Date(now);
-  if(S.payMod==='monthly')due.setMonth(due.getMonth()+1);else due.setDate(due.getDate()+tw*7);
-  var rec={refCode:S.ref,status:'pending',studentName:S.name,age:S.age,email:S.email,wa:S.wa,phone:S.phone,gender:S.gender,prov:S.prov,dist:S.dist,level:lvl,levelPT:p.namePT,levelEN:p.nameEN,cefr:p.cefr,modality:S.modality,payMod:S.payMod,payMethod:S.payMethod==='mpesa'?'M-Pesa':'e-Mola',inclMat:S.inclMat,avail:S.avail.join(', '),type:S.type,bd:S.bd,total:S.total,totalWeeks:tw,enrollDate:now.toISOString(),dueDate:due.toISOString(),classUser:'',classPass:''};
-  try{
-    var ex=await fetchBin();var list=ex.enrolments||[];list.push(rec);await updateBin({enrolments:list});
-    var cursoCl=S.payMod==='monthly'?p.monthly:p.full;var cDisc=S.payMod==='full'?Math.round(p.full*DISC):0;
-    await emailjs.send(ESVC,ETPL,{
-      to_email:'dovelingua78@gmail.com',
-      subject:'✏️ Nova Inscrição — '+S.ref+' — '+S.name,
-      ref_code:S.ref,student_name:S.name,student_email:S.email,student_whatsapp:S.wa,student_phone:S.phone,
-      level:p.cefr+' — '+p.namePT+' ('+p.nameEN+')',modality:S.modality,
-      pay_mod:S.payMod==='monthly'?'Mensal':'Nível Completo ('+tw+' semanas)',
-      total_amount:S.total.toLocaleString('pt-MZ')+' MZN',student_type:isNew?'Nova Inscrição':'Renovação',
-      enrol_date:fD(now)+' às '+fT(now),availability:S.avail.join(', '),
-      material:S.inclMat?'Incluído (250 MZN)':'Não incluído',
-      taxa_curso:cursoCl.toLocaleString('pt-MZ')+' MZN',taxa_matricula:mFee.toLocaleString('pt-MZ')+' MZN',
-      taxa_material:S.inclMat?'250 MZN':'0 MZN',desconto:cDisc>0?cDisc.toLocaleString('pt-MZ')+' MZN':'0 MZN',
-      message:'CARTEIRA: '+(S.payMethod==='mpesa'?'M-Pesa':'e-Mola')+'\nID DE PAGAMENTO: '+(S.pid||'—')+'\nREMETENTE: '+(S.sender||'—')+'\n\nAceda ao painel: https://www.dovelingua.com/admin.html'
+  /* ══ LANGUAGE ══ */
+  function setLang(l){
+    lang=l;
+    localStorage.setItem('dvl_lang',l);
+    document.getElementById('btn-en').classList.toggle('active',l==='en');
+    document.getElementById('btn-pt').classList.toggle('active',l==='pt');
+    document.querySelectorAll('[data-en]').forEach(el=>{
+      const v=el.getAttribute('data-'+l);
+      if(v!==null)el.innerHTML=v;
     });
-    if(S.cdInt)clearInterval(S.cdInt);
-    document.getElementById('spinOv').classList.remove('on');
-    showSuc(rec,due);
-  }catch(err){
-    console.error(err);
-    document.getElementById('spinOv').classList.remove('on');
-    toast('Erro ao submeter. Por favor, contacte o suporte via WhatsApp.','e',8000);
+    // placeholders
+    document.querySelectorAll('[data-en-placeholder]').forEach(el=>{
+      el.placeholder=el.getAttribute('data-'+l+'-placeholder')||el.getAttribute('data-en-placeholder')||'';
+    });
+    // select options
+    document.querySelectorAll('option[data-en]').forEach(el=>{
+      const v=el.getAttribute('data-'+l);
+      if(v)el.textContent=v;
+    });
+    document.documentElement.lang=l==='pt'?'pt':'en';
   }
-}
+  // Apply on load
+  document.addEventListener('DOMContentLoaded',()=>setLang(lang));
 
-/* FIX: hide ALL windows before showing success */
-function showSuc(rec,dueDate){
-  hideAllWins();
-  var ss=document.getElementById('sucScreen');
-  ss.style.display='block';
-  var fn=S.name.split(' ')[0];
-  document.getElementById('sucTitle').textContent='Parabéns, '+fn+'!';
-  document.getElementById('sucSub').innerHTML='A sua inscrição foi submetida com sucesso. Guarde o seu Código de Referência abaixo.';
-  document.getElementById('sucCode').textContent=S.ref;
-  window.lastRec=rec;window.lastDue=dueDate;
-  /* FIX: scroll to success screen, not footer */
-  setTimeout(function(){
-    var el=document.getElementById('sucScreen');
-    var top=el.getBoundingClientRect().top+window.pageYOffset-76;
-    window.scrollTo({top:top,behavior:'smooth'});
-  },100);
-}
+  /* ══ NAV ══ */
+  function toggleMenu(){document.getElementById('sM').classList.toggle('open');document.getElementById('sO').classList.toggle('open');}
+  function nav(page){document.getElementById('sM').classList.remove('open');document.getElementById('sO').classList.remove('open');window.location.href=page;}
+  let taps=0,tapTimer=null;
+  function handleSecretTap(){taps++;clearTimeout(tapTimer);tapTimer=setTimeout(()=>taps=0,1500);if(taps>=3){taps=0;window.location.href='admin.html';}}
 
-/* ═══ PDF RECEIPT ═══ */
-function downloadReceipt(){
-  var rec=window.lastRec;if(!rec){toast('Dados não encontrados.','e');return;}
-  var{jsPDF}=window.jspdf;
-  var doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
-  var W=210,mg=14,y=0;
-  var now=new Date();var due=window.lastDue||new Date(now.getTime()+30*24*60*60*1000);
-  var p=PR[rec.level];var tw=rec.totalWeeks||(rec.level==='a1'?p.weeks+p.fsW:p.weeks);
-  var isNew=rec.type==='new';var mFee=isNew?p.mat:0;
-
-  /* ─ HEADER (lighter navy) ─ */
-  doc.setFillColor(26,46,69);
-  doc.rect(0,0,W,24,'F');
-  doc.setFillColor(5,150,105);
-  doc.rect(0,22,W,2,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(14);doc.setTextColor(255,255,255);
-  doc.text('DoveLingua English Learning Academy',W/2,11,{align:'center'});
-  doc.setFont('helvetica','italic');doc.setFontSize(8);doc.setTextColor(201,168,76);
-  doc.text('"Learn English today and connect with the World tomorrow"',W/2,19,{align:'center'});
-
-  /* ─ TITLE ─ */
-  y=32;
-  doc.setFont('helvetica','bold');doc.setFontSize(16);doc.setTextColor(26,46,69);
-  doc.text('RECIBO DE INSCRIÇÃO',W/2,y,{align:'center'});
-  y+=12;
-
-  /* ─ FULL REF/DATES ROW — full width ─ */
-  doc.setFillColor(249,245,239);
-  doc.roundedRect(mg,y,W-mg*2,18,2,2,'F');
-  doc.setDrawColor(212,220,230);doc.setLineWidth(0.3);
-  doc.roundedRect(mg,y,W-mg*2,18,2,2,'S');
-  doc.setFont('helvetica','bold');doc.setFontSize(7.5);doc.setTextColor(14,124,123);
-  var col1=mg+4, col2=mg+64, col3=mg+124;
-  doc.text('CÓDIGO DE REFERÊNCIA',col1,y+5);
-  doc.text('DATA DE EMISSÃO',col2,y+5);
-  doc.text('DATA DE VENCIMENTO',col3,y+5);
-  doc.setFont('helvetica','bold');doc.setFontSize(9.5);doc.setTextColor(26,46,69);
-  doc.text(rec.refCode,col1,y+13);
-  doc.setFontSize(9);
-  doc.text(fD(now)+' '+fT(now),col2,y+13);
-  doc.text(fD(due),col3,y+13);
-  y+=24;
-
-  /* ─ HELPERS ─ */
-  function secT(t,yy){
-    doc.setFont('helvetica','bold');doc.setFontSize(8.5);doc.setTextColor(5,150,105);
-    doc.text(t,mg,yy);
-    doc.setDrawColor(5,150,105);doc.setLineWidth(0.4);
-    doc.line(mg,yy+2,W-mg,yy+2);
-    return yy+8;
+  /* ══ SCREENS ══ */
+  function goToScreen(id){
+    const cur=document.querySelector('.screen.active');
+    if(cur)screenHistory.push(cur.id);
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
   }
-  function dRow(lbl,val,yy,sh){
-    if(sh){doc.setFillColor(245,248,252);doc.rect(mg,yy-4,W-mg*2,7,'F');}
-    /* FIX: labels bold dark navy, values normal */
-    doc.setFont('helvetica','bold');doc.setFontSize(8.5);doc.setTextColor(26,46,69);
-    doc.text(lbl+':',mg+2,yy);
-    doc.setFont('helvetica','normal');doc.setTextColor(60,60,60);
-    doc.text(String(val),mg+56,yy);
-    return yy+7;
+  function goBack(){
+    if(screenHistory.length===0){goToScreen('screen1');return;}
+    const prev=screenHistory.pop();
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    document.getElementById(prev).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
   }
 
-  /* ─ DADOS DO ALUNO — with Estado badge on right ─ */
-  var dadosY = y;
-  y=secT('DADOS DO ALUNO',y);
+  /* ══ TOAST ══ */
+  function toast(msg,t,dur){
+    t=t||'s';dur=dur||3800;
+    const ic={s:'✅',w:'⚠️',e:'❌',i:'ℹ️'};
+    const tc={s:'',w:'w',e:'e',i:'i'};
+    const wrap=document.getElementById('tw');
+    const el=document.createElement('div');
+    el.className='tm '+tc[t];
+    el.innerHTML='<span style="font-size:15px;flex-shrink:0;">'+ic[t]+'</span><span>'+msg+'</span>';
+    wrap.appendChild(el);
+    requestAnimationFrame(()=>el.classList.add('show'));
+    setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),400);},dur);
+  }
 
-  /* STATUS BADGE — right side, below "DADOS DO ALUNO" line */
-  var sbX=W-mg-54, sbY=dadosY+4;
-  doc.setFillColor(255,251,235);
-  doc.setDrawColor(26,46,69);doc.setLineWidth(0.5);
-  doc.roundedRect(sbX,sbY,54,20,2,2,'FD');
-  doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(201,168,76);
-  doc.text('ESTADO DO PAGAMENTO',sbX+27,sbY+6,{align:'center'});
-  doc.setFontSize(9);doc.setTextColor(180,80,10);
-  doc.text('⏳ PENDENTE',sbX+27,sbY+14,{align:'center'});
+  /* ══ COPY ══ */
+  function cp(t){
+    if(navigator.clipboard)navigator.clipboard.writeText(t);
+    else{const x=document.createElement('textarea');x.value=t;document.body.appendChild(x);x.select();document.execCommand('copy');document.body.removeChild(x);}
+    toast(lang==='pt'?'Copiado!':'Copied!','s',1600);
+  }
 
-  var sd=[['Nome Completo',rec.studentName],['Idade',rec.age+' anos'],['Género',rec.gender||'—'],['E-mail',rec.email],['WhatsApp',rec.wa],['Chamadas',rec.phone||'—'],['Província',rec.prov],['Distrito',rec.dist],['Tipo de Inscrição',rec.type==='new'?'Nova Inscrição':'Renovação']];
-  /* only draw rows on the LEFT side to avoid overlapping status badge */
-  var leftW = sbX - mg - 4;
-  sd.forEach(function(r,i){
-    if(i<3){
-      /* first 3 rows draw only up to left of badge */
-      if(i%2===0){doc.setFillColor(245,248,252);doc.rect(mg,y-4,leftW,7,'F');}
-      doc.setFont('helvetica','bold');doc.setFontSize(8.5);doc.setTextColor(26,46,69);
-      doc.text(r[0]+':',mg+2,y);
-      doc.setFont('helvetica','normal');doc.setTextColor(60,60,60);
-      doc.text(String(r[1]),mg+56,y);
-      y+=7;
+  /* ══ AMOUNT ══ */
+  function onAmt(el){
+    document.querySelectorAll('.ap').forEach(p=>p.classList.remove('sel'));
+    const v=parseFloat(el.value);
+    S.amount=(!isNaN(v)&&v>0)?v:0;
+    el.classList.toggle('has-val',S.amount>0);
+    updateSummary();
+    updateInstrAmt();
+  }
+  function pickAmt(val){
+    S.amount=val;
+    document.querySelectorAll('.ap').forEach(p=>p.classList.remove('sel'));
+    event.target.classList.add('sel');
+    document.getElementById('amtInput').value=val;
+    document.getElementById('amtInput').classList.add('has-val');
+    updateSummary();
+    updateInstrAmt();
+  }
+  function updateSummary(){
+    const d=document.getElementById('amtSummary');
+    document.getElementById('asSummaryVal').textContent=S.amount>0?S.amount.toLocaleString('pt-MZ'):'0';
+    d.style.display=S.amount>0?'flex':'none';
+  }
+  function updateInstrAmt(){
+    const el=document.getElementById('instrAmt');
+    if(el) el.textContent=' '+S.amount.toLocaleString('pt-MZ')+' MZN ';
+  }
+
+  /* ══ METHOD ══ */
+  function selMethod(m){
+    S.method=m;S.wallet='';
+    document.getElementById('mAuto').classList.toggle('sel',m==='auto');
+    document.getElementById('mManual').classList.toggle('sel',m==='manual');
+    document.getElementById('walletBlock').style.display='block';
+    document.getElementById('payDetailBlock').style.display='none';
+    document.getElementById('autoBox').style.display='none';
+    document.getElementById('manualBox').style.display='none';
+    document.querySelectorAll('.wallet-btn').forEach(w=>w.classList.remove('sel'));
+  }
+
+  /* ══ WALLET ══ */
+  function selWallet(w){
+    S.wallet=w;
+    document.querySelectorAll('.wallet-btn').forEach(wb=>wb.classList.remove('sel'));
+    const map={mpesa:'wMpesa',emola:'wEmola',mkesh:'wMkesh'};
+    document.getElementById(map[w]).classList.add('sel');
+    document.getElementById('payDetailBlock').style.display='block';
+
+    if(S.method==='auto'){
+      document.getElementById('autoBox').style.display='block';
+      document.getElementById('manualBox').style.display='none';
+      document.getElementById('fPhone').placeholder=WALLET_PLACEHOLDERS[w];
+      const instr=lang==='pt'?
+        'Introduza o número '+WALLET_LABELS[w]+' para onde o pedido de pagamento será enviado.':
+        'Enter the '+WALLET_LABELS[w]+' number where the payment request will be sent.';
+      document.getElementById('autoInstrText').textContent=instr;
     } else {
-      y=dRow(r[0],r[1],y,i%2===0);
+      document.getElementById('autoBox').style.display='none';
+      document.getElementById('manualBox').style.display='block';
+      // update manual display
+      document.getElementById('wdIcon').textContent=WALLET_ICONS[w];
+      document.getElementById('wdName').textContent=WALLET_LABELS[w];
+      document.getElementById('wdNum').textContent=WALLET_NUMS[w];
+      document.getElementById('wdCopyBtn').onclick=()=>cp(WALLET_NUMS[w].replace(/\s/g,''));
+      document.getElementById('fManualPhone').placeholder=WALLET_PLACEHOLDERS[w];
+      updateInstrAmt();
     }
-  });
-  y+=4;
+  }
 
-  /* ─ DETALHES DA INSCRIÇÃO ─ */
-  y=secT('DETALHES DA INSCRIÇÃO',y);
-  var ed=[['Nível',rec.cefr+' — '+rec.levelPT+' ('+rec.levelEN+')'],['Duração Total',tw+' semanas'+(rec.level==='a1'?' (incl. '+p.fsW+' sem. First Steps)':'')],['Número de Lições',p.lessons+' lições'],['Modalidade de Ensino',rec.modality],['Modalidade de Pagamento',rec.payMod==='monthly'?'Mensal':'Nível Completo'],['Método de Pagamento',rec.payMethod||'—'],['Disponibilidade',rec.avail],['Material Didáctico',rec.inclMat?'Incluído':'Não incluído']];
-  ed.forEach(function(r,i){y=dRow(r[0],r[1],y,i%2===0);});y+=4;
+  /* ══ VALIDATION ══ */
+  function vf(el){el.classList.toggle('ok',el.value.trim().length>0);}
 
-  /* ─ RESUMO DE PAGAMENTO ─ */
-  y=secT('RESUMO DE PAGAMENTO',y);
-  var cCl=rec.payMod==='monthly'?p.monthly:p.full;var cD=rec.payMod==='full'?Math.round(p.full*DISC):0;
-  var pd=[['Taxa do Curso',fmz(cCl)],['Taxa de Matrícula',fmz(mFee)],['Desconto (10%)',cD>0?'- '+fmz(cD):fmz(0)],['Material Didáctico',rec.inclMat?fmz(MAT):fmz(0)]];
-  pd.forEach(function(r,i){y=dRow(r[0],r[1],y,i%2===0);});
-  /* TOTAL row — soft green */
-  doc.setFillColor(240,253,244);
-  doc.rect(mg,y-2,W-mg*2,10,'F');
-  doc.setDrawColor(5,150,105);doc.setLineWidth(0.3);
-  doc.rect(mg,y-2,W-mg*2,10,'S');
-  doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(26,46,69);
-  doc.text('TOTAL',mg+3,y+5);
-  doc.setTextColor(180,100,255);doc.setFont('helvetica','bold');doc.setFontSize(11);
-  doc.text(fmz(rec.total),W-mg-3,y+5,{align:'right'});
-  y+=14;
+  /* ══ REF ══ */
+  function genRef(){return 'DVL-DOA'+String(Math.floor(100000+Math.random()*900000));}
 
-  /* ─ STATUS LINK — blue background ─ */
-  doc.setFillColor(219,234,254);
-  doc.roundedRect(mg,y,W-mg*2,10,2,2,'F');
-  doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(29,78,216);
-  doc.text('Para verificar o estado: www.dovelingua.com/status.html  |  Código: '+rec.refCode,W/2,y+7,{align:'center'});
-  y+=14;
+  /* ══ SUBMIT ══ */
+  async function submitDonation(){
+    if(!S.amount||S.amount<1){
+      toast(lang==='pt'?'Por favor, introduza o valor da contribuição.':'Please enter the contribution amount.','w');return;
+    }
+    const name=document.getElementById('fName').value.trim();
+    const prov=document.getElementById('fProv').value;
+    const reason=document.getElementById('fReason').value;
+    if(!name){toast(lang==='pt'?'Por favor, introduza o seu nome.':'Please enter your name.','w');return;}
+    if(!prov){toast(lang==='pt'?'Por favor, seleccione a sua província.':'Please select your province.','w');return;}
+    if(!reason){toast(lang==='pt'?'Por favor, seleccione o motivo do apoio.':'Please select a reason.','w');return;}
+    if(!S.method){toast(lang==='pt'?'Por favor, seleccione o método de pagamento.':'Please select payment method.','w');return;}
+    if(!S.wallet){toast(lang==='pt'?'Por favor, seleccione a carteira.':'Please select wallet.','w');return;}
+    if(S.method==='auto'){
+      if(S.amount<10){
+        toast(lang==='pt'?
+          'O pagamento automático requer um mínimo de 10 MZN. Para valores inferiores, utilize o pagamento manual.':
+          'Automatic payment requires a minimum of 10 MZN. For smaller amounts, use manual payment.',
+          'w',6000);return;
+      }
+      const phone=document.getElementById('fPhone').value.trim();
+      if(!phone){toast(lang==='pt'?'Por favor, introduza o número de telefone.':'Please enter phone number.','w');return;}
+      S.phone=phone;
+    } else {
+      const mp=document.getElementById('fManualPhone').value.trim();
+      if(!mp){toast(lang==='pt'?'Por favor, introduza o número de telefone.':'Please enter phone number.','w');return;}
+      S.phone=mp;
+    }
+    S.name=name;S.province=prov;S.reason=reason;
+    S.ref=genRef();
+    if(S.method==='auto'){
+      await processAuto();
+    } else {
+      await processManual();
+    }
+  }
 
-  /* ─ STATUS BOTTOM ─ */
-  doc.setFillColor(255,247,230);doc.setDrawColor(201,100,0);doc.setLineWidth(0.3);
-  doc.roundedRect(mg,y,W-mg*2,10,2,2,'FD');
-  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(130,60,0);
-  doc.text('ESTADO DO PAGAMENTO: PENDENTE — Aguarda confirmação',W/2,y+7,{align:'center'});
-  y+=16;
+  /* ══ AUTOMATIC — with polling ══ */
+  async function processAuto(){
+    document.getElementById('spinMsg').textContent=lang==='pt'?'A enviar pedido de pagamento...':'Sending payment request...';
+    document.getElementById('spinOv').classList.add('on');
+    const body={
+      action:'process',
+      payment_method:S.wallet,
+      merchant_id:MERCHANT_ID,
+      wallet_code:WALLETS[S.wallet],
+      amount:Math.round(S.amount),
+      currency:'MZN',
+      phone:S.phone.replace(/\s/g,''),
+      source:'gateway',
+      source_id:S.ref,
+      customer_name:S.name
+    };
+    try{
+      const res=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      const data=await res.json();
+      document.getElementById('spinOv').classList.remove('on');
+      if(data.success){
+        // M-Pesa: instant confirmation
+        if(data.status==='success'){
+          S.txId=data.transactionId||data.reference||data.payment_id||'—';
+          S.status='confirmed';
+          sendEmail();
+          showThanks();
+        } else {
+          // e-Mola / mKesh: pending — start polling
+          pendingPaymentId=data.payment_id||null;
+          S.txId=data.reference||data.payment_id||'—';
+          startPolling();
+        }
+      } else {
+        toast((lang==='pt'?'Erro no pagamento: ':'Payment error: ')+(data.error||'Tente novamente.'),'e',6000);
+      }
+    } catch(err){
+      document.getElementById('spinOv').classList.remove('on');
+      toast(lang==='pt'?'Não foi possível processar. Por favor, tente o método manual.':'Could not process. Please try manual payment.','e',6000);
+    }
+  }
 
-  /* ─ SIGNATURE ─ */
-  doc.setDrawColor(212,220,230);doc.setLineWidth(0.3);doc.line(mg,y,W-mg,y);y+=8;
-  doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(107,122,141);
-  doc.text('_______________________',W/2,y,{align:'center'});
-  doc.text('Assinatura do Director',W/2,y+6,{align:'center'});
-  doc.setFont('helvetica','normal');doc.setFontSize(8.5);doc.setTextColor(5,150,105);
-  doc.text('Gildo A. Dove',W/2,y+13,{align:'center'});
-  doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(107,122,141);
-  doc.text('Fundadora e Directora — DoveLingua English Learning Academy',W/2,y+18,{align:'center'});
+  /* ══ POLLING ══ */
+  function startPolling(){
+    pollSeconds=POLL_MAX;
+    goToScreen('screen2b');
+    updatePollTimer();
+    // Poll every 5 seconds
+    pollInterval=setInterval(async()=>{
+      if(!pendingPaymentId) return;
+      try{
+        const res=await fetch(API_URL,{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({action:'check-status',payment_id:pendingPaymentId})
+        });
+        const data=await res.json();
+        if(data.success && data.payment && data.payment.status==='success'){
+          stopPolling();
+          S.txId=data.payment.provider_reference||pendingPaymentId||'—';
+          S.status='confirmed';
+          sendEmail();
+          showThanks();
+        }
+      } catch(e){}
+    },5000);
+    // Countdown timer
+    pollTimerInterval=setInterval(()=>{
+      pollSeconds--;
+      updatePollTimer();
+      if(pollSeconds<=0){
+        stopPolling();
+        toast(lang==='pt'?
+          'Pagamento não confirmado. O pedido expirou. Pode tentar novamente.':
+          'Payment not confirmed. The request expired. Please try again.',
+          'e',7000);
+        goToScreen('screen2');
+      }
+    },1000);
+  }
+  function stopPolling(){
+    if(pollInterval){clearInterval(pollInterval);pollInterval=null;}
+    if(pollTimerInterval){clearInterval(pollTimerInterval);pollTimerInterval=null;}
+    pendingPaymentId=null;
+  }
+  function updatePollTimer(){
+    const m=Math.floor(pollSeconds/60);
+    const s=pollSeconds%60;
+    document.getElementById('pollTimer').textContent=(m>0?m+':':(m===0&&s>=0?'0:':''))+(s<10?'0':'')+s;
+  }
+  function cancelPolling(){
+    stopPolling();
+    toast(lang==='pt'?'Operação cancelada. Pode tentar novamente.':'Operation cancelled. You may try again.','i');
+    goToScreen('screen2');
+  }
 
-  /* ─ FOOTER BAR (lighter) ─ */
-  doc.setFillColor(26,46,69);
-  doc.rect(0,272,W,25,'F');
-  doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(180,200,220);
-  doc.text('www.dovelingua.com  |  info@dovelingua.com  |  +258 82 892 0143  |  DoveLingua English Learning Academy',W/2,281,{align:'center'});
-  doc.setTextColor(120,140,160);doc.setFontSize(7);
-  doc.text('Documento gerado pelo Sistema. DoveLingua © 2026 — Todos os direitos reservados.',W/2,288,{align:'center'});
+  /* ══ MANUAL ══ */
+  async function processManual(){
+    document.getElementById('spinMsg').textContent=lang==='pt'?'A registar contribuição...':'Registering contribution...';
+    document.getElementById('spinOv').classList.add('on');
+    S.txId=S.phone;S.status='pending';
+    sendEmail();
+    setTimeout(()=>{
+      document.getElementById('spinOv').classList.remove('on');
+      showThanks();
+    },900);
+  }
 
-  doc.save('Recibo_DoveLingua_'+rec.refCode+'.pdf');
-  toast('Recibo descarregado com sucesso!','s');
-}
+  /* ══ EMAIL ══ */
+  function sendEmail(){
+    const rL={mission:'Acredita na missão',student:'Aluno(a) DoveLingua',app:'Usa English Dove app',classroom:'Usa Classroom',community:'Membro comunidade',whatsapp:'Segue canal WhatsApp',free:'Apoia recursos gratuitos',school:'Apoia centro físico',certs:'Apoia acreditação',quality:'Apoia qualidade ensino',platforms:'Apoia plataformas',mozambique:'Acredita educação MZ',gratitude:'Gratidão à DoveLingua',other:'Outro motivo'};
+    emailjs.send(ESVC,ETPL,{
+      to_email:'gildoangelicadove04@gmail.com',
+      subject:'❤️ Nova Contribuição — '+S.ref+' — '+S.name,
+      ref_code:S.ref,student_name:S.name,student_email:'donate@dovelingua.com',
+      student_whatsapp:S.phone,level:'DOAÇÃO / CONTRIBUIÇÃO',
+      modality:S.method==='auto'?'Automático — '+WALLET_LABELS[S.wallet]:'Manual — '+WALLET_LABELS[S.wallet],
+      total_amount:S.amount.toLocaleString('pt-MZ')+' MZN',student_type:'Apoiante',
+      enrol_date:new Date().toLocaleDateString('pt-MZ')+' '+new Date().toLocaleTimeString('pt-MZ',{hour:'2-digit',minute:'2-digit'}),
+      availability:S.province,material:rL[S.reason]||S.reason,
+      taxa_curso:S.amount+' MZN',taxa_matricula:'0',taxa_material:'0',desconto:'0',
+      pay_mod:S.wallet,message:'TX ID: '+S.txId+'\nSTATUS: '+S.status+'\nTELEFONE: '+S.phone
+    }).catch(()=>{});
+  }
 
-/* ═══ JSONBIN ═══ */
-async function fetchBin(){var r=await fetch(JURL+'/latest',{headers:{'X-Master-Key':JKEY}});var d=await r.json();return d.record||{};}
-async function updateBin(rec){await fetch(JURL,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':JKEY},body:JSON.stringify(rec)});}
+  /* ══ SHOW THANKS ══ */
+  function showThanks(){
+    document.getElementById('thanksRef').textContent=S.ref;
+    const fn=S.name.trim().split(' ')[0];
+    document.getElementById('thanksTitle').textContent='Muito Obrigado, '+fn+'! 🙏';
+    window.lastDonation={...S,date:new Date()};
+    startEmojiRain();
+    goToScreen('screen3');
+  }
 
-/* ═══ HELPERS ═══ */
-function fD(d){return('0'+d.getDate()).slice(-2)+'/'+('0'+(d.getMonth()+1)).slice(-2)+'/'+d.getFullYear();}
-function fT(d){return('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);}
-function fmz(v){return Math.abs(v).toLocaleString('pt-MZ')+' MZN';}
+  /* ══ EMOJI RAIN ══ */
+  function startEmojiRain(){
+    const rain=document.getElementById('emojiRain');
+    rain.innerHTML='';
+    const emojis=['🎉','🙏','❤️','✨','🌟','💖','🎊','💝','🕊️','🫂'];
+    for(let i=0;i<30;i++){
+      const el=document.createElement('div');
+      el.className='emoji-drop';
+      el.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+      el.style.left=Math.random()*100+'vw';
+      el.style.fontSize=(1.2+Math.random()*1.5)+'rem';
+      const dur=2.5+Math.random()*2.5;
+      el.style.animationDuration=dur+'s';
+      el.style.animationDelay=(Math.random()*1.8)+'s';
+      rain.appendChild(el);
+    }
+    setTimeout(()=>{rain.innerHTML='';},6500);
+  }
 
-window.addEventListener('load',function(){document.getElementById('pt').classList.remove('on');});
-window.addEventListener('pageshow',function(){document.getElementById('pt').classList.remove('on');});
+  /* ══ SHARE ══ */
+  function shareSupport(){
+    const text=lang==='pt'?
+      'Apoiei a Academia DoveLingua — uma escola de inglês fundada em Moçambique, que acredita que a educação deve ser acessível a todos. Se quiser contribuir, qualquer valor faz diferença. 🕊❤️\n\nhttps://www.dovelingua.com/donate.html':
+      'I supported DoveLingua English Learning Academy — a school founded in Mozambique that believes education should be accessible to everyone. Every contribution makes a difference. 🕊❤️\n\nhttps://www.dovelingua.com/donate.html';
+    if(navigator.share){
+      navigator.share({title:'Apoie a DoveLingua',text:text,url:'https://www.dovelingua.com/donate.html'}).catch(()=>{});
+    } else {
+      window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank');
+    }
+  }
+
+  /* ══ PDF RECEIPT ══ */
+  function downloadReceipt(){
+    const d=window.lastDonation;
+    if(!d){toast(lang==='pt'?'Dados não encontrados.':'Data not found.','e');return;}
+    const{jsPDF}=window.jspdf;
+    const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+    const W=210,mg=16;
+    let y=0;
+    const now=d.date||new Date();
+    const isOk=d.status==='confirmed';
+    const rL={mission:'Acredita na missão DoveLingua',student:'Aluno(a) DoveLingua',app:'Usa English Dove app',classroom:'Usa DoveLingua Classroom',community:'Membro da comunidade',whatsapp:'Segue canal WhatsApp',free:'Apoia recursos gratuitos',school:'Apoia centro físico',certs:'Apoia acreditação',quality:'Apoia qualidade de ensino',platforms:'Apoia plataformas DoveLingua',mozambique:'Acredita na educação MZ',gratitude:'Gratidão à DoveLingua',other:'Outro motivo'};
+
+    // Month names PT
+    const months=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+    const dayStr='Moçambique, aos '+now.getDate()+' de '+months[now.getMonth()]+' de '+now.getFullYear();
+
+    /* HEADER */
+    doc.setFillColor(11,37,69);doc.rect(0,0,W,22,'F');
+    doc.setFillColor(192,57,43);doc.rect(0,20,W,3,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(13);doc.setTextColor(255,255,255);
+    doc.text('DoveLingua English Learning Academy',W/2,11,{align:'center'});
+    doc.setFont('helvetica','italic');doc.setFontSize(7.5);doc.setTextColor(200,200,200);
+    doc.text('"Learn English today and connect with the World tomorrow"',W/2,18,{align:'center'});
+
+    /* TITLE */
+    y=30;
+    doc.setFont('helvetica','bold');doc.setFontSize(14);doc.setTextColor(11,37,69);
+    doc.text('RECIBO DE APOIO / DOAÇÃO',W/2,y,{align:'center'});
+    y+=10;
+
+    /* REF / DATE / STATUS */
+    doc.setFillColor(249,245,239);doc.roundedRect(mg,y,W-mg*2,17,2,2,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(14,124,123);
+    doc.text('REFERÊNCIA',mg+3,y+5);doc.text('DATA DE DOAÇÃO',mg+65,y+5);doc.text('ESTADO',mg+145,y+5);
+    doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(11,37,69);
+    doc.text(d.ref,mg+3,y+13);
+    doc.setFontSize(8.5);
+    doc.text(now.toLocaleDateString('pt-MZ')+' — '+now.toLocaleTimeString('pt-MZ',{hour:'2-digit',minute:'2-digit'}),mg+65,y+13);
+    doc.setTextColor(isOk?5:180,isOk?150:70,isOk?105:10);
+    doc.text(isOk?'CONFIRMADO':'PENDENTE',mg+145,y+13);
+    y+=23;
+
+    /* HELPERS */
+    function sT(title,yy){
+      doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(192,57,43);
+      doc.text(title,mg,yy);
+      doc.setDrawColor(192,57,43);doc.setLineWidth(0.35);doc.line(mg,yy+2,W-mg,yy+2);
+      return yy+8;
+    }
+    function dR(lbl,val,yy,sh){
+      if(sh){doc.setFillColor(248,250,252);doc.rect(mg,yy-4,W-mg*2,7,'F');}
+      doc.setFont('helvetica','bold');doc.setFontSize(8.5);doc.setTextColor(11,37,69);
+      doc.text(lbl+':',mg+2,yy);
+      doc.setFont('helvetica','normal');doc.setTextColor(55,55,55);
+      doc.text(String(val),mg+55,yy);
+      return yy+7;
+    }
+
+    /* DONOR DETAILS */
+    y=sT('DADOS DO APOIANTE',y);
+    const rows=[
+      ['Nome',d.name],
+      ['Província',d.province||'—'],
+      ['Plataforma Usada','DVL-Site Oficial'],
+      ['Motivo',rL[d.reason]||d.reason],
+      ['Método de Pagamento',(d.method==='auto'?'Automático':'Manual')+' — '+(WALLET_LABELS[d.wallet]||d.wallet||'—')],
+      ['Número de Telefone',d.phone||'—'],
+      ['Referência TX',d.txId||'—'],
+    ];
+    rows.forEach((r,i)=>{y=dR(r[0],r[1],y,i%2===0);});
+    y+=4;
+
+    /* AMOUNT BOX */
+    doc.setFillColor(isOk?5:180,isOk?150:70,isOk?105:10);
+    doc.rect(mg,y,W-mg*2,12,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(255,255,255);
+    doc.text('VALOR APOIADO: '+d.amount.toLocaleString('pt-MZ')+' MZN',W/2,y+8,{align:'center'});
+    y+=16;
+
+    /* STATUS NOTE */
+    if(!isOk){
+      doc.setFillColor(254,243,199);doc.setDrawColor(252,211,77);doc.setLineWidth(0.3);
+      doc.roundedRect(mg,y,W-mg*2,9,2,2,'FD');
+      doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(120,53,15);
+      doc.text('PENDENTE — Contribuição registada.',W/2,y+6,{align:'center'});
+      y+=13;
+    }
+
+    /* QUOTE */
+    doc.setFont('helvetica','italic');doc.setFontSize(8.5);doc.setTextColor(80,80,80);
+    doc.text('"A sua contribuição constrói o futuro da educação em Moçambique."',W/2,y+7,{align:'center'});
+    y+=14;
+
+    /* CONTACT */
+    doc.setFillColor(219,234,254);doc.roundedRect(mg,y,W-mg*2,9,2,2,'F');
+    doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(29,78,216);
+    doc.text('www.dovelingua.com  |  donate@dovelingua.com  |  +258 82 892 0143',W/2,y+6,{align:'center'});
+    y+=13;
+
+    /* SIGNATURE SECTION */
+    doc.setDrawColor(220,220,220);doc.setLineWidth(0.3);doc.line(mg,y,W-mg,y);y+=5;
+
+    /* STAMP */
+    const stX=W-mg-42;const stY=y;const stW=40;const stH=16;
+    doc.setFillColor(255,255,255);
+    doc.setDrawColor(14,124,123);doc.setLineWidth(1.2);
+    doc.roundedRect(stX,stY,stW,stH,3,3,'FD');
+    doc.setLineWidth(0.4);doc.setDrawColor(14,124,123);
+    doc.roundedRect(stX+1.5,stY+1.5,stW-3,stH-3,2,2,'S');
+    doc.setFont('helvetica','bold');doc.setFontSize(7.5);doc.setTextColor(14,124,123);
+    doc.text('ASSINADO',stX+stW/2,stY+7,{align:'center'});
+    doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(80,80,80);
+    doc.text('DoveLingua',stX+stW/2,stY+12.5,{align:'center'});
+
+    /* Signature title — coloured */
+    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(14,124,123);
+    doc.text('Assinatura do Director',mg,y+8);
+
+    /* Handwritten name */
+    doc.setFont('helvetica','italic');doc.setFontSize(11);doc.setTextColor(40,40,40);
+    doc.text('Gildo Angélica Dove',mg,y+17);
+
+    y+=22;
+
+    /* Date line */
+    doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(80,80,80);
+    doc.text(dayStr,mg,y);
+    y+=10;
+
+    /* FOOTER */
+    doc.setFillColor(11,37,69);doc.rect(0,y+2,W,18,'F');
+    doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(180,200,220);
+    doc.text('DoveLingua English Learning Academy — Mozambique — '+now.getFullYear(),W/2,y+10,{align:'center'});
+    doc.setTextColor(120,140,160);doc.setFontSize(7);
+    doc.text('DoveLingua © '+now.getFullYear()+' — Todos os direitos reservados.',W/2,y+16,{align:'center'});
+
+    doc.save('DoveLingua_Recibo_'+d.ref+'.pdf');
+    toast(lang==='pt'?'Recibo descarregado!':'Receipt downloaded!','s');
+  }
+
+  /* ══ FADE-UP ══ */
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*55);io.unobserve(e.target);}
+    });
+  },{threshold:0.07});
+  document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
 </script>
+
 </body>
 </html>
