@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Apoiar DoveLingua</title>
-  <meta name="description" content="Apoie a DoveLingua e ajude-nos a construir o futuro da educação em Moçambique."/>
+  <meta name="description" content="Apoie a DoveLingua e ajude-nos a construir o futuro da DvoveLingua."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet"/>
@@ -526,7 +526,7 @@
 <nav>
   <div class="nav-left">
     <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
-    <a href="index.html" class="nav-brand">🕊 DoveLingua</a>
+    <a href="index.html" class="nav-brand">DoveLingua</a>
   </div>
   <ul class="nav-centre">
     <li><a href="index.html" data-en="Home" data-pt="Início">Início</a></li>
@@ -554,7 +554,7 @@
     <div class="sdiv"></div>
     <a onclick="nav('about.html')"><span class="mi">📖</span><span data-en="About Us" data-pt="Sobre Nós">Sobre Nós</span></a>
     <a onclick="nav('programme.html')"><span class="mi">📚</span><span data-en="Our Programme" data-pt="O Nosso Programa">O Nosso Programa</span></a>
-    <a onclick="nav('enrol.html')"><span class="mi">✏️</span><span data-en="Enrol" data-pt="Inscrição">Inscrição</span></a>
+    <a onclick="nav('enrol.html')"><span class="mi">📋</span><span data-en="Enrol" data-pt="Inscrição">Inscrição</span></a>
     <a href="https://classroom.dovelingua.com" target="_blank"><span class="mi">💻</span>DoveLingua Classroom</a>
     <div class="sdiv"></div>
     <a onclick="nav('library.html')"><span class="mi">📖</span><span data-en="Library" data-pt="Biblioteca">Biblioteca</span><span class="bsoon">Soon</span></a>
@@ -609,7 +609,7 @@
     <div class="quick-btns fade-up">
       <a href="about.html" class="quick-btn">📖 <span data-en="About DoveLingua" data-pt="Sobre a DoveLingua">Sobre a DoveLingua</span></a>
       <a href="programme.html" class="quick-btn">📚 <span data-en="Courses" data-pt="Cursos">Programa e Cursos</span></a>
-      <a href="faq.html" class="quick-btn">❓ <span data-en="FAQ" data-pt="Perguntas Frequentes">Perguntas Frequentes</span></a>
+      <a href="faq.html" class="quick-btn">❓ <span data-en="FAQ" data-pt="Perguntas">Perguntas</span></a>
     </div>
 
     <!-- Impact section — big container -->
@@ -625,7 +625,7 @@
             <div class="ic-body">
               <span class="ic-icon">📱</span>
               <div class="ic-title" data-en="English Dove App" data-pt="Aplicação English Dove">Aplicação English Dove</div>
-              <p class="ic-desc" data-en="A free English app for everyone — no enrolment needed. Your support pays for the servers and new content so it stays free." data-pt="Uma aplicação gratuita de inglês para todos — sem precisar de se inscrever. O teu apoio paga os servidores e o novo conteúdo para que continue gratuita.">Uma aplicação gratuita de inglês para todos — sem precisar de se inscrever. O seu apoio paga os servidores e o novo conteúdo para que continue gratuita.</p>
+              <p class="ic-desc" data-en="A free English app for everyone — no enrolment needed. Your support pays for the servers and new content so it stays free." data-pt="Uma aplicação gratuita de inglês para todos, sem precisar de fazer inscrição. O teu apoio paga os servidores e o novo conteúdo para que continue gratuita.">Uma aplicação gratuita de inglês para todos — sem precisar de se inscrever. O seu apoio paga os servidores e o novo conteúdo para que continue gratuita.</p>
             </div>
           </div>
           <div class="ic">
@@ -680,7 +680,7 @@
 
     <!-- Bottom 2 buttons -->
     <div class="bottom-btns fade-up">
-      <a href="enrol.html" class="btn-bottom">✏️ <span data-en="Enrol in a Course" data-pt="Inscrever num Curso">Inscrever num Curso</span></a>
+      <a href="enrol.html" class="btn-bottom">📋 <span data-en="Enrol in a Course" data-pt="Inscrever num Curso">Inscrever num Curso</span></a>
       <a href="contact.html" class="btn-bottom">📧 <span data-en="Contact DoveLingua" data-pt="Contactar a DoveLingua">Contactar a DoveLingua</span></a>
     </div>
 
@@ -734,7 +734,7 @@
             <div class="step-desc" data-en="Even 1 MZN makes a difference." data-pt="Mesmo 1 MZN faz diferença.">Mesmo 1 MZN faz diferença.</div>
             <div class="amt-input-row">
               <input class="amt-field" type="number" id="amtInput" min="1" placeholder="Digite o valor. Ex: 10" oninput="onAmt(this)"/>
-              <span class="amt-suffix">MZN</span>
+              <span class="amt-suffix"></span>
             </div>
             <div class="amt-pills">
               <div class="ap" onclick="pickAmt(1)">1</div>
@@ -799,7 +799,7 @@
                 <option value="school" data-en="I want to help build the physical centre" data-pt="Quero ajudar a construir o centro físico">Quero ajudar a construir o centro físico</option>
                 <option value="certs" data-en="I want to support certificate accreditation" data-pt="Quero apoiar a acreditação dos certificados">Quero apoiar a acreditação dos certificados</option>
                 <option value="quality" data-en="I want to improve teaching quality" data-pt="Quero melhorar a qualidade do ensino">Quero melhorar a qualidade do ensino</option>
-                <option value="mozambique" data-en="I believe in education in Mozambique" data-pt="Acredito no futuro da educação em Moçambique">Acredito no futuro da educação em Moçambique</option>
+                <option value="mozambique" data-en="I believe in the future of DoveLingua Academy" data-pt="Acredito no futuro da Academia DoveLingua">Acredito no futuro da Academia DoveLingua</option>
                 <option value="gratitude" data-en="I want to express my gratitude" data-pt="Quero expressar a minha gratidão">Quero expressar a minha gratidão</option>
                 <option value="other" data-en="Other reason" data-pt="Outro motivo">Outro motivo</option>
               </select>
@@ -983,7 +983,7 @@
           <div class="nav-cards-grid">
             <a href="index.html" class="nav-card"><span class="nc-icon">🏠</span><span class="nc-label" data-en="Home" data-pt="Início">Início</span></a>
             <a href="programme.html" class="nav-card"><span class="nc-icon">📚</span><span class="nc-label" data-en="Courses" data-pt="Cursos">Cursos</span></a>
-            <a href="enrol.html" class="nav-card"><span class="nc-icon">✏️</span><span class="nc-label" data-en="Enrol" data-pt="Inscrição">Inscrição</span></a>
+            <a href="enrol.html" class="nav-card"><span class="nc-icon">📋</span><span class="nc-label" data-en="Enrol" data-pt="Inscrição">Inscrição</span></a>
             <a href="https://classroom.dovelingua.com" target="_blank" class="nav-card"><span class="nc-icon">💻</span><span class="nc-label">Classroom</span></a>
             <a href="evaluate.html" class="nav-card"><span class="nc-icon">⭐</span><span class="nc-label" data-en="Evaluate" data-pt="Avaliar">Avaliar</span></a>
             <a href="donate.html" class="nav-card"><span class="nc-icon">❤️</span><span class="nc-label" data-en="Support" data-pt="Apoiar">Apoiar</span></a>
@@ -1330,7 +1330,7 @@ function startPolling(){
 
   /* ══ EMAIL ══ */
   function sendEmail(){
-    const rL={mission:'Acredita na missão',student:'Aluno(a) DoveLingua',app:'Usa English Dove app',classroom:'Usa Classroom',community:'Membro comunidade',whatsapp:'Segue canal WhatsApp',free:'Apoia recursos gratuitos',school:'Apoia centro físico',certs:'Apoia acreditação',quality:'Apoia qualidade ensino',platforms:'Apoia plataformas',mozambique:'Acredita educação MZ',gratitude:'Gratidão à DoveLingua',other:'Outro motivo'};
+    const rL={mission:'Acredita na missão',student:'Aluno(a) DoveLingua',app:'Usa English Dove app',classroom:'Usa Classroom',community:'Membro comunidade',whatsapp:'Segue canal WhatsApp',free:'Apoia recursos gratuitos',school:'Apoia centro físico',certs:'Apoia acreditação',quality:'Apoia qualidade ensino',platforms:'Apoia plataformas',mozambique:'Acredita no Futuro da DoveLingua',gratitude:'Gratidão à DoveLingua',other:'Outro motivo'};
     emailjs.send(ESVC,ETPL,{
       to_email:'gildoangelicadove04@gmail.com',
       subject:'❤️ Nova Contribuição — '+S.ref+' — '+S.name,
@@ -1377,8 +1377,8 @@ function startPolling(){
   /* ══ SHARE ══ */
   function shareSupport(){
     const text=lang==='pt'?
-      'Apoiei a Academia DoveLingua — uma escola de inglês fundada em Moçambique, que acredita que a educação deve ser acessível a todos. Se quiser contribuir, qualquer valor faz diferença. 🕊❤️\n\nhttps://www.dovelingua.com/donate.html':
-      'I supported DoveLingua English Learning Academy — a school founded in Mozambique that believes education should be accessible to everyone. Every contribution makes a difference. 🕊❤️\n\nhttps://www.dovelingua.com/donate.html';
+      'Apoiei a Academia DoveLingua, uma escola de inglês fundada em Moçambique, que acredita que a educação deve ser acessível a todos. Se quiser contribuir, qualquer valor faz diferença. 🕊❤️\n\nhttps://www.dovelingua.com/donate.html':
+      'I supported DoveLingua English Learning Academy, a school founded in Mozambique that believes education should be accessible to everyone. Every contribution makes a difference. 🕊❤️\n\nhttps://www.dovelingua.com/donate.html';
     if(navigator.share){
       navigator.share({title:'Apoie a DoveLingua',text:text,url:'https://www.dovelingua.com/donate.html'}).catch(()=>{});
     } else {
@@ -1396,7 +1396,7 @@ function startPolling(){
     let y=0;
     const now=d.date||new Date();
     const isOk=d.status==='confirmed';
-    const rL={mission:'Acredita na missão DoveLingua',student:'Aluno(a) DoveLingua',app:'Usa English Dove app',classroom:'Usa DoveLingua Classroom',community:'Membro da comunidade',whatsapp:'Segue canal WhatsApp',free:'Apoia recursos gratuitos',school:'Apoia centro físico',certs:'Apoia acreditação',quality:'Apoia qualidade de ensino',platforms:'Apoia plataformas DoveLingua',mozambique:'Acredita na educação MZ',gratitude:'Gratidão à DoveLingua',other:'Outro motivo'};
+    const rL={mission:'Acredita na missão DoveLingua',student:'Aluno(a) DoveLingua',app:'Usa English Dove app',classroom:'Usa DoveLingua Classroom',community:'Membro da comunidade',whatsapp:'Segue canal WhatsApp',free:'Apoia recursos gratuitos',school:'Apoia centro físico',certs:'Apoia acreditação',quality:'Apoia qualidade de ensino',platforms:'Apoia plataformas DoveLingua',mozambique:'Acredita no Futuro da DoveLingua',gratitude:'Gratidão à DoveLingua',other:'Outro motivo'};
 
     // Month names PT
     const months=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
@@ -1462,7 +1462,7 @@ function startPolling(){
     doc.setFillColor(isOk?5:180,isOk?150:70,isOk?105:10);
     doc.rect(mg,y,W-mg*2,12,'F');
     doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(255,255,255);
-    doc.text('VALOR APOIADO: '+d.amount.toLocaleString('pt-MZ')+' MZN',W/2,y+8,{align:'center'});
+    doc.text('VALOR DO APOIO: '+d.amount.toLocaleString('pt-MZ')+' MZN',W/2,y+8,{align:'center'});
     y+=16;
 
     /* STATUS NOTE */
@@ -1476,7 +1476,7 @@ function startPolling(){
 
     /* QUOTE */
     doc.setFont('helvetica','italic');doc.setFontSize(8.5);doc.setTextColor(80,80,80);
-    doc.text('"A sua contribuição constrói o futuro da educação em Moçambique."',W/2,y+7,{align:'center'});
+    doc.text('"A sua contribuição constrói o futuro da DoveLingua."',W/2,y+7,{align:'center'});
     y+=14;
 
     /* CONTACT */
