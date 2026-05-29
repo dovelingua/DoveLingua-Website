@@ -481,8 +481,8 @@
     .nc-label{font-size:0.72rem;font-weight:600;color:var(--navy);}
 
     /* ══ FOOTER ══ */
-    footer{background:var(--navy);color:#fff;padding:48px 5% 26px;}
-    .fg{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:32px;}
+    footer{background:var(--navy);color:#fff;padding:48px 5% 26px;text-align:center;}
+    .fg{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:32px;text-align:center;}
     .fb .fname{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:10px;color:#fff;}
     .fb p{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;margin-bottom:16px;}
     .fsoc{display:flex;gap:10px;justify-content:center;}
@@ -1244,12 +1244,11 @@
     }
   }
 
-  /* ══ POLLING ══ */
-  function startPolling(){
+/* ══ POLLING ══ */
+function startPolling(){
     pollSeconds=POLL_MAX;
     goToScreen('screen2b');
     updatePollTimer();
-    // Poll every 5 seconds
     pollInterval=setInterval(async()=>{
       if(!pendingPaymentId) return;
       try{
@@ -1259,16 +1258,35 @@
           body:JSON.stringify({action:'check-status',payment_id:pendingPaymentId})
         });
         const data=await res.json();
-        if(data.success && data.payment && data.payment.status==='success'){
+        
+        // ✅ BEST OF BOTH - checks root AND payment object
+        const isConfirmed = data.success && (
+            data.status === 'completed' ||
+            data.status === 'success' ||
+            data.status === 'confirmed' ||
+            (data.payment && (data.payment.status === 'completed' || data.payment.status === 'success'))
+        );
+        
+        if (isConfirmed) {
           stopPolling();
-          S.txId=data.payment.provider_reference||pendingPaymentId||'—';
-          S.status='confirmed';
+          S.txId = data.reference || data.transactionId || (data.payment?.reference) || pendingPaymentId || '—';
+          S.status = 'confirmed';
           sendEmail();
           showThanks();
+        } 
+        // ✅ FAILURE HANDLING from second code
+        else if(data.success && data.status === 'failed'){
+          stopPolling();
+          toast(lang==='pt'?
+            'Pagamento não confirmado. PIN inválido ou saldo insuficiente. Por favor, tente o pagamento manual.':
+            'Payment not confirmed. Invalid PIN or insufficient balance. Please try manual payment.',
+            'e',8000);
+          goToScreen('screen2');
         }
       } catch(e){}
     },5000);
-    // Countdown timer
+    
+    // Countdown timer (from first code)
     pollTimerInterval=setInterval(()=>{
       pollSeconds--;
       updatePollTimer();
@@ -1281,7 +1299,7 @@
         goToScreen('screen2');
       }
     },1000);
-  }
+}
   function stopPolling(){
     if(pollInterval){clearInterval(pollInterval);pollInterval=null;}
     if(pollTimerInterval){clearInterval(pollTimerInterval);pollTimerInterval=null;}
@@ -1393,7 +1411,7 @@
     doc.text('"Learn English today and connect with the World tomorrow"',W/2,18,{align:'center'});
 
     /* TITLE */
-    y=30;
+    y=34;
     doc.setFont('helvetica','bold');doc.setFontSize(14);doc.setTextColor(11,37,69);
     doc.text('RECIBO DE APOIO / DOAÇÃO',W/2,y,{align:'center'});
     y+=10;
@@ -1467,35 +1485,49 @@
     doc.text('www.dovelingua.com  |  donate@dovelingua.com  |  +258 82 892 0143',W/2,y+6,{align:'center'});
     y+=13;
 
-    /* SIGNATURE SECTION */
-    doc.setDrawColor(220,220,220);doc.setLineWidth(0.3);doc.line(mg,y,W-mg,y);y+=5;
+        /* SIGNATURE SECTION - CENTERED WITH STAMP OVERLAY */
+    doc.setDrawColor(220,220,220);doc.setLineWidth(0.3);doc.line(mg,y,W-mg,y);y+=8;
 
-    /* STAMP */
-    const stX=W-mg-42;const stY=y;const stW=40;const stH=16;
-    doc.setFillColor(255,255,255);
-    doc.setDrawColor(14,124,123);doc.setLineWidth(1.2);
-    doc.roundedRect(stX,stY,stW,stH,3,3,'FD');
-    doc.setLineWidth(0.4);doc.setDrawColor(14,124,123);
-    doc.roundedRect(stX+1.5,stY+1.5,stW-3,stH-3,2,2,'S');
-    doc.setFont('helvetica','bold');doc.setFontSize(7.5);doc.setTextColor(14,124,123);
-    doc.text('ASSINADO',stX+stW/2,stY+7,{align:'center'});
-    doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(80,80,80);
-    doc.text('DoveLingua',stX+stW/2,stY+12.5,{align:'center'});
+    /* Signature title — centred */
+    doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(14,124,123);
+    doc.text('Assinatura do Director', W/2, y+5, {align:'center'});
 
-    /* Signature title — coloured */
-    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(14,124,123);
-    doc.text('Assinatura do Director',mg,y+8);
+    /* Handwritten name — centred */
+    doc.setFont('times', 'italic');doc.setFontSize(12);doc.setTextColor(40,40,40);
+    doc.text('Gildo Angélica Dove', W/2, y+13, {align:'center'});
 
-    /* Handwritten name */
-    doc.setFont('helvetica','italic');doc.setFontSize(11);doc.setTextColor(40,40,40);
-    doc.text('Gildo Angélica Dove',mg,y+17);
+    /* Date line — centred */
+    doc.setFont('helvetica','normal');doc.setFontSize(8.5);doc.setTextColor(80,80,80);
+    doc.text(dayStr, W/2, y+21, {align:'center'});
 
-    y+=22;
+    /* STAMP - placed OVER the signature (centered on the signature area) */
+    const stX = (W/2) - 35;   // Centered (width 70)
+    const stY = y + 7;        // Over the signature lines
+    const stW = 70;
+    const stH = 22;
 
-    /* Date line */
-    doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(80,80,80);
-    doc.text(dayStr,mg,y);
-    y+=10;
+
+    doc.setFillColor(255, 255, 245);
+    doc.setDrawColor(100, 180, 170);
+    doc.setLineWidth(1.2);
+    doc.roundedRect(stX, stY, stW, stH, 4, 4, 'S');
+    doc.setLineWidth(0.5);
+    doc.setDrawColor(100, 180, 170);
+    doc.roundedRect(stX+1.5, stY+1.5, stW-3, stH-3, 3, 3, 'S');
+
+    // Reset opacity for text
+    doc.setGState(new doc.GState({ opacity: 1 }));
+
+    /* Stamp text */
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(8);
+    doc.setTextColor(14,124,123);
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(6.5);
+    doc.setTextColor(100,100,100);
+    doc.text('DoveLingua', stX+stW/2, stY+18.5, {align:'center'});
+
+    y += 32;
 
     /* FOOTER */
     doc.setFillColor(11,37,69);doc.rect(0,y+2,W,18,'F');
