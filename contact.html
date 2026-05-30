@@ -1,866 +1,1002 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Contact Us — DoveLingua English Learning Academy</title>
-<meta name="description" content="Get in touch with DoveLingua English Learning Academy. Contact Teacher Dove by WhatsApp, email, phone or Facebook. We are here to help you start your English journey."/>
-<meta name="keywords" content="DoveLingua contact, English learning Mozambique, Teacher Dove, DoveLingua WhatsApp, learn English Maputo"/>
-<meta property="og:title" content="Contact DoveLingua English Learning Academy"/>
-<meta property="og:description" content="Reach out to DoveLingua — by WhatsApp, email, phone or Facebook. We answer every message."/>
-<meta property="og:type" content="website"/>
-<meta property="og:url" content="https://www.dovelingua.com/contact.html"/>
-<link rel="canonical" href="https://www.dovelingua.com/contact.html"/>
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"EducationalOrganization",
-  "name":"DoveLingua English Learning Academy",
-  "url":"https://www.dovelingua.com",
-  "email":"info@dovelingua.com",
-  "telephone":"+258828920143",
-  "address":{"@type":"PostalAddress","addressCountry":"MZ"},
-  "sameAs":["https://www.facebook.com/DoveLingua"]
-}
-</script>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-<style>
-:root{
-  --g:#059669;--gm:#10b981;--gd:#047857;--gl:#34d399;--gw:#f0fdf4;
-  --ch:#1f2937;--gray:#64748b;--white:#ffffff;--bdr:#d1fae5;
-  --btn:#0284c7;--btn-h:#0369a1;
-  --r:16px;--rsm:10px;
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{font-family:'Inter',sans-serif;color:var(--ch);background:var(--white);overflow-x:hidden;}
-a{text-decoration:none;color:inherit;}
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contacto - DoveLingua English Learning Academy</title>
+  <meta name="description" content="Entre em contacto com a DoveLingua. WhatsApp, email ou formulário - respondemos a todas as mensagens."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --g:#059669;--gd:#047857;--gm:#10b981;--gl:#d1fae5;--gx:#f0fdf4;
+      --navy:#0B2545;--navy2:#1e3a5f;
+      --gold:#E2B13C;--gold-l:#fef3c7;
+      --teal:#0E7C7B;--teal-l:#e0f2f1;
+      --tort:#2ab7ca;--tort-l:rgba(42,183,202,0.1);
+      --white:#fff;--cream:#fafaf8;
+      --text:#1a2e1a;--text-mid:#374151;--text-light:#6b7280;
+      --border:#e5e7eb;--r:14px;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);line-height:1.7;overflow-x:hidden;}
 
-/* PAGE TRANSITION */
-.page-transition{position:fixed;inset:0;background:linear-gradient(135deg,var(--gd),var(--g));z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s;}
-.page-transition.active{opacity:1;pointer-events:all;}
-.pt-logo{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--white);letter-spacing:2px;}
-.pt-dot{display:inline-block;animation:ptdot 1s infinite;}
-.pt-dot:nth-child(2){animation-delay:.2s;}
-.pt-dot:nth-child(3){animation-delay:.4s;}
-@keyframes ptdot{0%,80%,100%{opacity:.3;transform:translateY(0);}40%{opacity:1;transform:translateY(-6px);}}
+    /* ══ NAV ══ */
+    nav{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid var(--border);padding:0 clamp(1rem,4vw,2.5rem);display:flex;align-items:center;justify-content:space-between;height:64px;}
+    .nav-left{display:flex;align-items:center;gap:1rem;}
+    .hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+    .hamburger span{display:block;width:22px;height:2px;background:var(--text-mid);border-radius:2px;}
+    .nav-brand{text-decoration:none;font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;color:var(--g);}
+    .nav-centre{display:flex;gap:0.1rem;list-style:none;position:absolute;left:50%;transform:translateX(-50%);}
+    .nav-centre a{text-decoration:none;font-size:0.81rem;font-weight:500;color:var(--text-mid);padding:0.38rem 0.6rem;border-radius:6px;transition:background .2s,color .2s;}
+    .nav-centre a:hover{background:var(--gx);color:var(--g);}
+    .nav-centre a.active{color:var(--g);background:var(--gx);}
+    .nav-right{display:flex;align-items:center;gap:0.6rem;}
+    .lang-toggle{display:flex;border:1.5px solid var(--border);border-radius:20px;overflow:hidden;}
+    .lang-toggle button{border:none;background:transparent;padding:0.28rem 0.72rem;cursor:pointer;color:var(--text-light);font-size:0.72rem;font-weight:700;transition:background .2s,color .2s;}
+    .lang-toggle button.active{background:var(--g);color:#fff;}
+    .profile-icon{width:34px;height:34px;border-radius:50%;background:var(--gx);border:1.5px solid var(--gl);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1rem;}
+    .btn-enrol-nav{background:var(--navy);color:#fff;border:none;padding:0.42rem 1rem;border-radius:20px;font-size:0.78rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background .2s;white-space:nowrap;}
+    .btn-enrol-nav:hover{background:var(--gd);}
+    @media(max-width:860px){.nav-centre,.btn-enrol-nav{display:none;}}
 
-/* NAV */
-nav{position:sticky;top:0;z-index:999;background:var(--white);border-bottom:1px solid var(--bdr);padding:0 5%;}
-.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;}
-.nav-brand{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--gd);cursor:pointer;}
-.nav-right{display:flex;align-items:center;gap:10px;}
-.lang-toggle{display:flex;background:var(--gw);border:1px solid var(--bdr);border-radius:20px;overflow:hidden;font-size:12px;font-weight:600;}
-.lang-toggle button{padding:5px 13px;border:none;background:transparent;cursor:pointer;color:var(--gray);transition:all .2s;}
-.lang-toggle button.active{background:var(--g);color:var(--white);}
-.nav-back{display:flex;align-items:center;gap:6px;background:var(--gw);border:1px solid var(--bdr);border-radius:20px;padding:6px 14px;font-size:13px;font-weight:600;color:var(--gd);cursor:pointer;transition:all .2s;}
-.nav-back:hover{background:var(--bdr);}
-.hamburger{background:none;border:none;cursor:pointer;padding:6px;display:flex;flex-direction:column;gap:4px;}
-.hamburger span{display:block;width:22px;height:2px;background:var(--gd);border-radius:2px;}
+    /* ══ SIDE MENU ══ */
+    .so{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1100;}
+    .so.open{display:block;}
+    .sm{position:fixed;top:0;left:-280px;width:280px;height:100%;background:#fff;z-index:1200;transition:left .3s ease;display:flex;flex-direction:column;overflow:hidden;}
+    .sm.open{left:0;}
+    .sm-hdr{display:flex;align-items:center;padding:1rem 1rem 0.8rem;border-bottom:1px solid var(--border);gap:0.8rem;}
+    .sm-cl{background:none;border:1px solid var(--border);border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:1rem;color:var(--text-mid);}
+    .sb{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--g);}
+    .sm-nav{flex:1;overflow-y:auto;padding:0.5rem 0;}
+    .sm-nav a{display:flex;align-items:center;gap:0.75rem;padding:0.65rem 1.2rem;font-size:0.88rem;font-weight:500;color:var(--text-mid);text-decoration:none;cursor:pointer;transition:background .15s,color .15s;}
+    .sm-nav a:hover{background:var(--gx);color:var(--g);}
+    .mi{font-size:1rem;width:20px;text-align:center;}
+    .sdiv{height:1px;background:var(--border);margin:0.35rem 1.2rem;}
+    .bsoon{background:var(--gx);color:var(--g);font-size:0.62rem;font-weight:700;padding:0.15rem 0.45rem;border-radius:8px;margin-left:auto;}
+    .sm-ft{padding:1rem 1.2rem;border-top:1px solid var(--border);}
+    .sm-ft p{font-style:italic;font-size:0.75rem;color:var(--text-light);line-height:1.55;}
 
-/* SIDE MENU */
-.side-overlay{position:fixed;inset:0;background:rgba(4,120,87,.3);z-index:1100;opacity:0;pointer-events:none;transition:opacity .3s;}
-.side-overlay.open{opacity:1;pointer-events:all;}
-.side-menu{position:fixed;left:-300px;top:0;bottom:0;width:280px;background:var(--white);z-index:1101;transition:left .32s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column;}
-.side-menu.open{left:0;}
-.side-hdr{background:linear-gradient(160deg,var(--gd),var(--g));padding:26px 20px 18px;color:var(--white);position:relative;}
-.side-hdr .sbrand{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;}
-.side-close{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.15);border:none;color:var(--white);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;}
-.side-nav{padding:8px 0;flex:1;}
-.side-nav a{display:flex;align-items:center;gap:12px;padding:12px 20px;font-size:14px;font-weight:500;color:var(--ch);transition:background .15s;border-left:3px solid transparent;}
-.side-nav a:hover{background:var(--gw);border-left-color:var(--g);color:var(--gd);}
-.side-nav .mi{font-size:15px;width:18px;text-align:center;}
-.sdiv{height:1px;background:var(--bdr);margin:6px 20px;}
-.bsoon{font-size:10px;background:#fef9c3;color:#854d0e;padding:2px 7px;border-radius:10px;margin-left:auto;font-weight:600;}
-.side-footer{padding:16px 20px;border-top:1px solid var(--bdr);background:var(--gw);}
-.side-footer p{font-size:11px;color:var(--gray);line-height:1.5;font-style:italic;}
+    /* ══ TOAST ══ */
+    .tw{position:fixed;top:76px;right:18px;z-index:9000;display:flex;flex-direction:column;gap:8px;max-width:320px;}
+    .tm{background:#fff;border-radius:10px;box-shadow:0 4px 18px rgba(13,27,42,.13);padding:11px 15px;display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--text);line-height:1.5;transform:translateX(110%);transition:transform .32s cubic-bezier(.4,0,.2,1);border-left:4px solid var(--g);}
+    .tm.show{transform:translateX(0);}
+    .tm.e{border-left-color:#dc2626;}
+    .tm.w{border-left-color:var(--gold);}
 
-/* HERO */
-.contact-hero{background:linear-gradient(150deg,#065f46 0%,var(--gd) 40%,var(--g) 80%,#6ee7b7 100%);padding:56px 5% 64px;text-align:center;position:relative;overflow:hidden;}
-.contact-hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/svg%3E");}
-.hero-inner{position:relative;max-width:640px;margin:0 auto;}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:var(--white);padding:7px 18px;border-radius:30px;font-size:12px;font-weight:600;margin-bottom:20px;letter-spacing:.5px;}
-.contact-hero h1{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,54px);font-weight:700;color:var(--white);line-height:1.15;margin-bottom:16px;}
-.contact-hero h1 em{font-style:normal;color:#a7f3d0;}
-.contact-hero p{font-size:16px;color:rgba(255,255,255,.82);line-height:1.7;max-width:500px;margin:0 auto;}
+    /* ══ SPINNER ══ */
+    .spin-ov{position:fixed;inset:0;background:rgba(11,37,69,0.65);z-index:8000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:1rem;}
+    .spin-ov.on{display:flex;}
+    .spin{width:48px;height:48px;border:4px solid rgba(255,255,255,0.2);border-top-color:#fff;border-radius:50%;animation:sp .9s linear infinite;}
+    @keyframes sp{to{transform:rotate(360deg);}}
+    .spin-ov p{color:#fff;font-size:0.9rem;}
 
-/* QUICK CONTACT STRIP */
-.quick-strip{background:var(--ch);padding:0 5%;}
-.quick-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:center;flex-wrap:wrap;}
-.quick-item{display:flex;align-items:center;gap:10px;padding:18px 24px;color:rgba(255,255,255,.8);font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;border-bottom:2px solid transparent;}
-.quick-item:hover{color:var(--white);border-bottom-color:var(--gl);}
-.quick-item .qi-ico{font-size:18px;}
+    /* ══ HERO ══ */
+    .hero{
+      background:linear-gradient(135deg,#0a1a2e 0%,var(--navy) 40%,#0a2a1a 100%);
+      border-top:5px solid var(--teal);
+      padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,5vw,4rem) 0;
+      position:relative;overflow:hidden;
+    }
+    .hero::before{content:'';position:absolute;inset:0;
+      background:radial-gradient(ellipse at 15% 60%,rgba(14,124,123,0.15) 0%,transparent 50%),
+                  radial-gradient(ellipse at 85% 20%,rgba(5,150,105,0.12) 0%,transparent 50%);}
+    .hero-inner{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding-bottom:3rem;}
+    .hero-title-card{background:rgba(255,255,255,0.07);border:1.5px solid rgba(14,124,123,0.45);border-radius:16px;padding:1.6rem 2.5rem 1.8rem;text-align:center;margin-bottom:2rem;}
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(14,124,123,0.18);border:1px solid rgba(14,124,123,0.4);color:#5eead4;font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.28rem 0.9rem;border-radius:20px;margin-bottom:1rem;}
+    .hero-title-card h1{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.8rem);font-weight:700;color:#fff;line-height:1.2;}
+    .hero-title-card h1 em{color:#5eead4;font-style:italic;}
+    .hero-desc{font-size:0.93rem;color:rgba(255,255,255,0.68);text-align:center;max-width:520px;margin:0.7rem auto 0;line-height:1.75;}
+    /* Pills */
+    .hero-pills{display:flex;justify-content:center;gap:0.7rem;flex-wrap:wrap;}
+    .hero-pill{display:inline-flex;align-items:center;gap:0.4rem;padding:0.45rem 1.1rem;border-radius:30px;font-size:0.82rem;font-weight:700;color:#fff;white-space:nowrap;}
+    .hp1{background:rgba(14,124,123,0.2);border:1.5px solid rgba(14,124,123,0.5);}
+    .hp2{background:rgba(5,150,105,0.15);border:1.5px solid rgba(5,150,105,0.4);}
+    .hp3{background:rgba(226,177,60,0.15);border:1.5px solid rgba(226,177,60,0.4);}
+    .hp4{background:rgba(42,183,202,0.15);border:1.5px solid rgba(42,183,202,0.4);}
 
-/* MAIN LAYOUT */
-.contact-main{padding:64px 5%;background:var(--gw);}
-.contact-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1.4fr;gap:40px;align-items:start;}
+    /* ══ QUICK CHANNEL STRIP ══ */
+    .channel-strip{background:var(--navy);padding:0.8rem clamp(1.5rem,5vw,4rem);}
+    .channel-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:0.8rem;flex-wrap:wrap;}
+    .ch-btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.1rem;border-radius:30px;font-size:0.8rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s;border:1.5px solid transparent;color:#fff;}
+    .ch-wa{background:#25D366;border-color:#25D366;}
+    .ch-wa:hover{background:#128C7E;border-color:#128C7E;}
+    .ch-wa2{background:rgba(37,211,102,0.15);border-color:rgba(37,211,102,0.4);}
+    .ch-wa2:hover{background:#25D366;border-color:#25D366;}
+    .ch-fb{background:#1877F2;border-color:#1877F2;}
+    .ch-fb:hover{background:#1565C0;border-color:#1565C0;}
+    .ch-em{background:rgba(14,124,123,0.2);border-color:var(--teal);}
+    .ch-em:hover{background:var(--teal);border-color:var(--teal);}
+    .ch-ceo{background:rgba(226,177,60,0.15);border-color:var(--gold);}
+    .ch-ceo:hover{background:rgba(226,177,60,0.3);}
 
-/* CONTACT CARDS */
-.contact-cards{display:flex;flex-direction:column;gap:16px;}
-.ccard{background:var(--white);border-radius:var(--r);border:1px solid var(--bdr);padding:22px 24px;transition:all .28s;cursor:pointer;position:relative;overflow:hidden;}
-.ccard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--g);border-radius:4px 0 0 4px;transform:scaleY(0);transition:transform .25s;}
-.ccard:hover{transform:translateX(4px);box-shadow:0 8px 28px rgba(5,150,105,.12);}
-.ccard:hover::before{transform:scaleY(1);}
-.ccard-top{display:flex;align-items:center;gap:14px;margin-bottom:10px;}
-.ccard-ico{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
-.ccard-ico.green{background:var(--gw);}
-.ccard-ico.wa{background:#e7fef0;}
-.ccard-ico.fb{background:#e8f0fe;}
-.ccard-ico.ph{background:#fff7ed;}
-.ccard-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--gd);margin-bottom:2px;}
-.ccard-label{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.5px;font-weight:600;}
-.ccard-desc{font-size:13px;color:var(--gray);line-height:1.6;margin-bottom:14px;}
-.ccard-links{display:flex;flex-direction:column;gap:6px;}
-.clink{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--btn);font-weight:500;transition:gap .2s;}
-.clink:hover{gap:12px;}
-.clink .cl-arrow{font-size:12px;}
+    /* ══ MAIN ══ */
+    .main-wrap{max-width:1080px;margin:0 auto;padding:clamp(2.5rem,5vw,4rem) clamp(1.5rem,5vw,4rem);}
+    .main-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:2.5rem;align-items:start;}
 
-/* EMAILS GRID */
-.email-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;}
-.email-chip{background:var(--gw);border:1px solid var(--bdr);border-radius:var(--rsm);padding:8px 12px;font-size:12px;color:var(--gd);font-weight:500;transition:all .2s;cursor:pointer;display:flex;align-items:center;gap:6px;}
-.email-chip:hover{background:var(--bdr);transform:translateY(-1px);}
-.email-chip .ec-ico{font-size:14px;}
+    /* ══ LEFT COLUMN ══ */
+    .left-col{display:flex;flex-direction:column;gap:1.2rem;}
 
-/* FORM SECTION */
-.form-section{background:var(--white);border-radius:var(--r);border:1px solid var(--bdr);padding:36px;position:sticky;top:80px;}
-.form-section h2{font-family:'Playfair Display',serif;font-size:clamp(22px,2.5vw,30px);color:var(--gd);margin-bottom:6px;}
-.form-section p{font-size:13px;color:var(--gray);line-height:1.6;margin-bottom:28px;}
-.form-tabs{display:flex;gap:2px;background:var(--gw);border-radius:var(--rsm);padding:3px;margin-bottom:24px;}
-.ftab{flex:1;padding:9px;border:none;background:transparent;border-radius:8px;font-size:13px;font-weight:600;color:var(--gray);cursor:pointer;transition:all .2s;}
-.ftab.active{background:var(--white);color:var(--gd);box-shadow:0 1px 4px rgba(0,0,0,.08);}
-.form-panel{display:none;}
-.form-panel.active{display:block;}
-.field{margin-bottom:16px;}
-.field label{display:block;font-size:12px;font-weight:600;color:var(--gd);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px;}
-.field input,.field select,.field textarea{width:100%;padding:12px 14px;border:1.5px solid var(--bdr);border-radius:var(--rsm);font-size:14px;font-family:'Inter',sans-serif;color:var(--ch);background:var(--gw);outline:none;transition:border-color .2s;}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--g);}
-.field textarea{resize:vertical;min-height:100px;line-height:1.6;}
-.field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.char-count{font-size:11px;color:var(--gray);text-align:right;margin-top:4px;}
+    /* Contact card */
+    .ccard{
+      background:#fff;border:1.5px solid var(--border);border-radius:var(--r);
+      overflow:hidden;transition:transform .2s,box-shadow .2s;
+      position:relative;
+    }
+    .ccard:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(11,37,69,0.1);}
+    .ccard-bar{height:4px;}
+    .cb-wa{background:linear-gradient(90deg,#25D366,#128C7E);}
+    .cb-wa2{background:linear-gradient(90deg,#128C7E,#25D366);}
+    .cb-em{background:linear-gradient(90deg,var(--teal),var(--tort));}
+    .cb-ceo{background:linear-gradient(90deg,var(--gold),#f59e0b);}
+    .cb-fb{background:linear-gradient(90deg,#1877F2,#42A5F5);}
+    .cb-ch{background:linear-gradient(90deg,var(--g),var(--gm));}
+    .ccard-body{padding:1.2rem 1.4rem 1.4rem;}
+    .ccard-top{display:flex;align-items:center;gap:0.9rem;margin-bottom:0.7rem;}
+    .ccard-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+    .ci-wa{background:#e7fef0;}
+    .ci-em{background:var(--teal-l);}
+    .ci-ceo{background:var(--gold-l);}
+    .ci-fb{background:#e8f0fe;}
+    .ci-ch{background:var(--gx);}
+    .ccard-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--navy);}
+    .ccard-badge{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;padding:0.18rem 0.6rem;border-radius:8px;margin-top:0.15rem;display:inline-block;}
+    .badge-fastest{background:#dcfce7;color:#166534;}
+    .badge-formal{background:var(--teal-l);color:var(--teal);}
+    .badge-ceo{background:var(--gold-l);color:#78350f;}
+    .badge-calls{background:#fef3c7;color:#92400e;}
+    .badge-social{background:#e8f0fe;color:#1e40af;}
+    .ccard-desc{font-size:0.82rem;color:var(--text-light);line-height:1.65;margin-bottom:0.9rem;}
+    .ccard-action{display:inline-flex;align-items:center;gap:0.5rem;padding:0.55rem 1.2rem;border-radius:30px;font-size:0.82rem;font-weight:700;cursor:pointer;text-decoration:none;transition:all .2s;border:none;}
+    .ca-wa{background:#25D366;color:#fff;}
+    .ca-wa:hover{background:#128C7E;}
+    .ca-em{background:var(--teal);color:#fff;}
+    .ca-em:hover{background:var(--gd);}
+    .ca-ceo{background:var(--gold);color:var(--navy);}
+    .ca-ceo:hover{background:#c99a30;}
+    .ca-calls{background:var(--navy);color:#fff;}
+    .ca-calls:hover{background:var(--navy2);}
+    .ca-fb{background:#1877F2;color:#fff;}
+    .ca-fb:hover{background:#1565C0;}
+    .ca-ghost{background:var(--gx);color:var(--gd);border:1px solid var(--gl);}
+    .ca-ghost:hover{background:var(--gl);}
 
-/* RESPONSE TIME BADGE */
-.resp-badge{display:flex;align-items:center;gap:8px;background:var(--gw);border:1px solid var(--bdr);border-radius:var(--rsm);padding:10px 14px;margin-bottom:20px;font-size:12px;color:var(--gd);}
-.resp-dot{width:8px;height:8px;border-radius:50%;background:var(--g);animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.3);}}
+    /* Response time card */
+    .resp-card{
+      background:linear-gradient(135deg,var(--navy),#1a3a2a);
+      border-radius:var(--r);padding:1.3rem 1.5rem;
+      display:flex;align-items:center;gap:1rem;
+    }
+    .resp-dot{width:10px;height:10px;border-radius:50%;background:#22c55e;flex-shrink:0;animation:pulse 2s infinite;}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.4);}}
+    .resp-text h4{font-size:0.85rem;font-weight:700;color:#fff;margin-bottom:0.1rem;}
+    .resp-text p{font-size:0.75rem;color:rgba(255,255,255,0.55);line-height:1.5;}
 
-/* SUCCESS STATE */
-.form-success{display:none;text-align:center;padding:20px 0;}
-.fs-ico{font-size:56px;margin-bottom:16px;}
-.form-success h3{font-family:'Playfair Display',serif;font-size:22px;color:var(--gd);margin-bottom:8px;}
-.form-success p{font-size:14px;color:var(--gray);line-height:1.7;}
-.fs-name{font-weight:600;color:var(--g);}
+    /* Hours grid */
+    .hours-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;}
+    .hours-header{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:0.9rem 1.2rem;}
+    .hours-header h3{font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--gold);}
+    .hours-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+    .hour-item{padding:0.7rem 0.5rem;text-align:center;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+    .hour-item:nth-child(4n){border-right:none;}
+    .hour-item:nth-last-child(-n+4){border-bottom:none;}
+    .hi-day{font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-light);margin-bottom:0.25rem;}
+    .hi-time{font-size:0.75rem;font-weight:700;color:var(--navy);}
+    .hi-time.closed{color:var(--text-light);font-size:0.68rem;}
 
-/* FAQ TEASER */
-.faq-teaser{background:var(--white);padding:56px 5%;}
-.faq-inner{max-width:1200px;margin:0 auto;}
-.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;}
-.faq-item{background:var(--gw);border:1px solid var(--bdr);border-radius:var(--r);padding:22px 24px;cursor:pointer;transition:all .25s;}
-.faq-item:hover{background:var(--white);box-shadow:0 6px 20px rgba(5,150,105,.1);}
-.faq-q{font-size:14px;font-weight:600;color:var(--gd);margin-bottom:8px;display:flex;align-items:flex-start;gap:8px;}
-.faq-q::before{content:'Q';background:var(--g);color:var(--white);font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;margin-top:1px;flex-shrink:0;}
-.faq-a{font-size:13px;color:var(--gray);line-height:1.65;}
+    /* ══ RIGHT COLUMN - FORM ══ */
+    .form-card{
+      background:#fff;
+      border:2px solid var(--teal);
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow:0 4px 32px rgba(14,124,123,0.1);
+      position:sticky;top:80px;
+    }
+    .form-header{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:1.5rem 2rem;}
+    .form-header h2{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gold);margin-bottom:0.2rem;}
+    .form-header p{font-size:0.82rem;color:rgba(255,255,255,0.55);}
 
-/* OFFICE HOURS */
-.hours-sec{background:linear-gradient(135deg,#065f46,var(--gd) 55%,var(--gm));padding:56px 5%;text-align:center;color:var(--white);}
-.hours-inner{max-width:800px;margin:0 auto;}
-.hours-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-top:36px;}
-.hour-card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:var(--r);padding:22px 16px;text-align:center;}
-.hour-card .hc-day{font-size:12px;font-weight:600;opacity:.7;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
-.hour-card .hc-time{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;}
-.hour-card.closed .hc-time{opacity:.45;font-size:14px;}
+    /* Tabs */
+    .form-tabs{display:flex;background:var(--cream);border-bottom:1px solid var(--border);}
+    .ftab{flex:1;padding:0.8rem;border:none;background:transparent;font-size:0.8rem;font-weight:600;color:var(--text-light);cursor:pointer;transition:all .2s;border-bottom:2px solid transparent;display:flex;align-items:center;justify-content:center;gap:0.3rem;}
+    .ftab:hover{color:var(--teal);}
+    .ftab.active{color:var(--teal);border-bottom-color:var(--teal);background:#fff;}
 
-/* FOOTER */
-footer{background:#111827;color:var(--white);padding:52px 5% 28px;}
-.fg{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px;text-align:center;}
-.fb-brand .fname{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;margin-bottom:10px;}
-.fb-brand p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.7;margin-bottom:18px;}
-.fsoc{display:flex;gap:10px;justify-content:center;}
-.fsocb{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;}
-.fsocb:hover{background:var(--g);}
-.fcol h4{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#34d399;margin-bottom:14px;}
-.fcol a{display:block;font-size:13px;color:rgba(255,255,255,.6);margin-bottom:9px;transition:color .18s;}
-.fcol a:hover{color:var(--gl);}
-.fbot{max-width:1200px;margin:0 auto;border-top:1px solid rgba(255,255,255,.08);padding-top:22px;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:16px;text-align:center;}
-.fbot p{font-size:12px;color:rgba(255,255,255,.3);}
-.fbot a{color:rgba(255,255,255,.4);font-size:12px;}
-.fbot a:hover{color:var(--white);}
+    .form-body{padding:1.6rem 2rem 2rem;}
 
-/* WA FAB */
-.wa-fab{position:fixed;bottom:24px;right:24px;z-index:900;width:52px;height:52px;border-radius:50%;background:#25D366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:all .3s;}
-.wa-fab:hover{transform:scale(1.1);}
-.wa-fab svg{width:26px;height:26px;fill:var(--white);}
+    /* Field */
+    .f{margin-bottom:1rem;}
+    .f label{display:block;font-size:0.72rem;font-weight:700;color:var(--navy);margin-bottom:0.45rem;text-transform:uppercase;letter-spacing:0.04em;}
+    .f label .req{color:#dc2626;margin-left:2px;}
+    .f input,.f select,.f textarea{width:100%;padding:0.8rem 1rem;border:2px solid var(--teal);border-radius:10px;font-size:0.9rem;font-family:'Inter',sans-serif;color:var(--text);outline:none;transition:all .2s;background:#fff;}
+    .f input:focus,.f select:focus,.f textarea:focus{border-color:var(--g);background:var(--gx);}
+    .f input.ok,.f select.ok,.f textarea.ok{border-color:var(--g);background:var(--gx);}
+    .f textarea{resize:vertical;min-height:100px;line-height:1.65;}
+    .f-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+    .char-info{font-size:0.72rem;color:var(--text-light);text-align:right;margin-top:0.3rem;}
 
-/* BUTTONS */
-.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:50px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:all .22s;}
-.btn-blue{background:var(--btn);color:var(--white);}
-.btn-blue:hover{background:var(--btn-h);transform:translateY(-2px);}
-.btn-g{background:var(--g);color:var(--white);}
-.btn-g:hover{background:var(--gd);transform:translateY(-2px);}
-.btn-o{background:transparent;color:var(--btn);border:2px solid var(--btn);}
-.btn-o:hover{background:#e0f2fe;}
-.btn-sm{padding:9px 20px;font-size:13px;}
-.btn-full{width:100%;justify-content:center;}
+    /* Panel */
+    .panel{display:none;}
+    .panel.active{display:block;}
 
-/* STAG */
-.stag-head{display:inline-block;background:var(--g);color:var(--white);font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,40px);font-weight:700;padding:10px 28px;border-radius:12px;line-height:1.2;margin-bottom:10px;}
-.sub-head{font-family:'Playfair Display',serif;font-size:clamp(17px,2vw,24px);font-weight:600;color:var(--gd);margin-bottom:10px;}
+    /* Submit */
+    .btn-send{width:100%;background:linear-gradient(135deg,var(--teal),var(--gd));color:#fff;border:none;border-radius:50px;padding:0.95rem;font-size:0.95rem;font-weight:700;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:0.6rem;box-shadow:0 4px 20px rgba(14,124,123,0.3);margin-top:0.5rem;}
+    .btn-send:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(14,124,123,0.4);}
 
-/* COPY TOAST */
-.toast{position:fixed;bottom:90px;right:24px;z-index:9000;background:var(--ch);color:var(--white);padding:10px 18px;border-radius:var(--rsm);font-size:13px;font-weight:500;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none;}
-.toast.show{opacity:1;transform:translateY(0);}
+    /* Success */
+    .form-success{display:none;text-align:center;padding:2.5rem 2rem;}
+    .form-success.show{display:block;}
+    .suc-anim{font-size:3.5rem;display:block;animation:popIn .5s cubic-bezier(.175,.885,.32,1.275);margin-bottom:0.8rem;}
+    @keyframes popIn{0%{transform:scale(0);opacity:0;}100%{transform:scale(1);opacity:1;}}
+    .suc-title{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin-bottom:0.5rem;}
+    .suc-msg{font-size:0.88rem;color:var(--text-light);line-height:1.7;margin-bottom:1.2rem;}
+    .suc-ref{display:inline-flex;align-items:center;gap:0.6rem;background:var(--gx);border:1.5px solid var(--gl);border-radius:10px;padding:0.5rem 1rem;margin-bottom:1.2rem;}
+    .suc-ref-label{font-size:0.7rem;color:var(--text-light);}
+    .suc-ref-code{font-size:0.88rem;font-weight:700;color:var(--g);letter-spacing:1px;}
+    .btn-reset{background:var(--gx);color:var(--gd);border:1px solid var(--gl);border-radius:30px;padding:0.6rem 1.4rem;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all .2s;}
+    .btn-reset:hover{background:var(--gl);}
 
-/* RESPONSIVE */
-@media(max-width:900px){
-  .contact-grid{grid-template-columns:1fr;}
-  .form-section{position:static;}
-  .fg{grid-template-columns:1fr 1fr;}
-  .faq-grid{grid-template-columns:1fr;}
-}
-@media(max-width:600px){
-  nav{padding:0 4%;}
-  .contact-hero{padding:44px 4% 52px;}
-  .contact-main{padding:44px 4%;}
-  .faq-teaser{padding:44px 4%;}
-  .hours-sec{padding:44px 4%;}
-  .form-section{padding:24px 20px;}
-  .field-row{grid-template-columns:1fr;}
-  .email-grid{grid-template-columns:1fr;}
-  .fg{grid-template-columns:1fr;}
-  .quick-strip{padding:0 4%;}
-}
-</style>
+    /* ══ INFO SECTION ══ */
+    .info-section{background:var(--cream);padding:clamp(3rem,5vw,4.5rem) clamp(1.5rem,5vw,4rem);}
+    .info-inner{max-width:1080px;margin:0 auto;}
+    .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem;}
+    .info-card{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;border-top:4px solid;}
+    .info-card.ic1{border-top-color:var(--teal);}
+    .info-card.ic2{border-top-color:var(--g);}
+    .info-card.ic3{border-top-color:var(--gold);}
+    .info-card .ic-icon{font-size:1.8rem;display:block;margin-bottom:0.7rem;}
+    .info-card h4{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:var(--navy);margin-bottom:0.4rem;}
+    .info-card p{font-size:0.8rem;color:var(--text-light);line-height:1.65;}
+
+    /* ══ FAQ TEASER ══ */
+    .faq-section{background:#fff;padding:clamp(3rem,5vw,4.5rem) clamp(1.5rem,5vw,4rem);}
+    .faq-inner{max-width:1080px;margin:0 auto;}
+    .sec-title{font-family:'Playfair Display',serif;font-weight:700;color:var(--navy);font-size:clamp(1.4rem,2.5vw,2rem);padding-left:0.8rem;border-left:4px solid var(--teal);margin-bottom:0.4rem;}
+    .sec-sub{font-size:0.88rem;color:var(--text-light);padding-left:0.8rem;margin-bottom:0.8rem;}
+    .divider-teal{width:52px;height:3px;background:linear-gradient(90deg,var(--teal),var(--g));border-radius:2px;margin:0.5rem 0 1.5rem 0.8rem;}
+    .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem;}
+    .faq-item{background:var(--cream);border:1px solid var(--border);border-left:4px solid var(--teal);border-radius:var(--r);padding:1.2rem 1.4rem;cursor:pointer;transition:all .22s;}
+    .faq-item:hover{background:#fff;box-shadow:0 4px 16px rgba(14,124,123,0.1);transform:translateY(-1px);}
+    .faq-q{font-size:0.88rem;font-weight:700;color:var(--navy);margin-bottom:0.4rem;}
+    .faq-a{font-size:0.8rem;color:var(--text-light);line-height:1.65;}
+    .btn-faq-all{display:inline-flex;align-items:center;gap:0.5rem;background:var(--navy);color:#fff;border:none;border-radius:30px;padding:0.75rem 1.8rem;font-size:0.88rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s;}
+    .btn-faq-all:hover{background:var(--teal);}
+
+    /* ══ CONNECTED PAGES ══ */
+    .connected-section{background:var(--cream);padding:2.5rem clamp(1.5rem,5vw,4rem);}
+    .conn-inner{max-width:1080px;margin:0 auto;}
+    .conn-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:1.2rem;}
+    .conn-card{display:flex;flex-direction:column;align-items:center;gap:0.35rem;padding:1rem 0.7rem;background:#fff;border:1.5px solid var(--border);border-radius:var(--r);cursor:pointer;text-decoration:none;transition:all .2s;}
+    .conn-card:hover{border-color:var(--teal);transform:translateY(-2px);box-shadow:0 4px 16px rgba(14,124,123,0.1);}
+    .cc-icon{font-size:1.3rem;}
+    .cc-label{font-size:0.75rem;font-weight:600;color:var(--navy);text-align:center;}
+    .cc-sub{font-size:0.65rem;color:var(--text-light);text-align:center;}
+
+    /* ══ FOOTER ══ */
+    footer{background:var(--navy);color:#fff;padding:48px 5% 26px;text-align:center;}
+    .fg{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:32px;text-align:center;}
+    .fb .fname{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:10px;color:#fff;}
+    .fb p{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;margin-bottom:16px;}
+    .fsoc{display:flex;gap:10px;justify-content:center;}
+    .fsb{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;text-decoration:none;}
+    .fsb:hover{background:var(--g);}
+    .fc h4{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--gm);margin-bottom:12px;}
+    .fc a{display:block;font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:8px;cursor:pointer;transition:color .18s;text-decoration:none;}
+    .fc a:hover{color:var(--gold);}
+    .fbot{max-width:1100px;margin:0 auto;border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:14px;}
+    .fbot p{font-size:12px;color:rgba(255,255,255,0.3);}
+    .fbot a{color:rgba(255,255,255,0.4);font-size:12px;cursor:pointer;text-decoration:none;}
+    .fbot a:hover{color:rgba(255,255,255,0.7);}
+    .waf{position:fixed;bottom:22px;right:22px;z-index:900;width:50px;height:50px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(37,211,102,.4);transition:all .3s;text-decoration:none;}
+    .waf:hover{transform:scale(1.1);}
+    .waf svg{width:26px;height:26px;fill:#fff;}
+
+    /* ══ RESPONSIVE ══ */
+    @media(max-width:860px){
+      .main-grid{grid-template-columns:1fr;}
+      .form-card{position:static;}
+      .info-grid{grid-template-columns:1fr;}
+      .faq-grid{grid-template-columns:1fr;}
+      .conn-grid{grid-template-columns:repeat(2,1fr);}
+      .fg{grid-template-columns:1fr 1fr;}
+    }
+    @media(max-width:480px){
+      .fg{grid-template-columns:1fr;}
+      .f-row{grid-template-columns:1fr;}
+      .hours-grid{grid-template-columns:repeat(2,1fr);}
+      .conn-grid{grid-template-columns:repeat(2,1fr);}
+      .channel-inner{gap:0.5rem;}
+      .ch-btn{font-size:0.72rem;padding:0.45rem 0.9rem;}
+    }
+
+    .fade-up{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease;}
+    .fade-up.visible{opacity:1;transform:translateY(0);}
+  </style>
 </head>
 <body>
 
-<!-- PAGE TRANSITION OVERLAY -->
-<div class="page-transition" id="pageTransition">
-  <div class="pt-logo">DoveLingua<span class="pt-dot">.</span><span class="pt-dot">.</span><span class="pt-dot">.</span></div>
-</div>
+<div class="tw" id="tw"></div>
+<div class="spin-ov" id="spinOv"><div class="spin"></div><p data-en="Sending your message..." data-pt="A enviar a sua mensagem...">A enviar a sua mensagem...</p></div>
 
-<!-- COPY TOAST -->
-<div class="toast" id="toast"></div>
-
-<!-- NAV -->
+<!-- ══ NAV ══ -->
 <nav>
-  <div class="nav-inner">
-    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-    <div class="nav-brand" onclick="navigateTo('index.html')"> DoveLingua</div>
-    <div class="nav-right">
-      <div class="nav-back" onclick="navigateTo('index.html')">
-       <span data-lang="en">Home</span><span data-lang="pt" style="display:none">Início</span>
-      </div>
-      <div class="lang-toggle">
-        <button id="btnEN" class="active" onclick="setLang('en')">EN</button>
-        <button id="btnPT" onclick="setLang('pt')">PT</button>
-      </div>
+  <div class="nav-left">
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    <a href="index.html" class="nav-brand">DoveLingua</a>
+  </div>
+  <ul class="nav-centre">
+    <li><a href="index.html" data-en="Home" data-pt="Início">Início</a></li>
+    <li><a href="about.html" data-en="About" data-pt="Sobre">Sobre</a></li>
+    <li><a href="programme.html" data-en="Programme" data-pt="Programa">Programa</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html" class="active" data-en="Contact" data-pt="Contacto">Contacto</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+      <button id="btn-pt" class="active" onclick="setLang('pt')">PT</button>
     </div>
+    <a href="enrol.html" class="profile-icon">👤</a>
+    <a href="enrol.html" class="btn-enrol-nav" data-en="Enrol Now" data-pt="Inscrever">Inscrever</a>
   </div>
 </nav>
 
-<!-- SIDE MENU -->
-<div class="side-overlay" id="sideOv" onclick="toggleMenu()"></div>
-<div class="side-menu" id="sideMenu">
-  <div class="side-hdr">
-    <button class="side-close" onclick="toggleMenu()">✕</button>
-    <div class="sbrand"> DoveLingua Academy</div>
+<!-- ══ SIDE MENU ══ -->
+<div class="so" id="sO" onclick="toggleMenu()"></div>
+<div class="sm" id="sM">
+  <div class="sm-hdr"><button class="sm-cl" onclick="toggleMenu()">✕</button><div class="sb">DoveLingua</div></div>
+  <div class="sm-nav">
+    <a onclick="nav('index.html')"><span class="mi">🏠</span><span data-en="Home" data-pt="Início">Início</span></a>
+    <div class="sdiv"></div>
+    <a onclick="nav('about.html')"><span class="mi">📖</span><span data-en="About Us" data-pt="Sobre Nós">Sobre Nós</span></a>
+    <a onclick="nav('programme.html')"><span class="mi">📚</span><span data-en="Programme" data-pt="Programa">O Nosso Programa</span></a>
+    <a onclick="nav('enrol.html')"><span class="mi">📋</span><span data-en="Enrol" data-pt="Inscrição">Inscrição</span></a>
+    <a href="https://classroom.dovelingua.com" target="_blank"><span class="mi">💻</span>DoveLingua Classroom</a>
+    <div class="sdiv"></div>
+    <a onclick="nav('library.html')"><span class="mi">📖</span>Biblioteca<span class="bsoon">Soon</span></a>
+    <a onclick="nav('app.html')"><span class="mi">📱</span>English Dove App<span class="bsoon">Soon</span></a>
+    <div class="sdiv"></div>
+    <a onclick="nav('announcements.html')"><span class="mi">📢</span>Avisos</a>
+    <a onclick="nav('faq.html')"><span class="mi">❓</span>FAQ</a>
+    <a onclick="nav('evaluate.html')"><span class="mi">⭐</span>Avaliar DoveLingua</a>
+    <a href="https://whatsapp.com/channel/0029VbCKsViFCCoWvkhrYT2g" target="_blank"><span class="mi">📡</span>Canal WhatsApp</a>
+    <div class="sdiv"></div>
+    <a onclick="nav('donate.html')"><span class="mi">❤️</span>Apoiar DoveLingua</a>
+    <a onclick="nav('report.html')"><span class="mi">🚩</span>Reportar Problema</a>
+    <div class="sdiv"></div>
+    <a onclick="nav('contact.html')"><span class="mi">📧</span>Contactar Suporte</a>
+    <a onclick="nav('terms.html')"><span class="mi">📄</span>Termos e Políticas</a>
   </div>
-  <div class="side-nav">
-    <a onclick="navigateTo('index.html')"><span class="mi">🏠</span><span data-lang="en">Home</span><span data-lang="pt" style="display:none">Início</span></a>
-    <div class="sdiv"></div>
-    <a onclick="navigateTo('about.html')"><span class="mi">🕊️</span><span data-lang="en">About Us</span><span data-lang="pt" style="display:none">Sobre Nós</span></a>
-    <a onclick="navigateTo('programme.html')"><span class="mi">📚</span><span data-lang="en">Our Programme</span><span data-lang="pt" style="display:none">O Nosso Programa</span></a>
-    <a onclick="navigateTo('enrol.html')"><span class="mi">📋</span><span data-lang="en">Enrol Now</span><span data-lang="pt" style="display:none">Inscrever-me</span></a>
-    <a href="https://classroom.dovelingua.com" target="_blank"><span class="mi">💻</span><span data-lang="en">DoveLingua Classroom</span><span data-lang="pt" style="display:none">Sala de Aula</span></a>
-    <div class="sdiv"></div>
-    <a onclick="navigateTo('library.html')"><span class="mi">📖</span><span data-lang="en">Library</span><span data-lang="pt" style="display:none">Biblioteca</span><span class="bsoon">Soon</span></a>
-    <a onclick="navigateTo('app.html')"><span class="mi">📱</span><span data-lang="en">English Dove App</span><span data-lang="pt" style="display:none">App English Dove</span><span class="bsoon">Soon</span></a>
-    <div class="sdiv"></div>
-    <a onclick="navigateTo('announcements.html')"><span class="mi">📢</span><span data-lang="en">Announcements</span><span data-lang="pt" style="display:none">Avisos</span></a>
-    <a onclick="navigateTo('faq.html')"><span class="mi">❓</span>FAQ</a>
-    <a onclick="navigateTo('evaluate.html')"><span class="mi">⭐</span><span data-lang="en">Evaluate DoveLingua</span><span data-lang="pt" style="display:none">Avaliar DoveLingua</span></a>
-    <a href="https://whatsapp.com/channel/0029VbCKsViFCCoWvkhrYT2g" target="_blank"><span class="mi">📡</span><span data-lang="en">WhatsApp Channel</span><span data-lang="pt" style="display:none">Canal WhatsApp</span></a>
-    <div class="sdiv"></div>
-    <a onclick="navigateTo('donate.html')"><span class="mi">❤️</span><span data-lang="en">Support DoveLingua</span><span data-lang="pt" style="display:none">Apoiar DoveLingua</span></a>
-    <a onclick="navigateTo('report.html')"><span class="mi">🚩</span><span data-lang="en">Report a Problem</span><span data-lang="pt" style="display:none">Reportar Problema</span></a>
-    <div class="sdiv"></div>
-    <a onclick="navigateTo('contact.html')"><span class="mi">📧</span><span data-lang="en">Contact Support</span><span data-lang="pt" style="display:none">Contactar Suporte</span></a>
-    <a onclick="navigateTo('terms.html')"><span class="mi">📄</span><span data-lang="en">Terms &amp; Policies</span><span data-lang="pt" style="display:none">Termos e Políticas</span></a>
-  </div>
-  <div class="side-footer">
-    <p data-lang="en">"Learn English today and connect with the World tomorrow"</p>
-    <p data-lang="pt" style="display:none">"Aprende inglês hoje e conecta-te com o Mundo amanhã"</p>
+  <div class="sm-ft" onclick="handleSecretTap()" style="cursor:default;">
+    <p data-en="&ldquo;Learn English today and connect with the World tomorrow&rdquo;" data-pt="&ldquo;Aprende inglês hoje e conecta-te com o Mundo amanhã&rdquo;">&ldquo;Aprende inglês hoje e conecta-te com o Mundo amanhã&rdquo;</p>
   </div>
 </div>
 
-<!-- HERO -->
-<div class="contact-hero">
+
+<!-- ══ HERO ══ -->
+<section class="hero">
   <div class="hero-inner">
-    <div class="hero-badge">📬 <span data-lang="en">We answer every message</span><span data-lang="pt" style="display:none">Respondemos a cada mensagem</span></div>
-    <h1 data-lang="en">We are <em>here</em> for you.</h1>
-    <h1 data-lang="pt" style="display:none">Estamos <em>aqui</em> para ti.</h1>
-    <p data-lang="en">Whether you have a question about our programme, want to enrol, or just need to talk to someone — DoveLingua is always within reach. Choose how you want to connect.</p>
-    <p data-lang="pt" style="display:none">Se tens uma questão sobre o nosso programa, queres inscrever-te, ou simplesmente precisas de falar com alguém — a DoveLingua está sempre ao teu alcance. Escolhe como queres conectar.</p>
+    <div class="hero-title-card fade-up">
+      <div class="hero-eyebrow">📧 <span data-en="Get in touch" data-pt="Entre em Contacto">Entre em Contacto</span></div>
+      <h1 data-en="We are <em>here for you.</em>" data-pt="Estamos <em>aqui para si.</em>">Estamos <em>aqui para si.</em></h1>
+      <p class="hero-desc" data-en="A question, a concern, a request - every message to DoveLingua is answered with care and respect. Choose how you want to reach us." data-pt="Uma pergunta, uma preocupação, um pedido - cada mensagem à DoveLingua é respondida com cuidado e respeito. Escolha como quer contactar-nos.">Uma pergunta, uma preocupação, um pedido - cada mensagem à DoveLingua é respondida com cuidado e respeito. Escolha como quer contactar-nos.</p>
+    </div>
+    <div class="hero-pills fade-up">
+      <div class="hero-pill hp1">📬 <span data-en="Every message answered" data-pt="Respondemos a tudo">Respondemos a tudo</span></div>
+      <div class="hero-pill hp2">⚡ <span data-en="Same-day response" data-pt="Resposta no mesmo dia">Resposta no mesmo dia</span></div>
+      <div class="hero-pill hp3">🫶🏻 <span data-en="Personal & human" data-pt="Pessoal e humano">Pessoal e humano</span></div>
+      <div class="hero-pill hp4">🌍 <span data-en="Worldwide" data-pt="Worldwide">Worldwide</span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ QUICK CHANNEL STRIP ══ -->
+<div class="channel-strip">
+  <div class="channel-inner">
+    <a href="https://wa.me/258828920143" target="_blank" class="ch-btn ch-wa">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp - <span data-en="Support" data-pt="Suporte">Suporte</span>
+    </a>
+    <a href="https://wa.me/258848920143" target="_blank" class="ch-btn ch-wa2">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp - <span data-en="Alternative" data-pt="Alternativo">Alternativo</span>
+    </a>
+    <a href="mailto:contact@dovelingua.com" class="ch-btn ch-em">
+      ✉️ contact@dovelingua.com
+    </a>
+    <a href="mailto:ceo@dovelingua.com" class="ch-btn ch-ceo">
+      👨🏻‍💻 ceo@dovelingua.com
+    </a>
+    <a href="https://www.facebook.com/DoveLingua" target="_blank" class="ch-btn ch-fb">
+      📘 Facebook
+    </a>
   </div>
 </div>
 
-<!-- QUICK CONTACT STRIP -->
-<div class="quick-strip">
-  <div class="quick-inner">
-    <a href="https://wa.me/258828920143" target="_blank" class="quick-item">
-      <span class="qi-ico">💬</span> WhatsApp
-    </a>
-    <a href="tel:+258828929143" class="quick-item">
-      <span class="qi-ico">📞</span> <span data-lang="en">Call Us</span><span data-lang="pt" style="display:none">Ligar-nos</span>
-    </a>
-    <a href="mailto:info@dovelingua.com" class="quick-item">
-      <span class="qi-ico">✉️</span> Email
-    </a>
-    <a href="https://www.facebook.com/DoveLingua" target="_blank" class="quick-item">
-      <span class="qi-ico">📘</span> Facebook
-    </a>
-    <a href="https://whatsapp.com/channel/0029VbCKsViFCCoWvkhrYT2g" target="_blank" class="quick-item">
-      <span class="qi-ico">📡</span> <span data-lang="en">Channel</span><span data-lang="pt" style="display:none">Canal</span>
-    </a>
-  </div>
-</div>
 
-<!-- MAIN -->
-<div class="contact-main">
-  <div class="contact-grid">
+<!-- ══ MAIN ══ -->
+<div class="main-wrap">
+  <div class="main-grid">
 
-    <!-- LEFT: CONTACT CARDS -->
-    <div class="contact-cards">
+    <!-- LEFT COLUMN -->
+    <div class="left-col">
 
-      <!-- WhatsApp -->
-      <div class="ccard" onclick="window.open('https://wa.me/258828920143','_blank')">
-        <div class="ccard-top">
-          <div class="ccard-ico wa">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          </div>
-          <div>
-            <div class="ccard-title">WhatsApp</div>
-            <div class="ccard-label" data-lang="en">Fastest response</div>
-            <div class="ccard-label" data-lang="pt" style="display:none">Resposta mais rápida</div>
-          </div>
-        </div>
-        <p class="ccard-desc" data-lang="en">Send us a message on WhatsApp for the quickest response. We are available daily and reply within hours. Tap to open a chat now.</p>
-        <p class="ccard-desc" data-lang="pt" style="display:none">Envia-nos uma mensagem no WhatsApp para a resposta mais rápida. Estamos disponíveis diariamente e respondemos em horas. Toca para abrir uma conversa agora.</p>
-        <div class="ccard-links">
-          <a href="https://wa.me/258828920143" target="_blank" class="clink">💬 +258 82 892 0143 <span class="cl-arrow">→</span></a>
+      <!-- Response time -->
+      <div class="resp-card fade-up">
+        <div class="resp-dot"></div>
+        <div class="resp-text">
+          <h4 data-en="We are available - average response: same day" data-pt="Estamos disponíveis - resposta média: mesmo dia">Estamos disponíveis - resposta média: mesmo dia</h4>
+          <p data-en="WhatsApp is the fastest channel. Email is ideal for formal requests." data-pt="WhatsApp é o canal mais rápido. Email é ideal para pedidos formais.">WhatsApp é o canal mais rápido. Email é ideal para pedidos formais.</p>
         </div>
       </div>
 
-      <!-- Phone -->
-      <div class="ccard">
-        <div class="ccard-top">
-          <div class="ccard-ico ph">📞</div>
-          <div>
-            <div class="ccard-title" data-lang="en">Phone &amp; Calls</div>
-            <div class="ccard-title" data-lang="pt" style="display:none">Telefone e Chamadas</div>
-            <div class="ccard-label" data-lang="en">Direct voice contact</div>
-            <div class="ccard-label" data-lang="pt" style="display:none">Contacto directo por voz</div>
+      <!-- WhatsApp Support -->
+      <div class="ccard fade-up">
+        <div class="ccard-bar cb-wa"></div>
+        <div class="ccard-body">
+          <div class="ccard-top">
+            <div class="ccard-icon ci-wa">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </div>
+            <div>
+              <div class="ccard-title">WhatsApp - <span data-en="Main Support" data-pt="Suporte Principal">Suporte Principal</span></div>
+              <span class="ccard-badge badge-fastest" data-en="⚡ Fastest response" data-pt="⚡ Resposta mais rápida">⚡ Resposta mais rápida</span>
+            </div>
           </div>
+          <p class="ccard-desc" data-en="Send a message on WhatsApp for the fastest response. Available daily. Click to open a direct conversation instantly." data-pt="Envie uma mensagem no WhatsApp para a resposta mais rápida. Disponível diariamente. Clique para abrir uma conversa directa instantaneamente.">Envie uma mensagem no WhatsApp para a resposta mais rápida. Disponível diariamente. Clique para abrir uma conversa directa instantaneamente.</p>
+          <a href="https://wa.me/258828920143" target="_blank" class="ccard-action ca-wa">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span data-en="Open WhatsApp Chat" data-pt="Abrir Conversa WhatsApp">Abrir Conversa WhatsApp</span>
+          </a>
         </div>
-        <p class="ccard-desc" data-lang="en">Prefer to speak directly? Call Teacher Dove during office hours. We love talking to our students and future students.</p>
-        <p class="ccard-desc" data-lang="pt" style="display:none">Preferes falar diretamente? Liga para Teacher Dove durante o horário de atendimento. Adoramos falar com os nossos alunos e futuros alunos.</p>
-        <div class="ccard-links">
-          <a href="tel:+258828929143" class="clink">📞 +258 82 892 9143 <span class="cl-arrow">→</span></a>
+      </div>
+
+      <!-- WhatsApp Alternative -->
+      <div class="ccard fade-up">
+        <div class="ccard-bar cb-wa2"></div>
+        <div class="ccard-body">
+          <div class="ccard-top">
+            <div class="ccard-icon ci-wa">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="#128C7E"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </div>
+            <div>
+              <div class="ccard-title">WhatsApp - <span data-en="Alternative" data-pt="Alternativo">Alternativo</span></div>
+              <span class="ccard-badge badge-fastest" data-en="📞 Also for calls" data-pt="📞 Também para chamadas">📞 Também para chamadas</span>
+            </div>
+          </div>
+          <p class="ccard-desc" data-en="Alternative WhatsApp number. Also available for voice calls regarding DoveLingua matters. Click to open a direct conversation." data-pt="Número alternativo de WhatsApp. Disponível também para chamadas de voz sobre assuntos DoveLingua. Clique para abrir uma conversa directa.">Número alternativo de WhatsApp. Disponível também para chamadas de voz sobre assuntos DoveLingua. Clique para abrir uma conversa directa.</p>
+          <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+            <a href="https://wa.me/258848920143" target="_blank" class="ccard-action ca-wa">
+              <span data-en="Open WhatsApp" data-pt="Abrir WhatsApp">Abrir WhatsApp</span>
+            </a>
+            <a href="tel:+258865804379" class="ccard-action ca-calls">
+              📞 <span data-en="Call (DoveLingua issues only)" data-pt="Ligar (assuntos DoveLingua)">Ligar (assuntos DoveLingua)</span>
+            </a>
+          </div>
         </div>
       </div>
 
       <!-- Email -->
-      <div class="ccard">
-        <div class="ccard-top">
-          <div class="ccard-ico green">✉️</div>
-          <div>
-            <div class="ccard-title">Email</div>
-            <div class="ccard-label" data-lang="en">Formal enquiries</div>
-            <div class="ccard-label" data-lang="pt" style="display:none">Consultas formais</div>
+      <div class="ccard fade-up">
+        <div class="ccard-bar cb-em"></div>
+        <div class="ccard-body">
+          <div class="ccard-top">
+            <div class="ccard-icon ci-em">✉️</div>
+            <div>
+              <div class="ccard-title" data-en="Email - Formal Contact" data-pt="Email - Contacto Formal">Email - Contacto Formal</div>
+              <span class="ccard-badge badge-formal" data-en="📋 For formal enquiries" data-pt="📋 Para pedidos formais">📋 Para pedidos formais</span>
+            </div>
+          </div>
+          <p class="ccard-desc" data-en="Use the right email for your purpose. Click to copy the address or open your email app directly." data-pt="Utilize o email certo para o seu propósito. Clique para copiar o endereço ou abrir o seu email directamente.">Utilize o email certo para o seu propósito. Clique para copiar o endereço ou abrir o seu email directamente.</p>
+          <div style="display:flex;flex-direction:column;gap:0.5rem;">
+            <a href="mailto:contact@dovelingua.com" class="ccard-action ca-em" style="width:fit-content;">
+              ✉️ contact@dovelingua.com - <span style="font-size:0.72rem;opacity:0.8;" data-en="General" data-pt="Geral">Geral</span>
+            </a>
+            <a href="mailto:support@dovelingua.com" class="ccard-action ca-ghost" style="width:fit-content;">
+              🛟 support@dovelingua.com - <span style="font-size:0.72rem;" data-en="Support" data-pt="Suporte">Suporte</span>
+            </a>
           </div>
         </div>
-        <p class="ccard-desc" data-lang="en">Use the right email address for your purpose. Click any address to copy it, or tap to open your email app.</p>
-        <p class="ccard-desc" data-lang="pt" style="display:none">Usa o endereço de e-mail certo para o teu propósito. Clica em qualquer endereço para copiar, ou toca para abrir o teu e-mail.</p>
-        <div class="email-grid">
-          <div class="email-chip" onclick="copyEmail('info@dovelingua.com')"><span class="ec-ico">📬</span>info@</div>
-          <div class="email-chip" onclick="copyEmail('teacher@dovelingua.com')"><span class="ec-ico">🎓</span>teacher@</div>
-          <div class="email-chip" onclick="copyEmail('support@dovelingua.com')"><span class="ec-ico">🛟</span>support@</div>
-          <div class="email-chip" onclick="copyEmail('enroll@dovelingua.com')"><span class="ec-ico">📋</span>enroll@</div>
-          <div class="email-chip" onclick="copyEmail('ceo@dovelingua.com')" style="grid-column:1/-1"><span class="ec-ico">🕊️</span>ceo@dovelingua.com</div>
+      </div>
+
+      <!-- CEO -->
+      <div class="ccard fade-up">
+        <div class="ccard-bar cb-ceo"></div>
+        <div class="ccard-body">
+          <div class="ccard-top">
+            <div class="ccard-icon ci-ceo">👨🏻‍💻</div>
+            <div>
+              <div class="ccard-title">Teacher Dove - CEO</div>
+              <span class="ccard-badge badge-ceo" data-en="🎓 Direct to the Founder" data-pt="🎓 Directo ao Fundador">🎓 Directo ao Fundador</span>
+            </div>
+          </div>
+          <p class="ccard-desc" data-en="For matters that require the direct attention of Teacher Dove - the Founder and Director of DoveLingua. Reserved for serious institutional matters." data-pt="Para assuntos que requerem a atenção directa do Teacher Dove - Fundador e Director da DoveLingua. Reservado para assuntos institucionais sérios.">Para assuntos que requerem a atenção directa do Teacher Dove - Fundador e Director da DoveLingua. Reservado para assuntos institucionais sérios.</p>
+          <a href="mailto:ceo@dovelingua.com" class="ccard-action ca-ceo">
+            👨🏻‍💻 ceo@dovelingua.com
+          </a>
         </div>
       </div>
 
       <!-- Facebook -->
-      <div class="ccard" onclick="window.open('https://www.facebook.com/DoveLingua','_blank')">
-        <div class="ccard-top">
-          <div class="ccard-ico fb">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      <div class="ccard fade-up">
+        <div class="ccard-bar cb-fb"></div>
+        <div class="ccard-body">
+          <div class="ccard-top">
+            <div class="ccard-icon ci-fb">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </div>
+            <div>
+              <div class="ccard-title">Facebook</div>
+              <span class="ccard-badge badge-social" data-en="📘 Community & updates" data-pt="📘 Comunidade e novidades">📘 Comunidade e novidades</span>
+            </div>
           </div>
-          <div>
-            <div class="ccard-title">Facebook</div>
-            <div class="ccard-label" data-lang="en">Community &amp; updates</div>
-            <div class="ccard-label" data-lang="pt" style="display:none">Comunidade e novidades</div>
-          </div>
-        </div>
-        <p class="ccard-desc" data-lang="en">Follow DoveLingua on Facebook for announcements, tips, and community updates. Send us a message directly on our page.</p>
-        <p class="ccard-desc" data-lang="pt" style="display:none">Segue a DoveLingua no Facebook para avisos, dicas e novidades da comunidade. Envia-nos uma mensagem diretamente na nossa página.</p>
-        <div class="ccard-links">
-          <a href="https://www.facebook.com/DoveLingua" target="_blank" class="clink">📘 facebook.com/DoveLingua <span class="cl-arrow">→</span></a>
+          <p class="ccard-desc" data-en="Follow DoveLingua on Facebook for announcements and updates. Send us a direct message on our page." data-pt="Siga a DoveLingua no Facebook para avisos e novidades. Envie-nos uma mensagem directa na nossa página.">Siga a DoveLingua no Facebook para avisos e novidades. Envie-nos uma mensagem directa na nossa página.</p>
+          <a href="https://www.facebook.com/DoveLingua" target="_blank" class="ccard-action ca-fb">
+            📘 <span data-en="Open Facebook Page" data-pt="Abrir Página Facebook">Abrir Página Facebook</span>
+          </a>
         </div>
       </div>
 
-    </div>
-
-    <!-- RIGHT: FORM -->
-    <div class="form-section">
-      <h2 data-lang="en">Send us a message</h2>
-      <h2 data-lang="pt" style="display:none">Envia-nos uma mensagem</h2>
-      <p data-lang="en">Fill in the form and we will get back to you as soon as possible — usually the same day.</p>
-      <p data-lang="pt" style="display:none">Preenche o formulário e entraremos em contacto o mais brevemente possível — normalmente no mesmo dia.</p>
-
-      <div class="resp-badge">
-        <div class="resp-dot"></div>
-        <span data-lang="en">We are online — average response time: a few hours</span>
-        <span data-lang="pt" style="display:none">Estamos online — tempo médio de resposta: algumas horas</span>
+      <!-- WhatsApp Channel -->
+      <div class="ccard fade-up">
+        <div class="ccard-bar cb-ch"></div>
+        <div class="ccard-body">
+          <div class="ccard-top">
+            <div class="ccard-icon" style="background:var(--gx);">📡</div>
+            <div>
+              <div class="ccard-title" data-en="WhatsApp Channel" data-pt="Canal WhatsApp">Canal WhatsApp</div>
+              <span class="ccard-badge" style="background:var(--gx);color:var(--gd);" data-en="📣 Announcements & news" data-pt="📣 Avisos e novidades">📣 Avisos e novidades</span>
+            </div>
+          </div>
+          <p class="ccard-desc" data-en="Follow our official WhatsApp channel for DoveLingua announcements, new level openings and educational updates." data-pt="Siga o nosso canal oficial de WhatsApp para avisos DoveLingua, abertura de novos níveis e actualizações educativas.">Siga o nosso canal oficial de WhatsApp para avisos DoveLingua, abertura de novos níveis e actualizações educativas.</p>
+          <a href="https://whatsapp.com/channel/0029VbCKsViFCCoWvkhrYT2g" target="_blank" class="ccard-action ca-ghost">
+            📡 <span data-en="Follow the Channel" data-pt="Seguir o Canal">Seguir o Canal</span>
+          </a>
+        </div>
       </div>
 
-      <!-- TABS -->
+      <!-- Office hours -->
+      <div class="hours-card fade-up">
+        <div class="hours-header">
+          <h3 data-en="Response Hours - Mozambique Time (CAT)" data-pt="Horário de Resposta - Hora de Moçambique (CAT)">Horário de Resposta - Hora de Moçambique (CAT)</h3>
+        </div>
+        <div class="hours-grid">
+          <div class="hour-item"><div class="hi-day" data-en="Mon" data-pt="Seg">Seg</div><div class="hi-time">07–20h</div></div>
+          <div class="hour-item"><div class="hi-day" data-en="Tue" data-pt="Ter">Ter</div><div class="hi-time">07–20h</div></div>
+          <div class="hour-item"><div class="hi-day" data-en="Wed" data-pt="Qua">Qua</div><div class="hi-time">07–20h</div></div>
+          <div class="hour-item"><div class="hi-day" data-en="Thu" data-pt="Qui">Qui</div><div class="hi-time">07–20h</div></div>
+          <div class="hour-item"><div class="hi-day" data-en="Fri" data-pt="Sex">Sex</div><div class="hi-time">07–18h</div></div>
+          <div class="hour-item"><div class="hi-day" data-en="Sat" data-pt="Sáb">Sáb</div><div class="hi-time">08–14h</div></div>
+          <div class="hour-item" style="grid-column:span 2;"><div class="hi-day" data-en="Sun" data-pt="Dom">Dom</div><div class="hi-time closed" data-en="Rest Day" data-pt="Dia de Descanso">Dia de Descanso</div></div>
+        </div>
+      </div>
+
+    </div><!-- end left-col -->
+
+
+    <!-- RIGHT COLUMN - FORM -->
+    <div class="fade-up">
+    <div class="form-card">
+      <div class="form-header">
+        <h2 data-en="Send a Message" data-pt="Enviar uma Mensagem">Enviar uma Mensagem</h2>
+        <p data-en="Fill in the form - we respond the same day, usually within hours." data-pt="Preencha o formulário - respondemos no mesmo dia, normalmente em poucas horas.">Preencha o formulário - respondemos no mesmo dia, normalmente em poucas horas.</p>
+      </div>
+
+      <!-- Tabs -->
       <div class="form-tabs">
-        <button class="ftab active" onclick="switchTab('general')" data-lang="en">General</button>
-        <button class="ftab active" onclick="switchTab('general')" data-lang="pt" style="display:none">Geral</button>
-        <button class="ftab" onclick="switchTab('enrolment')" data-lang="en">Enrolment</button>
-        <button class="ftab" onclick="switchTab('enrolment')" data-lang="pt" style="display:none">Inscrição</button>
-        <button class="ftab" onclick="switchTab('support')" data-lang="en">Support</button>
-        <button class="ftab" onclick="switchTab('support')" data-lang="pt" style="display:none">Suporte</button>
+        <button class="ftab active" id="tab-general" onclick="switchTab('general')">
+          📬 <span data-en="General" data-pt="Geral">Geral</span>
+        </button>
+        <button class="ftab" id="tab-enrolment" onclick="switchTab('enrolment')">
+          📋 <span data-en="Enrolment" data-pt="Inscrição">Inscrição</span>
+        </button>
+        <button class="ftab" id="tab-support" onclick="switchTab('support')">
+          🛟 <span data-en="Support" data-pt="Suporte">Suporte</span>
+        </button>
       </div>
 
-      <!-- GENERAL -->
-      <div class="form-panel active" id="panel-general">
-        <div class="field-row">
-          <div class="field">
-            <label data-lang="en">Your Name</label>
-            <label data-lang="pt" style="display:none">O Teu Nome</label>
-            <input type="text" id="gen-name" placeholder="e.g. Ana Machava" autocomplete="off"/>
+      <div class="form-body">
+
+        <!-- GENERAL -->
+        <div class="panel active" id="panel-general">
+          <div class="f-row">
+            <div class="f">
+              <label data-en="Full Name <span class='req'>*</span>" data-pt="Nome Completo <span class='req'>*</span>">Nome Completo <span class="req">*</span></label>
+              <input type="text" id="g-name" placeholder="Ex: Ana Machava" oninput="vf(this)"/>
+            </div>
+            <div class="f">
+              <label data-en="Email <span class='req'>*</span>" data-pt="Email <span class='req'>*</span>">Email <span class="req">*</span></label>
+              <input type="email" id="g-email" placeholder="o.seu@email.com" oninput="vf(this)"/>
+            </div>
           </div>
-          <div class="field">
+          <div class="f">
+            <label data-en="Subject <span class='req'>*</span>" data-pt="Assunto <span class='req'>*</span>">Assunto <span class="req">*</span></label>
+            <input type="text" id="g-subject" placeholder="Ex: Dúvida sobre o programa..." oninput="vf(this)"/>
+          </div>
+          <div class="f">
+            <label data-en="Message <span class='req'>*</span>" data-pt="Mensagem <span class='req'>*</span>">Mensagem <span class="req">*</span></label>
+            <textarea id="g-message" placeholder="Escreva a sua mensagem aqui..." oninput="vf(this);countChars('g-message','g-count',500)"></textarea>
+            <div class="char-info"><span id="g-count">0</span>/500</div>
+          </div>
+          <button class="btn-send" onclick="submitContact('general')">
+            ✉️ <span data-en="Send Message" data-pt="Enviar Mensagem">Enviar Mensagem</span>
+          </button>
+        </div>
+
+        <!-- ENROLMENT -->
+        <div class="panel" id="panel-enrolment">
+          <div class="f-row">
+            <div class="f">
+              <label data-en="Full Name <span class='req'>*</span>" data-pt="Nome Completo <span class='req'>*</span>">Nome Completo <span class="req">*</span></label>
+              <input type="text" id="e-name" placeholder="Ex: João Manuel" oninput="vf(this)"/>
+            </div>
+            <div class="f">
+              <label data-en="WhatsApp <span class='req'>*</span>" data-pt="WhatsApp <span class='req'>*</span>">WhatsApp <span class="req">*</span></label>
+              <input type="tel" id="e-wa" placeholder="+258 84 000 0000" oninput="vf(this)"/>
+            </div>
+          </div>
+          <div class="f">
             <label>Email</label>
-            <input type="email" id="gen-email" placeholder="your@email.com" autocomplete="off"/>
+            <input type="email" id="e-email" placeholder="o.seu@email.com (opcional)" oninput="vf(this)"/>
           </div>
+          <div class="f">
+            <label data-en="Level of Interest <span class='req'>*</span>" data-pt="Nível de Interesse <span class='req'>*</span>">Nível de Interesse <span class="req">*</span></label>
+            <select id="e-level" onchange="vf(this)">
+              <option value="">- Seleccione -</option>
+              <option value="Pre-A1 - First Steps">Pre-A1 - Primeiros Passos (Gratuito)</option>
+              <option value="A1 - Beginner">A1 - Iniciante</option>
+              <option value="A2 - Elementary">A2 - Básico</option>
+              <option value="A2+ - Pre-Intermediate">A2+ - Pré-Intermédio</option>
+              <option value="B1 - Intermediate">B1 - Intermédio</option>
+              <option value="B2 - Upper Intermediate">B2 - Intermédio Avançado</option>
+              <option value="C1 - Advanced">C1 - Avançado</option>
+              <option value="Placement test needed" data-en="I need a placement test" data-pt="Preciso de teste de nivelamento">Preciso de teste de nivelamento</option>
+            </select>
+          </div>
+          <div class="f">
+            <label data-en="Learning Mode <span class='req'>*</span>" data-pt="Modalidade <span class='req'>*</span>">Modalidade <span class="req">*</span></label>
+            <select id="e-mode" onchange="vf(this)">
+              <option value="">- Seleccione -</option>
+              <option value="Online" data-en="Online" data-pt="Online">Online</option>
+              <option value="In-Person" data-en="In-Person (Maxixe, Inhambane)" data-pt="Presencial (Maxixe, Inhambane)">Presencial (Maxixe, Inhambane)</option>
+              <option value="Both / Flexible" data-en="Both / Flexible" data-pt="Ambos / Flexível">Ambos / Flexível</option>
+            </select>
+          </div>
+          <div class="f">
+            <label data-en="Additional notes (optional)" data-pt="Notas adicionais (opcional)">Notas adicionais (opcional)</label>
+            <textarea id="e-notes" placeholder="Alguma informação adicional que queira partilhar..." oninput="countChars('e-notes','e-count',300)" style="min-height:80px;"></textarea>
+            <div class="char-info"><span id="e-count">0</span>/300</div>
+          </div>
+          <button class="btn-send" onclick="submitContact('enrolment')">
+            📋 <span data-en="Request Enrolment Info" data-pt="Solicitar Informação de Inscrição">Solicitar Informação de Inscrição</span>
+          </button>
         </div>
-        <div class="field">
-          <label data-lang="en">Subject</label>
-          <label data-lang="pt" style="display:none">Assunto</label>
-          <input type="text" id="gen-subject" placeholder="What is your question about?" autocomplete="off"/>
-        </div>
-        <div class="field">
-          <label data-lang="en">Message</label>
-          <label data-lang="pt" style="display:none">Mensagem</label>
-          <textarea id="gen-message" placeholder="Write your message here..." oninput="updateCount('gen-message','gen-count',500)"></textarea>
-          <div class="char-count"><span id="gen-count">0</span>/500</div>
-        </div>
-        <button class="btn btn-blue btn-full" onclick="submitForm('general')">
-          <span data-lang="en">Send Message →</span>
-          <span data-lang="pt" style="display:none">Enviar Mensagem →</span>
-        </button>
-      </div>
 
-      <!-- ENROLMENT -->
-      <div class="form-panel" id="panel-enrolment">
-        <div class="field-row">
-          <div class="field">
-            <label data-lang="en">Full Name</label>
-            <label data-lang="pt" style="display:none">Nome Completo</label>
-            <input type="text" id="enr-name" placeholder="Your full name" autocomplete="off"/>
+        <!-- SUPPORT -->
+        <div class="panel" id="panel-support">
+          <div class="f-row">
+            <div class="f">
+              <label data-en="Full Name <span class='req'>*</span>" data-pt="Nome Completo <span class='req'>*</span>">Nome Completo <span class="req">*</span></label>
+              <input type="text" id="s-name" placeholder="Ex: Maria Silva" oninput="vf(this)"/>
+            </div>
+            <div class="f">
+              <label data-en="Contact (WhatsApp or Email) <span class='req'>*</span>" data-pt="Contacto <span class='req'>*</span>">Contacto <span class="req">*</span></label>
+              <input type="text" id="s-contact" placeholder="+258... ou email@..." oninput="vf(this)"/>
+            </div>
           </div>
-          <div class="field">
-            <label>WhatsApp</label>
-            <input type="tel" id="enr-wa" placeholder="+258 82 000 0000" autocomplete="off"/>
+          <div class="f">
+            <label data-en="Issue Type <span class='req'>*</span>" data-pt="Tipo de Problema <span class='req'>*</span>">Tipo de Problema <span class="req">*</span></label>
+            <select id="s-type" onchange="vf(this)">
+              <option value="">- Seleccione -</option>
+              <option value="Platform / Classroom" data-en="Platform or Classroom problem" data-pt="Problema com plataforma ou Sala de Aula">Problema com plataforma ou Sala de Aula</option>
+              <option value="Payment" data-en="Payment or receipt problem" data-pt="Problema com pagamento ou recibo">Problema com pagamento ou recibo</option>
+              <option value="Account / Access" data-en="Account or access problem" data-pt="Problema com conta ou acesso">Problema com conta ou acesso</option>
+              <option value="Certificate" data-en="Certificate issue" data-pt="Problema com certificado">Problema com certificado</option>
+              <option value="English Dove App" data-en="English Dove app problem" data-pt="Problema com a app English Dove">Problema com a app English Dove</option>
+              <option value="Other" data-en="Other" data-pt="Outro">Outro</option>
+            </select>
           </div>
+          <div class="f">
+            <label data-en="Describe the problem <span class='req'>*</span>" data-pt="Descreva o problema <span class='req'>*</span>">Descreva o problema <span class="req">*</span></label>
+            <textarea id="s-message" placeholder="Descreva o que aconteceu, quando aconteceu e o que já tentou..." oninput="vf(this);countChars('s-message','s-count',500)"></textarea>
+            <div class="char-info"><span id="s-count">0</span>/500</div>
+          </div>
+          <button class="btn-send" onclick="submitContact('support')">
+            🛟 <span data-en="Submit Support Request" data-pt="Enviar Pedido de Suporte">Enviar Pedido de Suporte</span>
+          </button>
         </div>
-        <div class="field">
-          <label>Email</label>
-          <input type="email" id="enr-email" placeholder="your@email.com" autocomplete="off"/>
-        </div>
-        <div class="field">
-          <label data-lang="en">Which Level Are You Interested In?</label>
-          <label data-lang="pt" style="display:none">Qual Nível Te Interessa?</label>
-          <select id="enr-level">
-            <option value="" data-lang="en">— Select a level —</option>
-            <option value="" data-lang="pt" style="display:none">— Seleciona um nível —</option>
-            <option value="starter">Pre-A1 — Starter</option>
-            <option value="a1">A1 — Beginner</option>
-            <option value="a2">A2 — Elementary</option>
-            <option value="a2plus">A2+ — Pre-Intermediate</option>
-            <option value="b1">B1 — Intermediate</option>
-            <option value="c1">C1 — Advanced</option>
-            <option value="unsure" data-lang="en">I am not sure — I need a placement test</option>
-            <option value="unsure" data-lang="pt" style="display:none">Não tenho a certeza — preciso de um teste de nivelamento</option>
-          </select>
-        </div>
-        <div class="field">
-          <label data-lang="en">Preferred Learning Mode</label>
-          <label data-lang="pt" style="display:none">Modo de Aprendizagem Preferido</label>
-          <select id="enr-mode">
-            <option value="online" data-lang="en">Online</option>
-            <option value="online" data-lang="pt" style="display:none">Online</option>
-            <option value="inperson" data-lang="en">In-Person</option>
-            <option value="inperson" data-lang="pt" style="display:none">Presencial</option>
-            <option value="both" data-lang="en">Both / Flexible</option>
-            <option value="both" data-lang="pt" style="display:none">Ambos / Flexível</option>
-          </select>
-        </div>
-        <button class="btn btn-blue btn-full" onclick="submitForm('enrolment')">
-          <span data-lang="en">Request Enrolment →</span>
-          <span data-lang="pt" style="display:none">Solicitar Inscrição →</span>
-        </button>
-      </div>
 
-      <!-- SUPPORT -->
-      <div class="form-panel" id="panel-support">
-        <div class="field-row">
-          <div class="field">
-            <label data-lang="en">Your Name</label>
-            <label data-lang="pt" style="display:none">O Teu Nome</label>
-            <input type="text" id="sup-name" placeholder="Your name" autocomplete="off"/>
+        <!-- SUCCESS -->
+        <div class="form-success" id="formSuccess">
+          <span class="suc-anim">✅</span>
+          <div class="suc-title" data-en="Message sent!" data-pt="Mensagem enviada!">Mensagem enviada!</div>
+          <p class="suc-msg" id="sucMsg" data-en="Thank you! Your message has been sent to the DoveLingua team. We will respond as soon as possible - usually the same day." data-pt="Obrigado! A sua mensagem foi enviada para a equipa DoveLingua. Responderemos o mais brevemente possível - normalmente no mesmo dia.">Obrigado! A sua mensagem foi enviada para a equipa DoveLingua. Responderemos o mais brevemente possível - normalmente no mesmo dia.</p>
+          <div class="suc-ref">
+            <span class="suc-ref-label" data-en="Reference:" data-pt="Referência:">Referência:</span>
+            <span class="suc-ref-code" id="sucRefCode">-</span>
           </div>
-          <div class="field">
-            <label data-lang="en">Contact (WhatsApp or Email)</label>
-            <label data-lang="pt" style="display:none">Contacto (WhatsApp ou Email)</label>
-            <input type="text" id="sup-contact" placeholder="+258... or email" autocomplete="off"/>
-          </div>
+          <button class="btn-reset" onclick="resetForm()" data-en="Send another message" data-pt="Enviar outra mensagem">Enviar outra mensagem</button>
         </div>
-        <div class="field">
-          <label data-lang="en">Issue Type</label>
-          <label data-lang="pt" style="display:none">Tipo de Problema</label>
-          <select id="sup-type">
-            <option value="platform" data-lang="en">Platform / Classroom issue</option>
-            <option value="platform" data-lang="pt" style="display:none">Problema com a plataforma / Sala de Aula</option>
-            <option value="payment" data-lang="en">Payment issue</option>
-            <option value="payment" data-lang="pt" style="display:none">Problema com pagamento</option>
-            <option value="account" data-lang="en">Account issue</option>
-            <option value="account" data-lang="pt" style="display:none">Problema com conta</option>
-            <option value="other" data-lang="en">Other</option>
-            <option value="other" data-lang="pt" style="display:none">Outro</option>
-          </select>
-        </div>
-        <div class="field">
-          <label data-lang="en">Describe the Issue</label>
-          <label data-lang="pt" style="display:none">Descreve o Problema</label>
-          <textarea id="sup-message" placeholder="Describe what happened..." oninput="updateCount('sup-message','sup-count',500)"></textarea>
-          <div class="char-count"><span id="sup-count">0</span>/500</div>
-        </div>
-        <button class="btn btn-blue btn-full" onclick="submitForm('support')">
-          <span data-lang="en">Submit Support Request →</span>
-          <span data-lang="pt" style="display:none">Enviar Pedido de Suporte →</span>
-        </button>
-      </div>
 
-      <!-- SUCCESS -->
-      <div class="form-success" id="formSuccess">
-        <div class="fs-ico">🎉</div>
-        <h3 data-lang="en">Message sent!</h3>
-        <h3 data-lang="pt" style="display:none">Mensagem enviada!</h3>
-        <p data-lang="en">Thank you, <span class="fs-name" id="senderName"></span>! Your message has been sent to the DoveLingua team. We will get back to you very soon. 🕊️</p>
-        <p data-lang="pt" style="display:none">Obrigado/a, <span class="fs-name" id="senderNamePT"></span>! A tua mensagem foi enviada para a equipa DoveLingua. Entraremos em contacto muito em breve. 🕊️</p>
-        <br/>
-        <button class="btn btn-g btn-sm" onclick="resetForm()" style="margin:0 auto;display:flex;">
-          <span data-lang="en">Send another message</span>
-          <span data-lang="pt" style="display:none">Enviar outra mensagem</span>
-        </button>
       </div>
     </div>
+    </div><!-- end right fade-up -->
 
+  </div><!-- end main-grid -->
+</div><!-- end main-wrap -->
+
+
+<!-- ══ INFO SECTION ══ -->
+<section class="info-section">
+  <div class="info-inner">
+    <div class="fade-up">
+      <h2 class="sec-title" data-en="Before You Write to Us" data-pt="Antes de Nos Escrever">Antes de Nos Escrever</h2>
+      <div class="divider-teal"></div>
+    </div>
+    <div class="info-grid">
+      <div class="info-card ic1 fade-up">
+        <span class="ic-icon">❓</span>
+        <h4 data-en="Have you checked the FAQ?" data-pt="Já verificou as FAQ?">Já verificou as FAQ?</h4>
+        <p data-en="Our FAQ page answers over 50 common questions about the programme, payments, certificates, lessons and more. It may already have the answer you need." data-pt="A nossa página de FAQ responde a mais de 50 perguntas frequentes sobre o programa, pagamentos, certificados, aulas e muito mais. Pode já ter a resposta de que precisa.">A nossa página de FAQ responde a mais de 50 perguntas frequentes sobre o programa, pagamentos, certificados, aulas e muito mais.</p>
+      </div>
+      <div class="info-card ic2 fade-up">
+        <span class="ic-icon">⏱️</span>
+        <h4 data-en="Response time" data-pt="Tempo de resposta">Tempo de resposta</h4>
+        <p data-en="WhatsApp messages are answered fastest - usually within a few hours. Email responses arrive within the same working day. We answer every message." data-pt="As mensagens WhatsApp são respondidas mais rapidamente - geralmente em poucas horas. As respostas por email chegam no mesmo dia útil. Respondemos a todas as mensagens.">As mensagens WhatsApp são respondidas mais rapidamente - geralmente em poucas horas. As respostas por email chegam no mesmo dia útil.</p>
+      </div>
+      <div class="info-card ic3 fade-up">
+        <span class="ic-icon">🌍</span>
+        <h4 data-en="We respond in Portuguese and English" data-pt="Respondemos em Português e Inglês">Respondemos em Português e Inglês</h4>
+        <p data-en="Write to us in the language you are most comfortable with. Our team speaks both Portuguese and English fluently." data-pt="Escreva-nos no idioma em que se sente mais confortável. A nossa equipa fala português e inglês fluentemente.">Escreva-nos no idioma em que se sente mais confortável. A nossa equipa fala português e inglês fluentemente.</p>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
-<!-- FAQ TEASER -->
-<div class="faq-teaser">
+
+<!-- ══ FAQ TEASER ══ -->
+<section class="faq-section">
   <div class="faq-inner">
-    <div style="text-align:center;margin-bottom:8px;">
-      <span class="stag-head" data-lang="en">Common Questions</span>
-      <span class="stag-head" data-lang="pt" style="display:none">Perguntas Frequentes</span>
+    <div class="fade-up">
+      <h2 class="sec-title" data-en="Quick Answers" data-pt="Respostas Rápidas">Respostas Rápidas</h2>
+      <p class="sec-sub" data-en="Some questions we hear most often." data-pt="Algumas das perguntas que recebemos mais frequentemente.">Algumas das perguntas que recebemos mais frequentemente.</p>
+      <div class="divider-teal"></div>
     </div>
-    <p class="sub-head" style="text-align:center;" data-lang="en">Quick answers before you write to us</p>
-    <p class="sub-head" style="text-align:center;" data-lang="pt" style="display:none">Respostas rápidas antes de nos escrever</p>
-    <div class="faq-grid">
+    <div class="faq-grid fade-up">
       <div class="faq-item">
-        <div class="faq-q" data-lang="en">How do I know which level to join?</div>
-        <div class="faq-q" data-lang="pt" style="display:none">Como sei qual nível devo entrar?</div>
-        <div class="faq-a" data-lang="en">We offer a free placement test that takes about 20 minutes. Contact us via WhatsApp or the enrolment form and we will send it to you immediately.</div>
-        <div class="faq-a" data-lang="pt" style="display:none">Oferecemos um teste de nivelamento gratuito que demora cerca de 20 minutos. Contacta-nos via WhatsApp ou pelo formulário de inscrição e enviamos-to imediatamente.</div>
+        <div class="faq-q" data-en="How do I know which level to join?" data-pt="Como sei qual nível devo frequentar?">Como sei qual nível devo frequentar?</div>
+        <p class="faq-a" data-en="We offer a free Level Placement Test. Contact us via WhatsApp or through the Enrolment form and we will send it to you right away." data-pt="Oferecemos um Teste de Nivelamento gratuito. Contacte-nos via WhatsApp ou através do formulário de Inscrição e enviamos-lhe imediatamente.">Oferecemos um Teste de Nivelamento gratuito. Contacte-nos via WhatsApp ou através do formulário de Inscrição e enviamos-lhe imediatamente.</p>
       </div>
       <div class="faq-item">
-        <div class="faq-q" data-lang="en">How much does it cost to enrol?</div>
-        <div class="faq-q" data-lang="pt" style="display:none">Quanto custa a inscrição?</div>
-        <div class="faq-a" data-lang="en">Pricing depends on the level and learning mode. Send us a message and we will share the current fee structure with you directly.</div>
-        <div class="faq-a" data-lang="pt" style="display:none">O preço depende do nível e do modo de aprendizagem. Envia-nos uma mensagem e partilhamos contigo a estrutura de preços atual diretamente.</div>
+        <div class="faq-q" data-en="Can I study from outside Mozambique?" data-pt="Posso estudar fora de Moçambique?">Posso estudar fora de Moçambique?</div>
+        <p class="faq-a" data-en="Yes - DoveLingua's online programme is available worldwide. Our platform works on any device with internet." data-pt="Sim - o programa online da DoveLingua está disponível em todo o mundo. A nossa plataforma funciona em qualquer dispositivo com internet.">Sim - o programa online da DoveLingua está disponível em todo o mundo. A nossa plataforma funciona em qualquer dispositivo com internet.</p>
       </div>
       <div class="faq-item">
-        <div class="faq-q" data-lang="en">Can I study online from outside Mozambique?</div>
-        <div class="faq-q" data-lang="pt" style="display:none">Posso estudar online fora de Moçambique?</div>
-        <div class="faq-a" data-lang="en">Yes — DoveLingua's online programme is available worldwide. Our platform works on any device, anywhere in the world.</div>
-        <div class="faq-a" data-lang="pt" style="display:none">Sim — o programa online da DoveLingua está disponível em todo o mundo. A nossa plataforma funciona em qualquer dispositivo, em qualquer lugar do mundo.</div>
+        <div class="faq-q" data-en="How long does it take to receive a response?" data-pt="Quanto tempo demora a receber uma resposta?">Quanto tempo demora a receber uma resposta?</div>
+        <p class="faq-a" data-en="WhatsApp: a few hours. Email: same working day. We answer every message - none is left unanswered." data-pt="WhatsApp: algumas horas. Email: mesmo dia útil. Respondemos a todas as mensagens - nenhuma fica sem resposta.">WhatsApp: algumas horas. Email: mesmo dia útil. Respondemos a todas as mensagens - nenhuma fica sem resposta.</p>
       </div>
       <div class="faq-item">
-        <div class="faq-q" data-lang="en">What is a Certificate of Recognition?</div>
-        <div class="faq-q" data-lang="pt" style="display:none">O que é um Certificado de Reconhecimento?</div>
-        <div class="faq-a" data-lang="en">At DoveLingua we currently issue Certificates of Recognition — official documents confirming you completed a level. As we grow towards formal registration, our certificates will evolve to full accreditation.</div>
-        <div class="faq-a" data-lang="pt" style="display:none">Na DoveLingua emitimos atualmente Certificados de Reconhecimento — documentos oficiais que confirmam a conclusão de um nível. À medida que crescemos para o registo formal, os nossos certificados evoluirão para acreditação completa.</div>
+        <div class="faq-q" data-en="What if I have a problem with the platform?" data-pt="E se tiver um problema com a plataforma?">E se tiver um problema com a plataforma?</div>
+        <p class="faq-a" data-en="Use the Support tab in the form above, or send a WhatsApp message. Describe what happened and our team will assist you quickly." data-pt="Use o separador Suporte no formulário acima, ou envie uma mensagem WhatsApp. Descreva o que aconteceu e a nossa equipa ajuda-o rapidamente.">Use o separador Suporte no formulário acima, ou envie uma mensagem WhatsApp. Descreva o que aconteceu e a nossa equipa ajuda-o rapidamente.</p>
       </div>
     </div>
-    <div style="text-align:center;margin-top:32px;">
-      <button class="btn btn-blue" onclick="navigateTo('faq.html')">
-        <span data-lang="en">View All FAQs →</span>
-        <span data-lang="pt" style="display:none">Ver Todas as Perguntas →</span>
-      </button>
+    <div style="text-align:center;" class="fade-up">
+      <a href="faq.html" class="btn-faq-all">
+        <span data-en="See all FAQ →" data-pt="Ver todas as FAQ →">Ver todas as FAQ →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ CONNECTED PAGES ══ -->
+<div class="connected-section">
+  <div class="conn-inner fade-up">
+    <h3 style="font-family:'Playfair Display',serif;font-size:1rem;color:var(--navy);margin-bottom:1rem;padding-left:0.7rem;border-left:3px solid var(--teal);" data-en="Other useful pages" data-pt="Outras páginas úteis">Outras páginas úteis</h3>
+    <div class="conn-grid">
+      <a href="enrol.html" class="conn-card"><span class="cc-icon">📋</span><span class="cc-label" data-en="Enrol" data-pt="Inscrição">Inscrição</span><span class="cc-sub" data-en="Join a course" data-pt="Inscreva-se num curso">Inscreva-se num curso</span></a>
+      <a href="programme.html" class="conn-card"><span class="cc-icon">📚</span><span class="cc-label" data-en="Programme" data-pt="Programa">Programa</span><span class="cc-sub" data-en="Our levels" data-pt="Os nossos níveis">Os nossos níveis</span></a>
+      <a href="faq.html" class="conn-card"><span class="cc-icon">❓</span><span class="cc-label">FAQ</span><span class="cc-sub" data-en="Frequent questions" data-pt="Perguntas frequentes">Perguntas frequentes</span></a>
+      <a href="report.html" class="conn-card"><span class="cc-icon">🚩</span><span class="cc-label" data-en="Report" data-pt="Reportar">Reportar</span><span class="cc-sub" data-en="Report a problem" data-pt="Reportar um problema">Reportar um problema</span></a>
+      <a href="evaluate.html" class="conn-card"><span class="cc-icon">⭐</span><span class="cc-label" data-en="Evaluate" data-pt="Avaliar">Avaliar</span><span class="cc-sub" data-en="Share feedback" data-pt="Partilhe a sua opinião">Partilhe a sua opinião</span></a>
+      <a href="donate.html" class="conn-card"><span class="cc-icon">❤️</span><span class="cc-label" data-en="Support" data-pt="Apoiar">Apoiar</span><span class="cc-sub" data-en="Help us grow" data-pt="Ajude-nos a crescer">Ajude-nos a crescer</span></a>
+      <a href="terms.html" class="conn-card"><span class="cc-icon">📄</span><span class="cc-label" data-en="Terms" data-pt="Termos">Termos</span><span class="cc-sub" data-en="Rights & policies" data-pt="Direitos e políticas">Direitos e políticas</span></a>
+      <a href="https://classroom.dovelingua.com" target="_blank" class="conn-card"><span class="cc-icon">💻</span><span class="cc-label">Classroom</span><span class="cc-sub" data-en="Enter the platform" data-pt="Entrar na plataforma">Entrar na plataforma</span></a>
     </div>
   </div>
 </div>
 
-<!-- OFFICE HOURS -->
-<div class="hours-sec">
-  <div class="hours-inner">
-    <span class="stag-head" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);font-size:clamp(22px,2.8vw,36px);" data-lang="en">When to Reach Us</span>
-    <span class="stag-head" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);font-size:clamp(22px,2.8vw,36px);" data-lang="pt" style="display:none">Quando Contactar-nos</span>
-    <p class="sub-head" style="color:rgba(255,255,255,.8);margin-top:8px;" data-lang="en">Response hours — Mozambique time (CAT, UTC+2)</p>
-    <p class="sub-head" style="color:rgba(255,255,255,.8);margin-top:8px;" data-lang="pt" style="display:none">Horário de resposta — hora de Moçambique (CAT, UTC+2)</p>
-    <div class="hours-grid">
-      <div class="hour-card">
-        <div class="hc-day" data-lang="en">Monday</div>
-        <div class="hc-day" data-lang="pt" style="display:none">Segunda</div>
-        <div class="hc-time">07:00 – 20:00</div>
-      </div>
-      <div class="hour-card">
-        <div class="hc-day" data-lang="en">Tuesday</div>
-        <div class="hc-day" data-lang="pt" style="display:none">Terça</div>
-        <div class="hc-time">07:00 – 20:00</div>
-      </div>
-      <div class="hour-card">
-        <div class="hc-day" data-lang="en">Wednesday</div>
-        <div class="hc-day" data-lang="pt" style="display:none">Quarta</div>
-        <div class="hc-time">07:00 – 20:00</div>
-      </div>
-      <div class="hour-card">
-        <div class="hc-day" data-lang="en">Thursday</div>
-        <div class="hc-day" data-lang="pt" style="display:none">Quinta</div>
-        <div class="hc-time">07:00 – 20:00</div>
-      </div>
-      <div class="hour-card">
-        <div class="hc-day" data-lang="en">Friday</div>
-        <div class="hc-day" data-lang="pt" style="display:none">Sexta</div>
-        <div class="hc-time">07:00 – 18:00</div>
-      </div>
-      <div class="hour-card">
-        <div class="hc-day" data-lang="en">Saturday</div>
-        <div class="hc-day" data-lang="pt" style="display:none">Sábado</div>
-        <div class="hc-time">08:00 – 14:00</div>
-      </div>
-      <div class="hour-card closed">
-        <div class="hc-day" data-lang="en">Sunday</div>
-        <div class="hc-day" data-lang="pt" style="display:none">Domingo</div>
-        <div class="hc-time" data-lang="en">Rest Day</div>
-        <div class="hc-time" data-lang="pt" style="display:none">Dia de Descanso</div>
-      </div>
-    </div>
-    <p style="font-size:13px;color:rgba(255,255,255,.55);margin-top:24px;" data-lang="en">WhatsApp messages received outside office hours are answered on the next working day. Urgent matters — send a message and we will do our best.</p>
-    <p style="font-size:13px;color:rgba(255,255,255,.55);margin-top:24px;" data-lang="pt" style="display:none">Mensagens WhatsApp recebidas fora do horário são respondidas no próximo dia útil. Assuntos urgentes — envia uma mensagem e faremos o nosso melhor.</p>
-  </div>
-</div>
 
-<!-- FOOTER -->
+<!-- ══ FOOTER ══ -->
 <footer>
   <div class="fg">
-    <div class="fb-brand">
-      <div class="fname">  DoveLingua English Learning Academy</div>
-      <p data-lang="en">A structured, communicative and professionally designed English learning programme — founded in Mozambique, April 2026.</p>
-      <p data-lang="pt" style="display:none">Um programa de aprendizagem de inglês estruturado, comunicativo e profissionalmente concebido — fundado em Moçambique, abril de 2026.</p>
+    <div class="fb">
+      <div class="fname">DoveLingua English Learning Academy</div>
+      <p data-en="A structured, communicative English course - founded in Mozambique, April 2026." data-pt="Um curso de inglês estruturado e comunicativo - fundado em Moçambique, Abril de 2026.">Um curso de inglês estruturado e comunicativo - fundado em Moçambique, Abril de 2026.</p>
       <div class="fsoc">
-        <a href="https://www.facebook.com/DoveLingua" target="_blank" class="fsocb" title="Facebook"><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-        <a href="https://wa.me/258828920143" target="_blank" class="fsocb" title="WhatsApp"><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
-        <a href="https://whatsapp.com/channel/0029VbCKsViFCCoWvkhrYT2g" target="_blank" class="fsocb">📡</a>
-        <a href="mailto:info@dovelingua.com" class="fsocb">✉️</a>
+        <a href="https://www.facebook.com/DoveLingua" target="_blank" class="fsb"><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a href="https://wa.me/258828920143" target="_blank" class="fsb"><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+        <a href="mailto:contact@dovelingua.com" class="fsb" style="font-size:14px;color:#fff;display:flex;align-items:center;justify-content:center;">✉️</a>
       </div>
     </div>
-    <div class="fcol">
-      <h4 data-lang="en">Learn</h4><h4 data-lang="pt" style="display:none">Aprender</h4>
-      <a onclick="navigateTo('programme.html')" style="cursor:pointer"><span data-lang="en">Our Programme</span><span data-lang="pt" style="display:none">O Nosso Programa</span></a>
-      <a onclick="navigateTo('enrol.html')" style="cursor:pointer"><span data-lang="en">Enrol Now</span><span data-lang="pt" style="display:none">Inscrever-me</span></a>
-      <a href="https://classroom.dovelingua.com" target="_blank">Classroom</a>
-      <a onclick="navigateTo('library.html')" style="cursor:pointer"><span data-lang="en">Library</span><span data-lang="pt" style="display:none">Biblioteca</span></a>
-    </div>
-    <div class="fcol">
-      <h4 data-lang="en">About</h4><h4 data-lang="pt" style="display:none">Sobre</h4>
-      <a onclick="navigateTo('about.html')" style="cursor:pointer"><span data-lang="en">About DoveLingua</span><span data-lang="pt" style="display:none">Sobre a DoveLingua</span></a>
-      <a onclick="navigateTo('announcements.html')" style="cursor:pointer"><span data-lang="en">Announcements</span><span data-lang="pt" style="display:none">Avisos</span></a>
-      <a onclick="navigateTo('faq.html')" style="cursor:pointer">FAQ</a>
-      <a onclick="navigateTo('donate.html')" style="cursor:pointer"><span data-lang="en">Support Us</span><span data-lang="pt" style="display:none">Apoiar-nos</span></a>
-    </div>
-    <div class="fcol">
-      <h4 data-lang="en">Help</h4><h4 data-lang="pt" style="display:none">Ajuda</h4>
-      <a onclick="navigateTo('contact.html')" style="cursor:pointer"><span data-lang="en">Contact Support</span><span data-lang="pt" style="display:none">Contactar Suporte</span></a>
-      <a onclick="navigateTo('report.html')" style="cursor:pointer"><span data-lang="en">Report a Problem</span><span data-lang="pt" style="display:none">Reportar Problema</span></a>
-      <a onclick="navigateTo('terms.html')" style="cursor:pointer"><span data-lang="en">Terms &amp; Policies</span><span data-lang="pt" style="display:none">Termos e Políticas</span></a>
-    </div>
+    <div class="fc"><h4 data-en="Learn" data-pt="Aprender">Aprender</h4><a onclick="nav('programme.html')" data-en="Our Programme" data-pt="O Nosso Programa">O Nosso Programa</a><a onclick="nav('enrol.html')" data-en="Enrol" data-pt="Inscrição">Inscrição</a><a href="https://classroom.dovelingua.com" target="_blank">Classroom</a></div>
+    <div class="fc"><h4 data-en="About" data-pt="Sobre">Sobre</h4><a onclick="nav('about.html')" data-en="About DoveLingua" data-pt="Sobre a DoveLingua">Sobre a DoveLingua</a><a onclick="nav('faq.html')">FAQ</a><a onclick="nav('donate.html')" data-en="Support Us" data-pt="Apoiar-nos">Apoiar-nos</a></div>
+    <div class="fc"><h4 data-en="Help" data-pt="Ajuda">Ajuda</h4><a onclick="nav('contact.html')">Contactar Suporte</a><a onclick="nav('terms.html')" data-en="Terms" data-pt="Termos">Termos e Políticas</a><a onclick="nav('report.html')" data-en="Report" data-pt="Reportar">Reportar Problema</a></div>
   </div>
   <div class="fbot">
-    <p>DoveLingua © 2026 — <span data-lang="en">All rights reserved.</span><span data-lang="pt" style="display:none">Todos os direitos reservados.</span></p>
-    <a onclick="navigateTo('terms.html')" style="cursor:pointer"><span data-lang="en">Terms &amp; Policies</span><span data-lang="pt" style="display:none">Termos e Políticas</span></a>
-    <a onclick="navigateTo('contact.html')" style="cursor:pointer"><span data-lang="en">Contact</span><span data-lang="pt" style="display:none">Contacto</span></a>
+    <p data-en="DoveLingua © 2026 - All rights reserved." data-pt="DoveLingua © 2026 - Todos os direitos reservados.">DoveLingua © 2026 - Todos os direitos reservados.</p>
+    <a onclick="nav('terms.html')" data-en="Terms" data-pt="Termos">Termos e Políticas</a>
+    <a onclick="nav('contact.html')" data-en="Contact" data-pt="Contacto">Contacto</a>
   </div>
 </footer>
 
-<!-- WA FAB -->
-<a href="https://wa.me/258828920143" target="_blank" class="wa-fab" title="WhatsApp">
-  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+<a href="https://wa.me/258828920143" target="_blank" class="waf">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
 </a>
 
+
 <script>
-var lang = localStorage.getItem('dl_lang') || 'en';
+  /* ══ CONFIG ══ */
+  emailjs.init('zQIXwW1L815svMGyW');
+  const ESVC='service_r35gwa1', ETPL='template_wpibgsf';
 
-function setLang(l) {
-  lang = l;
-  document.documentElement.lang = l;
-  document.getElementById('btnEN').classList.toggle('active', l === 'en');
-  document.getElementById('btnPT').classList.toggle('active', l === 'pt');
-  document.querySelectorAll('[data-lang]').forEach(function(el) {
-    el.style.display = el.getAttribute('data-lang') === l ? '' : 'none';
-  });
-  localStorage.setItem('dl_lang', l);
-}
-
-/* SPA NAVIGATION with smooth transition */
-function navigateTo(url) {
-  if (url === window.location.pathname.split('/').pop()) return;
-  var pt = document.getElementById('pageTransition');
-  pt.classList.add('active');
-  setTimeout(function() { window.location.href = url; }, 380);
-}
-
-/* Intercept all internal links */
-document.addEventListener('click', function(e) {
-  var el = e.target.closest('a[href]');
-  if (!el) return;
-  var href = el.getAttribute('href');
-  if (!href || href.startsWith('http') || href.startsWith('mailto') || href.startsWith('tel') || href.startsWith('#') || el.target === '_blank') return;
-  e.preventDefault();
-  navigateTo(href);
-});
-
-/* Fade in on load */
-window.addEventListener('pageshow', function() {
-  var pt = document.getElementById('pageTransition');
-  pt.classList.remove('active');
-});
-
-function toggleMenu() {
-  var m = document.getElementById('sideMenu'), o = document.getElementById('sideOv');
-  var open = m.classList.contains('open');
-  m.classList.toggle('open', !open);
-  o.classList.toggle('open', !open);
-  document.body.style.overflow = open ? '' : 'hidden';
-}
-
-/* FORM TABS */
-function switchTab(tab) {
-  document.querySelectorAll('.ftab').forEach(function(t, i) {
-    var tabs = ['general','enrolment','support'];
-    t.classList.toggle('active', tabs[i % 3] === tab);
-  });
-  document.querySelectorAll('.form-panel').forEach(function(p) {
-    p.classList.remove('active');
-  });
-  var panel = document.getElementById('panel-' + tab);
-  if (panel) panel.classList.add('active');
-  document.getElementById('formSuccess').style.display = 'none';
-}
-
-/* CHAR COUNT */
-function updateCount(textareaId, countId, max) {
-  var val = document.getElementById(textareaId).value.length;
-  document.getElementById(countId).textContent = val;
-}
-
-/* FORM SUBMIT — builds mailto link */
-function submitForm(type) {
-  var name = '', email = '', subject = '', body = '';
-
-  if (type === 'general') {
-    name = document.getElementById('gen-name').value.trim();
-    email = document.getElementById('gen-email').value.trim();
-    subject = document.getElementById('gen-subject').value.trim() || 'General Enquiry';
-    var msg = document.getElementById('gen-message').value.trim();
-    if (!name || !msg) { showToast(lang === 'en' ? 'Please enter your name and message.' : 'Por favor, introduz o teu nome e mensagem.'); return; }
-    body = 'Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + msg;
-  } else if (type === 'enrolment') {
-    name = document.getElementById('enr-name').value.trim();
-    var wa = document.getElementById('enr-wa').value.trim();
-    email = document.getElementById('enr-email').value.trim();
-    var level = document.getElementById('enr-level').value;
-    var mode = document.getElementById('enr-mode').value;
-    if (!name || !wa) { showToast(lang === 'en' ? 'Please enter your name and WhatsApp number.' : 'Por favor, introduz o teu nome e número WhatsApp.'); return; }
-    subject = 'Enrolment Request — ' + name;
-    body = 'Name: ' + name + '\nWhatsApp: ' + wa + '\nEmail: ' + email + '\nLevel: ' + level + '\nMode: ' + mode;
-  } else if (type === 'support') {
-    name = document.getElementById('sup-name').value.trim();
-    var contact = document.getElementById('sup-contact').value.trim();
-    var issueType = document.getElementById('sup-type').value;
-    var issueMsg = document.getElementById('sup-message').value.trim();
-    if (!name || !issueMsg) { showToast(lang === 'en' ? 'Please enter your name and describe the issue.' : 'Por favor, introduz o teu nome e descreve o problema.'); return; }
-    subject = 'Support Request — ' + issueType;
-    body = 'Name: ' + name + '\nContact: ' + contact + '\nIssue type: ' + issueType + '\n\nDescription:\n' + issueMsg;
-  }
-
-  /* Open mailto */
-  var mailTo = 'support@dovelingua.com';
-  if (type === 'enrolment') mailTo = 'enroll@dovelingua.com';
-  window.location.href = 'mailto:' + mailTo + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-
-  /* Show success */
-  document.getElementById('senderName').textContent = name;
-  document.getElementById('senderNamePT').textContent = name;
-  document.querySelectorAll('.form-panel').forEach(function(p){ p.classList.remove('active'); });
-  var s = document.getElementById('formSuccess');
-  s.style.display = 'block';
-  setLang(lang);
-}
-
-function resetForm() {
-  document.getElementById('formSuccess').style.display = 'none';
-  document.getElementById('panel-general').classList.add('active');
-  document.querySelectorAll('.ftab')[0].classList.add('active');
-}
-
-/* COPY EMAIL */
-function copyEmail(email) {
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(email).then(function() {
-      showToast('✅ ' + email + (lang === 'en' ? ' copied!' : ' copiado!'));
+  /* ══ LANGUAGE ══ */
+  let lang=localStorage.getItem('dvl_lang')||'pt';
+  function setLang(l){
+    lang=l;localStorage.setItem('dvl_lang',l);
+    document.getElementById('btn-en').classList.toggle('active',l==='en');
+    document.getElementById('btn-pt').classList.toggle('active',l==='pt');
+    document.querySelectorAll('[data-en]').forEach(el=>{
+      const v=el.getAttribute('data-'+l);
+      if(v!==null)el.innerHTML=v;
     });
-  } else {
-    var t = document.createElement('textarea');
-    t.value = email;
-    document.body.appendChild(t);
-    t.select();
-    document.execCommand('copy');
-    document.body.removeChild(t);
-    showToast('✅ ' + email + (lang === 'en' ? ' copied!' : ' copiado!'));
+    document.querySelectorAll('option[data-en]').forEach(el=>{
+      const v=el.getAttribute('data-'+l);
+      if(v)el.textContent=v;
+    });
+    document.documentElement.lang=l==='pt'?'pt':'en';
   }
-}
+  document.addEventListener('DOMContentLoaded',()=>setLang(lang));
 
-function showToast(msg) {
-  var t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(function(){ t.classList.remove('show'); }, 3000);
-}
+  /* ══ NAV ══ */
+  function toggleMenu(){document.getElementById('sM').classList.toggle('open');document.getElementById('sO').classList.toggle('open');}
+  function nav(page){document.getElementById('sM').classList.remove('open');document.getElementById('sO').classList.remove('open');window.location.href=page;}
+  let taps=0,tapTimer=null;
+  function handleSecretTap(){taps++;clearTimeout(tapTimer);tapTimer=setTimeout(()=>taps=0,1500);if(taps>=3){taps=0;window.location.href='admin.html';}}
 
-/* INIT */
-window.addEventListener('load', function() {
-  document.getElementById('pageTransition').classList.remove('active');
-  setLang(lang);
-});
+  /* ══ TOAST ══ */
+  function toast(msg,t,dur){
+    t=t||'s';dur=dur||3500;
+    const ic={s:'✅',w:'⚠️',e:'❌'};const tc={s:'',w:'w',e:'e'};
+    const wrap=document.getElementById('tw');
+    const el=document.createElement('div');
+    el.className='tm '+tc[t];
+    el.innerHTML='<span style="font-size:15px;flex-shrink:0;">'+ic[t]+'</span><span>'+msg+'</span>';
+    wrap.appendChild(el);
+    requestAnimationFrame(()=>el.classList.add('show'));
+    setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),400);},dur);
+  }
+
+  /* ══ TABS ══ */
+  function switchTab(tab){
+    ['general','enrolment','support'].forEach(t=>{
+      document.getElementById('tab-'+t).classList.toggle('active',t===tab);
+      document.getElementById('panel-'+t).classList.toggle('active',t===tab);
+    });
+    document.getElementById('formSuccess').classList.remove('show');
+  }
+
+  /* ══ VALIDATION ══ */
+  function vf(el){el.classList.toggle('ok',el.value.trim().length>0);}
+  function countChars(tid,cid,max){
+    const v=document.getElementById(tid).value.length;
+    document.getElementById(cid).textContent=Math.min(v,max);
+  }
+
+  /* ══ REF ══ */
+  function genRef(){return 'DVL-MSG'+String(Math.floor(100000+Math.random()*900000));}
+
+  /* ══ SUBMIT ══ */
+  async function submitContact(type){
+    let name='',email='',subject='',message='',extra='';
+    const ref=genRef();
+
+    if(type==='general'){
+      name=document.getElementById('g-name').value.trim();
+      email=document.getElementById('g-email').value.trim();
+      subject=document.getElementById('g-subject').value.trim();
+      message=document.getElementById('g-message').value.trim();
+      if(!name){toast(lang==='pt'?'Por favor, introduza o seu nome.':'Please enter your name.','w');return;}
+      if(!email||!email.includes('@')){toast(lang==='pt'?'Por favor, introduza um email válido.':'Please enter a valid email.','w');return;}
+      if(!subject){toast(lang==='pt'?'Por favor, introduza o assunto.':'Please enter a subject.','w');return;}
+      if(!message){toast(lang==='pt'?'Por favor, escreva a sua mensagem.':'Please write your message.','w');return;}
+      extra='Tipo: Mensagem Geral';
+    } else if(type==='enrolment'){
+      name=document.getElementById('e-name').value.trim();
+      const wa=document.getElementById('e-wa').value.trim();
+      email=document.getElementById('e-email').value.trim()||'-';
+      const level=document.getElementById('e-level').value;
+      const mode=document.getElementById('e-mode').value;
+      const notes=document.getElementById('e-notes').value.trim();
+      if(!name){toast(lang==='pt'?'Por favor, introduza o seu nome.':'Please enter your name.','w');return;}
+      if(!wa){toast(lang==='pt'?'Por favor, introduza o seu WhatsApp.':'Please enter your WhatsApp.','w');return;}
+      if(!level){toast(lang==='pt'?'Por favor, seleccione o nível de interesse.':'Please select a level.','w');return;}
+      if(!mode){toast(lang==='pt'?'Por favor, seleccione a modalidade.':'Please select learning mode.','w');return;}
+      subject=lang==='pt'?'Pedido de Informação de Inscrição - '+name:'Enrolment Request - '+name;
+      message='WhatsApp: '+wa+'\nNível: '+level+'\nModalidade: '+mode+(notes?'\nNotas: '+notes:'');
+      extra='Tipo: Pedido de Inscrição';
+    } else {
+      name=document.getElementById('s-name').value.trim();
+      const contact=document.getElementById('s-contact').value.trim();
+      const issueType=document.getElementById('s-type').value;
+      message=document.getElementById('s-message').value.trim();
+      if(!name){toast(lang==='pt'?'Por favor, introduza o seu nome.':'Please enter your name.','w');return;}
+      if(!contact){toast(lang==='pt'?'Por favor, introduza o seu contacto.':'Please enter your contact.','w');return;}
+      if(!issueType){toast(lang==='pt'?'Por favor, seleccione o tipo de problema.':'Please select issue type.','w');return;}
+      if(!message){toast(lang==='pt'?'Por favor, descreva o problema.':'Please describe the problem.','w');return;}
+      email=contact.includes('@')?contact:'-';
+      subject=lang==='pt'?'Pedido de Suporte - '+issueType+' - '+name:'Support Request - '+issueType+' - '+name;
+      message='Contacto: '+contact+'\nTipo: '+issueType+'\n\nDescrição:\n'+message;
+      extra='Tipo: Pedido de Suporte';
+    }
+
+    document.getElementById('spinOv').classList.add('on');
+    try{
+      await emailjs.send(ESVC,ETPL,{
+        to_email:'contact@dovelingua.com',
+        subject:'📧 ['+ref+'] '+subject,
+        ref_code:ref,
+        student_name:name,
+        student_email:email,
+        student_whatsapp:email,
+        level:extra,
+        modality:type,
+        total_amount:'-',
+        student_type:type,
+        enrol_date:new Date().toLocaleDateString('pt-MZ')+' '+new Date().toLocaleTimeString('pt-MZ',{hour:'2-digit',minute:'2-digit'}),
+        availability:'-',
+        material:'-',
+        taxa_curso:'-',taxa_matricula:'-',taxa_material:'-',desconto:'-',pay_mod:'-',
+        message:message
+      });
+      document.getElementById('spinOv').classList.remove('on');
+      document.getElementById('sucRefCode').textContent=ref;
+      ['general','enrolment','support'].forEach(t=>document.getElementById('panel-'+t).classList.remove('active'));
+      document.getElementById('formSuccess').classList.add('show');
+    } catch(err){
+      document.getElementById('spinOv').classList.remove('on');
+      toast(lang==='pt'?
+        'Não foi possível enviar. Por favor, contacte-nos directamente via WhatsApp ou email.':
+        'Could not send. Please contact us directly via WhatsApp or email.',
+        'e',7000);
+    }
+  }
+
+  function resetForm(){
+    document.getElementById('formSuccess').classList.remove('show');
+    switchTab('general');
+    // clear fields
+    ['g-name','g-email','g-subject','g-message','e-name','e-wa','e-email','e-notes','s-name','s-contact','s-message'].forEach(id=>{
+      const el=document.getElementById(id);if(el){el.value='';el.classList.remove('ok');}
+    });
+    ['e-level','e-mode','s-type'].forEach(id=>{
+      const el=document.getElementById(id);if(el){el.value='';el.classList.remove('ok');}
+    });
+  }
+
+  /* ══ FADE-UP ══ */
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*55);io.unobserve(e.target);}
+    });
+  },{threshold:0.07});
+  document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
 </script>
+
 </body>
 </html>
