@@ -285,7 +285,7 @@
     /* Amount input — number BEFORE MZN */
     .amt-input-row{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.8rem;}
     .amt-field{
-      flex:1;padding:0.8rem 1rem;
+      flex:1;min-width:0;padding:0.8rem 1rem;
       border:2px solid var(--border);border-radius:10px;
       font-size:0.95rem;font-weight:700;font-family:'Inter',sans-serif;
       color:var(--navy);outline:none;
@@ -734,7 +734,7 @@
             <div class="step-desc" data-en="Even 1 MZN makes a difference." data-pt="Mesmo 1 MZN faz diferença.">Mesmo 1 MZN faz diferença.</div>
             <div class="amt-input-row">
               <input class="amt-field" type="number" id="amtInput" min="1" placeholder="Digite o valor. Ex: 10" oninput="onAmt(this)"/>
-              <span class="amt-suffix"></span>
+              <span class="amt-suffix">MZN</span>
             </div>
             <div class="amt-pills">
               <div class="ap" onclick="pickAmt(1)">1</div>
@@ -813,15 +813,15 @@
               <span class="step-title" data-en="Payment Method" data-pt="Método de Pagamento">Método de Pagamento</span>
             </div>
             <div class="method-grid" style="margin-bottom:0;">
-              <div class="method-btn auto-btn" id="mAuto" onclick="selMethod('auto')">
-                <span class="mb-icon">⚡</span>
-                <div class="mb-name" data-en="Automatic" data-pt="Automático">Automático</div>
-                <div class="mb-sub" data-en="Instant confirmation" data-pt="Confirmação instantânea">Confirmação instantânea</div>
-              </div>
               <div class="method-btn manual-btn" id="mManual" onclick="selMethod('manual')">
                 <span class="mb-icon">💳</span>
                 <div class="mb-name" data-en="Manual" data-pt="Manual">Manual</div>
                 <div class="mb-sub" data-en="Direct transfer" data-pt="Transferência directa">Transferência directa</div>
+              </div>
+              <div class="method-btn auto-btn" id="mAuto" onclick="selMethod('auto')">
+                <span class="mb-icon">⚡</span>
+                <div class="mb-name" data-en="Automatic" data-pt="Automático">Automático</div>
+                <div class="mb-sub" data-en="Instant confirmation" data-pt="Confirmação instantânea">Confirmação instantânea</div>
               </div>
             </div>
           </div>
@@ -1162,6 +1162,20 @@
   /* ══ VALIDATION ══ */
   function vf(el){el.classList.toggle('ok',el.value.trim().length>0);}
 
+  const WALLET_PREFIXES={
+    mpesa:['84','85'],
+    emola:['86','87'],
+    mkesh:['82','83']
+  };
+
+  function validatePhone(phone,wallet){
+    const clean=phone.replace(/\s/g,'').replace(/^\+258/,'').replace(/^258/,'');
+    const prefixes=WALLET_PREFIXES[wallet]||[];
+    const prefix=clean.substring(0,2);
+    if(clean.length<9) return false;
+    return prefixes.includes(prefix);
+  }
+
   /* ══ REF ══ */
   function genRef(){return 'DVL-DOA'+String(Math.floor(100000+Math.random()*900000));}
 
@@ -1173,7 +1187,9 @@
     const name=document.getElementById('fName').value.trim();
     const prov=document.getElementById('fProv').value;
     const reason=document.getElementById('fReason').value;
-    if(!name){toast(lang==='pt'?'Por favor, introduza o seu nome.':'Please enter your name.','w');return;}
+    if(!name||name.trim().split(/\s+/).length<2){
+      toast(lang==='pt'?'Por favor, introduza o seu nome completo (nome e apelido).':'Please enter your full name (first and last name).','w');return;
+    }
     if(!prov){toast(lang==='pt'?'Por favor, seleccione a sua província.':'Please select your province.','w');return;}
     if(!reason){toast(lang==='pt'?'Por favor, seleccione o motivo do apoio.':'Please select a reason.','w');return;}
     if(!S.method){toast(lang==='pt'?'Por favor, seleccione o método de pagamento.':'Please select payment method.','w');return;}
@@ -1187,6 +1203,13 @@
       }
       const phone=document.getElementById('fPhone').value.trim();
       if(!phone){toast(lang==='pt'?'Por favor, introduza o número de telefone.':'Please enter phone number.','w');return;}
+      if(!validatePhone(phone,S.wallet)){
+        const labels={mpesa:'M-Pesa (84/85)',emola:'e-Mola (86/87)',mkesh:'mKesh (82/83)'};
+        toast(lang==='pt'?
+          'Número inválido para '+labels[S.wallet]+'. Por favor, verifique o número e tente novamente.':
+          'Invalid number for '+labels[S.wallet]+'. Please check and try again.',
+          'e',6000);return;
+      }
       S.phone=phone;
     } else {
       const mp=document.getElementById('fManualPhone').value.trim();
@@ -1240,7 +1263,13 @@
       }
     } catch(err){
       document.getElementById('spinOv').classList.remove('on');
-      toast(lang==='pt'?'Não foi possível processar. Por favor, tente o método manual.':'Could not process. Please try manual payment.','e',6000);
+      toast(lang==='pt'?
+        'O serviço automático não está disponível neste momento. Por favor, utilize o pagamento manual para completar a sua doação.':
+        'Automatic payment is unavailable right now. Please use manual payment to complete your donation.',
+        'w',8000);
+      // auto-switch highlight to manual
+      document.getElementById('mManual').classList.add('sel');
+      document.getElementById('mAuto').classList.remove('sel');
     }
   }
 
@@ -1293,10 +1322,14 @@ function startPolling(){
       if(pollSeconds<=0){
         stopPolling();
         toast(lang==='pt'?
-          'Pagamento não confirmado. O pedido expirou. Pode tentar novamente.':
-          'Payment not confirmed. The request expired. Please try again.',
-          'e',7000);
+          'Pagamento não confirmado. O pedido expirou. Pode tentar o pagamento manual para completar a sua doação.':
+          'Payment not confirmed. The request expired. Please try manual payment to complete your donation.',
+          'w',8000);
         goToScreen('screen2');
+        setTimeout(()=>{
+          document.getElementById('mManual').classList.add('sel');
+          document.getElementById('mAuto').classList.remove('sel');
+        },400);
       }
     },1000);
 }
