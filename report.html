@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Denunciar Problema — DoveLingua</title>
+  <meta name="description" content="Reporte um problema, uma violação de direitos ou qualquer preocupação relacionada com a DoveLingua."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --g:#059669;--gd:#047857;--gm:#10b981;--gl:#d1fae5;--gx:#f0fdf4;
+      --navy:#0B2545;--navy2:#1e3a5f;
+      --gold:#E2B13C;--gold-l:#fef3c7;
+      --teal:#0E7C7B;--teal-l:#e0f2f1;
+      --amber:#d97706;--amber-l:#fffbeb;
+      --white:#fff;--cream:#fafaf8;
+      --text:#1a2e1a;--text-mid:#374151;--text-light:#6b7280;
+      --border:#e5e7eb;--r:14px;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);line-height:1.7;overflow-x:hidden;}
+
+    /* ══ NAV ══ */
+    nav{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid var(--border);padding:0 clamp(1rem,4vw,2.5rem);display:flex;align-items:center;justify-content:space-between;height:64px;}
+    .nav-left{display:flex;align-items:center;gap:1rem;}
+    .hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+    .hamburger span{display:block;width:22px;height:2px;background:var(--text-mid);border-radius:2px;}
+    .nav-brand{text-decoration:none;font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;color:var(--g);}
+    .nav-centre{display:flex;gap:0.1rem;list-style:none;position:absolute;left:50%;transform:translateX(-50%);}
+    .nav-centre a{text-decoration:none;font-size:0.81rem;font-weight:500;color:var(--text-mid);padding:0.38rem 0.6rem;border-radius:6px;transition:background .2s,color .2s;}
+    .nav-centre a:hover{background:var(--gx);color:var(--g);}
+    .nav-centre a.active{color:var(--g);background:var(--gx);}
+    .nav-right{display:flex;align-items:center;gap:0.6rem;}
+    .lang-toggle{display:flex;border:1.5px solid var(--border);border-radius:20px;overflow:hidden;}
+    .lang-toggle button{border:none;background:transparent;padding:0.28rem 0.72rem;cursor:pointer;color:var(--text-light);font-size:0.72rem;font-weight:700;transition:background .2s,color .2s;}
+    .lang-toggle button.active{background:var(--g);color:#fff;}
+    .profile-icon{width:34px;height:34px;border-radius:50%;background:var(--gx);border:1.5px solid var(--gl);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1rem;}
+    .btn-enrol-nav{background:var(--navy);color:#fff;border:none;padding:0.42rem 1rem;border-radius:20px;font-size:0.78rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background .2s;white-space:nowrap;}
+    .btn-enrol-nav:hover{background:var(--gd);}
+    @media(max-width:860px){.nav-centre,.btn-enrol-nav{display:none;}}
+
+    /* ══ SIDE MENU ══ */
+    .so{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1100;}
+    .so.open{display:block;}
+    .sm{position:fixed;top:0;left:-280px;width:280px;height:100%;background:#fff;z-index:1200;transition:left .3s ease;display:flex;flex-direction:column;overflow:hidden;}
+    .sm.open{left:0;}
+    .sm-hdr{display:flex;align-items:center;padding:1rem 1rem 0.8rem;border-bottom:1px solid var(--border);gap:0.8rem;}
+    .sm-cl{background:none;border:1px solid var(--border);border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:1rem;color:var(--text-mid);}
+    .sb{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--g);}
+    .sm-nav{flex:1;overflow-y:auto;padding:0.5rem 0;}
+    .sm-nav a{display:flex;align-items:center;gap:0.75rem;padding:0.65rem 1.2rem;font-size:0.88rem;font-weight:500;color:var(--text-mid);text-decoration:none;cursor:pointer;transition:background .15s,color .15s;}
+    .sm-nav a:hover{background:var(--gx);color:var(--g);}
+    .mi{font-size:1rem;width:20px;text-align:center;}
+    .sdiv{height:1px;background:var(--border);margin:0.35rem 1.2rem;}
+    .bsoon{background:var(--gx);color:var(--g);font-size:0.62rem;font-weight:700;padding:0.15rem 0.45rem;border-radius:8px;margin-left:auto;}
+    .sm-ft{padding:1rem 1.2rem;border-top:1px solid var(--border);}
+    .sm-ft p{font-style:italic;font-size:0.75rem;color:var(--text-light);line-height:1.55;}
+
+    /* ══ TOAST ══ */
+    .tw{position:fixed;top:76px;right:18px;z-index:9000;display:flex;flex-direction:column;gap:8px;max-width:320px;}
+    .tm{background:#fff;border-radius:10px;box-shadow:0 4px 18px rgba(13,27,42,.13);padding:11px 15px;display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--text);line-height:1.5;transform:translateX(110%);transition:transform .32s cubic-bezier(.4,0,.2,1);border-left:4px solid var(--g);}
+    .tm.show{transform:translateX(0);}
+    .tm.e{border-left-color:#dc2626;}
+    .tm.w{border-left-color:var(--gold);}
+    .tm.i{border-left-color:var(--teal);}
+
+    /* ══ SPINNER ══ */
+    .spin-ov{position:fixed;inset:0;background:rgba(11,37,69,0.65);z-index:8000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:1rem;}
+    .spin-ov.on{display:flex;}
+    .spin{width:48px;height:48px;border:4px solid rgba(255,255,255,0.2);border-top-color:#fff;border-radius:50%;animation:sp .9s linear infinite;}
+    @keyframes sp{to{transform:rotate(360deg);}}
+    .spin-ov p{color:#fff;font-size:0.9rem;}
+
+    /* ══ HERO ══ */
+    .hero{
+      background:linear-gradient(135deg,#1a0a00 0%,var(--navy) 45%,#1a1a00 100%);
+      border-top:5px solid var(--amber);
+      padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,5vw,4rem) 0;
+      position:relative;overflow:hidden;
+    }
+    .hero::before{content:'';position:absolute;inset:0;
+      background:radial-gradient(ellipse at 15% 60%,rgba(217,119,6,0.12) 0%,transparent 50%),
+                  radial-gradient(ellipse at 85% 20%,rgba(11,37,69,0.2) 0%,transparent 50%);}
+    .hero-inner{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding-bottom:3rem;}
+    .hero-title-card{background:rgba(255,255,255,0.07);border:1.5px solid rgba(217,119,6,0.45);border-radius:16px;padding:1.6rem 2.5rem 1.8rem;text-align:center;margin-bottom:2rem;}
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(217,119,6,0.15);border:1px solid rgba(217,119,6,0.35);color:#fbbf24;font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.28rem 0.9rem;border-radius:20px;margin-bottom:1rem;}
+    .hero-title-card h1{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.8rem);font-weight:700;color:#fff;line-height:1.2;}
+    .hero-title-card h1 em{color:#fbbf24;font-style:italic;}
+    .hero-pills{display:flex;justify-content:center;gap:0.7rem;flex-wrap:wrap;}
+    .hero-pill{display:inline-flex;align-items:center;gap:0.4rem;padding:0.45rem 1.1rem;border-radius:30px;font-size:0.82rem;font-weight:700;color:#fff;white-space:nowrap;}
+    .hp1{background:rgba(217,119,6,0.2);border:1.5px solid rgba(217,119,6,0.5);}
+    .hp2{background:rgba(14,124,123,0.15);border:1.5px solid rgba(14,124,123,0.45);}
+    .hp3{background:rgba(5,150,105,0.15);border:1.5px solid rgba(5,150,105,0.4);}
+    .hp4{background:rgba(226,177,60,0.12);border:1.5px solid rgba(226,177,60,0.4);}
+
+    /* ══ MAIN ══ */
+    .main-wrap{max-width:860px;margin:0 auto;padding:clamp(2rem,4vw,3.5rem) clamp(1.5rem,5vw,4rem);}
+
+    /* Promise card */
+    .promise-card{
+      background:linear-gradient(135deg,#fffbeb,#fef3c7);
+      border:1.5px solid #fcd34d;
+      border-left:5px solid var(--amber);
+      border-radius:var(--r);
+      padding:1.3rem 1.6rem;
+      margin-bottom:2rem;
+      display:flex;align-items:flex-start;gap:1rem;
+    }
+    .promise-card .pc-icon{font-size:1.6rem;flex-shrink:0;margin-top:2px;}
+    .promise-card p{font-size:0.88rem;color:#78350f;line-height:1.75;}
+    .promise-card strong{color:#92400e;}
+
+    /* Form card */
+    .form-card{background:#fff;border:2px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 4px 32px rgba(11,37,69,0.08);}
+    .form-header{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:1.5rem 2rem;}
+    .form-header h2{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--gold);margin-bottom:0.2rem;}
+    .form-header p{font-size:0.82rem;color:rgba(255,255,255,0.55);}
+    .form-body{padding:1.8rem 2rem 2rem;}
+
+    /* Section label */
+    .sec-lbl{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--teal);margin-bottom:0.8rem;padding-bottom:0.4rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.5rem;}
+
+    /* Field */
+    .f{margin-bottom:1rem;}
+    .f label{display:block;font-size:0.72rem;font-weight:700;color:var(--navy);margin-bottom:0.45rem;text-transform:uppercase;letter-spacing:0.04em;}
+    .f label .req{color:#dc2626;margin-left:2px;}
+    .f input,.f select,.f textarea{width:100%;padding:0.8rem 1rem;border:2px solid var(--teal);border-radius:10px;font-size:0.9rem;font-family:'Inter',sans-serif;color:var(--text);outline:none;transition:all .2s;background:#fff;}
+    .f input:focus,.f select:focus,.f textarea:focus{border-color:var(--teal);background:var(--teal-l);}
+    .f input.ok,.f select.ok,.f textarea.ok{border-color:var(--g);background:var(--gx);}
+    .f textarea{resize:vertical;min-height:110px;line-height:1.65;}
+    .f-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+    .f-note{font-size:0.75rem;color:var(--text-light);margin-top:0.4rem;line-height:1.55;}
+
+    /* Identity toggle */
+    .identity-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:1rem;}
+    .id-btn{border-radius:var(--r);padding:1rem;cursor:pointer;text-align:center;transition:all .25s;background:#fff;}
+    .id-btn.anon-btn{border:2px solid var(--border);}
+    .id-btn.named-btn{border:2px solid var(--teal);}
+    .id-btn.sel.anon-btn{background:#fef3c7;border-color:var(--amber);box-shadow:0 0 0 3px rgba(217,119,6,0.12);}
+    .id-btn.sel.named-btn{background:var(--teal-l);border-color:var(--teal);box-shadow:0 0 0 3px rgba(14,124,123,0.12);}
+    .idb-icon{font-size:1.5rem;display:block;margin-bottom:0.3rem;}
+    .idb-name{font-size:0.88rem;font-weight:700;color:var(--navy);}
+    .idb-sub{font-size:0.7rem;color:var(--text-light);margin-top:0.12rem;}
+
+    /* Anonymous note */
+    .anon-note{background:var(--amber-l);border:1px solid #fcd34d;border-radius:10px;padding:0.8rem 1rem;font-size:0.8rem;color:#78350f;line-height:1.65;margin-bottom:1rem;display:none;}
+    .anon-note.show{display:block;}
+
+    /* Named fields */
+    .named-fields{display:none;}
+    .named-fields.show{display:block;}
+
+    /* Category pills */
+    .cat-pills{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.8rem;}
+    .cat-pill{padding:0.45rem 0.9rem;border-radius:20px;border:1.5px solid var(--border);background:#fff;font-size:0.78rem;font-weight:600;color:var(--text-mid);cursor:pointer;transition:all .2s;}
+    .cat-pill:hover{border-color:var(--teal);color:var(--teal);}
+    .cat-pill.sel{border-color:var(--teal);background:var(--teal-l);color:var(--teal);}
+
+    /* Severity selector */
+    .severity-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem;margin-bottom:1rem;}
+    .sev-btn{padding:0.7rem 0.5rem;border-radius:10px;border:1.5px solid var(--border);background:#fff;cursor:pointer;text-align:center;font-size:0.78rem;font-weight:600;color:var(--text-mid);transition:all .2s;}
+    .sev-btn:hover{border-color:var(--teal);}
+    .sev-btn.sel.low{border-color:var(--g);background:var(--gx);color:var(--gd);}
+    .sev-btn.sel.med{border-color:var(--amber);background:var(--amber-l);color:var(--amber);}
+    .sev-btn.sel.high{border-color:#dc2626;background:#fef2f2;color:#dc2626;}
+
+    /* Submit */
+    .btn-submit{width:100%;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border:none;border-radius:50px;padding:1rem;font-size:0.95rem;font-weight:700;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:0.6rem;box-shadow:0 4px 20px rgba(11,37,69,0.25);margin-top:1.2rem;}
+    .btn-submit:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(11,37,69,0.35);}
+
+    /* File upload */
+    .file-upload-area{
+      border:2px dashed var(--teal);border-radius:10px;
+      padding:1.2rem;text-align:center;cursor:pointer;
+      background:var(--teal-l);transition:all .2s;
+      display:flex;flex-direction:column;align-items:center;gap:0.3rem;
+    }
+    .file-upload-area:hover{background:#b2dfdb;border-color:var(--gd);}
+    .fu-icon{font-size:1.6rem;}
+    .fu-text{font-size:0.82rem;font-weight:600;color:var(--teal);}
+    .fu-note{font-size:0.7rem;color:var(--text-light);}
+    .file-selected{
+      display:flex;align-items:center;gap:0.7rem;
+      background:var(--gx);border:1.5px solid var(--gl);
+      border-radius:10px;padding:0.6rem 1rem;margin-top:0.5rem;
+    }
+    .fs-icon{font-size:1.1rem;}
+    .fs-name{font-size:0.82rem;font-weight:600;color:var(--gd);flex:1;}
+    .fs-remove{background:none;border:none;color:var(--text-light);cursor:pointer;font-size:1rem;padding:0 0.3rem;}
+    .fs-remove:hover{color:#dc2626;}
+
+    /* ══ SUCCESS STATE ══ */
+    .success-wrap{display:none;text-align:center;padding:2.5rem 2rem;}
+    .success-wrap.show{display:block;}
+    .form-body.hide{display:none;}
+    .suc-icon{font-size:3.5rem;display:block;margin-bottom:1rem;animation:popIn .5s cubic-bezier(.175,.885,.32,1.275);}
+    @keyframes popIn{0%{transform:scale(0);opacity:0;}100%{transform:scale(1);opacity:1;}}
+    .suc-title{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--navy);margin-bottom:0.6rem;}
+    .suc-msg{font-size:0.88rem;color:var(--text-mid);line-height:1.75;max-width:420px;margin:0 auto 1.5rem;}
+    .suc-ref{display:inline-flex;align-items:center;gap:0.7rem;background:var(--gx);border:1.5px solid var(--gl);border-radius:10px;padding:0.6rem 1.1rem;margin-bottom:1.5rem;}
+    .suc-ref-label{font-size:0.72rem;color:var(--text-light);}
+    .suc-ref-code{font-size:0.95rem;font-weight:700;color:var(--g);letter-spacing:1.5px;}
+    .suc-ref-copy{background:var(--g);color:#fff;border:none;border-radius:6px;padding:0.28rem 0.65rem;font-size:0.7rem;font-weight:600;cursor:pointer;}
+
+    /* ══ CONNECTED PAGES ══ */
+    .connected-section{margin-top:2.5rem;}
+    .connected-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--navy);margin-bottom:1rem;padding-left:0.7rem;border-left:3px solid var(--g);}
+    .connected-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem;}
+    .conn-card{display:flex;flex-direction:column;align-items:center;gap:0.4rem;padding:1rem 0.8rem;background:#fff;border:1.5px solid var(--border);border-radius:var(--r);cursor:pointer;text-decoration:none;transition:all .2s;}
+    .conn-card:hover{border-color:var(--teal);transform:translateY(-2px);box-shadow:0 4px 16px rgba(14,124,123,0.1);}
+    .conn-card .cc-icon{font-size:1.3rem;}
+    .conn-card .cc-label{font-size:0.75rem;font-weight:600;color:var(--navy);}
+    .conn-card .cc-sub{font-size:0.68rem;color:var(--text-light);}
+
+    /* ══ FOOTER ══ */
+    footer{background:var(--navy);color:#fff;padding:48px 5% 26px;text-align:center;}
+    .fg{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:32px;text-align:center;}
+    .fb .fname{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:10px;color:#fff;}
+    .fb p{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;margin-bottom:16px;}
+    .fsoc{display:flex;gap:10px;justify-content:center;}
+    .fsb{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;text-decoration:none;}
+    .fsb:hover{background:var(--g);}
+    .fc h4{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--gm);margin-bottom:12px;}
+    .fc a{display:block;font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:8px;cursor:pointer;transition:color .18s;text-decoration:none;}
+    .fc a:hover{color:var(--gold);}
+    .fbot{max-width:1100px;margin:0 auto;border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:14px;}
+    .fbot p{font-size:12px;color:rgba(255,255,255,0.3);}
+    .fbot a{color:rgba(255,255,255,0.4);font-size:12px;cursor:pointer;text-decoration:none;}
+    .fbot a:hover{color:rgba(255,255,255,0.7);}
+    .waf{position:fixed;bottom:22px;right:22px;z-index:900;width:50px;height:50px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(37,211,102,.4);transition:all .3s;text-decoration:none;}
+    .waf:hover{transform:scale(1.1);}
+    .waf svg{width:26px;height:26px;fill:#fff;}
+
+    @media(max-width:680px){
+      .f-row{grid-template-columns:1fr;}
+      .connected-grid{grid-template-columns:repeat(2,1fr);}
+      .severity-grid{grid-template-columns:repeat(3,1fr);}
+      .fg{grid-template-columns:1fr 1fr;}
+      .form-body{padding:1.4rem 1.2rem;}
+    }
+    @media(max-width:420px){
+      .fg{grid-template-columns:1fr;}
+      .connected-grid{grid-template-columns:repeat(2,1fr);}
+    }
+    .fade-up{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease;}
+    .fade-up.visible{opacity:1;transform:translateY(0);}
+  </style>
+</head>
+<body>
+
+<div class="tw" id="tw"></div>
+<div class="spin-ov" id="spinOv"><div class="spin"></div><p data-en="Sending your report..." data-pt="A enviar a sua denúncia ...">A enviar a sua denúncia ...</p></div>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-left">
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    <a href="index.html" class="nav-brand">DoveLingua</a>
+  </div>
+  <ul class="nav-centre">
+    <li><a href="index.html" data-en="Home" data-pt="Início">Início</a></li>
+    <li><a href="about.html" data-en="About" data-pt="Sobre">Sobre</a></li>
+    <li><a href="programme.html" data-en="Programme" data-pt="Programa">Programa</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html" data-en="Contact" data-pt="Contacto">Contacto</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+      <button id="btn-pt" class="active" onclick="setLang('pt')">PT</button>
+    </div>
+    <a href="enrol.html" class="profile-icon">👤</a>
+    <a href="enrol.html" class="btn-enrol-nav" data-en="Enrol Now" data-pt="Inscrever">Inscrever</a>
+  </div>
+</nav>
+
+<!-- ══ SIDE MENU ══ -->
+<div class="so" id="sO" onclick="toggleMenu()"></div>
+<div class="sm" id="sM">
+  <div class="sm-hdr"><button class="sm-cl" onclick="toggleMenu()">✕</button><div class="sb">DoveLingua</div></div>
+  <div class="sm-nav">
+    <a onclick="nav('index.html')"><span class="mi">🏠</span><span data-en="Home" data-pt="Início">Início</span></a>
+    <div class="sdiv"></div>
+    <a onclick="nav('about.html')"><span class="mi">📖</span><span data-en="About Us" data-pt="Sobre Nós">Sobre Nós</span></a>
+    <a onclick="nav('programme.html')"><span class="mi">📚</span><span data-en="Programme" data-pt="Programa">O Nosso Programa</span></a>
+    <a onclick="nav('enrol.html')"><span class="mi">📋</span><span data-en="Enrol" data-pt="Inscrição">Inscrição</span></a>
+    <a href="https://classroom.dovelingua.com" target="_blank"><span class="mi">💻</span>DoveLingua Classroom</a>
+    <div class="sdiv"></div>
+    <a onclick="nav('library.html')"><span class="mi">📖</span>Biblioteca<span class="bsoon">Soon</span></a>
+    <a onclick="nav('app.html')"><span class="mi">📱</span>English Dove App<span class="bsoon">Soon</span></a>
+    <div class="sdiv"></div>
+    <a onclick="nav('announcements.html')"><span class="mi">📢</span>Avisos</a>
+    <a onclick="nav('faq.html')"><span class="mi">❓</span>FAQ</a>
+    <a onclick="nav('evaluate.html')"><span class="mi">⭐</span>Avaliar DoveLingua</a>
+    <a href="https://whatsapp.com/channel/0029VbCKsViFCCoWvkhrYT2g" target="_blank"><span class="mi">📡</span>Canal WhatsApp</a>
+    <div class="sdiv"></div>
+    <a onclick="nav('donate.html')"><span class="mi">❤️</span>Apoiar DoveLingua</a>
+    <a onclick="nav('report.html')"><span class="mi">🚩</span><span data-en="Report a Problem" data-pt="Denunciar Problema">Denunciar Problema</span></a>
+    <div class="sdiv"></div>
+    <a onclick="nav('contact.html')"><span class="mi">📧</span>Contactar Suporte</a>
+    <a onclick="nav('terms.html')"><span class="mi">📄</span>Termos e Políticas</a>
+  </div>
+  <div class="sm-ft" onclick="handleSecretTap()" style="cursor:default;">
+    <p data-en="&ldquo;Learn English today and connect with the World tomorrow&rdquo;" data-pt="&ldquo;Aprende inglês hoje e conecta-te com o Mundo amanhã&rdquo;">&ldquo;Aprende inglês hoje e conecta-te com o Mundo amanhã&rdquo;</p>
+  </div>
+</div>
+
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-title-card fade-up">
+      <div class="hero-eyebrow">🚩 <span data-en="Report a Problem" data-pt="Denunciar um Problema">Denunciar um Problema</span></div>
+      <h1 data-en="Your voice <em>matters to us.</em>" data-pt="A sua voz <em>é importante para nós.</em>">A sua voz <em>é importante para nós.</em></h1>
+    </div>
+    <div class="hero-pills fade-up">
+      <div class="hero-pill hp1">🔒 <span data-en="Protected" data-pt="Protegido">Protegido</span></div>
+      <div class="hero-pill hp2">🤝 <span data-en="Confidential" data-pt="Confidencial">Confidencial</span></div>
+      <div class="hero-pill hp3">✅ <span data-en="Answered" data-pt="Respondido">Respondido</span></div>
+      <div class="hero-pill hp4">🥷 <span data-en="Anonymous" data-pt="Anonimato">Anonimato</span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ MAIN ══ -->
+<div class="main-wrap">
+
+  <!-- Promise card -->
+  <div class="promise-card fade-up">
+    <span class="pc-icon">🛡️</span>
+    <p data-en="<strong>Your report is safe with us.</strong> Whether you choose to identify yourself or remain anonymous, every report is taken seriously, handled with discretion and responded to with respect. No report will ever be used against the person who made it." data-pt="<strong>a sua denúncia  está segura connosco.</strong> Quer opte por se identificar ou permanecer anónimo, cada denúncia é tratada com seriedade, discrição e respondido com respeito. Nenhuma denúncia nunca será usada contra a pessoa que o enviou."><strong>a sua denúncia  está segura connosco.</strong> Quer opte por se identificar ou permanecer anónimo, cada denúncia é tratada com seriedade, discrição e respondido com respeito. Nenhuma denúncia será jamais usado contra a pessoa que o enviou.</p>
+  </div>
+
+  <!-- FORM CARD -->
+  <div class="form-card fade-up">
+    <div class="form-header">
+      <h2 data-en="Submit Your Report" data-pt="Enviar Denúncia">Enviar Denúncia</h2>
+      <p data-en="Fill in the form below. All fields marked with * are required." data-pt="Preencha o formulário abaixo. Todos os campos marcados com * são obrigatórios.">Preencha o formulário abaixo. Todos os campos marcados com * são obrigatórios.</p>
+    </div>
+
+    <div class="form-body" id="formBody">
+
+      <!-- IDENTITY CHOICE -->
+      <div class="sec-lbl">👤 <span data-en="How would you like to report?" data-pt="Como deseja Denunciar?">Como deseja denunciar?</span></div>
+      <div class="identity-grid">
+        <div class="id-btn anon-btn" id="btnAnon" onclick="selIdentity('anon')">
+          <span class="idb-icon">🎭</span>
+          <div class="idb-name" data-en="Anonymous" data-pt="Anónimo">Anónimo</div>
+          <div class="idb-sub" data-en="Your identity is hidden" data-pt="A sua identidade fica oculta">A sua identidade fica oculta</div>
+        </div>
+        <div class="id-btn named-btn" id="btnNamed" onclick="selIdentity('named')">
+          <span class="idb-icon">🙋</span>
+          <div class="idb-name" data-en="Identified" data-pt="Identificado">Identificado</div>
+          <div class="idb-sub" data-en="You share your name and contact" data-pt="Partilha o nome e contacto">Partilha o nome e contacto</div>
+        </div>
+      </div>
+
+      <!-- Anonymous note -->
+      <div class="anon-note" id="anonNote">
+        🔒 <span data-en="You chose to report anonymously. Your identity will not be stored or shared. You will still receive a reference code to follow up if you wish." data-pt="Escolheu denunciar de forma anónima. A sua identidade não será guardada nem partilhada. Receberá um código de referência para acompanhar o caso, se desejar.">Escolheu denunciar de forma anónima. A sua identidade não será guardada nem partilhada. Receberá um código de referência para acompanhar o caso, se desejar.</span>
+      </div>
+
+      <!-- Named fields -->
+      <div class="named-fields" id="namedFields">
+        <div class="f-row">
+          <div class="f">
+            <label data-en="Full Name <span class='req'>*</span>" data-pt="Nome Completo <span class='req'>*</span>">Nome Completo <span class="req">*</span></label>
+            <input type="text" id="rName" placeholder="Ex: João Manuel Silva" oninput="vf(this)"/>
+          </div>
+          <div class="f">
+            <label data-en="Email or WhatsApp <span class='req'>*</span>" data-pt="Email ou WhatsApp <span class='req'>*</span>">Email ou WhatsApp <span class="req">*</span></label>
+            <input type="text" id="rContact" placeholder="Ex: joao@gmail.com ou +258 84..." oninput="vf(this)"/>
+          </div>
+        </div>
+        <div class="f">
+          <label data-en="Your Role <span class='req'>*</span>" data-pt="A Sua Relação com a DoveLingua <span class='req'>*</span>">A Sua Relação com a DoveLingua <span class="req">*</span></label>
+          <select id="rRole" onchange="vf(this)">
+            <option value="">— Seleccione —</option>
+            <option value="student" data-en="Enrolled student" data-pt="Aluno(a) inscrito(a)">Aluno(a) inscrito(a)</option>
+            <option value="former" data-en="Former student" data-pt="Ex-aluno(a)">Ex-aluno(a)</option>
+            <option value="community" data-en="Community member / app user" data-pt="Membro da comunidade / utilizador da app">Membro da comunidade / utilizador da app</option>
+            <option value="partner" data-en="Partner or collaborator" data-pt="Parceiro ou colaborador">Parceiro ou colaborador</option>
+            <option value="external" data-en="External person / general public" data-pt="Pessoa externa / público geral">Pessoa externa / público geral</option>
+            <option value="other" data-en="Other" data-pt="Outro">Outro</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- REPORT CATEGORY -->
+      <div class="sec-lbl" style="margin-top:1.2rem;">🚩 <span data-en="Category of Report" data-pt="Categoria da Denúncia">Categoria da Denúncia</span></div>
+      <div class="f">
+        <label data-en="What are you reporting? <span class='req'>*</span>" data-pt="O que está a denunciar? <span class='req'>*</span>">O que está a denunciar? <span class="req">*</span></label>
+        <select id="rCategory" onchange="onCatChange(this)">
+          <option value="">— Seleccione a categoria —</option>
+          <optgroup label="Qualidade e Serviços" data-en-label="Quality and Services" data-pt-label="Qualidade e Serviços">
+            <option value="quality_lessons" data-en="Quality of lessons" data-pt="Qualidade das aulas">Qualidade das aulas</option>
+            <option value="quality_platform" data-en="Problems with DoveLingua platforms" data-pt="Problemas com as plataformas DoveLingua">Problemas com as plataformas DoveLingua</option>
+            <option value="quality_app" data-en="Problems with the English Dove app" data-pt="Problemas com a aplicação English Dove">Problemas com a aplicação English Dove</option>
+            <option value="quality_support" data-en="Poor support or lack of response" data-pt="Suporte fraco ou falta de resposta">Suporte fraco ou falta de resposta</option>
+            <option value="quality_payment" data-en="Problems with payments or receipts" data-pt="Problemas com pagamentos ou recibos">Problemas com pagamentos ou recibos</option>
+          </optgroup>
+          <optgroup label="Direitos dos Alunos" data-en-label="Student Rights" data-pt-label="Direitos dos Alunos">
+            <option value="rights_denied" data-en="Right denied or not respected" data-pt="Direito negado ou não respeitado">Direito negado ou não respeitado</option>
+            <option value="rights_certificate" data-en="Issue with certificate or recognition" data-pt="Problema com certificado ou reconhecimento">Problema com certificado ou reconhecimento</option>
+            <option value="rights_assessment" data-en="Unfair assessment or grading" data-pt="Avaliação ou classificação injusta">Avaliação ou classificação injusta</option>
+            <option value="rights_access" data-en="Denied access to platform or course" data-pt="Acesso negado à plataforma ou ao curso">Acesso negado à plataforma ou ao curso</option>
+          </optgroup>
+          <optgroup label="Conduta e Integridade" data-en-label="Conduct and Integrity" data-pt-label="Conduta e Integridade">
+            <option value="conduct_teacher" data-en="Inappropriate conduct by Teacher Dove" data-pt="Conduta inadequada do Teacher Dove">Conduta inadequada do Teacher Dove</option>
+            <option value="conduct_staff" data-en="Inappropriate conduct by DoveLingua staff" data-pt="Conduta inadequada de um colaborador DoveLingua">Conduta inadequada de um colaborador DoveLingua</option>
+            <option value="conduct_institution" data-en="Conduct or policy issue with DoveLingua as institution" data-pt="Problema de conduta ou política da DoveLingua como instituição">Problema de conduta ou política da DoveLingua como instituição</option>
+          </optgroup>
+          <optgroup label="Propriedade Intelectual e Plágio" data-en-label="Intellectual Property and Plagiarism" data-pt-label="Propriedade Intelectual e Plágio">
+            <option value="ip_content" data-en="Falsification or misuse of DoveLingua content" data-pt="Falsificação ou uso indevido de conteúdo DoveLingua">Falsificação ou uso indevido de conteúdo DoveLingua</option>
+            <option value="ip_brand" data-en="Misuse of DoveLingua name or brand" data-pt="Uso indevido do nome ou marca DoveLingua">Uso indevido do nome ou marca DoveLingua</option>
+            <option value="ip_plagiarism" data-en="Plagiarism of DoveLingua materials" data-pt="Plágio de materiais DoveLingua">Plágio de materiais DoveLingua</option>
+            <option value="ip_certificate" data-en="Fraudulent or falsified certificate" data-pt="Certificado fraudulento ou falsificado">Certificado fraudulento ou falsificado</option>
+          </optgroup>
+          <optgroup label="Outros" data-en-label="Other" data-pt-label="Outros">
+            <option value="other_suggestion" data-en="Suggestion for improvement" data-pt="Sugestão de melhoria">Sugestão de melhoria</option>
+            <option value="other_general" data-en="Other concern not listed above" data-pt="Outra preocupação não listada acima">Outra preocupação não listada acima</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <!-- WHO IS BEING REPORTED -->
+      <div class="f">
+        <label data-en="Who or what is this report about? <span class='req'>*</span>" data-pt="A quem ou ao quê se refere esta denúncia? <span class='req'>*</span>">A quem ou ao quê se refere esta denúncia? <span class="req">*</span></label>
+        <select id="rAbout" onchange="vf(this)">
+          <option value="">— Seleccione —</option>
+          <option value="teacher_dove" data-en="Teacher Dove (CEO / Founder)" data-pt="Teacher Dove (CEO / Fundador)">Teacher Dove (CEO / Fundador)</option>
+          <option value="staff" data-en="A DoveLingua staff member or collaborator" data-pt="Um colaborador DoveLingua">Um colaborador DoveLingua</option>
+          <option value="institution" data-en="DoveLingua as an institution" data-pt="A DoveLingua como instituição">A DoveLingua como instituição</option>
+          <option value="platform" data-en="A DoveLingua platform or service" data-pt="Uma plataforma ou serviço DoveLingua">Uma plataforma ou serviço DoveLingua</option>
+          <option value="third_party" data-en="An external person or entity misusing DoveLingua" data-pt="Uma pessoa ou entidade externa a usar indevidamente a DoveLingua">Uma pessoa ou entidade externa a usar indevidamente a DoveLingua</option>
+          <option value="other" data-en="Other" data-pt="Outro">Outro</option>
+        </select>
+      </div>
+
+      <!-- SEVERITY -->
+      <div class="f">
+        <label data-en="Severity Level <span class='req'>*</span>" data-pt="Nível de Gravidade <span class='req'>*</span>">Nível de Gravidade <span class="req">*</span></label>
+        <div class="severity-grid">
+          <div class="sev-btn low" id="sev-low" onclick="selSev('low')">
+            😐 <span data-en="Low" data-pt="Baixo">Baixo</span>
+          </div>
+          <div class="sev-btn med" id="sev-med" onclick="selSev('med')">
+            ⚠️ <span data-en="Medium" data-pt="Médio">Médio</span>
+          </div>
+          <div class="sev-btn high" id="sev-high" onclick="selSev('high')">
+            🚨 <span data-en="High" data-pt="Alto">Alto</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DESCRIPTION -->
+      <div class="sec-lbl" style="margin-top:0.5rem;">📝 <span data-en="Description" data-pt="Descrição">Descrição</span></div>
+      <div class="f">
+        <label data-en="Describe the problem in detail <span class='req'>*</span>" data-pt="Descreva o problema em detalhe <span class='req'>*</span>">Descreva o problema em detalhe <span class="req">*</span></label>
+        <textarea id="rDesc" placeholder="Descreva o que aconteceu, quando aconteceu, onde aconteceu e qualquer outra informação relevante..." oninput="vf(this)"></textarea>
+        <div class="f-note" data-en="The more detail you provide, the better we can investigate and respond." data-pt="Quanto mais detalhe fornecer, melhor podemos investigar e responder.">Quanto mais detalhe fornecer, melhor podemos investigar e responder.</div>
+      </div>
+
+      <!-- EVIDENCE / LINK / FILE -->
+      <div class="f">
+        <label data-en="Evidence, Link or File (optional)" data-pt="Prova, Ligação ou Ficheiro (opcional)">Prova, Ligação ou Ficheiro (opcional)</label>
+        <input type="text" id="rEvidence" placeholder="Ex: link, número de referência, nome de ficheiro..." oninput="vf(this)"/>
+        <div class="f-note" style="margin-bottom:0.6rem;" data-en="If you have a link or reference, enter it above." data-pt="Se tem uma ligação ou referência, escreva acima.">Se tem uma ligação ou referência, escreva acima.</div>
+        <!-- File upload -->
+        <label style="font-size:0.72rem;font-weight:700;color:var(--navy);margin-bottom:0.45rem;display:block;text-transform:uppercase;letter-spacing:0.04em;" data-en="Attach a file (screenshot, document, photo)" data-pt="Anexar ficheiro (captura de ecrã, documento, foto)">Anexar ficheiro (captura de ecrã, documento, foto)</label>
+        <div class="file-upload-area" id="fileUploadArea" onclick="document.getElementById('rFile').click()">
+          <span class="fu-icon">📎</span>
+          <span class="fu-text" id="fuText" data-en="Click to attach a file — or drag and drop" data-pt="Clique para anexar um ficheiro — ou arraste e solte">Clique para anexar um ficheiro — ou arraste e solte</span>
+          <span class="fu-note" data-en="Images, PDF, Word, screenshots — max 10MB" data-pt="Imagens, PDF, Word, capturas — máx. 10MB">Imagens, PDF, Word, capturas — máx. 10MB</span>
+        </div>
+        <input type="file" id="rFile" style="display:none;" accept="image/*,.pdf,.doc,.docx,.txt" onchange="onFileChange(this)"/>
+        <div class="file-selected" id="fileSelected" style="display:none;">
+          <span class="fs-icon">📄</span>
+          <span class="fs-name" id="fsName"></span>
+          <button class="fs-remove" onclick="removeFile()">✕</button>
+        </div>
+        <div class="f-note" data-en="Files will be forwarded with your report. If attachment is unavailable, we will request it separately." data-pt="Os ficheiros serão encaminhados com o seu relatório. Se o envio falhar, solicitaremos separadamente.">Os ficheiros serão encaminhados com o seu relatório. Se o envio falhar, solicitaremos separadamente.</div>
+      </div>
+
+      <!-- SUBMIT -->
+      <button class="btn-submit" onclick="submitReport()">
+        🚩 <span data-en="Submit Report" data-pt="Enviar denúncia">Enviar denúncia</span>
+      </button>
+
+    </div><!-- end form-body -->
+
+    <!-- SUCCESS STATE — shown after submit -->
+    <div class="success-wrap" id="successWrap">
+      <span class="suc-icon">✅</span>
+      <div class="suc-title" data-en="Report Submitted" data-pt="Denúncia Enviada">Denúncia Enviada</div>
+      <p class="suc-msg" data-en="Thank you for taking the time to report this. Your report has been received and will be handled with full discretion and seriousness. We will respond as soon as possible." data-pt="Obrigado por dedicar o seu tempo a denunciar isto. A sua denúncia  foi recebida e será tratada com total discrição e seriedade. Responderemos o mais brevemente possível.">Obrigado por dedicar o seu tempo a denunciar isto. A sua denúncia  foi recebida e será tratada com total discrição e seriedade. Responderemos o mais brevemente possível.</p>
+      <div class="suc-ref">
+        <span class="suc-ref-label" data-en="Reference:" data-pt="Referência:">Referência:</span>
+        <span class="suc-ref-code" id="sucRefCode">—</span>
+        <button class="suc-ref-copy" onclick="cp(document.getElementById('sucRefCode').textContent)" data-en="Copy" data-pt="Copiar">Copiar</button>
+      </div>
+      <p style="font-size:0.82rem;color:var(--text-light);line-height:1.65;" data-en="Keep your reference code. If you reported anonymously and wish to follow up, use this code when contacting our support team." data-pt="Guarde o seu código de referência. Se reportou de forma anónima e deseja acompanhar o caso, utilize este código ao contactar a nossa equipa de suporte.">Guarde o seu código de referência. Se reportou de forma anónima e deseja acompanhar o caso, utilize este código ao contactar a nossa equipa de suporte.</p>
+    </div>
+
+  </div><!-- end form-card -->
+
+  <!-- CONNECTED PAGES -->
+  <div class="connected-section fade-up">
+    <div class="connected-title" data-en="Other useful pages" data-pt="Outras páginas úteis">Outras páginas úteis</div>
+    <div class="connected-grid">
+      <a href="contact.html" class="conn-card">
+        <span class="cc-icon">📧</span>
+        <span class="cc-label" data-en="Contact Support" data-pt="Contactar Suporte">Contactar Suporte</span>
+        <span class="cc-sub" data-en="General assistance" data-pt="Assistência geral">Assistência geral</span>
+      </a>
+      <a href="evaluate.html" class="conn-card">
+        <span class="cc-icon">⭐</span>
+        <span class="cc-label" data-en="Evaluate DoveLingua" data-pt="Avaliar DoveLingua">Avaliar DoveLingua</span>
+        <span class="cc-sub" data-en="Share your feedback" data-pt="Partilhe a sua opinião">Partilhe a sua opinião</span>
+      </a>
+      <a href="terms.html" class="conn-card">
+        <span class="cc-icon">📄</span>
+        <span class="cc-label" data-en="Terms & Policies" data-pt="Termos e Políticas">Termos e Políticas</span>
+        <span class="cc-sub" data-en="Know your rights" data-pt="Conheça os seus direitos">Conheça os seus direitos</span>
+      </a>
+      <a href="donate.html" class="conn-card">
+        <span class="cc-icon">❤️</span>
+        <span class="cc-label" data-en="Support DoveLingua" data-pt="Apoiar DoveLingua">Apoiar DoveLingua</span>
+        <span class="cc-sub" data-en="Help us grow" data-pt="Ajude-nos a crescer">Ajude-nos a crescer</span>
+      </a>
+      <a href="enrol.html" class="conn-card">
+        <span class="cc-icon">📋</span>
+        <span class="cc-label" data-en="Enrol" data-pt="Inscrição">Inscrição</span>
+        <span class="cc-sub" data-en="Join a course" data-pt="Inscreva-se num curso">Inscreva-se num curso</span>
+      </a>
+      <a href="faq.html" class="conn-card">
+        <span class="cc-icon">❓</span>
+        <span class="cc-label">FAQ</span>
+        <span class="cc-sub" data-en="Frequent questions" data-pt="Perguntas frequentes">Perguntas frequentes</span>
+      </a>
+    </div>
+  </div>
+
+</div><!-- end main-wrap -->
+
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="fg">
+    <div class="fb">
+      <div class="fname">DoveLingua English Learning Academy</div>
+      <p data-en="A structured, communicative English course — founded in Mozambique, April 2026." data-pt="Um curso de inglês estruturado e comunicativo — fundado em Moçambique, Abril de 2026.">Um curso de inglês estruturado e comunicativo — fundado em Moçambique, Abril de 2026.</p>
+      <div class="fsoc">
+        <a href="https://www.facebook.com/DoveLingua" target="_blank" class="fsb"><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a href="https://wa.me/258828920143" target="_blank" class="fsb"><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+        <a href="mailto:info@dovelingua.com" class="fsb" style="font-size:14px;color:#fff;display:flex;align-items:center;justify-content:center;">✉️</a>
+      </div>
+    </div>
+    <div class="fc">
+      <h4 data-en="Learn" data-pt="Aprender">Aprender</h4>
+      <a onclick="nav('programme.html')" data-en="Our Programme" data-pt="O Nosso Programa">O Nosso Programa</a>
+      <a onclick="nav('enrol.html')" data-en="Enrol" data-pt="Inscrição">Inscrição</a>
+      <a href="https://classroom.dovelingua.com" target="_blank">Classroom</a>
+    </div>
+    <div class="fc">
+      <h4 data-en="About" data-pt="Sobre">Sobre</h4>
+      <a onclick="nav('about.html')" data-en="About DoveLingua" data-pt="Sobre a DoveLingua">Sobre a DoveLingua</a>
+      <a onclick="nav('faq.html')">FAQ</a>
+      <a onclick="nav('donate.html')" data-en="Support Us" data-pt="Apoiar-nos">Apoiar-nos</a>
+    </div>
+    <div class="fc">
+      <h4 data-en="Help" data-pt="Ajuda">Ajuda</h4>
+      <a onclick="nav('contact.html')" data-en="Contact" data-pt="Contacto">Contactar Suporte</a>
+      <a onclick="nav('terms.html')" data-en="Terms" data-pt="Termos">Termos e Políticas</a>
+      <a onclick="nav('report.html')" data-en="Report" data-pt="denunciar">denunciar Problema</a>
+    </div>
+  </div>
+  <div class="fbot">
+    <p data-en="DoveLingua © 2026 — All rights reserved." data-pt="DoveLingua © 2026 — Todos os direitos reservados.">DoveLingua © 2026 — Todos os direitos reservados.</p>
+    <a onclick="nav('terms.html')" data-en="Terms" data-pt="Termos">Termos e Políticas</a>
+    <a onclick="nav('contact.html')" data-en="Contact" data-pt="Contacto">Contacto</a>
+  </div>
+</footer>
+
+<a href="https://wa.me/258828920143" target="_blank" class="waf">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+
+
+<script>
+  emailjs.init('lwN4ZtkmoevQ0qkQT');
+  const ESVC='service_akj25qj', ETPL='template_7hofzht';
+
+  let lang=localStorage.getItem('dvl_lang')||'pt';
+  let identity='';
+  let severity='';
+
+  /* ══ LANGUAGE ══ */
+  function setLang(l){
+    lang=l;localStorage.setItem('dvl_lang',l);
+    document.getElementById('btn-en').classList.toggle('active',l==='en');
+    document.getElementById('btn-pt').classList.toggle('active',l==='pt');
+    document.querySelectorAll('[data-en]').forEach(el=>{
+      const v=el.getAttribute('data-'+l);
+      if(v!==null)el.innerHTML=v;
+    });
+    document.querySelectorAll('option[data-en]').forEach(el=>{
+      const v=el.getAttribute('data-'+l);
+      if(v)el.textContent=v;
+    });
+    document.querySelectorAll('optgroup[data-en-label]').forEach(el=>{
+      const v=el.getAttribute('data-'+l+'-label');
+      if(v)el.label=v;
+    });
+    document.documentElement.lang=l==='pt'?'pt':'en';
+  }
+  document.addEventListener('DOMContentLoaded',()=>setLang(lang));
+
+  /* ══ NAV ══ */
+  function toggleMenu(){document.getElementById('sM').classList.toggle('open');document.getElementById('sO').classList.toggle('open');}
+  function nav(page){document.getElementById('sM').classList.remove('open');document.getElementById('sO').classList.remove('open');window.location.href=page;}
+  let taps=0,tapTimer=null;
+  function handleSecretTap(){taps++;clearTimeout(tapTimer);tapTimer=setTimeout(()=>taps=0,1500);if(taps>=3){taps=0;window.location.href='admin.html';}}
+
+  /* ══ TOAST ══ */
+  function toast(msg,t,dur){
+    t=t||'s';dur=dur||3500;
+    const ic={s:'✅',w:'⚠️',e:'❌',i:'ℹ️'};
+    const tc={s:'',w:'w',e:'e',i:'i'};
+    const wrap=document.getElementById('tw');
+    const el=document.createElement('div');
+    el.className='tm '+tc[t];
+    el.innerHTML='<span style="font-size:15px;flex-shrink:0;">'+ic[t]+'</span><span>'+msg+'</span>';
+    wrap.appendChild(el);
+    requestAnimationFrame(()=>el.classList.add('show'));
+    setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),400);},dur);
+  }
+
+  /* ══ COPY ══ */
+  function cp(t){
+    if(navigator.clipboard)navigator.clipboard.writeText(t);
+    else{const x=document.createElement('textarea');x.value=t;document.body.appendChild(x);x.select();document.execCommand('copy');document.body.removeChild(x);}
+    toast(lang==='pt'?'Copiado!':'Copied!','s',1800);
+  }
+
+  /* ══ IDENTITY ══ */
+  function selIdentity(id){
+    identity=id;
+    document.getElementById('btnAnon').classList.toggle('sel',id==='anon');
+    document.getElementById('btnNamed').classList.toggle('sel',id==='named');
+    document.getElementById('anonNote').classList.toggle('show',id==='anon');
+    document.getElementById('namedFields').classList.toggle('show',id==='named');
+  }
+
+  /* ══ SEVERITY ══ */
+  function selSev(s){
+    severity=s;
+    ['low','med','high'].forEach(v=>{
+      const el=document.getElementById('sev-'+v);
+      el.classList.toggle('sel',v===s);
+    });
+  }
+
+  /* ══ CATEGORY CHANGE ══ */
+  function onCatChange(el){vf(el);}
+
+  /* ══ VALIDATION ══ */
+  function vf(el){el.classList.toggle('ok',el.value.trim().length>0);}
+
+  /* ══ FILE HANDLING ══ */
+  let selectedFile=null;
+  function onFileChange(input){
+    if(input.files&&input.files[0]){
+      selectedFile=input.files[0];
+      document.getElementById('fsName').textContent=selectedFile.name+' ('+Math.round(selectedFile.size/1024)+' KB)';
+      document.getElementById('fileSelected').style.display='flex';
+      document.getElementById('fileUploadArea').style.display='none';
+    }
+  }
+  function removeFile(){
+    selectedFile=null;
+    document.getElementById('rFile').value='';
+    document.getElementById('fileSelected').style.display='none';
+    document.getElementById('fileUploadArea').style.display='flex';
+  }
+  // Drag and drop
+  document.addEventListener('DOMContentLoaded',()=>{
+    const area=document.getElementById('fileUploadArea');
+    if(!area)return;
+    area.addEventListener('dragover',e=>{e.preventDefault();area.style.background='#b2dfdb';});
+    area.addEventListener('dragleave',()=>{area.style.background='';});
+    area.addEventListener('drop',e=>{
+      e.preventDefault();area.style.background='';
+      if(e.dataTransfer.files[0]){
+        document.getElementById('rFile').files=e.dataTransfer.files;
+        onFileChange(document.getElementById('rFile'));
+      }
+    });
+  });
+
+  /* ══ REF GENERATOR ══ */
+  function genRef(){return 'DVL-REP'+String(Math.floor(100000+Math.random()*900000));}
+
+  /* ══ SUBMIT ══ */
+  async function submitReport(){
+    // Validate identity
+    if(!identity){
+      toast(lang==='pt'?'Por favor, escolha como deseja denunciar (anónimo ou identificado).':'Please choose how you want to report.','w');return;
+    }
+    // Validate named fields
+    let reporterName='Anónimo';
+    let reporterContact='—';
+    let reporterRole='—';
+    if(identity==='named'){
+      const n=document.getElementById('rName').value.trim();
+      const c=document.getElementById('rContact').value.trim();
+      const r=document.getElementById('rRole').value;
+      if(!n){toast(lang==='pt'?'Por favor, introduza o seu nome.':'Please enter your name.','w');return;}
+      if(!c){toast(lang==='pt'?'Por favor, introduza o seu email ou WhatsApp.':'Please enter your email or WhatsApp.','w');return;}
+      if(!r){toast(lang==='pt'?'Por favor, seleccione a sua relação com a DoveLingua.':'Please select your role.','w');return;}
+      reporterName=n;reporterContact=c;reporterRole=r;
+    }
+    // Validate core fields
+    const cat=document.getElementById('rCategory').value;
+    const about=document.getElementById('rAbout').value;
+    const desc=document.getElementById('rDesc').value.trim();
+    if(!cat){toast(lang==='pt'?'Por favor, seleccione a categoria da denúncia.':'Please select a report category.','w');return;}
+    if(!about){toast(lang==='pt'?'Por favor, indique a quem se refere esta denúncia.':'Please indicate who this report is about.','w');return;}
+    if(!severity){toast(lang==='pt'?'Por favor, seleccione o nível de gravidade.':'Please select severity level.','w');return;}
+    if(!desc||desc.length<20){toast(lang==='pt'?'Por favor, descreva o problema com mais detalhe (mínimo 20 caracteres).':'Please describe the problem in more detail.','w');return;}
+
+    const ref=genRef();
+    const evidence=document.getElementById('rEvidence').value.trim()||'—';
+    const sevLabels={low:lang==='pt'?'Baixo':'Low',med:lang==='pt'?'Médio':'Medium',high:lang==='pt'?'Alto':'High'};
+
+    document.getElementById('spinOv').classList.add('on');
+
+    try{
+      await emailjs.send(ESVC,ETPL,{
+        to_email:'gildoangelicadove04@gmail.com',
+        subject:'🚩 Nova Denúncia — '+ref+' — ['+cat+'] — Gravidade: '+sevLabels[severity],
+        ref_code:ref,
+        student_name:reporterName,
+        student_email:reporterContact,
+        student_whatsapp:reporterContact,
+        level:'Denúncia/ REPORT',
+        modality:identity==='anon'?'Anónimo':'Identificado',
+        total_amount:'—',
+        student_type:reporterRole,
+        enrol_date:new Date().toLocaleDateString('pt-MZ')+' '+new Date().toLocaleTimeString('pt-MZ',{hour:'2-digit',minute:'2-digit'}),
+        availability:about,
+        material:cat,
+        taxa_curso:'—',
+        taxa_matricula:'—',
+        taxa_material:'—',
+        desconto:'—',
+        pay_mod:sevLabels[severity],
+        message:'CATEGORIA: '+cat+'\nSOBRE: '+about+'\nGRAVIDADE: '+sevLabels[severity]+'\nIDENTIDADE: '+(identity==='anon'?'Anónimo':'Identificado')+'\n\nDESCRIÇÃO:\n'+desc+'\n\nPROVA/LINK: '+evidence+'\nFICHEIRO ANEXO: '+(selectedFile?selectedFile.name+' ('+Math.round(selectedFile.size/1024)+' KB)':'Nenhum')
+      });
+      document.getElementById('spinOv').classList.remove('on');
+      // Show success
+      document.getElementById('sucRefCode').textContent=ref;
+      document.getElementById('formBody').classList.add('hide');
+      document.getElementById('successWrap').classList.add('show');
+      window.scrollTo({top:document.querySelector('.form-card').offsetTop-80,behavior:'smooth'});
+    } catch(err){
+      document.getElementById('spinOv').classList.remove('on');
+      toast(lang==='pt'?
+        'Não foi possível enviar o denúncia. Por favor, contacte-nos directamente através  de support@dovelingua.com.':
+        'Could not send the report. Please contact us directly at support@dovelingua.com.',
+        'e',8000);
+    }
+  }
+
+  /* ══ FADE-UP ══ */
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*55);io.unobserve(e.target);}
+    });
+  },{threshold:0.07});
+  document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
