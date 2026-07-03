@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Painel do Professor - DoveLingua</title>
+<link rel="icon" type="image/png" sizes="32x32" href="https://download.dovelingua.com/website/Favicon_32x32.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --navy:#0B2E73;--navy-d:#082154;--gold:#C9971A;--white:#FFFFFF;
+  --grey:#F4F4F4;--tint:#E8EEF9;--teal:#0E8F7F;
+  --text:#1a2332;--mid:#4a5568;--light:#718096;--border:#e2e8f0;
+  --r:16px;--shadow:0 4px 20px rgba(11,46,115,.08);
+  --amber:#b45309;--amber-bg:#fef3e2;--green:#0E8F7F;--green-bg:#e6f6f4;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--grey);line-height:1.7;}
+a{text-decoration:none;color:inherit;}
+button{font-family:inherit;}
+
+nav{position:sticky;top:0;z-index:999;background:var(--white);border-bottom:1px solid var(--border);padding:0 clamp(1rem,4vw,2.5rem);height:74px;display:flex;align-items:center;justify-content:space-between;}
+.nav-brand img{height:48px;}
+.nav-right{display:flex;align-items:center;gap:.6rem;}
+.user-chip{display:flex;align-items:center;gap:8px;background:var(--tint);border:1px solid var(--border);padding:.4rem .9rem .4rem .5rem;border-radius:24px;font-size:.8rem;color:var(--navy);font-weight:600;}
+.user-chip .av{width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.7rem;}
+.logout-btn{background:none;border:none;color:var(--light);cursor:pointer;font-size:.85rem;padding:6px;}
+
+.wrap{max-width:1100px;margin:0 auto;padding:30px 5% 60px;}
+.welcome-band{background:linear-gradient(135deg,var(--navy-d),var(--navy) 60%,#123a8a);border-radius:var(--r);padding:26px 28px;color:#fff;margin-bottom:22px;}
+.welcome-band h1{font-family:'Playfair Display',serif;font-size:clamp(19px,2.6vw,24px);margin-bottom:6px;}
+.welcome-band p{font-size:12.5px;color:rgba(255,255,255,.7);}
+
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
+.stat-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:18px 20px;}
+.stat-card i{font-size:18px;color:var(--navy);margin-bottom:8px;display:block;}
+.stat-card .sv{font-family:'Playfair Display',serif;font-size:22px;color:var(--navy);font-weight:700;}
+.stat-card .sl{font-size:11px;color:var(--light);font-weight:600;}
+
+.grid-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;}
+.d-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:20px 18px;cursor:pointer;transition:.2s;text-align:center;}
+.d-card:hover{transform:translateY(-3px);border-color:var(--gold);}
+.d-card i{font-size:22px;color:var(--navy);margin-bottom:10px;display:block;}
+.d-card h3{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.d-card p{font-size:11px;color:var(--mid);}
+
+.section-title{font-family:'Playfair Display',serif;font-size:16px;color:var(--navy);margin:24px 0 14px;}
+
+.students-table{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;}
+.st-head{display:grid;grid-template-columns:44px 1.4fr 1fr 100px;gap:10px;padding:12px 20px;background:var(--grey);font-size:10.5px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:.5px;}
+.st-row{display:grid;grid-template-columns:44px 1.4fr 1fr 100px;gap:10px;padding:13px 20px;border-top:1px solid var(--border);align-items:center;font-size:12.5px;}
+.st-row:hover{background:var(--tint);}
+.st-avatar{width:34px;height:34px;border-radius:50%;background:var(--tint);color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;}
+.level-badge{background:var(--navy);color:#fff;font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:10px;display:inline-block;}
+.empty-state{padding:50px 20px;text-align:center;color:var(--light);}
+.empty-state i{font-size:32px;margin-bottom:10px;display:block;color:var(--tint);}
+
+@media(max-width:900px){.stats-row,.grid-cards{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.st-head,.st-row{grid-template-columns:36px 1fr 80px;}.st-head span:nth-child(3),.st-row .st-level{display:none;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand"><img src="https://download.dovelingua.com/website/Master_Wordmar_original.png" alt="DoveLingua"></a>
+  <div class="nav-right">
+    <div class="user-chip"><div class="av" id="userAvatar">P</div><span id="userChipName">Professor</span></div>
+    <button class="logout-btn" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i></button>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="welcome-band">
+    <h1 id="welcomeName">Bem-vindo(a)</h1>
+    <p>Painel do Professor DoveLingua — gerir as suas turmas e alunos atribuídos.</p>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card"><i class="fa-solid fa-users"></i><div class="sv" id="statMyStudents">0</div><div class="sl">Meus Alunos</div></div>
+    <div class="stat-card"><i class="fa-solid fa-clipboard-question"></i><div class="sv" id="statPendingReview">0</div><div class="sl">Testes por Rever</div></div>
+    <div class="stat-card"><i class="fa-solid fa-comments"></i><div class="sv" id="statMessages">0</div><div class="sl">Mensagens Novas</div></div>
+    <div class="stat-card"><i class="fa-solid fa-chalkboard"></i><div class="sv" id="statCourses">0</div><div class="sl">Turmas Atribuídas</div></div>
+  </div>
+
+  <div class="grid-cards">
+    <div class="d-card" onclick="location.href='teacher-pauta.html'"><i class="fa-solid fa-clipboard-list"></i><h3>Pauta</h3><p>Lançar notas</p></div>
+    <div class="d-card" onclick="location.href='teacher-tests.html'"><i class="fa-solid fa-file-pen"></i><h3>Testes</h3><p>Rever escrita/oral</p></div>
+    <div class="d-card" onclick="location.href='messages.html'"><i class="fa-solid fa-comments"></i><h3>Mensagens</h3><p>Falar com alunos</p></div>
+    <div class="d-card" onclick="location.href='teacher-materials.html'"><i class="fa-solid fa-book"></i><h3>Materiais</h3><p>Partilhar recursos</p></div>
+  </div>
+
+  <div class="section-title">Os Meus Alunos</div>
+  <div class="students-table">
+    <div class="st-head"><span></span><span>Nome</span><span>Nível</span><span>Progresso</span></div>
+    <div id="studentsBody"><div class="empty-state"><i class="fa-solid fa-users"></i><p>A carregar alunos...</p></div></div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAl9A_gXDKTB3N6U1f_Bh5FWrOsySjCJGo",
+  authDomain: "dovelingua-site.firebaseapp.com",
+  projectId: "dovelingua-site",
+  storageBucket: "dovelingua-site.firebasestorage.app",
+  messagingSenderId: "271742052334",
+  appId: "1:271742052334:web:bc736373d7ea50001b50ff",
+  measurementId: "G-N8ELT8SMYM"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const ROUTES = { applicant:'application-status.html', student:'student-dashboard.html', teacher:'teacher-dashboard.html', staff:'staff-payments.html', admin:'admin-dashboard.html' };
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { window.location.href = 'auth.html'; return; }
+  try {
+    const snap = await getDoc(doc(db, 'users', user.uid));
+    if (!snap.exists()) { window.location.href = 'auth.html'; return; }
+    const data = snap.data();
+    if (data.isBlocked) { await signOut(auth); window.location.href = 'auth.html?blocked=1'; return; }
+    if (data.role !== 'teacher') { window.location.href = ROUTES[data.role] || 'application-status.html'; return; }
+
+    const firstName = data.fullName ? data.fullName.split(' ')[0] : 'Professor';
+    document.getElementById('welcomeName').textContent = 'Bem-vindo(a), ' + firstName;
+    document.getElementById('userChipName').textContent = firstName;
+    document.getElementById('userAvatar').textContent = firstName.charAt(0).toUpperCase();
+
+    try {
+      const coursesQ = query(collection(db, 'courses'), where('teacherId', '==', user.uid));
+      const coursesSnap = await getDocs(coursesQ);
+      document.getElementById('statCourses').textContent = coursesSnap.size;
+    } catch (e) {}
+
+    try {
+      const studentsQ = query(collection(db, 'users'), where('role', '==', 'student'), where('assignedTeacherId', '==', user.uid));
+      const studentsSnap = await getDocs(studentsQ);
+      document.getElementById('statMyStudents').textContent = studentsSnap.size;
+
+      const body = document.getElementById('studentsBody');
+      if (studentsSnap.empty) {
+        body.innerHTML = '<div class="empty-state"><i class="fa-solid fa-user-graduate"></i><p>Ainda sem alunos atribuídos.</p></div>';
+      } else {
+        body.innerHTML = studentsSnap.docs.map(d => {
+          const s = d.data();
+          return `<div class="st-row">
+            <div class="st-avatar">${(s.fullName||'A').charAt(0).toUpperCase()}</div>
+            <span>${s.fullName || 'Aluno'}</span>
+            <span class="st-level"><span class="level-badge">${s.currentLevel || 'A1'}</span></span>
+            <span>${s.progressPercent || 0}%</span>
+          </div>`;
+        }).join('');
+      }
+    } catch (e) {
+      document.getElementById('studentsBody').innerHTML = '<div class="empty-state"><i class="fa-solid fa-user-graduate"></i><p>Ainda sem alunos atribuídos.</p></div>';
+    }
+
+    try {
+      const testsQ = query(collection(db, 'testAttempts'), where('status', '==', 'pending_review'));
+      const testsSnap = await getDocs(testsQ);
+      document.getElementById('statPendingReview').textContent = testsSnap.size;
+    } catch (e) {}
+
+    try {
+      const msgQ = query(collection(db, 'messages'), where('recipientId', '==', user.uid), where('readStatus', '==', false));
+      const msgSnap = await getDocs(msgQ);
+      document.getElementById('statMessages').textContent = msgSnap.size;
+    } catch (e) {}
+
+  } catch (e) { console.error(e); }
+});
+
+document.getElementById('logoutBtn').addEventListener('click', async () => { await signOut(auth); window.location.href = 'index.html'; });
+</script>
+<script src="/key-lock.js"></script>
+</body>
+</html>
