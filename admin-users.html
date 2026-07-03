@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Utilizadores - Admin DoveLingua</title>
+<link rel="icon" type="image/png" sizes="32x32" href="https://download.dovelingua.com/website/Favicon_32x32.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --navy:#0B2E73;--navy-d:#082154;--gold:#C9971A;--white:#FFFFFF;
+  --grey:#F4F4F4;--tint:#E8EEF9;--teal:#0E8F7F;
+  --text:#1a2332;--mid:#4a5568;--light:#718096;--border:#e2e8f0;
+  --r:14px;--shadow:0 4px 20px rgba(11,46,115,.08);
+  --amber:#b45309;--amber-bg:#fef3e2;--red:#c0392b;--red-bg:#fdecea;--green:#0E8F7F;--green-bg:#e6f6f4;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--grey);line-height:1.6;}
+a{text-decoration:none;color:inherit;}
+button,input,select{font-family:inherit;}
+
+.app{display:flex;min-height:100vh;}
+.sidebar{width:250px;background:var(--navy);flex-shrink:0;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;}
+.sb-logo{padding:20px 18px;border-bottom:1px solid rgba(255,255,255,.1);}
+.sb-logo img{height:38px;}
+.sb-nav{flex:1;padding:14px 0;overflow-y:auto;}
+.sb-nav a{display:flex;align-items:center;gap:12px;padding:12px 18px;font-size:13px;color:rgba(255,255,255,.65);cursor:pointer;border-left:3px solid transparent;transition:.15s;}
+.sb-nav a:hover{background:rgba(255,255,255,.05);color:#fff;}
+.sb-nav a.active{background:rgba(255,255,255,.08);color:var(--gold);border-left-color:var(--gold);}
+.sb-nav a i{width:18px;text-align:center;}
+.sb-section-label{padding:16px 18px 6px;font-size:10px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;}
+.sb-foot{padding:16px 18px;border-top:1px solid rgba(255,255,255,.1);}
+.sb-foot .admin-name{font-size:12.5px;color:#fff;font-weight:600;}
+.sb-foot .admin-role{font-size:10.5px;color:rgba(255,255,255,.4);}
+.sb-foot a{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:rgba(255,255,255,.5);cursor:pointer;}
+.sb-foot a:hover{color:#fff;}
+
+.main{flex:1;min-width:0;}
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:40;}
+.topbar h1{font-family:'Playfair Display',serif;font-size:19px;color:var(--navy);}
+.topbar .tb-sub{font-size:12px;color:var(--light);}
+.hamburger-mobile{display:none;background:none;border:none;font-size:20px;color:var(--navy);cursor:pointer;}
+.content{padding:24px 28px 60px;}
+
+.role-tabs{display:flex;gap:6px;margin-bottom:18px;overflow-x:auto;}
+.role-tab{display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:20px;background:var(--white);border:1.5px solid var(--border);color:var(--mid);font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap;}
+.role-tab:hover{border-color:var(--navy);}
+.role-tab.active{background:var(--navy);border-color:var(--navy);color:#fff;}
+.role-tab .cb{background:rgba(0,0,0,.15);padding:1px 8px;border-radius:10px;font-size:10.5px;}
+.role-tab.active .cb{background:rgba(255,255,255,.2);}
+
+.toolbar{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:14px 20px;margin-bottom:18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+.search-box{display:flex;align-items:center;gap:8px;background:var(--grey);border-radius:20px;padding:8px 14px;flex:1;min-width:200px;max-width:320px;}
+.search-box input{border:none;background:none;outline:none;font-size:12.5px;flex:1;}
+.search-box i{color:var(--light);}
+
+.u-table-wrap{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;}
+.u-table-head{display:grid;grid-template-columns:44px 1.4fr 1fr 110px 110px 140px;gap:10px;padding:12px 20px;background:var(--grey);font-size:10.5px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:.5px;}
+.u-row{display:grid;grid-template-columns:44px 1.4fr 1fr 110px 110px 140px;gap:10px;padding:13px 20px;border-top:1px solid var(--border);align-items:center;font-size:12.5px;}
+.u-row:hover{background:var(--tint);}
+.u-avatar{width:34px;height:34px;border-radius:50%;background:var(--tint);color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;}
+.u-name{font-weight:600;color:var(--text);}
+.u-email{font-size:11px;color:var(--light);}
+.role-pill{display:inline-block;font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:10px;}
+.role-pill.applicant{background:var(--amber-bg);color:var(--amber);}
+.role-pill.student{background:var(--green-bg);color:var(--green);}
+.role-pill.teacher{background:var(--tint);color:var(--navy);}
+.role-pill.staff{background:#f3e8ff;color:#7c3aed;}
+.role-pill.admin{background:#fee2e2;color:#dc2626;}
+.status-dot{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;}
+.status-dot::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);}
+.status-dot.blocked::before{background:var(--red);}
+.row-actions{display:flex;gap:6px;justify-content:flex-end;}
+.icon-btn{width:28px;height:28px;border-radius:7px;background:var(--grey);border:none;color:var(--mid);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;}
+.icon-btn:hover{background:var(--navy);color:#fff;}
+.icon-btn.block:hover{background:var(--red);}
+.empty-state{padding:60px 20px;text-align:center;color:var(--light);}
+.empty-state i{font-size:36px;margin-bottom:12px;color:var(--tint);display:block;}
+
+@media(max-width:900px){.u-table-head,.u-row{grid-template-columns:40px 1fr 90px;}
+.u-table-head span:nth-child(3),.u-table-head span:nth-child(5),.u-table-head span:nth-child(6),.u-row .u-email,.u-row .status-dot,.u-row .row-actions{display:none;}}
+
+/* MODAL */
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(11,46,115,.5);z-index:500;align-items:center;justify-content:center;padding:16px;}
+.modal-ov.show{display:flex;}
+.modal{background:var(--white);border-radius:var(--r);max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.modal-hdr{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.modal-hdr h3{font-family:'Playfair Display',serif;font-size:16px;color:var(--navy);}
+.modal-close{width:30px;height:30px;border-radius:8px;background:var(--grey);border:none;cursor:pointer;color:var(--mid);}
+.modal-body{padding:22px 24px;display:flex;flex-direction:column;gap:14px;}
+.detail-row{display:flex;justify-content:space-between;font-size:13px;padding:8px 0;border-bottom:1px solid var(--border);}
+.detail-row span:first-child{color:var(--light);}
+.detail-row span:last-child{font-weight:600;color:var(--text);}
+.form-group label{display:block;font-size:11.5px;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px;}
+.form-group select{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:13.5px;outline:none;}
+.modal-ftr{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:10px;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:20px;font-size:12.5px;font-weight:600;border:none;cursor:pointer;}
+.btn-g{background:var(--navy);color:#fff;}
+.btn-g:hover{background:var(--gold);color:var(--navy);}
+.btn-o{background:transparent;color:var(--navy);border:1.5px solid var(--navy);}
+.btn-danger{background:var(--red-bg);color:var(--red);}
+.btn-danger:hover{background:var(--red);color:#fff;}
+
+.toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:14px 22px;border-radius:12px;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.3);display:flex;align-items:center;gap:10px;z-index:600;transform:translateY(100px);opacity:0;transition:.3s;}
+.toast.show{transform:translateY(0);opacity:1;}
+
+@media(max-width:800px){.sidebar{position:fixed;left:-260px;z-index:200;transition:left .25s;}.sidebar.open{left:0;}.hamburger-mobile{display:block;}}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="sidebar" id="sidebar">
+    <div class="sb-logo"><img src="https://download.dovelingua.com/website/Master_Wordmark_white_tex_navy_background.png" alt="DoveLingua"></div>
+    <div class="sb-nav">
+      <div class="sb-section-label">Gestão</div>
+      <a onclick="location.href='admin-dashboard.html'"><i class="fa-solid fa-gauge"></i> Painel Geral</a>
+      <a class="active"><i class="fa-solid fa-users"></i> Utilizadores</a>
+      <a onclick="location.href='admin-courses.html'"><i class="fa-solid fa-graduation-cap"></i> Cursos</a>
+      <div class="sb-section-label">Avaliação</div>
+      <a onclick="location.href='admin-level-test-editor.html'"><i class="fa-solid fa-clipboard-question"></i> Editor de Testes</a>
+      <a onclick="location.href='admin-announcements.html'"><i class="fa-solid fa-bullhorn"></i> Avisos</a>
+      <a onclick="location.href='admin-documents.html'"><i class="fa-solid fa-folder"></i> Documentos</a>
+    </div>
+    <div class="sb-foot">
+      <div class="admin-name" id="adminName">Admin</div>
+      <div class="admin-role">Administrador</div>
+      <a id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="hamburger-mobile" onclick="document.getElementById('sidebar').classList.toggle('open')"><i class="fa-solid fa-bars"></i></button>
+        <div><h1>Utilizadores</h1><div class="tb-sub">Gerir contas, funções e acesso</div></div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="role-tabs">
+        <div class="role-tab active" data-role="all" onclick="filterRole('all',this)">Todos <span class="cb" id="cAll">0</span></div>
+        <div class="role-tab" data-role="applicant" onclick="filterRole('applicant',this)">Candidatos <span class="cb" id="cApplicant">0</span></div>
+        <div class="role-tab" data-role="student" onclick="filterRole('student',this)">Alunos <span class="cb" id="cStudent">0</span></div>
+        <div class="role-tab" data-role="teacher" onclick="filterRole('teacher',this)">Professores <span class="cb" id="cTeacher">0</span></div>
+        <div class="role-tab" data-role="staff" onclick="filterRole('staff',this)">Staff <span class="cb" id="cStaff">0</span></div>
+        <div class="role-tab" data-role="admin" onclick="filterRole('admin',this)">Admin <span class="cb" id="cAdmin">0</span></div>
+      </div>
+
+      <div class="toolbar">
+        <div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="searchInput" placeholder="Pesquisar por nome ou email..." oninput="renderTable()"></div>
+      </div>
+
+      <div class="u-table-wrap">
+        <div class="u-table-head"><span></span><span>Nome</span><span>Email</span><span>Função</span><span>Estado</span><span style="text-align:right;">Ações</span></div>
+        <div id="tableBody"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- USER DETAIL / EDIT MODAL -->
+<div class="modal-ov" id="userModal">
+  <div class="modal">
+    <div class="modal-hdr"><h3>Detalhes do Utilizador</h3><button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="modal-body">
+      <div class="detail-row"><span>Nome</span><span id="mName">-</span></div>
+      <div class="detail-row"><span>Email</span><span id="mEmail">-</span></div>
+      <div class="detail-row"><span>Telefone</span><span id="mPhone">-</span></div>
+      <div class="detail-row"><span>Registado em</span><span id="mDate">-</span></div>
+      <div class="form-group">
+        <label>Alterar Função</label>
+        <select id="mRoleSelect">
+          <option value="applicant">Candidato</option>
+          <option value="student">Aluno</option>
+          <option value="teacher">Professor</option>
+          <option value="staff">Staff</option>
+          <option value="admin">Administrador</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-ftr">
+      <button class="btn btn-danger" id="blockBtn" onclick="toggleBlock()"><i class="fa-solid fa-ban"></i> Bloquear</button>
+      <button class="btn btn-g" onclick="saveRole()"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toastText"></span></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import { getFirestore, collection, getDocs, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAl9A_gXDKTB3N6U1f_Bh5FWrOsySjCJGo",
+  authDomain: "dovelingua-site.firebaseapp.com",
+  projectId: "dovelingua-site",
+  storageBucket: "dovelingua-site.firebasestorage.app",
+  messagingSenderId: "271742052334",
+  appId: "1:271742052334:web:bc736373d7ea50001b50ff",
+  measurementId: "G-N8ELT8SMYM"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let allUsers = [];
+let currentRoleFilter = 'all';
+let editingUid = null;
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { window.location.href = 'auth.html'; return; }
+  try {
+    const snap = await getDoc(doc(db, 'users', user.uid));
+    if (!snap.exists() || snap.data().role !== 'admin') { window.location.href = 'unauthorized.html'; return; }
+    document.getElementById('adminName').textContent = snap.data().fullName || 'Admin';
+    loadUsers();
+  } catch (e) { window.location.href = 'auth.html'; }
+});
+document.getElementById('logoutBtn').addEventListener('click', async () => { await signOut(auth); window.location.href = 'index.html'; });
+
+async function loadUsers() {
+  try {
+    const snap = await getDocs(collection(db, 'users'));
+    allUsers = [];
+    snap.forEach(d => allUsers.push({ uid: d.id, ...d.data() }));
+  } catch (e) { allUsers = []; }
+  updateCounts();
+  renderTable();
+}
+
+function updateCounts() {
+  const c = { applicant:0, student:0, teacher:0, staff:0, admin:0 };
+  allUsers.forEach(u => { if (c[u.role] !== undefined) c[u.role]++; });
+  document.getElementById('cAll').textContent = allUsers.length;
+  document.getElementById('cApplicant').textContent = c.applicant;
+  document.getElementById('cStudent').textContent = c.student;
+  document.getElementById('cTeacher').textContent = c.teacher;
+  document.getElementById('cStaff').textContent = c.staff;
+  document.getElementById('cAdmin').textContent = c.admin;
+}
+
+window.filterRole = function(role, el) {
+  currentRoleFilter = role;
+  document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderTable();
+};
+
+window.renderTable = function() {
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  let filtered = allUsers.filter(u => {
+    if (currentRoleFilter !== 'all' && u.role !== currentRoleFilter) return false;
+    if (search && !(u.fullName||'').toLowerCase().includes(search) && !(u.email||'').toLowerCase().includes(search)) return false;
+    return true;
+  });
+  const body = document.getElementById('tableBody');
+  if (filtered.length === 0) {
+    body.innerHTML = `<div class="empty-state"><i class="fa-solid fa-user-slash"></i><p>Nenhum utilizador encontrado.</p></div>`;
+    return;
+  }
+  const roleLabels = { applicant:'Candidato', student:'Aluno', teacher:'Professor', staff:'Staff', admin:'Admin' };
+  body.innerHTML = filtered.map(u => `
+    <div class="u-row">
+      <div class="u-avatar">${(u.fullName||'?').charAt(0).toUpperCase()}</div>
+      <span class="u-name">${u.fullName || 'Sem nome'}</span>
+      <span class="u-email">${u.email || '-'}</span>
+      <span class="role-pill ${u.role||'applicant'}">${roleLabels[u.role]||u.role}</span>
+      <span class="status-dot ${u.isBlocked?'blocked':''}">${u.isBlocked?'Bloqueado':'Ativo'}</span>
+      <div class="row-actions">
+        <button class="icon-btn" onclick="openUserModal('${u.uid}')"><i class="fa-solid fa-pen"></i></button>
+      </div>
+    </div>
+  `).join('');
+};
+
+window.openUserModal = function(uid) {
+  const u = allUsers.find(x => x.uid === uid);
+  if (!u) return;
+  editingUid = uid;
+  document.getElementById('mName').textContent = u.fullName || '-';
+  document.getElementById('mEmail').textContent = u.email || '-';
+  document.getElementById('mPhone').textContent = u.phone || '-';
+  document.getElementById('mDate').textContent = u.createdAt ? new Date(u.createdAt.seconds*1000).toLocaleDateString('pt-PT') : '-';
+  document.getElementById('mRoleSelect').value = u.role || 'applicant';
+  const blockBtn = document.getElementById('blockBtn');
+  blockBtn.innerHTML = u.isBlocked ? '<i class="fa-solid fa-check"></i> Desbloquear' : '<i class="fa-solid fa-ban"></i> Bloquear';
+  document.getElementById('userModal').classList.add('show');
+};
+window.closeModal = function() { document.getElementById('userModal').classList.remove('show'); };
+
+window.saveRole = async function() {
+  if (!editingUid) return;
+  const newRole = document.getElementById('mRoleSelect').value;
+  try {
+    await updateDoc(doc(db, 'users', editingUid), { role: newRole });
+    showToast('Função atualizada com sucesso.');
+    closeModal();
+    loadUsers();
+  } catch (e) { showToast('Erro ao atualizar função.'); }
+};
+
+window.toggleBlock = async function() {
+  if (!editingUid) return;
+  const u = allUsers.find(x => x.uid === editingUid);
+  try {
+    await updateDoc(doc(db, 'users', editingUid), { isBlocked: !u.isBlocked });
+    showToast(u.isBlocked ? 'Utilizador desbloqueado.' : 'Utilizador bloqueado.');
+    closeModal();
+    loadUsers();
+  } catch (e) { showToast('Erro ao atualizar estado.'); }
+};
+
+function showToast(text) {
+  const toast = document.getElementById('toast');
+  toast.classList.add('show');
+  document.getElementById('toastText').textContent = text;
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
+</script>
+<script src="/key-lock.js"></script>
+</body>
+</html>
