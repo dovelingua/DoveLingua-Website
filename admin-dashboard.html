@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Painel Geral - Admin DoveLingua</title>
+<link rel="icon" type="image/png" sizes="32x32" href="https://download.dovelingua.com/website/Favicon_32x32.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --navy:#0B2E73;--navy-d:#082154;--gold:#C9971A;--white:#FFFFFF;
+  --grey:#F4F4F4;--tint:#E8EEF9;--teal:#0E8F7F;
+  --text:#1a2332;--mid:#4a5568;--light:#718096;--border:#e2e8f0;
+  --r:14px;--shadow:0 4px 20px rgba(11,46,115,.08);
+  --amber:#b45309;--amber-bg:#fef3e2;--red:#c0392b;--red-bg:#fdecea;--green:#0E8F7F;--green-bg:#e6f6f4;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--grey);line-height:1.6;}
+a{text-decoration:none;color:inherit;}
+button{font-family:inherit;}
+
+.app{display:flex;min-height:100vh;}
+.sidebar{width:250px;background:var(--navy);flex-shrink:0;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;}
+.sb-logo{padding:20px 18px;border-bottom:1px solid rgba(255,255,255,.1);}
+.sb-logo img{height:38px;}
+.sb-nav{flex:1;padding:14px 0;overflow-y:auto;}
+.sb-nav a{display:flex;align-items:center;gap:12px;padding:12px 18px;font-size:13px;color:rgba(255,255,255,.65);cursor:pointer;border-left:3px solid transparent;transition:.15s;}
+.sb-nav a:hover{background:rgba(255,255,255,.05);color:#fff;}
+.sb-nav a.active{background:rgba(255,255,255,.08);color:var(--gold);border-left-color:var(--gold);}
+.sb-nav a i{width:18px;text-align:center;}
+.sb-section-label{padding:16px 18px 6px;font-size:10px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;}
+.sb-foot{padding:16px 18px;border-top:1px solid rgba(255,255,255,.1);}
+.sb-foot .admin-name{font-size:12.5px;color:#fff;font-weight:600;}
+.sb-foot .admin-role{font-size:10.5px;color:rgba(255,255,255,.4);}
+.sb-foot a{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:rgba(255,255,255,.5);cursor:pointer;}
+.sb-foot a:hover{color:#fff;}
+
+.main{flex:1;min-width:0;}
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:40;}
+.topbar h1{font-family:'Playfair Display',serif;font-size:19px;color:var(--navy);}
+.topbar .tb-sub{font-size:12px;color:var(--light);}
+.hamburger-mobile{display:none;background:none;border:none;font-size:20px;color:var(--navy);cursor:pointer;}
+.content{padding:24px 28px 60px;}
+
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:26px;}
+.stat-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:20px 22px;position:relative;overflow:hidden;}
+.stat-card .sc-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px;}
+.stat-card .sv{font-family:'Playfair Display',serif;font-size:26px;color:var(--navy);font-weight:700;}
+.stat-card .sl{font-size:11.5px;color:var(--light);font-weight:600;margin-top:2px;}
+.stat-card .strend{font-size:11px;margin-top:8px;display:flex;align-items:center;gap:4px;}
+.strend.up{color:var(--green);}
+.strend.warn{color:var(--amber);}
+
+.grid-2{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-bottom:20px;}
+.panel{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:20px 22px;}
+.panel h3{font-size:14.5px;font-weight:700;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;}
+.panel h3 a{font-size:11.5px;color:var(--light);font-weight:500;cursor:pointer;}
+.panel h3 a:hover{color:var(--navy);}
+
+.list-item{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);}
+.list-item:last-child{border-bottom:none;}
+.li-avatar{width:36px;height:36px;border-radius:50%;background:var(--tint);color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;flex-shrink:0;}
+.li-body{flex:1;min-width:0;}
+.li-title{font-size:13px;font-weight:600;color:var(--text);}
+.li-sub{font-size:11px;color:var(--light);}
+.li-badge{font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:10px;flex-shrink:0;}
+.li-badge.pending{background:var(--amber-bg);color:var(--amber);}
+.li-badge.new{background:var(--tint);color:var(--navy);}
+
+.quick-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.qa-btn{background:var(--tint);border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:.2s;border:1px solid transparent;}
+.qa-btn:hover{border-color:var(--navy);background:var(--white);}
+.qa-btn i{font-size:20px;color:var(--navy);margin-bottom:8px;display:block;}
+.qa-btn span{font-size:11.5px;font-weight:600;color:var(--navy);}
+
+.chart-bars{display:flex;align-items:flex-end;gap:8px;height:120px;margin-top:10px;}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.bar{width:100%;background:linear-gradient(180deg,var(--gold),var(--navy));border-radius:6px 6px 0 0;min-height:4px;}
+.bar-label{font-size:9.5px;color:var(--light);}
+
+@media(max-width:900px){.stats-grid{grid-template-columns:1fr 1fr;}.grid-2{grid-template-columns:1fr;}}
+@media(max-width:800px){.sidebar{position:fixed;left:-260px;z-index:200;transition:left .25s;}.sidebar.open{left:0;}.hamburger-mobile{display:block;}}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="sidebar" id="sidebar">
+    <div class="sb-logo"><img src="https://download.dovelingua.com/website/Master_Wordmark_white_tex_navy_background.png" alt="DoveLingua"></div>
+    <div class="sb-nav">
+      <div class="sb-section-label">Gestão</div>
+      <a class="active"><i class="fa-solid fa-gauge"></i> Painel Geral</a>
+      <a onclick="location.href='admin-users.html'"><i class="fa-solid fa-users"></i> Utilizadores</a>
+      <a onclick="location.href='admin-courses.html'"><i class="fa-solid fa-graduation-cap"></i> Cursos</a>
+      <div class="sb-section-label">Avaliação</div>
+      <a onclick="location.href='admin-level-test-editor.html'"><i class="fa-solid fa-clipboard-question"></i> Editor de Testes</a>
+      <a onclick="location.href='admin-announcements.html'"><i class="fa-solid fa-bullhorn"></i> Avisos</a>
+      <a onclick="location.href='admin-documents.html'"><i class="fa-solid fa-folder"></i> Documentos</a>
+    </div>
+    <div class="sb-foot">
+      <div class="admin-name" id="adminName">Admin</div>
+      <div class="admin-role">Administrador</div>
+      <a id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="hamburger-mobile" onclick="document.getElementById('sidebar').classList.toggle('open')"><i class="fa-solid fa-bars"></i></button>
+        <div><h1>Painel Geral</h1><div class="tb-sub" id="dateToday"></div></div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="stats-grid">
+        <div class="stat-card"><div class="sc-icon" style="background:var(--tint);color:var(--navy);"><i class="fa-solid fa-users"></i></div><div class="sv" id="statStudents">0</div><div class="sl">Alunos Ativos</div><div class="strend up"><i class="fa-solid fa-arrow-up"></i> este mês</div></div>
+        <div class="stat-card"><div class="sc-icon" style="background:var(--amber-bg);color:var(--amber);"><i class="fa-solid fa-user-clock"></i></div><div class="sv" id="statApplicants">0</div><div class="sl">Candidatos Pendentes</div><div class="strend warn"><i class="fa-solid fa-hourglass-half"></i> a aguardar</div></div>
+        <div class="stat-card"><div class="sc-icon" style="background:var(--green-bg);color:var(--green);"><i class="fa-solid fa-clipboard-question"></i></div><div class="sv" id="statTests">0</div><div class="sl">Testes Realizados</div><div class="strend up"><i class="fa-solid fa-check"></i> total</div></div>
+        <div class="stat-card"><div class="sc-icon" style="background:var(--red-bg);color:var(--red);"><i class="fa-solid fa-receipt"></i></div><div class="sv" id="statPending">0</div><div class="sl">Pagamentos Pendentes</div><div class="strend warn"><i class="fa-solid fa-triangle-exclamation"></i> requer ação</div></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="panel">
+          <h3>Candidatos Recentes <a onclick="location.href='admin-users.html'">Ver todos →</a></h3>
+          <div id="recentApplicants"><div class="list-item"><div class="li-body"><div class="li-sub">A carregar...</div></div></div></div>
+        </div>
+        <div class="panel">
+          <h3>Ações Rápidas</h3>
+          <div class="quick-actions">
+            <div class="qa-btn" onclick="location.href='admin-level-test-editor.html'"><i class="fa-solid fa-plus"></i><span>Nova Pergunta</span></div>
+            <div class="qa-btn" onclick="location.href='admin-announcements.html'"><i class="fa-solid fa-bullhorn"></i><span>Novo Aviso</span></div>
+            <div class="qa-btn" onclick="location.href='admin-users.html'"><i class="fa-solid fa-user-check"></i><span>Confirmar Pagamento</span></div>
+            <div class="qa-btn" onclick="location.href='admin-courses.html'"><i class="fa-solid fa-graduation-cap"></i><span>Gerir Cursos</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="panel">
+          <h3>Testes de Nível — Últimos 7 Dias</h3>
+          <div class="chart-bars" id="chartBars"></div>
+        </div>
+        <div class="panel">
+          <h3>Distribuição de Utilizadores</h3>
+          <div id="roleBreakdown"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAl9A_gXDKTB3N6U1f_Bh5FWrOsySjCJGo",
+  authDomain: "dovelingua-site.firebaseapp.com",
+  projectId: "dovelingua-site",
+  storageBucket: "dovelingua-site.firebasestorage.app",
+  messagingSenderId: "271742052334",
+  appId: "1:271742052334:web:bc736373d7ea50001b50ff",
+  measurementId: "G-N8ELT8SMYM"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+document.getElementById('dateToday').textContent = new Date().toLocaleDateString('pt-PT', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { window.location.href = 'auth.html'; return; }
+  try {
+    const snap = await getDoc(doc(db, 'users', user.uid));
+    if (!snap.exists() || snap.data().role !== 'admin') { window.location.href = 'unauthorized.html'; return; }
+    document.getElementById('adminName').textContent = snap.data().fullName || 'Admin';
+    loadDashboard();
+  } catch (e) { window.location.href = 'auth.html'; }
+});
+
+document.getElementById('logoutBtn').addEventListener('click', async () => { await signOut(auth); window.location.href = 'index.html'; });
+
+async function loadDashboard() {
+  try {
+    const usersSnap = await getDocs(collection(db, 'users'));
+    let students = 0, applicants = 0, teachers = 0, staff = 0, admins = 0;
+    const recentApplicants = [];
+    usersSnap.forEach(d => {
+      const u = d.data();
+      if (u.role === 'student') students++;
+      else if (u.role === 'applicant') { applicants++; recentApplicants.push(u); }
+      else if (u.role === 'teacher') teachers++;
+      else if (u.role === 'staff') staff++;
+      else if (u.role === 'admin') admins++;
+    });
+    document.getElementById('statStudents').textContent = students;
+    document.getElementById('statApplicants').textContent = applicants;
+
+    const testsSnap = await getDocs(collection(db, 'testAttempts'));
+    document.getElementById('statTests').textContent = testsSnap.size;
+
+    const appsSnap = await getDocs(collection(db, 'applications'));
+    let pending = 0;
+    appsSnap.forEach(d => { if (d.data().applicationStatus === 'pending') pending++; });
+    document.getElementById('statPending').textContent = pending;
+
+    const listEl = document.getElementById('recentApplicants');
+    if (recentApplicants.length === 0) {
+      listEl.innerHTML = '<div class="list-item"><div class="li-body"><div class="li-sub">Nenhum candidato ainda.</div></div></div>';
+    } else {
+      listEl.innerHTML = recentApplicants.slice(0,5).map(u => `
+        <div class="list-item">
+          <div class="li-avatar">${(u.fullName||'A').charAt(0).toUpperCase()}</div>
+          <div class="li-body"><div class="li-title">${u.fullName||'Candidato'}</div><div class="li-sub">${u.email||''}</div></div>
+          <span class="li-badge pending">Pendente</span>
+        </div>
+      `).join('');
+    }
+
+    const total = students+applicants+teachers+staff+admins || 1;
+    const roles = [{n:'Alunos',v:students,c:'var(--navy)'},{n:'Candidatos',v:applicants,c:'var(--amber)'},{n:'Professores',v:teachers,c:'var(--teal)'},{n:'Staff',v:staff,c:'var(--gold)'}];
+    document.getElementById('roleBreakdown').innerHTML = roles.map(r => `
+      <div style="margin-bottom:12px;">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span>${r.n}</span><span style="font-weight:700;">${r.v}</span></div>
+        <div style="background:var(--grey);height:6px;border-radius:6px;overflow:hidden;"><div style="background:${r.c};height:100%;width:${(r.v/total*100)}%;"></div></div>
+      </div>
+    `).join('');
+
+    const chartEl = document.getElementById('chartBars');
+    const days = ['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+    chartEl.innerHTML = days.map(d => `<div class="bar-col"><div class="bar" style="height:${Math.random()*80+10}px;"></div><div class="bar-label">${d}</div></div>`).join('');
+
+  } catch (e) { console.error(e); }
+}
+</script>
+<script src="/key-lock.js"></script>
+</body>
+</html>
