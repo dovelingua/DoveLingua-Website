@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+DOCTYPE html>
 <html lang="pt">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Editor de Testes - DoveLingua</title>
+<title>Editor de Testes - Admin DoveLingua</title>
 <link rel="icon" type="image/png" sizes="32x32" href="https://download.dovelingua.com/website/Favicon_32x32.png">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -342,6 +342,7 @@ input:checked + .toggle-slider::before{transform:translateX(18px);}
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
 import { getFirestore, collection, doc, setDoc, deleteDoc, getDocs, getDoc, addDoc } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -354,15 +355,24 @@ const firebaseConfig = {
   measurementId: "G-N8ELT8SMYM"
 };
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const db = getFirestore(app);
 
 let questions = [];
 let editingId = null;
 let currentSkillFilter = 'all';
 
-// Removed authentication check - page loads directly
-document.getElementById('adminName').textContent = 'Admin';
-loadQuestions();
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { window.location.href = 'auth.html'; return; }
+  try {
+    const snap = await getDoc(doc(db, 'users', user.uid));
+    if (!snap.exists() || snap.data().role !== 'admin') { window.location.href = 'unauthorized.html'; return; }
+    document.getElementById('adminName').textContent = snap.data().fullName || 'Admin';
+    loadQuestions();
+  } catch (e) { window.location.href = 'auth.html'; }
+});
+
+document.getElementById('logoutBtn').addEventListener('click', async () => { await signOut(auth); window.location.href = 'index.html'; });
 
 async function loadQuestions() {
   try {
@@ -578,4 +588,4 @@ function showToast(text, type) {
 </script>
 <script src="/key-lock.js"></script>
 </body>
-</html>
+          </html>
