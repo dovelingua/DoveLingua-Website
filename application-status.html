@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>O Meu Estado - DoveLingua English Learning Academy</title>
+<title>O Meu Estado - DoveLingua</title>
 <link rel="icon" type="image/png" sizes="32x32" href="https://download.dovelingua.com/website/Favicon_32x32.png">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 :root{
@@ -16,69 +16,39 @@
   --amber:#b45309;--amber-bg:#fef3e2;--red:#c0392b;--red-bg:#fdecea;--green:#0E8F7F;--green-bg:#e6f6f4;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--grey);line-height:1.7;}
+body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--grey);line-height:1.7;min-height:100vh;}
 a{text-decoration:none;color:inherit;}
-img{max-width:100%;height:auto;display:block;}
-button{font-family:inherit;}
+img{max-width:100%;display:block;}
 
-/* NAV - matches site-wide system */
-nav{position:sticky;top:0;z-index:999;background:var(--white);border-bottom:1px solid var(--border);padding:0 clamp(1rem,4vw,2.5rem);height:74px;display:flex;align-items:center;justify-content:space-between;}
-.nav-left{display:flex;align-items:center;gap:1rem;}
-.hamburger{display:flex;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;}
-.hamburger span{display:block;width:24px;height:2.5px;background:var(--navy);border-radius:2px;}
-.nav-brand img{height:48px;width:auto;}
-.nav-right{display:flex;align-items:center;gap:.6rem;}
-.lang-toggle{display:flex;border:1.5px solid var(--border);border-radius:20px;overflow:hidden;}
-.lang-toggle button{border:none;background:transparent;padding:.32rem .78rem;cursor:pointer;color:var(--light);font-size:.72rem;font-weight:700;}
-.lang-toggle button.active{background:var(--navy);color:var(--white);}
-.user-chip{display:flex;align-items:center;gap:8px;background:var(--tint);border:1px solid var(--border);padding:.4rem .9rem .4rem .5rem;border-radius:24px;font-size:.8rem;color:var(--navy);font-weight:600;}
-.user-chip .av{width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.7rem;}
-.logout-btn{background:none;border:none;color:var(--light);cursor:pointer;font-size:.85rem;padding:6px;}
-.logout-btn:hover{color:var(--red);}
-@media(max-width:480px){.nav-brand img{height:38px;}nav{height:64px;padding:0 1rem;}.user-chip span.uname{display:none;}}
+.topbar{background:var(--navy);padding:14px 5%;display:flex;align-items:center;justify-content:space-between;}
+.topbar img{height:34px;}
+.topbar .exit{color:rgba(255,255,255,.7);font-size:13px;display:flex;align-items:center;gap:6px;cursor:pointer;}
+.topbar .exit:hover{color:var(--white);}
 
-/* SIDE MENU (same system as rest of site) */
-.so{display:none;position:fixed;inset:0;background:rgba(11,46,115,.4);z-index:1100;}
-.so.open{display:block;}
-.sm{position:fixed;top:0;left:-300px;width:290px;max-width:85vw;height:100%;background:var(--white);z-index:1200;transition:left .3s ease;display:flex;flex-direction:column;}
-.sm.open{left:0;}
-.sm-hdr{background:linear-gradient(135deg,var(--navy),var(--navy-d));padding:1.3rem 1.1rem;display:flex;align-items:center;gap:.8rem;position:relative;}
-.sm-cl{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.15);border:none;color:var(--white);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:15px;}
-.sm-hdr img{height:36px;}
-.sm-nav{flex:1;overflow-y:auto;padding:.5rem 0;}
-.sm-nav a{display:flex;align-items:center;gap:.8rem;padding:.8rem 1.2rem;font-size:.87rem;font-weight:500;color:var(--mid);cursor:pointer;border-left:3px solid transparent;}
-.sm-nav a:hover{background:var(--tint);color:var(--navy);border-left-color:var(--gold);}
-.sm-nav a i{width:18px;text-align:center;color:var(--navy);font-size:.95rem;}
-.sdiv{height:1px;background:var(--border);margin:.4rem 1.2rem;}
+.wrap{max-width:760px;margin:0 auto;padding:32px 5% 60px;}
 
-.wrap{max-width:800px;margin:0 auto;padding:36px 5% 60px;}
-
-.welcome{text-align:center;margin-bottom:30px;}
-.welcome .eyebrow{font-size:11.5px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.welcome{text-align:center;margin-bottom:28px;}
 .welcome h1{font-family:'Playfair Display',serif;font-size:clamp(20px,3vw,28px);color:var(--navy);margin-bottom:6px;}
 .welcome p{font-size:13.5px;color:var(--mid);}
 
-.status-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:26px 24px;margin-bottom:18px;}
-.status-card .sc-head{display:flex;align-items:center;gap:12px;margin-bottom:6px;flex-wrap:wrap;}
+.status-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:26px 24px;margin-bottom:20px;}
+.status-card .sc-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
 .status-card .sc-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
 .status-card h3{font-size:15px;font-weight:700;color:var(--navy);}
 .status-card .sc-sub{font-size:12px;color:var(--light);}
-.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;border-radius:20px;font-size:12px;font-weight:700;margin-left:auto;}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;border-radius:20px;font-size:12px;font-weight:700;}
 .badge.pending{background:var(--amber-bg);color:var(--amber);}
 .badge.confirmed{background:var(--green-bg);color:var(--green);}
 .badge.notdone{background:var(--border);color:var(--mid);}
-.badge.skipped{background:var(--tint);color:var(--navy);}
 .badge.rejected{background:var(--red-bg);color:var(--red);}
-.status-card p.desc{font-size:13px;color:var(--mid);line-height:1.7;margin-top:12px;}
-.status-card .cta{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;}
+.status-card p.desc{font-size:13px;color:var(--mid);line-height:1.7;margin-top:10px;}
+.status-card .cta{margin-top:16px;}
 
 .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:30px;font-size:13.5px;font-weight:600;border:none;cursor:pointer;transition:.2s;}
 .btn-g{background:var(--navy);color:var(--white);}
 .btn-g:hover{background:var(--gold);color:var(--navy);}
 .btn-o{background:transparent;color:var(--navy);border:1.5px solid var(--navy);}
 .btn-o:hover{background:var(--tint);}
-.btn-txt{background:none;color:var(--light);text-decoration:underline;padding:11px 6px;}
 
 .steps{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:26px 24px;margin-bottom:20px;}
 .steps h3{font-size:14.5px;font-weight:700;color:var(--navy);margin-bottom:16px;}
@@ -99,59 +69,20 @@ nav{position:sticky;top:0;z-index:999;background:var(--white);border-bottom:1px 
 .contact-strip a{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:20px;background:var(--white);border:1px solid var(--border);font-size:12.5px;color:var(--mid);}
 .contact-strip a:hover{border-color:var(--navy);color:var(--navy);}
 
-/* FOOTER - consistent with rest of site */
-footer{background:var(--navy);color:var(--white);padding:36px 5% 20px;margin-top:40px;}
-.fbot{max-width:1100px;margin:0 auto;display:flex;justify-content:center;flex-wrap:wrap;gap:14px;text-align:center;}
-.fbot p{font-size:11.5px;color:rgba(255,255,255,.4);}
-.fbot a{color:rgba(255,255,255,.5);font-size:11.5px;}
-.fbot a:hover{color:var(--white);}
-
-@media(max-width:520px){.status-card,.steps{padding:20px 18px;}.badge{margin-left:0;}}
+@media(max-width:520px){.status-card,.steps{padding:20px 18px;}.sc-head{flex-wrap:wrap;}}
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-left">
-    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
-    <a href="index.html" class="nav-brand"><img src="https://download.dovelingua.com/website/Master_Wordmar_original.png" alt="DoveLingua"></a>
-  </div>
-  <div class="nav-right">
-    <div class="lang-toggle">
-      <button id="btn-pt" class="active" onclick="setLang('pt')">PT</button>
-      <button id="btn-en" onclick="setLang('en')">EN</button>
-    </div>
-    <div class="user-chip">
-      <div class="av" id="userAvatar">A</div>
-      <span class="uname" id="userChipName">Candidato</span>
-    </div>
-    <button class="logout-btn" id="logoutBtn" title="Sair"><i class="fa-solid fa-right-from-bracket"></i></button>
-  </div>
-</nav>
-
-<div class="so" id="sO" onclick="toggleMenu()"></div>
-<div class="sm" id="sM">
-  <div class="sm-hdr">
-    <button class="sm-cl" onclick="toggleMenu()">✕</button>
-    <img src="https://download.dovelingua.com/website/Master_Wordmark_white_tex_navy_background.png" alt="DoveLingua">
-  </div>
-  <div class="sm-nav">
-    <a onclick="nav('application-status.html')"><i class="fa-solid fa-gauge"></i><span data-pt="O Meu Estado" data-en="My Status">O Meu Estado</span></a>
-    <a onclick="nav('index.html')"><i class="fa-solid fa-house"></i><span data-pt="Página Inicial" data-en="Home">Página Inicial</span></a>
-    <div class="sdiv"></div>
-    <a onclick="nav('level-test.html')"><i class="fa-solid fa-clipboard-question"></i><span data-pt="Teste de Nível" data-en="Level Test">Teste de Nível</span></a>
-    <a onclick="nav('enrol.html')"><i class="fa-solid fa-clipboard-list"></i><span data-pt="Completar Inscrição" data-en="Complete Enrollment">Completar Inscrição</span></a>
-    <div class="sdiv"></div>
-    <a onclick="nav('contact.html')"><i class="fa-solid fa-envelope"></i><span data-pt="Contactar Suporte" data-en="Contact Support">Contactar Suporte</span></a>
-    <a onclick="nav('faq.html')"><i class="fa-solid fa-circle-question"></i>FAQ</a>
-  </div>
+<div class="topbar">
+  <img src="https://download.dovelingua.com/website/Master_Wordmark_white_tex_navy_background.png" alt="DoveLingua">
+  <a class="exit" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
 </div>
 
 <div class="wrap">
   <div class="welcome">
-    <div class="eyebrow" data-pt="ÁREA DO CANDIDATO" data-en="APPLICANT AREA">ÁREA DO CANDIDATO</div>
     <h1 id="welcomeName">Bem-vindo(a)</h1>
-    <p data-pt="Este é o seu espaço pessoal enquanto a sua inscrição está a ser processada." data-en="This is your personal space while your enrollment is being processed.">Este é o seu espaço pessoal enquanto a sua inscrição está a ser processada.</p>
+    <p>Este é o seu espaço enquanto a sua inscrição está a ser processada.</p>
   </div>
 
   <!-- LEVEL TEST STATUS -->
@@ -159,74 +90,65 @@ footer{background:var(--navy);color:var(--white);padding:36px 5% 20px;margin-top
     <div class="sc-head">
       <div class="sc-icon" style="background:var(--tint);color:var(--navy);"><i class="fa-solid fa-clipboard-question"></i></div>
       <div style="flex:1;">
-        <h3 data-pt="Teste de Nível" data-en="Level Test">Teste de Nível</h3>
-        <div class="sc-sub" data-pt="Opcional — ajuda a determinar o seu nível" data-en="Optional — helps determine your level">Opcional — ajuda a determinar o seu nível</div>
+        <h3>Teste de Nível</h3>
+        <div class="sc-sub">Determina o seu nível de inglês</div>
       </div>
-      <span class="badge notdone" id="testBadge" data-pt="Não Realizado" data-en="Not Taken">Não Realizado</span>
+      <span class="badge notdone" id="testBadge">Não Realizado</span>
     </div>
-    <p class="desc" id="testDesc" data-pt="O teste de nível é opcional. Se já sabe o seu nível de inglês, pode avançar diretamente para a inscrição. Se não tem a certeza, recomendamos fazer o teste primeiro." data-en="The level test is optional. If you already know your English level, you can go straight to enrollment. If you're unsure, we recommend taking the test first.">O teste de nível é opcional. Se já sabe o seu nível de inglês, pode avançar diretamente para a inscrição. Se não tem a certeza, recomendamos fazer o teste primeiro.</p>
+    <p class="desc" id="testDesc">Ainda não realizou o teste de nível. Recomendamos que o faça antes de prosseguir com a inscrição, para garantir que começa no nível certo.</p>
     <div class="cta" id="testCta">
-      <a href="level-test.html" class="btn btn-g"><i class="fa-solid fa-play"></i> <span data-pt="Fazer o Teste" data-en="Take the Test">Fazer o Teste</span></a>
-      <button class="btn btn-txt" onclick="dismissTest()" data-pt="Já sei o meu nível, saltar" data-en="I know my level, skip">Já sei o meu nível, saltar</button>
+      <a href="level-test.html" class="btn btn-g"><i class="fa-solid fa-play"></i> Fazer o Teste Agora</a>
     </div>
   </div>
 
-  <!-- PAYMENT / ENROLLMENT STATUS -->
+  <!-- PAYMENT STATUS -->
   <div class="status-card">
     <div class="sc-head">
       <div class="sc-icon" style="background:var(--amber-bg);color:var(--amber);"><i class="fa-solid fa-receipt"></i></div>
       <div style="flex:1;">
-        <h3 data-pt="Estado da Inscrição" data-en="Enrollment Status">Estado da Inscrição</h3>
-        <div class="sc-sub" data-pt="Confirmação de pagamento" data-en="Payment confirmation">Confirmação de pagamento</div>
+        <h3>Estado do Pagamento</h3>
+        <div class="sc-sub">Confirmação da sua inscrição</div>
       </div>
-      <span class="badge notdone" id="paymentBadge" data-pt="Não Iniciado" data-en="Not Started">Não Iniciado</span>
+      <span class="badge pending" id="paymentBadge">Pendente</span>
     </div>
-    <p class="desc" id="paymentDesc" data-pt="Ainda não iniciou o processo de inscrição. Pode inscrever-se diretamente, com ou sem ter feito o teste de nível." data-en="You haven't started the enrollment process yet. You can enroll directly, with or without having taken the level test.">Ainda não iniciou o processo de inscrição. Pode inscrever-se diretamente, com ou sem ter feito o teste de nível.</p>
+    <p class="desc" id="paymentDesc">O seu pagamento ainda não foi confirmado pela nossa equipa. Assim que for confirmado, a sua conta será atualizada automaticamente e terá acesso ao Painel de Aluno completo.</p>
     <div class="cta" id="paymentCta">
-      <a href="enrol.html" class="btn btn-g"><i class="fa-solid fa-clipboard-list"></i> <span data-pt="Iniciar Inscrição" data-en="Start Enrollment">Iniciar Inscrição</span></a>
+      <a href="enrol.html" class="btn btn-o"><i class="fa-solid fa-clipboard-list"></i> Completar Inscrição</a>
     </div>
   </div>
 
-  <!-- PROGRESS TRACKER -->
+  <!-- WHAT HAPPENS NEXT -->
   <div class="steps">
-    <h3 data-pt="O Seu Percurso" data-en="Your Journey">O Seu Percurso</h3>
+    <h3>O Que Falta</h3>
     <div class="step-row">
       <div class="step-num done"><i class="fa-solid fa-check"></i></div>
-      <div class="step-text"><h4 data-pt="Conta Criada" data-en="Account Created">Conta Criada</h4><p data-pt="A sua conta na DoveLingua já está ativa." data-en="Your DoveLingua account is now active.">A sua conta na DoveLingua já está ativa.</p></div>
+      <div class="step-text"><h4>Conta Criada</h4><p>A sua conta na DoveLingua já está ativa.</p></div>
     </div>
     <div class="step-row">
       <div class="step-num current" id="stepTestNum">2</div>
-      <div class="step-text"><h4 data-pt="Teste de Nível (opcional)" data-en="Level Test (optional)">Teste de Nível (opcional)</h4><p data-pt="Pode fazer o teste ou avançar diretamente." data-en="You can take the test or go straight ahead.">Pode fazer o teste ou avançar diretamente.</p></div>
+      <div class="step-text"><h4>Teste de Nível</h4><p>Descubra o seu nível de inglês.</p></div>
     </div>
     <div class="step-row">
       <div class="step-num todo" id="stepPayNum">3</div>
-      <div class="step-text"><h4 data-pt="Inscrição e Pagamento" data-en="Enrollment & Payment">Inscrição e Pagamento</h4><p data-pt="Complete a sua inscrição e efetue o pagamento." data-en="Complete your enrollment and make payment.">Complete a sua inscrição e efetue o pagamento.</p></div>
+      <div class="step-text"><h4>Confirmação de Pagamento</h4><p>A nossa equipa confirma o seu pagamento.</p></div>
     </div>
     <div class="step-row">
       <div class="step-num todo">4</div>
-      <div class="step-text"><h4 data-pt="Acesso ao Painel de Aluno" data-en="Student Panel Access">Acesso ao Painel de Aluno</h4><p data-pt="Progresso, notas, certificado e mensagens." data-en="Progress, grades, certificate and messages.">Progresso, notas, certificado e mensagens.</p></div>
+      <div class="step-text"><h4>Acesso ao Painel de Aluno</h4><p>Progresso, notas, certificado e mensagens.</p></div>
     </div>
   </div>
 
   <div class="info-card">
-    <h4><i class="fa-solid fa-circle-info"></i> <span data-pt="Precisa de ajuda?" data-en="Need help?">Precisa de ajuda?</span></h4>
-    <p data-pt="Se já efetuou o pagamento e este ainda não foi confirmado, ou se tem dúvidas sobre o processo de inscrição, contacte a nossa equipa de suporte." data-en="If you've already made a payment that hasn't been confirmed, or have questions about enrollment, contact our support team.">Se já efetuou o pagamento e este ainda não foi confirmado, ou se tem dúvidas sobre o processo de inscrição, contacte a nossa equipa de suporte.</p>
+    <h4><i class="fa-solid fa-circle-info"></i> Precisa de ajuda?</h4>
+    <p>Se já efetuou o pagamento e este ainda não foi confirmado, ou se tem dúvidas sobre o processo, contacte a nossa equipa de suporte.</p>
   </div>
 
   <div class="contact-strip">
     <a href="https://wa.me/258828920143" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-    <a href="contact.html"><i class="fa-solid fa-envelope"></i> <span data-pt="Contacto" data-en="Contact">Contacto</span></a>
+    <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contacto</a>
     <a href="faq.html"><i class="fa-solid fa-circle-question"></i> FAQ</a>
   </div>
 </div>
-
-<footer>
-  <div class="fbot">
-    <p data-pt="DoveLingua © 2026 - Todos os direitos reservados." data-en="DoveLingua © 2026 - All rights reserved.">DoveLingua © 2026 - Todos os direitos reservados.</p>
-    <a onclick="nav('terms.html')" data-pt="Termos" data-en="Terms">Termos</a>
-    <a onclick="nav('contact.html')" data-pt="Contacto" data-en="Contact">Contacto</a>
-  </div>
-</footer>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
@@ -245,6 +167,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+
 const ROUTES = { applicant:'application-status.html', student:'student-dashboard.html', teacher:'teacher-dashboard.html', staff:'staff-payments.html', admin:'admin-dashboard.html' };
 
 onAuthStateChanged(auth, async (user) => {
@@ -253,91 +176,63 @@ onAuthStateChanged(auth, async (user) => {
     const snap = await getDoc(doc(db, 'users', user.uid));
     if (!snap.exists()) { window.location.href = 'auth.html'; return; }
     const data = snap.data();
+
     if (data.isBlocked) { await signOut(auth); window.location.href = 'auth.html?blocked=1'; return; }
-    if (data.role && data.role !== 'applicant') { window.location.href = ROUTES[data.role] || 'application-status.html'; return; }
 
-    const firstName = data.fullName ? data.fullName.split(' ')[0] : 'Candidato';
-    document.getElementById('welcomeName').textContent = 'Bem-vindo(a), ' + firstName;
-    document.getElementById('userChipName').textContent = firstName;
-    document.getElementById('userAvatar').textContent = firstName.charAt(0).toUpperCase();
+    // If role is not applicant, redirect to the correct dashboard
+    if (data.role && data.role !== 'applicant') {
+      window.location.href = ROUTES[data.role] || 'application-status.html';
+      return;
+    }
 
+    document.getElementById('welcomeName').textContent = 'Bem-vindo(a), ' + (data.fullName ? data.fullName.split(' ')[0] : 'Candidato');
+
+    // Level test status
     const testSnap = await getDoc(doc(db, 'testAttempts', user.uid));
     if (testSnap.exists()) {
       const t = testSnap.data();
       if (t.status === 'completed') {
-        setBadge('testBadge', 'confirmed', 'Concluído', 'Completed');
+        document.getElementById('testBadge').textContent = 'Concluído';
+        document.getElementById('testBadge').className = 'badge confirmed';
         document.getElementById('testDesc').textContent = 'O seu teste foi concluído. Nível determinado: ' + (t.finalLevel || 'em avaliação') + '.';
         document.getElementById('testCta').innerHTML = '';
-        markDone('stepTestNum');
-        setCurrent('stepPayNum');
+        document.getElementById('stepTestNum').className = 'step-num done';
+        document.getElementById('stepTestNum').innerHTML = '<i class="fa-solid fa-check"></i>';
+        document.getElementById('stepPayNum').className = 'step-num current';
       } else {
-        setBadge('testBadge', 'pending', 'Em Análise', 'Under Review');
-        document.getElementById('testDesc').textContent = 'O seu teste foi submetido e está a ser revisto pela nossa equipa.';
+        document.getElementById('testBadge').textContent = 'Em Análise';
+        document.getElementById('testBadge').className = 'badge pending';
+        document.getElementById('testDesc').textContent = 'O seu teste foi submetido e está a ser revisto pela nossa equipa (partes de escrita e oralidade requerem avaliação manual).';
       }
     }
 
-    const localSkip = localStorage.getItem('dvl_test_skipped_' + user.uid);
-    if (localSkip === '1' && !testSnap.exists()) {
-      setBadge('testBadge', 'skipped', 'Ignorado', 'Skipped');
-      document.getElementById('testDesc').textContent = 'Optou por avançar sem fazer o teste de nível. Pode fazê-lo a qualquer momento antes de concluir a inscrição.';
-      document.getElementById('testCta').innerHTML = '<a href="level-test.html" class="btn btn-o"><i class="fa-solid fa-play"></i> Fazer o Teste Mais Tarde</a>';
-      markDone('stepTestNum');
-      setCurrent('stepPayNum');
-    }
-
+    // Payment status
     const applicationSnap = await getDoc(doc(db, 'applications', user.uid));
     if (applicationSnap.exists()) {
       const a = applicationSnap.data();
-      if (a.applicationStatus === 'pending') {
-        setBadge('paymentBadge', 'pending', 'Pendente', 'Pending');
-        document.getElementById('paymentDesc').textContent = 'O seu pagamento ainda não foi confirmado. Assim que for confirmado, terá acesso ao Painel de Aluno.';
-      } else if (a.applicationStatus === 'enrolled' || a.applicationStatus === 'confirmed') {
-        setBadge('paymentBadge', 'confirmed', 'Confirmado', 'Confirmed');
-        document.getElementById('paymentDesc').textContent = 'O seu pagamento foi confirmado! A atualizar a sua conta para Aluno...';
+      if (a.applicationStatus === 'enrolled' || a.applicationStatus === 'confirmed') {
+        document.getElementById('paymentBadge').textContent = 'Confirmado';
+        document.getElementById('paymentBadge').className = 'badge confirmed';
+        document.getElementById('paymentDesc').textContent = 'O seu pagamento foi confirmado! A sua conta está a ser atualizada para Aluno — atualize a página em breve.';
         document.getElementById('paymentCta').innerHTML = '';
-        markDone('stepPayNum');
+        document.getElementById('stepPayNum').className = 'step-num done';
+        document.getElementById('stepPayNum').innerHTML = '<i class="fa-solid fa-check"></i>';
       } else if (a.applicationStatus === 'rejected') {
-        setBadge('paymentBadge', 'rejected', 'Não Aprovado', 'Not Approved');
-        document.getElementById('paymentDesc').textContent = 'Houve um problema com a sua inscrição. Contacte o suporte para mais detalhes.';
+        document.getElementById('paymentBadge').textContent = 'Não Aprovado';
+        document.getElementById('paymentBadge').className = 'badge rejected';
+        document.getElementById('paymentDesc').textContent = 'Houve um problema com a sua inscrição. Por favor contacte o suporte para mais detalhes.';
       }
     }
-  } catch (e) { console.error(e); }
+
+  } catch (e) {
+    console.error(e);
+  }
 });
-
-function setBadge(id, cls, pt, en) {
-  const el = document.getElementById(id);
-  el.className = 'badge ' + cls;
-  el.setAttribute('data-pt', pt);
-  el.setAttribute('data-en', en);
-  el.textContent = lang === 'en' ? en : pt;
-}
-function markDone(id) { const el = document.getElementById(id); el.className = 'step-num done'; el.innerHTML = '<i class="fa-solid fa-check"></i>'; }
-function setCurrent(id) { document.getElementById(id).className = 'step-num current'; }
-
-window.dismissTest = function() {
-  const user = auth.currentUser;
-  if (user) localStorage.setItem('dvl_test_skipped_' + user.uid, '1');
-  location.reload();
-};
 
 document.getElementById('logoutBtn').addEventListener('click', async () => {
   await signOut(auth);
   window.location.href = 'index.html';
 });
-
-var lang = localStorage.getItem('dvl_lang') || 'pt';
-function setLang(l) {
-  lang = l;
-  document.documentElement.lang = l;
-  document.getElementById('btn-en').classList.toggle('active', l==='en');
-  document.getElementById('btn-pt').classList.toggle('active', l==='pt');
-  document.querySelectorAll('[data-pt]').forEach(el => { const v = el.getAttribute('data-'+l); if (v!==null) el.textContent = v; });
-  localStorage.setItem('dvl_lang', l);
-}
-function toggleMenu(){ document.getElementById('sM').classList.toggle('open'); document.getElementById('sO').classList.toggle('open'); }
-function nav(page){ window.location.href = page; }
-window.setLang = setLang; window.toggleMenu = toggleMenu; window.nav = nav;
-window.addEventListener('load', () => setLang(lang));
 </script>
 <script src="/key-lock.js"></script>
 </body>

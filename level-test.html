@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Teste de Nível - DoveLingua English Learning Academy</title>
+<link rel="icon" type="image/png" sizes="32x32" href="https://download.dovelingua.com/website/Favicon_32x32.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --navy:#0B2E73;--navy-d:#082154;--gold:#C9971A;--white:#FFFFFF;
+  --grey:#F4F4F4;--tint:#E8EEF9;--teal:#0E8F7F;
+  --text:#1a2332;--mid:#4a5568;--light:#718096;--border:#e2e8f0;
+  --r:16px;--shadow:0 4px 20px rgba(11,46,115,.08);
+  --amber:#b45309;--amber-bg:#fef3e2;--red:#c0392b;--red-bg:#fdecea;--green:#0E8F7F;--green-bg:#e6f6f4;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--grey);line-height:1.7;-webkit-user-select:none;user-select:none;}
+a{text-decoration:none;color:inherit;}
+img{max-width:100%;height:auto;display:block;}
+button{font-family:inherit;}
+input,textarea{-webkit-user-select:text;user-select:text;}
+
+nav{position:sticky;top:0;z-index:999;background:var(--white);border-bottom:1px solid var(--border);padding:0 clamp(1rem,4vw,2.5rem);height:74px;display:flex;align-items:center;justify-content:space-between;}
+.nav-brand img{height:48px;width:auto;}
+.nav-right{display:flex;align-items:center;gap:.6rem;}
+.lang-toggle{display:flex;border:1.5px solid var(--border);border-radius:20px;overflow:hidden;}
+.lang-toggle button{border:none;background:transparent;padding:.32rem .78rem;cursor:pointer;color:var(--light);font-size:.72rem;font-weight:700;}
+.lang-toggle button.active{background:var(--navy);color:var(--white);}
+.lang-toggle button:disabled{opacity:.4;cursor:not-allowed;}
+.exit-link{color:var(--light);font-size:.82rem;display:flex;align-items:center;gap:6px;cursor:pointer;}
+.exit-link:hover{color:var(--red);}
+@media(max-width:480px){.nav-brand img{height:38px;}nav{height:64px;padding:0 1rem;}}
+
+.wrap{max-width:840px;margin:0 auto;padding:32px 5% 60px;}
+
+/* INTRO SCREEN */
+.intro-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:36px 30px;text-align:center;}
+.intro-card .ic-eyebrow{font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+.intro-card h1{font-family:'Playfair Display',serif;font-size:clamp(20px,3vw,28px);color:var(--navy);margin-bottom:10px;}
+.intro-card p.lead{font-size:13.5px;color:var(--mid);max-width:520px;margin:0 auto 26px;line-height:1.75;}
+.skills-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:26px;}
+.skill-chip{background:var(--tint);border-radius:12px;padding:14px 8px;text-align:center;}
+.skill-chip i{font-size:19px;color:var(--navy);margin-bottom:6px;display:block;}
+.skill-chip span{font-size:11px;font-weight:600;color:var(--navy);}
+.rules-list{text-align:left;background:var(--tint);border-radius:12px;padding:18px 20px;margin-bottom:26px;}
+.rules-list h4{font-size:12.5px;font-weight:700;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.rules-list ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.rules-list li{font-size:12.5px;color:var(--mid);display:flex;align-items:flex-start;gap:8px;line-height:1.6;}
+.rules-list li i{color:var(--gold);margin-top:2px;flex-shrink:0;width:14px;}
+.consent-row{display:flex;align-items:flex-start;gap:10px;text-align:left;margin-bottom:22px;padding:14px 16px;background:var(--white);border:1.5px solid var(--border);border-radius:10px;}
+.consent-row input{margin-top:3px;width:16px;height:16px;accent-color:var(--navy);flex-shrink:0;}
+.consent-row label{font-size:12.5px;color:var(--mid);line-height:1.6;cursor:pointer;}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:30px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:.2s;}
+.btn-g{background:var(--navy);color:var(--white);}
+.btn-g:hover:not(:disabled){background:var(--gold);color:var(--navy);}
+.btn-g:disabled{opacity:.4;cursor:not-allowed;}
+.btn-o{background:transparent;color:var(--navy);border:1.5px solid var(--navy);}
+.btn-o:hover{background:var(--tint);}
+
+/* TEST HEADER (during test) */
+.test-header{display:none;background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:16px 20px;margin-bottom:20px;position:sticky;top:90px;z-index:50;}
+.test-header.show{display:block;}
+.th-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+.th-skill{display:flex;align-items:center;gap:10px;}
+.th-skill i{width:34px;height:34px;background:var(--tint);color:var(--navy);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.th-skill-name{font-size:13.5px;font-weight:700;color:var(--navy);}
+.th-skill-sub{font-size:11px;color:var(--light);}
+.th-timer{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--amber);background:var(--amber-bg);padding:6px 14px;border-radius:20px;}
+.th-timer.low{color:var(--red);background:var(--red-bg);animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.6;}}
+.progress-track{background:var(--border);height:6px;border-radius:6px;overflow:hidden;}
+.progress-fill{background:linear-gradient(90deg,var(--navy),var(--gold));height:100%;border-radius:6px;transition:width .3s;}
+.th-qcount{font-size:11px;color:var(--light);margin-top:6px;text-align:right;}
+
+/* WARNING BANNER */
+.warn-banner{display:none;background:var(--red-bg);border:1.5px solid var(--red);color:var(--red);border-radius:10px;padding:12px 16px;font-size:12.5px;margin-bottom:16px;display:none;align-items:center;gap:10px;}
+.warn-banner.show{display:flex;}
+
+/* QUESTION CARD */
+.q-card{display:none;background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:28px 26px;}
+.q-card.active{display:block;}
+.q-level-tag{display:inline-block;background:var(--navy);color:#fff;font-size:11px;font-weight:700;padding:3px 12px;border-radius:12px;margin-bottom:14px;}
+.q-text{font-size:15.5px;font-weight:600;color:var(--text);line-height:1.6;margin-bottom:20px;}
+.q-audio-box{background:var(--tint);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+.q-audio-box i{font-size:22px;color:var(--navy);}
+.q-audio-box audio{flex:1;height:36px;}
+.q-passage{background:var(--grey);border-left:3px solid var(--gold);border-radius:8px;padding:16px 18px;font-size:13px;color:var(--mid);line-height:1.75;margin-bottom:20px;text-align:justify;}
+
+.opt-list{display:flex;flex-direction:column;gap:10px;}
+.opt{display:flex;align-items:center;gap:12px;padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:.15s;}
+.opt:hover{border-color:var(--navy);background:var(--tint);}
+.opt.selected{border-color:var(--navy);background:var(--tint);}
+.opt input{width:18px;height:18px;accent-color:var(--navy);flex-shrink:0;}
+.opt span{font-size:13.5px;color:var(--text);}
+
+.write-area textarea{width:100%;min-height:160px;border:1.5px solid var(--border);border-radius:12px;padding:16px;font-size:14px;font-family:inherit;color:var(--text);resize:vertical;outline:none;}
+.write-area textarea:focus{border-color:var(--navy);}
+.wc{text-align:right;font-size:11px;color:var(--light);margin-top:6px;}
+
+.speak-box{text-align:center;padding:20px 0;}
+.rec-btn{width:76px;height:76px;border-radius:50%;background:var(--red);border:none;color:#fff;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;transition:.2s;box-shadow:0 6px 20px rgba(192,57,43,.35);}
+.rec-btn.recording{animation:recpulse 1.2s infinite;}
+@keyframes recpulse{0%,100%{box-shadow:0 6px 20px rgba(192,57,43,.35);}50%{box-shadow:0 6px 30px rgba(192,57,43,.6);}}
+.rec-status{font-size:12.5px;color:var(--mid);margin-bottom:14px;}
+.rec-playback{margin-top:14px;}
+.rec-playback audio{width:100%;}
+
+.nav-btns{display:flex;justify-content:space-between;align-items:center;margin-top:26px;padding-top:20px;border-top:1px solid var(--border);}
+
+/* RESULTS SCREEN */
+.results-card{display:none;background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:36px 30px;text-align:center;}
+.results-card.show{display:block;}
+.r-icon{font-size:52px;margin-bottom:16px;}
+.results-card h2{font-family:'Playfair Display',serif;font-size:22px;color:var(--navy);margin-bottom:10px;}
+.results-card p.rlead{font-size:13.5px;color:var(--mid);max-width:480px;margin:0 auto 24px;line-height:1.75;}
+.r-status-box{background:var(--tint);border-radius:14px;padding:20px 24px;margin-bottom:24px;}
+.r-status-box .rs-label{font-size:11px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.r-status-box .rs-text{font-size:14px;color:var(--mid);line-height:1.7;}
+.r-skills-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:26px;}
+.r-skill{background:var(--grey);border-radius:10px;padding:12px 6px;}
+.r-skill i{font-size:16px;color:var(--navy);margin-bottom:4px;display:block;}
+.r-skill .rsk-name{font-size:10px;color:var(--light);font-weight:600;}
+.r-skill .rsk-status{font-size:11px;font-weight:700;color:var(--green);margin-top:2px;}
+
+@media(max-width:600px){.skills-row,.r-skills-grid{grid-template-columns:1fr 1fr;}.intro-card,.q-card,.results-card{padding:24px 18px;}}
+</style>
+</head>
+<body oncontextmenu="return false;">
+
+<nav>
+  <a href="index.html" class="nav-brand"><img src="https://download.dovelingua.com/website/Master_Wordmar_original.png" alt="DoveLingua"></a>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button id="btn-pt" class="active" onclick="setLang('pt')">PT</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <a href="index.html" class="exit-link"><i class="fa-solid fa-xmark"></i> <span data-pt="Sair" data-en="Exit">Sair</span></a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- INTRO SCREEN -->
+  <div class="intro-card" id="introScreen">
+    <div class="ic-eyebrow" data-pt="TESTE DE NIVELAMENTO" data-en="PLACEMENT TEST">TESTE DE NIVELAMENTO</div>
+    <h1 data-pt="Descubra o Seu Nível de Inglês" data-en="Discover Your English Level">Descubra o Seu Nível de Inglês</h1>
+    <p class="lead" data-pt="Este teste avalia as suas competências em Leitura, Audição, Escrita e Oralidade, alinhado com o QECR — o mesmo referencial usado em todo o programa DoveLingua, de Pré-A1 a C1." data-en="This test evaluates your Reading, Listening, Writing and Speaking skills, aligned with the CEFR — the same framework used throughout the DoveLingua programme, from Pre-A1 to C1.">Este teste avalia as suas competências em Leitura, Audição, Escrita e Oralidade, alinhado com o QECR — o mesmo referencial usado em todo o programa DoveLingua, de Pré-A1 a C1.</p>
+
+    <div class="skills-row">
+      <div class="skill-chip"><i class="fa-solid fa-book-open"></i><span data-pt="Leitura" data-en="Reading">Leitura</span></div>
+      <div class="skill-chip"><i class="fa-solid fa-headphones"></i><span data-pt="Audição" data-en="Listening">Audição</span></div>
+      <div class="skill-chip"><i class="fa-solid fa-pen"></i><span data-pt="Escrita" data-en="Writing">Escrita</span></div>
+      <div class="skill-chip"><i class="fa-solid fa-microphone"></i><span data-pt="Oralidade" data-en="Speaking">Oralidade</span></div>
+    </div>
+
+    <div class="rules-list">
+      <h4><i class="fa-solid fa-shield-halved"></i> <span data-pt="Antes de começar, saiba que:" data-en="Before you begin, please note:">Antes de começar, saiba que:</span></h4>
+      <ul>
+        <li><i class="fa-solid fa-clock"></i><span data-pt="Cada secção tem um limite de tempo. O teste avança automaticamente quando o tempo termina." data-en="Each section is timed. The test advances automatically when time runs out.">Cada secção tem um limite de tempo. O teste avança automaticamente quando o tempo termina.</span></li>
+        <li><i class="fa-solid fa-ban"></i><span data-pt="Copiar e colar está desativado durante o teste." data-en="Copy and paste is disabled during the test.">Copiar e colar está desativado durante o teste.</span></li>
+        <li><i class="fa-solid fa-eye"></i><span data-pt="Mudar de separador ou minimizar a janela é registado pelo sistema." data-en="Switching tabs or minimizing the window is logged by the system.">Mudar de separador ou minimizar a janela é registado pelo sistema.</span></li>
+        <li><i class="fa-solid fa-rotate-left"></i><span data-pt="Só pode realizar este teste uma vez. Faça-o com atenção." data-en="You can only take this test once. Please take your time.">Só pode realizar este teste uma vez. Faça-o com atenção.</span></li>
+        <li><i class="fa-solid fa-user-check"></i><span data-pt="As secções de Escrita e Oralidade são avaliadas manualmente pela nossa equipa." data-en="Writing and Speaking sections are manually reviewed by our team.">As secções de Escrita e Oralidade são avaliadas manualmente pela nossa equipa.</span></li>
+      </ul>
+    </div>
+
+    <div class="consent-row">
+      <input type="checkbox" id="consentBox" onchange="document.getElementById('startBtn').disabled=!this.checked;">
+      <label for="consentBox" data-pt="Compreendo as regras acima e estou pronto(a) para começar o teste com honestidade." data-en="I understand the rules above and am ready to begin the test honestly.">Compreendo as regras acima e estou pronto(a) para começar o teste com honestidade.</label>
+    </div>
+
+    <button class="btn btn-g" id="startBtn" onclick="startTest()" disabled>
+      <i class="fa-solid fa-play"></i> <span data-pt="Começar o Teste" data-en="Start the Test">Começar o Teste</span>
+    </button>
+  </div>
+
+  <!-- TEST HEADER -->
+  <div class="test-header" id="testHeader">
+    <div class="th-top">
+      <div class="th-skill">
+        <i id="thIcon" class="fa-solid fa-book-open"></i>
+        <div>
+          <div class="th-skill-name" id="thSkillName">Leitura</div>
+          <div class="th-skill-sub" id="thSkillSub">Secção 1 de 4</div>
+        </div>
+      </div>
+      <div class="th-timer" id="thTimer"><i class="fa-solid fa-clock"></i> <span id="timerText">05:00</span></div>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%;"></div></div>
+    <div class="th-qcount" id="qCount">Pergunta 1 de 5</div>
+  </div>
+
+  <div class="warn-banner" id="warnBanner"><i class="fa-solid fa-triangle-exclamation"></i> <span id="warnText"></span></div>
+
+  <!-- QUESTION CARDS injected here -->
+  <div id="questionsContainer"></div>
+
+  <!-- RESULTS SCREEN -->
+  <div class="results-card" id="resultsScreen">
+    <div class="r-icon">🎉</div>
+    <h2 data-pt="Teste Concluído!" data-en="Test Completed!">Teste Concluído!</h2>
+    <p class="rlead" data-pt="Obrigado por completar o teste de nível DoveLingua. As suas respostas foram registadas." data-en="Thank you for completing the DoveLingua level test. Your answers have been recorded.">Obrigado por completar o teste de nível DoveLingua. As suas respostas foram registadas.</p>
+
+    <div class="r-status-box">
+      <div class="rs-label" data-pt="ESTADO" data-en="STATUS">ESTADO</div>
+      <div class="rs-text" data-pt="As secções de Leitura e Audição já foram corrigidas automaticamente. As secções de Escrita e Oralidade serão avaliadas pela nossa equipa nos próximos dias. Receberá o seu nível final no Painel do Candidato." data-en="Reading and Listening sections have been auto-graded. Writing and Speaking sections will be reviewed by our team over the next few days. You will receive your final level in your Applicant Panel.">As secções de Leitura e Audição já foram corrigidas automaticamente. As secções de Escrita e Oralidade serão avaliadas pela nossa equipa nos próximos dias. Receberá o seu nível final no Painel do Candidato.</div>
+    </div>
+
+    <div class="r-skills-grid">
+      <div class="r-skill"><i class="fa-solid fa-book-open"></i><div class="rsk-name">Leitura</div><div class="rsk-status" data-pt="Concluído" data-en="Done">Concluído</div></div>
+      <div class="r-skill"><i class="fa-solid fa-headphones"></i><div class="rsk-name">Audição</div><div class="rsk-status" data-pt="Concluído" data-en="Done">Concluído</div></div>
+      <div class="r-skill"><i class="fa-solid fa-pen"></i><div class="rsk-name">Escrita</div><div class="rsk-status" style="color:var(--amber);" data-pt="Em Análise" data-en="Under Review">Em Análise</div></div>
+      <div class="r-skill"><i class="fa-solid fa-microphone"></i><div class="rsk-name">Oralidade</div><div class="rsk-status" style="color:var(--amber);" data-pt="Em Análise" data-en="Under Review">Em Análise</div></div>
+    </div>
+
+    <a href="application-status.html" class="btn btn-g"><i class="fa-solid fa-gauge"></i> <span data-pt="Ver o Meu Estado" data-en="View My Status">Ver o Meu Estado</span></a>
+  </div>
+
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, collection, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAl9A_gXDKTB3N6U1f_Bh5FWrOsySjCJGo",
+  authDomain: "dovelingua-site.firebaseapp.com",
+  projectId: "dovelingua-site",
+  storageBucket: "dovelingua-site.firebasestorage.app",
+  messagingSenderId: "271742052334",
+  appId: "1:271742052334:web:bc736373d7ea50001b50ff",
+  measurementId: "G-N8ELT8SMYM"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+let currentUser = null;
+
+onAuthStateChanged(auth, (user) => { currentUser = user; });
+
+// ---------- SAMPLE QUESTION BANK (fallback until admin editor populates Firestore) ----------
+const SAMPLE_BANK = {
+  reading: [
+    { level:'A1', text_pt:'Escolha a resposta certa: "My sister ___ a doctor."', text_en:'Choose the correct answer: "My sister ___ a doctor."', options:['is','are','am','be'], correct:0 },
+    { level:'A1', text_pt:'"There ___ two books on the table." Escolha a opção correta.', text_en:'"There ___ two books on the table." Choose the correct option.', options:['is','are','was','be'], correct:1 },
+    { level:'A2', passage_pt:'Ana trabalha numa loja de roupa no centro da cidade. Todos os dias ela acorda às 6h, toma o pequeno-almoço e vai de autocarro para o trabalho. A loja abre às 8h e fecha às 18h.', passage_en:'Ana works in a clothing shop in the city centre. Every day she wakes up at 6am, has breakfast and takes the bus to work. The shop opens at 8am and closes at 6pm.', text_pt:'A que horas a loja fecha?', text_en:'What time does the shop close?', options:['16h','18h','20h','6h'], correct:1 },
+    { level:'A2', text_pt:'"I ___ to the cinema last night." Escolha a forma correta do passado.', text_en:'"I ___ to the cinema last night." Choose the correct past form.', options:['go','goed','went','gone'], correct:2 },
+    { level:'B1', passage_pt:'Muitos jovens moçambicanos enfrentam dificuldades para encontrar emprego após terminarem os estudos, apesar de terem boas qualificações académicas.', passage_en:'Many young Mozambicans face difficulties finding employment after finishing their studies, despite having good academic qualifications.', text_pt:'Qual é a ideia principal do texto?', text_en:'What is the main idea of the text?', options:['Jovens não têm qualificações','Há dificuldade em encontrar emprego apesar das qualificações','O ensino em Moçambique é fraco','Todos os jovens têm emprego'], correct:1 },
+  ],
+  listening: [
+    { level:'A1', text_pt:'Ouça o áudio e escolha o que a pessoa diz.', text_en:'Listen to the audio and choose what the person says.', audio:'https://download.dovelingua.com/website/sample-audio-a1.mp3', options:['Good morning','Good night','Good afternoon','Goodbye'], correct:0 },
+    { level:'A2', text_pt:'Ouça a conversa. Onde estão as pessoas a falar?', text_en:'Listen to the conversation. Where are the people talking?', audio:'https://download.dovelingua.com/website/sample-audio-a2.mp3', options:['No hospital','No restaurante','Na escola','No banco'], correct:1 },
+  ],
+  writing: [
+    { level:'A2', text_pt:'Escreva um parágrafo curto (4-6 frases) sobre a sua rotina diária.', text_en:'Write a short paragraph (4-6 sentences) about your daily routine.' },
+    { level:'B1', text_pt:'Escreva um email a um amigo a convidá-lo para o seu aniversário. Inclua data, hora e local.', text_en:'Write an email to a friend inviting them to your birthday. Include date, time and location.' },
+  ],
+  speaking: [
+    { level:'A1', text_pt:'Grave-se a falar sobre si: o seu nome, idade e onde mora. (30 segundos)', text_en:'Record yourself talking about yourself: your name, age and where you live. (30 seconds)' },
+    { level:'B1', text_pt:'Grave-se a falar sobre os seus planos para o próximo ano. (60 segundos)', text_en:'Record yourself talking about your plans for next year. (60 seconds)' },
+  ]
+};
+
+const SKILL_META = {
+  reading:{icon:'fa-book-open', pt:'Leitura', en:'Reading', time:300},
+  listening:{icon:'fa-headphones', pt:'Audição', en:'Listening', time:300},
+  writing:{icon:'fa-pen', pt:'Escrita', en:'Writing', time:600},
+  speaking:{icon:'fa-microphone', pt:'Oralidade', en:'Speaking', time:300}
+};
+const SKILL_ORDER = ['reading','listening','writing','speaking'];
+
+let questionBank = {};
+let allQuestions = [];
+let currentIndex = 0;
+let currentSkillIndex = 0;
+let answers = [];
+let timerInterval = null;
+let timeLeft = 0;
+let tabSwitchCount = 0;
+let mediaRecorder = null;
+let audioChunks = [];
+let recordedBlobs = {};
+
+async function loadQuestionBank() {
+  questionBank = JSON.parse(JSON.stringify(SAMPLE_BANK));
+  try {
+    for (const skill of SKILL_ORDER) {
+      const snap = await getDocs(collection(db, 'levelTests'));
+      if (!snap.empty) {
+        const skillQs = [];
+        snap.forEach(d => { const data = d.data(); if (data.skill === skill) skillQs.push(data); });
+        if (skillQs.length > 0) questionBank[skill] = skillQs;
+      }
+    }
+  } catch (e) { console.log('Using sample question bank (Firestore levelTests not yet populated)'); }
+
+  allQuestions = [];
+  SKILL_ORDER.forEach(skill => {
+    (questionBank[skill] || []).forEach(q => allQuestions.push({ ...q, skill }));
+  });
+}
+
+window.startTest = async function() {
+  document.getElementById('introScreen').style.display = 'none';
+  document.getElementById('testHeader').classList.add('show');
+  await loadQuestionBank();
+  renderQuestions();
+  showQuestion(0);
+  setupAntiCheat();
+};
+
+function renderQuestions() {
+  const container = document.getElementById('questionsContainer');
+  container.innerHTML = '';
+  allQuestions.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = 'q-' + i;
+
+    let inner = `<span class="q-level-tag">${q.level}</span>`;
+    if (q.passage_pt) inner += `<div class="q-passage" data-pt="${escapeAttr(q.passage_pt)}" data-en="${escapeAttr(q.passage_en||q.passage_pt)}">${q.passage_pt}</div>`;
+    if (q.audio) inner += `<div class="q-audio-box"><i class="fa-solid fa-volume-high"></i><audio controls src="${q.audio}"></audio></div>`;
+    inner += `<div class="q-text" data-pt="${escapeAttr(q.text_pt)}" data-en="${escapeAttr(q.text_en||q.text_pt)}">${q.text_pt}</div>`;
+
+    if (q.skill === 'writing') {
+      inner += `<div class="write-area"><textarea id="answer-${i}" placeholder="..." oninput="updateWordCount(${i})"></textarea><div class="wc" id="wc-${i}">0 palavras</div></div>`;
+    } else if (q.skill === 'speaking') {
+      inner += `<div class="speak-box">
+        <button class="rec-btn" id="recBtn-${i}" onclick="toggleRecording(${i})"><i class="fa-solid fa-microphone"></i></button>
+        <div class="rec-status" id="recStatus-${i}" data-pt="Toque para gravar" data-en="Tap to record">Toque para gravar</div>
+        <div class="rec-playback" id="recPlayback-${i}"></div>
+      </div>`;
+    } else {
+      inner += `<div class="opt-list">`;
+      q.options.forEach((opt, oi) => {
+        inner += `<label class="opt" onclick="selectOption(${i},${oi})">
+          <input type="radio" name="q-${i}" value="${oi}">
+          <span>${opt}</span>
+        </label>`;
+      });
+      inner += `</div>`;
+    }
+
+    inner += `<div class="nav-btns">
+      <button class="btn btn-o" onclick="prevQuestion()" ${i===0?'style="visibility:hidden;"':''}><i class="fa-solid fa-arrow-left"></i> <span data-pt="Anterior" data-en="Previous">Anterior</span></button>
+      <button class="btn btn-g" onclick="nextQuestion()"><span data-pt="${i===allQuestions.length-1?'Concluir':'Seguinte'}" data-en="${i===allQuestions.length-1?'Finish':'Next'}">${i===allQuestions.length-1?'Concluir':'Seguinte'}</span> <i class="fa-solid fa-arrow-right"></i></button>
+    </div>`;
+
+    card.innerHTML = inner;
+    container.appendChild(card);
+  });
+}
+
+function escapeAttr(str) { return (str||'').replace(/"/g, '&quot;'); }
+
+function showQuestion(index) {
+  document.querySelectorAll('.q-card').forEach(c => c.classList.remove('active'));
+  const card = document.getElementById('q-' + index);
+  if (!card) return;
+  card.classList.add('active');
+  currentIndex = index;
+
+  const q = allQuestions[index];
+  const meta = SKILL_META[q.skill];
+  document.getElementById('thIcon').className = 'fa-solid ' + meta.icon;
+  document.getElementById('thSkillName').textContent = lang === 'en' ? meta.en : meta.pt;
+  const skillNum = SKILL_ORDER.indexOf(q.skill) + 1;
+  document.getElementById('thSkillSub').textContent = (lang==='en'?'Section ':'Secção ') + skillNum + (lang==='en'?' of 4':' de 4');
+  document.getElementById('qCount').textContent = (lang==='en'?'Question ':'Pergunta ') + (index+1) + (lang==='en'?' of ':' de ') + allQuestions.length;
+  document.getElementById('progressFill').style.width = (((index+1)/allQuestions.length)*100) + '%';
+
+  if (q.skill !== currentSkillTracker) {
+    currentSkillTracker = q.skill;
+    startTimer(meta.time);
+  }
+  applyLang();
+}
+
+let currentSkillTracker = null;
+
+function startTimer(seconds) {
+  clearInterval(timerInterval);
+  timeLeft = seconds;
+  updateTimerDisplay();
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    updateTimerDisplay();
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      advanceToNextSkill();
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(timeLeft / 60).toString().padStart(2,'0');
+  const s = (timeLeft % 60).toString().padStart(2,'0');
+  document.getElementById('timerText').textContent = m + ':' + s;
+  const timerEl = document.getElementById('thTimer');
+  timerEl.classList.toggle('low', timeLeft <= 30);
+}
+
+function advanceToNextSkill() {
+  const currentSkill = allQuestions[currentIndex].skill;
+  let nextIndex = currentIndex + 1;
+  while (nextIndex < allQuestions.length && allQuestions[nextIndex].skill === currentSkill) nextIndex++;
+  if (nextIndex < allQuestions.length) showQuestion(nextIndex);
+  else finishTest();
+}
+
+window.selectOption = function(qIndex, optIndex) {
+  const card = document.getElementById('q-' + qIndex);
+  card.querySelectorAll('.opt').forEach((o,i) => o.classList.toggle('selected', i===optIndex));
+  card.querySelectorAll('input[type=radio]')[optIndex].checked = true;
+  answers[qIndex] = optIndex;
+};
+
+window.updateWordCount = function(i) {
+  const val = document.getElementById('answer-'+i).value.trim();
+  const words = val.length ? val.split(/\s+/).length : 0;
+  document.getElementById('wc-'+i).textContent = words + (lang==='en'?' words':' palavras');
+  answers[i] = val;
+};
+
+window.toggleRecording = async function(i) {
+  const btn = document.getElementById('recBtn-'+i);
+  const status = document.getElementById('recStatus-'+i);
+  if (!mediaRecorder || mediaRecorder.state === 'inactive') {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorder = new MediaRecorder(stream);
+      audioChunks = [];
+      mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(audioChunks, { type: 'audio/webm' });
+        recordedBlobs[i] = blob;
+        answers[i] = 'recorded';
+        const url = URL.createObjectURL(blob);
+        document.getElementById('recPlayback-'+i).innerHTML = `<audio controls src="${url}"></audio>`;
+        stream.getTracks().forEach(t => t.stop());
+      };
+      mediaRecorder.start();
+      btn.classList.add('recording');
+      btn.innerHTML = '<i class="fa-solid fa-stop"></i>';
+      status.textContent = lang==='en' ? 'Recording... tap to stop' : 'A gravar... toque para parar';
+    } catch (e) {
+      status.textContent = lang==='en' ? 'Microphone access denied' : 'Acesso ao microfone negado';
+    }
+  } else {
+    mediaRecorder.stop();
+    btn.classList.remove('recording');
+    btn.innerHTML = '<i class="fa-solid fa-microphone"></i>';
+    status.textContent = lang==='en' ? 'Recorded ✓' : 'Gravado ✓';
+  }
+};
+
+window.nextQuestion = function() {
+  if (currentIndex < allQuestions.length - 1) showQuestion(currentIndex + 1);
+  else finishTest();
+};
+window.prevQuestion = function() {
+  if (currentIndex > 0) showQuestion(currentIndex - 1);
+};
+
+async function finishTest() {
+  clearInterval(timerInterval);
+  document.getElementById('testHeader').classList.remove('show');
+  document.querySelectorAll('.q-card').forEach(c => c.classList.remove('active'));
+  document.getElementById('resultsScreen').classList.add('show');
+
+  let autoScore = 0, autoTotal = 0;
+  allQuestions.forEach((q, i) => {
+    if (q.skill === 'reading' || q.skill === 'listening') {
+      autoTotal++;
+      if (answers[i] === q.correct) autoScore++;
+    }
+  });
+
+  if (currentUser) {
+    try {
+      await setDoc(doc(db, 'testAttempts', currentUser.uid), {
+        userId: currentUser.uid,
+        answers: answers,
+        autoScore: autoScore,
+        autoTotal: autoTotal,
+        status: 'pending_review',
+        tabSwitches: tabSwitchCount,
+        submittedAt: serverTimestamp()
+      });
+    } catch (e) { console.error('Could not save test attempt', e); }
+  }
+}
+
+function setupAntiCheat() {
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && document.getElementById('testHeader').classList.contains('show')) {
+      tabSwitchCount++;
+      showWarning(lang==='en' ? 'Tab switch detected. This has been logged.' : 'Mudança de separador detetada. Isto foi registado.');
+    }
+  });
+  document.addEventListener('copy', e => { if (document.getElementById('testHeader').classList.contains('show')) e.preventDefault(); });
+  document.addEventListener('paste', e => { if (document.getElementById('testHeader').classList.contains('show')) e.preventDefault(); });
+}
+
+function showWarning(text) {
+  const banner = document.getElementById('warnBanner');
+  document.getElementById('warnText').textContent = text;
+  banner.classList.add('show');
+  setTimeout(() => banner.classList.remove('show'), 4000);
+}
+
+var lang = localStorage.getItem('dvl_lang') || 'pt';
+window.setLang = function(l) {
+  lang = l;
+  document.getElementById('btn-en').classList.toggle('active', l==='en');
+  document.getElementById('btn-pt').classList.toggle('active', l==='pt');
+  applyLang();
+  localStorage.setItem('dvl_lang', l);
+};
+function applyLang() {
+  document.querySelectorAll('[data-pt]').forEach(el => { const v = el.getAttribute('data-'+lang); if (v!==null) el.textContent = v; });
+  if (document.getElementById('testHeader').classList.contains('show') && allQuestions.length) {
+    const q = allQuestions[currentIndex];
+    if (q) {
+      document.getElementById('thSkillName').textContent = lang==='en' ? SKILL_META[q.skill].en : SKILL_META[q.skill].pt;
+    }
+  }
+}
+window.addEventListener('load', () => { applyLang(); document.getElementById('btn-en').disabled = false; document.getElementById('btn-pt').disabled = false; });
+</script>
+<script src="/key-lock.js"></script>
+</body>
+</html>

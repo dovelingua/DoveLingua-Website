@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Editor de Testes - Admin DoveLingua</title>
+<link rel="icon" type="image/png" sizes="32x32" href="https://download.dovelingua.com/website/Favicon_32x32.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --navy:#0B2E73;--navy-d:#082154;--gold:#C9971A;--white:#FFFFFF;
+  --grey:#F4F4F4;--tint:#E8EEF9;--teal:#0E8F7F;
+  --text:#1a2332;--mid:#4a5568;--light:#718096;--border:#e2e8f0;
+  --r:14px;--shadow:0 4px 20px rgba(11,46,115,.08);
+  --amber:#b45309;--amber-bg:#fef3e2;--red:#c0392b;--red-bg:#fdecea;--green:#0E8F7F;--green-bg:#e6f6f4;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--grey);line-height:1.6;}
+a{text-decoration:none;color:inherit;}
+button,input,select,textarea{font-family:inherit;}
+
+/* LAYOUT: sidebar + main */
+.app{display:flex;min-height:100vh;}
+.sidebar{width:250px;background:var(--navy);flex-shrink:0;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;}
+.sb-logo{padding:20px 18px;border-bottom:1px solid rgba(255,255,255,.1);}
+.sb-logo img{height:38px;}
+.sb-nav{flex:1;padding:14px 0;overflow-y:auto;}
+.sb-nav a{display:flex;align-items:center;gap:12px;padding:12px 18px;font-size:13px;color:rgba(255,255,255,.65);cursor:pointer;border-left:3px solid transparent;transition:.15s;}
+.sb-nav a:hover{background:rgba(255,255,255,.05);color:#fff;}
+.sb-nav a.active{background:rgba(255,255,255,.08);color:var(--gold);border-left-color:var(--gold);}
+.sb-nav a i{width:18px;text-align:center;}
+.sb-section-label{padding:16px 18px 6px;font-size:10px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;}
+.sb-foot{padding:16px 18px;border-top:1px solid rgba(255,255,255,.1);}
+.sb-foot .admin-name{font-size:12.5px;color:#fff;font-weight:600;}
+.sb-foot .admin-role{font-size:10.5px;color:rgba(255,255,255,.4);}
+.sb-foot a{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:rgba(255,255,255,.5);cursor:pointer;}
+.sb-foot a:hover{color:#fff;}
+
+.main{flex:1;min-width:0;}
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:40;}
+.topbar h1{font-family:'Playfair Display',serif;font-size:19px;color:var(--navy);}
+.topbar .tb-sub{font-size:12px;color:var(--light);}
+.hamburger-mobile{display:none;background:none;border:none;font-size:20px;color:var(--navy);cursor:pointer;}
+
+.content{padding:24px 28px 60px;}
+
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;}
+.stat-box{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:18px 20px;}
+.stat-box .sv{font-family:'Playfair Display',serif;font-size:24px;color:var(--navy);font-weight:700;}
+.stat-box .sl{font-size:11px;color:var(--light);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-top:2px;}
+.stat-box i{float:right;font-size:20px;color:var(--tint);}
+
+/* TOOLBAR */
+.toolbar{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:16px 20px;margin-bottom:20px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+.filter-group{display:flex;gap:8px;flex-wrap:wrap;flex:1;}
+.filter-select{padding:8px 14px;border:1.5px solid var(--border);border-radius:20px;font-size:12.5px;color:var(--mid);background:var(--white);cursor:pointer;outline:none;}
+.filter-select:focus{border-color:var(--navy);}
+.search-box{display:flex;align-items:center;gap:8px;background:var(--grey);border-radius:20px;padding:8px 14px;flex:1;min-width:180px;max-width:280px;}
+.search-box input{border:none;background:none;outline:none;font-size:12.5px;flex:1;color:var(--text);}
+.search-box i{color:var(--light);}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:.2s;white-space:nowrap;}
+.btn-g{background:var(--navy);color:#fff;}
+.btn-g:hover{background:var(--gold);color:var(--navy);}
+.btn-o{background:transparent;color:var(--navy);border:1.5px solid var(--navy);}
+.btn-o:hover{background:var(--tint);}
+.btn-sm{padding:6px 14px;font-size:11.5px;}
+.btn-danger{background:var(--red-bg);color:var(--red);}
+.btn-danger:hover{background:var(--red);color:#fff;}
+
+/* SKILL TABS */
+.skill-tabs{display:flex;gap:6px;margin-bottom:18px;overflow-x:auto;padding-bottom:2px;}
+.skill-tab{display:flex;align-items:center;gap:8px;padding:10px 18px;border-radius:20px;background:var(--white);border:1.5px solid var(--border);color:var(--mid);font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap;transition:.2s;}
+.skill-tab:hover{border-color:var(--navy);}
+.skill-tab.active{background:var(--navy);border-color:var(--navy);color:#fff;}
+.skill-tab .count-badge{background:rgba(0,0,0,.15);padding:1px 8px;border-radius:10px;font-size:10.5px;}
+.skill-tab.active .count-badge{background:rgba(255,255,255,.2);}
+
+/* QUESTION TABLE */
+.q-table-wrap{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;}
+.q-table-head{display:grid;grid-template-columns:60px 1fr 90px 100px 90px 130px;gap:10px;padding:12px 20px;background:var(--grey);font-size:10.5px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:.5px;}
+.q-row{display:grid;grid-template-columns:60px 1fr 90px 100px 90px 130px;gap:10px;padding:14px 20px;border-top:1px solid var(--border);align-items:center;font-size:12.5px;transition:.15s;}
+.q-row:hover{background:var(--tint);}
+.q-level-badge{display:inline-block;background:var(--navy);color:#fff;font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:10px;text-align:center;}
+.q-text-cell{color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.q-type-cell{color:var(--light);font-size:11.5px;}
+.q-status{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;}
+.q-status.active{background:var(--green-bg);color:var(--green);}
+.q-status.draft{background:var(--amber-bg);color:var(--amber);}
+.row-actions{display:flex;gap:6px;justify-content:flex-end;}
+.icon-btn{width:30px;height:30px;border-radius:8px;background:var(--grey);border:none;color:var(--mid);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;}
+.icon-btn:hover{background:var(--navy);color:#fff;}
+.icon-btn.del:hover{background:var(--red);}
+.empty-state{padding:60px 20px;text-align:center;color:var(--light);}
+.empty-state i{font-size:36px;margin-bottom:12px;color:var(--tint);display:block;}
+
+@media(max-width:900px){
+  .q-table-head,.q-row{grid-template-columns:50px 1fr 80px 90px;}
+  .q-table-head span:nth-child(5),.q-row .q-type-cell,.q-table-head span:nth-child(6),.q-row .row-actions{display:none;}
+}
+
+/* MODAL - Add/Edit Question */
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(11,46,115,.5);z-index:500;align-items:flex-start;justify-content:center;padding:30px 16px;overflow-y:auto;}
+.modal-ov.show{display:flex;}
+.modal{background:var(--white);border-radius:var(--r);max-width:640px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.modal-hdr{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.modal-hdr h3{font-family:'Playfair Display',serif;font-size:17px;color:var(--navy);}
+.modal-close{width:30px;height:30px;border-radius:8px;background:var(--grey);border:none;cursor:pointer;color:var(--mid);}
+.modal-body{padding:22px 24px;display:flex;flex-direction:column;gap:16px;max-height:70vh;overflow-y:auto;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-group label{display:block;font-size:11.5px;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px;}
+.form-group select,.form-group input,.form-group textarea{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:13.5px;color:var(--text);outline:none;}
+.form-group select:focus,.form-group input:focus,.form-group textarea:focus{border-color:var(--navy);}
+.form-group textarea{resize:vertical;min-height:70px;}
+.options-editor{display:flex;flex-direction:column;gap:8px;}
+.option-row{display:flex;align-items:center;gap:10px;}
+.option-row input[type=radio]{width:16px;height:16px;accent-color:var(--navy);flex-shrink:0;}
+.option-row input[type=text]{flex:1;}
+.option-row .rm-opt{background:none;border:none;color:var(--red);cursor:pointer;font-size:14px;padding:4px;}
+.add-opt-btn{align-self:flex-start;font-size:12px;color:var(--navy);background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:6px;font-weight:600;}
+.modal-ftr{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px;}
+
+/* SETTINGS PANEL */
+.settings-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:22px 24px;margin-bottom:16px;}
+.settings-card h3{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);}
+.settings-row:last-child{border-bottom:none;}
+.settings-row .sr-label{font-size:13px;color:var(--text);font-weight:600;}
+.settings-row .sr-desc{font-size:11.5px;color:var(--light);margin-top:2px;}
+.settings-row input[type=number]{width:70px;padding:6px 10px;border:1.5px solid var(--border);border-radius:8px;text-align:center;}
+.toggle-sw{position:relative;width:42px;height:24px;flex-shrink:0;}
+.toggle-sw input{opacity:0;width:0;height:0;}
+.toggle-slider{position:absolute;inset:0;background:var(--border);border-radius:24px;cursor:pointer;transition:.2s;}
+.toggle-slider::before{content:'';position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;}
+input:checked + .toggle-slider{background:var(--navy);}
+input:checked + .toggle-slider::before{transform:translateX(18px);}
+
+.toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:14px 22px;border-radius:12px;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.3);display:flex;align-items:center;gap:10px;z-index:600;transform:translateY(100px);opacity:0;transition:.3s;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.success i{color:var(--green);}
+.toast.error i{color:var(--red);}
+
+@media(max-width:800px){
+  .sidebar{position:fixed;left:-260px;z-index:200;transition:left .25s;}
+  .sidebar.open{left:0;}
+  .hamburger-mobile{display:block;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .form-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sb-logo"><img src="https://download.dovelingua.com/website/Master_Wordmark_white_tex_navy_background.png" alt="DoveLingua"></div>
+    <div class="sb-nav">
+      <div class="sb-section-label">Gestão</div>
+      <a onclick="location.href='admin-dashboard.html'"><i class="fa-solid fa-gauge"></i> Painel Geral</a>
+      <a onclick="location.href='admin-users.html'"><i class="fa-solid fa-users"></i> Utilizadores</a>
+      <a onclick="location.href='admin-courses.html'"><i class="fa-solid fa-graduation-cap"></i> Cursos</a>
+      <div class="sb-section-label">Avaliação</div>
+      <a class="active"><i class="fa-solid fa-clipboard-question"></i> Editor de Testes</a>
+      <a onclick="location.href='admin-announcements.html'"><i class="fa-solid fa-bullhorn"></i> Avisos</a>
+      <a onclick="location.href='admin-documents.html'"><i class="fa-solid fa-folder"></i> Documentos</a>
+    </div>
+    <div class="sb-foot">
+      <div class="admin-name" id="adminName">Admin</div>
+      <div class="admin-role">Administrador</div>
+      <a id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="hamburger-mobile" onclick="document.getElementById('sidebar').classList.toggle('open')"><i class="fa-solid fa-bars"></i></button>
+        <div>
+          <h1>Editor de Testes de Nível</h1>
+          <div class="tb-sub">Gerir perguntas do teste de colocação QECR</div>
+        </div>
+      </div>
+      <button class="btn btn-g" onclick="openModal()"><i class="fa-solid fa-plus"></i> Nova Pergunta</button>
+    </div>
+
+    <div class="content">
+
+      <!-- STATS -->
+      <div class="stats-row">
+        <div class="stat-box"><i class="fa-solid fa-book-open"></i><div class="sv" id="statReading">0</div><div class="sl">Leitura</div></div>
+        <div class="stat-box"><i class="fa-solid fa-headphones"></i><div class="sv" id="statListening">0</div><div class="sl">Audição</div></div>
+        <div class="stat-box"><i class="fa-solid fa-pen"></i><div class="sv" id="statWriting">0</div><div class="sl">Escrita</div></div>
+        <div class="stat-box"><i class="fa-solid fa-microphone"></i><div class="sv" id="statSpeaking">0</div><div class="sl">Oralidade</div></div>
+      </div>
+
+      <!-- SKILL TABS -->
+      <div class="skill-tabs">
+        <div class="skill-tab active" data-skill="all" onclick="filterSkill('all', this)"><i class="fa-solid fa-layer-group"></i> Todas <span class="count-badge" id="countAll">0</span></div>
+        <div class="skill-tab" data-skill="reading" onclick="filterSkill('reading', this)"><i class="fa-solid fa-book-open"></i> Leitura <span class="count-badge" id="countReading">0</span></div>
+        <div class="skill-tab" data-skill="listening" onclick="filterSkill('listening', this)"><i class="fa-solid fa-headphones"></i> Audição <span class="count-badge" id="countListening">0</span></div>
+        <div class="skill-tab" data-skill="writing" onclick="filterSkill('writing', this)"><i class="fa-solid fa-pen"></i> Escrita <span class="count-badge" id="countWriting">0</span></div>
+        <div class="skill-tab" data-skill="speaking" onclick="filterSkill('speaking', this)"><i class="fa-solid fa-microphone"></i> Oralidade <span class="count-badge" id="countSpeaking">0</span></div>
+      </div>
+
+      <!-- TOOLBAR -->
+      <div class="toolbar">
+        <div class="filter-group">
+          <select class="filter-select" id="levelFilter" onchange="renderTable()">
+            <option value="">Todos os Níveis</option>
+            <option value="Pre-A1">Pré-A1</option>
+            <option value="A1">A1</option>
+            <option value="A2">A2</option>
+            <option value="A2+">A2+</option>
+            <option value="B1">B1</option>
+            <option value="B2">B2</option>
+            <option value="C1">C1</option>
+          </select>
+          <select class="filter-select" id="statusFilter" onchange="renderTable()">
+            <option value="">Todos os Estados</option>
+            <option value="active">Ativo</option>
+            <option value="draft">Rascunho</option>
+          </select>
+        </div>
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="searchInput" placeholder="Pesquisar perguntas..." oninput="renderTable()">
+        </div>
+        <button class="btn btn-o btn-sm" onclick="exportQuestions()"><i class="fa-solid fa-download"></i> Exportar</button>
+      </div>
+
+      <!-- QUESTIONS TABLE -->
+      <div class="q-table-wrap">
+        <div class="q-table-head">
+          <span>Nível</span><span>Pergunta</span><span>Tipo</span><span>Estado</span><span>Skill</span><span style="text-align:right;">Ações</span>
+        </div>
+        <div id="tableBody"></div>
+      </div>
+
+      <!-- SETTINGS PANEL -->
+      <div style="margin-top:32px;">
+        <h2 style="font-family:'Playfair Display',serif;font-size:17px;color:var(--navy);margin-bottom:16px;"><i class="fa-solid fa-sliders" style="color:var(--gold);margin-right:8px;"></i>Configurações do Teste</h2>
+
+        <div class="settings-card">
+          <h3><i class="fa-solid fa-clock" style="color:var(--gold);"></i> Tempos por Secção</h3>
+          <div class="settings-row"><div><div class="sr-label">Leitura</div><div class="sr-desc">Tempo limite em minutos</div></div><input type="number" id="timeReading" value="5"></div>
+          <div class="settings-row"><div><div class="sr-label">Audição</div><div class="sr-desc">Tempo limite em minutos</div></div><input type="number" id="timeListening" value="5"></div>
+          <div class="settings-row"><div><div class="sr-label">Escrita</div><div class="sr-desc">Tempo limite em minutos</div></div><input type="number" id="timeWriting" value="10"></div>
+          <div class="settings-row"><div><div class="sr-label">Oralidade</div><div class="sr-desc">Tempo limite em minutos</div></div><input type="number" id="timeSpeaking" value="5"></div>
+        </div>
+
+        <div class="settings-card">
+          <h3><i class="fa-solid fa-shuffle" style="color:var(--gold);"></i> Regras de Seleção</h3>
+          <div class="settings-row"><div><div class="sr-label">Perguntas por nível/skill</div><div class="sr-desc">Quantas perguntas mostrar de cada nível dentro de cada competência</div></div><input type="number" id="qPerLevel" value="2"></div>
+          <div class="settings-row"><div><div class="sr-label">Ordem aleatória</div><div class="sr-desc">Baralhar perguntas a cada tentativa (reforça anti-cópia)</div></div><label class="toggle-sw"><input type="checkbox" id="randomOrder" checked><span class="toggle-slider"></span></label></div>
+        </div>
+
+        <div class="settings-card">
+          <h3><i class="fa-solid fa-shield-halved" style="color:var(--gold);"></i> Segurança</h3>
+          <div class="settings-row"><div><div class="sr-label">Detetar mudança de separador</div><div class="sr-desc">Regista quando o candidato sai da página do teste</div></div><label class="toggle-sw"><input type="checkbox" id="tabDetect" checked><span class="toggle-slider"></span></label></div>
+          <div class="settings-row"><div><div class="sr-label">Bloquear copiar/colar</div><div class="sr-desc">Desativa copiar e colar durante o teste</div></div><label class="toggle-sw"><input type="checkbox" id="blockCopy" checked><span class="toggle-slider"></span></label></div>
+          <div class="settings-row"><div><div class="sr-label">Tentativa única</div><div class="sr-desc">Cada candidato só pode fazer o teste uma vez</div></div><label class="toggle-sw"><input type="checkbox" id="oneAttempt" checked><span class="toggle-slider"></span></label></div>
+        </div>
+
+        <button class="btn btn-g" onclick="saveSettings()"><i class="fa-solid fa-floppy-disk"></i> Guardar Configurações</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: ADD/EDIT QUESTION -->
+<div class="modal-ov" id="qModal">
+  <div class="modal">
+    <div class="modal-hdr">
+      <h3 id="modalTitle">Nova Pergunta</h3>
+      <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Competência</label>
+          <select id="fSkill" onchange="toggleFormFields()">
+            <option value="reading">Leitura</option>
+            <option value="listening">Audição</option>
+            <option value="writing">Escrita</option>
+            <option value="speaking">Oralidade</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Nível QECR</label>
+          <select id="fLevel">
+            <option>Pre-A1</option><option>A1</option><option>A2</option><option>A2+</option><option>B1</option><option>B2</option><option>C1</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group" id="passageGroup">
+        <label>Texto de Apoio (opcional)</label>
+        <textarea id="fPassage" placeholder="Cole aqui um parágrafo de leitura, se aplicável..."></textarea>
+      </div>
+
+      <div class="form-group" id="audioGroup" style="display:none;">
+        <label>Link do Áudio</label>
+        <input type="text" id="fAudio" placeholder="https://download.dovelingua.com/..."/>
+      </div>
+
+      <div class="form-group">
+        <label>Pergunta (Português)</label>
+        <textarea id="fTextPt" placeholder="Escreva a pergunta em português..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Pergunta (Inglês)</label>
+        <textarea id="fTextEn" placeholder="Write the question in English..."></textarea>
+      </div>
+
+      <div class="form-group" id="optionsGroup">
+        <label>Opções de Resposta</label>
+        <div class="options-editor" id="optionsEditor"></div>
+        <button class="add-opt-btn" onclick="addOption()"><i class="fa-solid fa-plus"></i> Adicionar Opção</button>
+      </div>
+
+      <div class="form-group">
+        <label>Estado</label>
+        <select id="fStatus">
+          <option value="active">Ativo — usado no teste</option>
+          <option value="draft">Rascunho — não usado ainda</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-ftr">
+      <button class="btn btn-o" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-g" onclick="saveQuestion()"><i class="fa-solid fa-floppy-disk"></i> Guardar Pergunta</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toastText"></span></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import { getFirestore, collection, doc, setDoc, deleteDoc, getDocs, getDoc, addDoc } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAl9A_gXDKTB3N6U1f_Bh5FWrOsySjCJGo",
+  authDomain: "dovelingua-site.firebaseapp.com",
+  projectId: "dovelingua-site",
+  storageBucket: "dovelingua-site.firebasestorage.app",
+  messagingSenderId: "271742052334",
+  appId: "1:271742052334:web:bc736373d7ea50001b50ff",
+  measurementId: "G-N8ELT8SMYM"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let questions = [];
+let editingId = null;
+let currentSkillFilter = 'all';
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { window.location.href = 'auth.html'; return; }
+  try {
+    const snap = await getDoc(doc(db, 'users', user.uid));
+    if (!snap.exists() || snap.data().role !== 'admin') { window.location.href = 'unauthorized.html'; return; }
+    document.getElementById('adminName').textContent = snap.data().fullName || 'Admin';
+    loadQuestions();
+  } catch (e) { window.location.href = 'auth.html'; }
+});
+
+document.getElementById('logoutBtn').addEventListener('click', async () => { await signOut(auth); window.location.href = 'index.html'; });
+
+async function loadQuestions() {
+  try {
+    const snap = await getDocs(collection(db, 'levelTests'));
+    questions = [];
+    snap.forEach(d => questions.push({ id: d.id, ...d.data() }));
+  } catch (e) { questions = []; }
+  updateStats();
+  renderTable();
+}
+
+function updateStats() {
+  const counts = { reading:0, listening:0, writing:0, speaking:0 };
+  questions.forEach(q => { if (counts[q.skill] !== undefined) counts[q.skill]++; });
+  document.getElementById('statReading').textContent = counts.reading;
+  document.getElementById('statListening').textContent = counts.listening;
+  document.getElementById('statWriting').textContent = counts.writing;
+  document.getElementById('statSpeaking').textContent = counts.speaking;
+  document.getElementById('countAll').textContent = questions.length;
+  document.getElementById('countReading').textContent = counts.reading;
+  document.getElementById('countListening').textContent = counts.listening;
+  document.getElementById('countWriting').textContent = counts.writing;
+  document.getElementById('countSpeaking').textContent = counts.speaking;
+}
+
+window.filterSkill = function(skill, el) {
+  currentSkillFilter = skill;
+  document.querySelectorAll('.skill-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderTable();
+};
+
+window.renderTable = function() {
+  const level = document.getElementById('levelFilter').value;
+  const status = document.getElementById('statusFilter').value;
+  const search = document.getElementById('searchInput').value.toLowerCase();
+
+  let filtered = questions.filter(q => {
+    if (currentSkillFilter !== 'all' && q.skill !== currentSkillFilter) return false;
+    if (level && q.level !== level) return false;
+    if (status && (q.status || 'active') !== status) return false;
+    if (search && !(q.text_pt||'').toLowerCase().includes(search) && !(q.text_en||'').toLowerCase().includes(search)) return false;
+    return true;
+  });
+
+  const body = document.getElementById('tableBody');
+  if (filtered.length === 0) {
+    body.innerHTML = `<div class="empty-state"><i class="fa-solid fa-inbox"></i><p>Nenhuma pergunta encontrada. Clique em "Nova Pergunta" para começar.</p></div>`;
+    return;
+  }
+
+  const skillIcons = { reading:'fa-book-open', listening:'fa-headphones', writing:'fa-pen', speaking:'fa-microphone' };
+  const skillNames = { reading:'Leitura', listening:'Audição', writing:'Escrita', speaking:'Oralidade' };
+
+  body.innerHTML = filtered.map(q => `
+    <div class="q-row">
+      <span class="q-level-badge">${q.level || '—'}</span>
+      <span class="q-text-cell">${q.text_pt || '(sem texto)'}</span>
+      <span class="q-type-cell"><i class="fa-solid ${skillIcons[q.skill]||'fa-question'}"></i> ${q.skill==='reading'||q.skill==='listening'?'Escolha Múltipla':'Aberta'}</span>
+      <span class="q-status ${(q.status||'active')==='active'?'active':'draft'}">${(q.status||'active')==='active'?'Ativo':'Rascunho'}</span>
+      <span style="font-size:11.5px;color:var(--light);">${skillNames[q.skill]||q.skill}</span>
+      <div class="row-actions">
+        <button class="icon-btn" onclick="editQuestion('${q.id}')"><i class="fa-solid fa-pen"></i></button>
+        <button class="icon-btn del" onclick="deleteQuestion('${q.id}')"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+};
+
+window.openModal = function() {
+  editingId = null;
+  document.getElementById('modalTitle').textContent = 'Nova Pergunta';
+  document.getElementById('fSkill').value = 'reading';
+  document.getElementById('fLevel').value = 'A1';
+  document.getElementById('fPassage').value = '';
+  document.getElementById('fAudio').value = '';
+  document.getElementById('fTextPt').value = '';
+  document.getElementById('fTextEn').value = '';
+  document.getElementById('fStatus').value = 'active';
+  document.getElementById('optionsEditor').innerHTML = '';
+  addOption(); addOption();
+  toggleFormFields();
+  document.getElementById('qModal').classList.add('show');
+};
+
+window.editQuestion = function(id) {
+  const q = questions.find(x => x.id === id);
+  if (!q) return;
+  editingId = id;
+  document.getElementById('modalTitle').textContent = 'Editar Pergunta';
+  document.getElementById('fSkill').value = q.skill || 'reading';
+  document.getElementById('fLevel').value = q.level || 'A1';
+  document.getElementById('fPassage').value = q.passage_pt || '';
+  document.getElementById('fAudio').value = q.audio || '';
+  document.getElementById('fTextPt').value = q.text_pt || '';
+  document.getElementById('fTextEn').value = q.text_en || '';
+  document.getElementById('fStatus').value = q.status || 'active';
+  document.getElementById('optionsEditor').innerHTML = '';
+  (q.options || ['','']).forEach((opt, i) => addOption(opt, i === q.correct));
+  toggleFormFields();
+  document.getElementById('qModal').classList.add('show');
+};
+
+window.closeModal = function() { document.getElementById('qModal').classList.remove('show'); };
+
+window.toggleFormFields = function() {
+  const skill = document.getElementById('fSkill').value;
+  document.getElementById('optionsGroup').style.display = (skill === 'reading' || skill === 'listening') ? 'flex' : 'none';
+  document.getElementById('optionsGroup').style.flexDirection = 'column';
+  document.getElementById('audioGroup').style.display = skill === 'listening' ? 'block' : 'none';
+  document.getElementById('passageGroup').style.display = skill === 'reading' ? 'block' : 'none';
+};
+
+window.addOption = function(value = '', checked = false) {
+  const editor = document.getElementById('optionsEditor');
+  const idx = editor.children.length;
+  const row = document.createElement('div');
+  row.className = 'option-row';
+  row.innerHTML = `
+    <input type="radio" name="correctOpt" ${checked?'checked':''}>
+    <input type="text" placeholder="Opção ${idx+1}" value="${value.replace(/"/g,'&quot;')}">
+    <button class="rm-opt" onclick="this.parentElement.remove()"><i class="fa-solid fa-xmark"></i></button>
+  `;
+  editor.appendChild(row);
+};
+
+window.saveQuestion = async function() {
+  const skill = document.getElementById('fSkill').value;
+  const level = document.getElementById('fLevel').value;
+  const text_pt = document.getElementById('fTextPt').value.trim();
+  const text_en = document.getElementById('fTextEn').value.trim();
+  const status = document.getElementById('fStatus').value;
+
+  if (!text_pt) { showToast('Por favor escreva a pergunta em português.', 'error'); return; }
+
+  const data = { skill, level, text_pt, text_en, status };
+
+  if (skill === 'reading') data.passage_pt = document.getElementById('fPassage').value.trim();
+  if (skill === 'listening') data.audio = document.getElementById('fAudio').value.trim();
+
+  if (skill === 'reading' || skill === 'listening') {
+    const rows = document.querySelectorAll('#optionsEditor .option-row');
+    const options = []; let correct = 0;
+    rows.forEach((row, i) => {
+      const val = row.querySelector('input[type=text]').value.trim();
+      const isChecked = row.querySelector('input[type=radio]').checked;
+      if (val) options.push(val);
+      if (isChecked) correct = i;
+    });
+    if (options.length < 2) { showToast('Adicione pelo menos 2 opções.', 'error'); return; }
+    data.options = options;
+    data.correct = correct;
+  }
+
+  try {
+    if (editingId) {
+      await setDoc(doc(db, 'levelTests', editingId), data, { merge: true });
+      showToast('Pergunta atualizada com sucesso.', 'success');
+    } else {
+      await addDoc(collection(db, 'levelTests'), data);
+      showToast('Pergunta criada com sucesso.', 'success');
+    }
+    closeModal();
+    loadQuestions();
+  } catch (e) {
+    showToast('Erro ao guardar. Tente novamente.', 'error');
+  }
+};
+
+window.deleteQuestion = async function(id) {
+  if (!confirm('Tem a certeza que deseja eliminar esta pergunta? Esta ação não pode ser revertida.')) return;
+  try {
+    await deleteDoc(doc(db, 'levelTests', id));
+    showToast('Pergunta eliminada.', 'success');
+    loadQuestions();
+  } catch (e) { showToast('Erro ao eliminar.', 'error'); }
+};
+
+window.exportQuestions = function() {
+  const dataStr = JSON.stringify(questions, null, 2);
+  const blob = new Blob([dataStr], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'dovelingua-test-questions.json'; a.click();
+  showToast('Exportação concluída.', 'success');
+};
+
+window.saveSettings = async function() {
+  const settings = {
+    timeReading: +document.getElementById('timeReading').value,
+    timeListening: +document.getElementById('timeListening').value,
+    timeWriting: +document.getElementById('timeWriting').value,
+    timeSpeaking: +document.getElementById('timeSpeaking').value,
+    qPerLevel: +document.getElementById('qPerLevel').value,
+    randomOrder: document.getElementById('randomOrder').checked,
+    tabDetect: document.getElementById('tabDetect').checked,
+    blockCopy: document.getElementById('blockCopy').checked,
+    oneAttempt: document.getElementById('oneAttempt').checked
+  };
+  try {
+    await setDoc(doc(db, 'admin_settings', 'levelTest'), settings, { merge: true });
+    showToast('Configurações guardadas com sucesso.', 'success');
+  } catch (e) { showToast('Erro ao guardar configurações.', 'error'); }
+};
+
+function showToast(text, type) {
+  const toast = document.getElementById('toast');
+  toast.className = 'toast show ' + type;
+  document.getElementById('toastText').textContent = text;
+  toast.querySelector('i').className = type === 'success' ? 'fa-solid fa-circle-check' : 'fa-solid fa-circle-xmark';
+  setTimeout(() => toast.classList.remove('show'), 3500);
+}
+</script>
+<script src="/key-lock.js"></script>
+</body>
+</html>
