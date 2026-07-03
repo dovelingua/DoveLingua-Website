@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mensagens - DoveLingua</title>
+<link rel="icon" type="image/png" sizes="32x32" href="https://download.dovelingua.com/website/Favicon_32x32.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --navy:#0B2E73;--navy-d:#082154;--gold:#C9971A;--white:#FFFFFF;
+  --grey:#F4F4F4;--tint:#E8EEF9;--teal:#0E8F7F;
+  --text:#1a2332;--mid:#4a5568;--light:#718096;--border:#e2e8f0;
+  --r:14px;--shadow:0 4px 20px rgba(11,46,115,.08);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--grey);line-height:1.6;height:100vh;overflow:hidden;}
+a{text-decoration:none;color:inherit;}
+button,textarea,input{font-family:inherit;}
+
+nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.nav-brand img{height:40px;}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.back-link{font-size:12.5px;color:var(--mid);display:flex;align-items:center;gap:6px;cursor:pointer;}
+.back-link:hover{color:var(--navy);}
+
+.msg-app{display:flex;height:calc(100vh - 64px);}
+.thread-list{width:340px;flex-shrink:0;background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;}
+.tl-header{padding:16px 18px;border-bottom:1px solid var(--border);}
+.tl-header h2{font-family:'Playfair Display',serif;font-size:16px;color:var(--navy);margin-bottom:10px;}
+.tl-search{display:flex;align-items:center;gap:8px;background:var(--grey);border-radius:20px;padding:8px 14px;}
+.tl-search input{border:none;background:none;outline:none;font-size:12.5px;flex:1;}
+.tl-items{flex:1;overflow-y:auto;}
+.thread-item{display:flex;gap:12px;padding:14px 18px;border-bottom:1px solid var(--border);cursor:pointer;transition:.15s;}
+.thread-item:hover{background:var(--tint);}
+.thread-item.active{background:var(--tint);border-left:3px solid var(--navy);}
+.t-avatar{width:40px;height:40px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;}
+.t-body{flex:1;min-width:0;}
+.t-top{display:flex;justify-content:space-between;align-items:center;}
+.t-name{font-size:13px;font-weight:700;color:var(--text);}
+.t-time{font-size:10px;color:var(--light);}
+.t-preview{font-size:11.5px;color:var(--light);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.t-unread{width:8px;height:8px;background:var(--gold);border-radius:50%;flex-shrink:0;margin-top:4px;}
+.empty-threads{padding:40px 20px;text-align:center;color:var(--light);}
+.empty-threads i{font-size:30px;margin-bottom:10px;display:block;color:var(--tint);}
+
+.chat-panel{flex:1;display:flex;flex-direction:column;background:var(--grey);}
+.chat-hdr{background:var(--white);border-bottom:1px solid var(--border);padding:14px 22px;display:flex;align-items:center;gap:12px;}
+.chat-hdr .t-avatar{width:36px;height:36px;font-size:12px;}
+.chat-hdr-name{font-size:13.5px;font-weight:700;color:var(--navy);}
+.chat-hdr-role{font-size:11px;color:var(--light);}
+.chat-body{flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:12px;}
+.bubble{max-width:64%;padding:11px 16px;border-radius:16px;font-size:13px;line-height:1.6;}
+.bubble.sent{align-self:flex-end;background:var(--navy);color:#fff;border-bottom-right-radius:4px;}
+.bubble.received{align-self:flex-start;background:var(--white);color:var(--text);border:1px solid var(--border);border-bottom-left-radius:4px;}
+.bubble-time{font-size:10px;opacity:.6;margin-top:4px;display:block;}
+.chat-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--light);text-align:center;padding:40px;}
+.chat-empty i{font-size:44px;margin-bottom:14px;color:var(--tint);}
+.chat-empty h3{font-size:15px;color:var(--navy);margin-bottom:6px;}
+.chat-empty p{font-size:12.5px;max-width:280px;}
+
+.chat-input-bar{background:var(--white);border-top:1px solid var(--border);padding:14px 22px;display:flex;gap:10px;align-items:flex-end;}
+.chat-input-bar textarea{flex:1;border:1.5px solid var(--border);border-radius:14px;padding:11px 16px;font-size:13px;resize:none;outline:none;max-height:100px;}
+.chat-input-bar textarea:focus{border-color:var(--navy);}
+.send-btn{width:42px;height:42px;border-radius:50%;background:var(--navy);border:none;color:#fff;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:.2s;}
+.send-btn:hover{background:var(--gold);color:var(--navy);}
+
+.new-msg-fab{position:fixed;bottom:24px;right:24px;width:52px;height:52px;border-radius:50%;background:var(--gold);color:var(--navy);border:none;font-size:20px;cursor:pointer;box-shadow:0 6px 20px rgba(201,151,26,.4);z-index:60;}
+
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(11,46,115,.5);z-index:500;align-items:center;justify-content:center;padding:16px;}
+.modal-ov.show{display:flex;}
+.modal{background:var(--white);border-radius:var(--r);max-width:420px;width:100%;}
+.modal-hdr{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.modal-hdr h3{font-family:'Playfair Display',serif;font-size:16px;color:var(--navy);}
+.modal-close{width:28px;height:28px;border-radius:8px;background:var(--grey);border:none;cursor:pointer;}
+.modal-body{padding:20px 22px;display:flex;flex-direction:column;gap:14px;}
+.modal-body select,.modal-body textarea,.modal-body input{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:13.5px;outline:none;}
+.modal-body label{font-size:11px;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px;display:block;}
+.modal-ftr{padding:16px 22px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px;}
+.btn{padding:10px 20px;border-radius:20px;font-size:12.5px;font-weight:600;border:none;cursor:pointer;}
+.btn-g{background:var(--navy);color:#fff;}
+.btn-o{background:transparent;color:var(--navy);border:1.5px solid var(--navy);}
+
+@media(max-width:800px){
+  .thread-list{width:100%;position:absolute;inset:0;z-index:30;}
+  .thread-list.hide-mobile{display:none;}
+  .chat-panel{display:none;}
+  .chat-panel.show-mobile{display:flex;position:absolute;inset:0;z-index:40;}
+  .chat-hdr .mobile-back{display:block !important;}
+}
+.mobile-back{display:none;background:none;border:none;font-size:16px;color:var(--navy);cursor:pointer;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand"><img src="https://download.dovelingua.com/website/Master_Wordmar_original.png" alt="DoveLingua"></a>
+  <div class="nav-right"><a class="back-link" id="backToDash"><i class="fa-solid fa-arrow-left"></i> Voltar ao Painel</a></div>
+</nav>
+
+<div class="msg-app">
+  <div class="thread-list" id="threadList">
+    <div class="tl-header">
+      <h2>Mensagens</h2>
+      <div class="tl-search"><i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="Pesquisar conversas..." id="threadSearch" oninput="renderThreads()"></div>
+    </div>
+    <div class="tl-items" id="threadItems">
+      <div class="empty-threads"><i class="fa-solid fa-comments"></i><p>A carregar mensagens...</p></div>
+    </div>
+  </div>
+
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-empty" id="chatEmptyState">
+      <i class="fa-solid fa-comment-dots"></i>
+      <h3>Selecione uma conversa</h3>
+      <p>Escolha uma mensagem à esquerda para ver a conversa, ou inicie uma nova.</p>
+    </div>
+    <div id="activeChatView" style="display:none;flex-direction:column;height:100%;">
+      <div class="chat-hdr">
+        <button class="mobile-back" onclick="closeChatMobile()"><i class="fa-solid fa-arrow-left"></i></button>
+        <div class="t-avatar" id="chatAvatar">?</div>
+        <div><div class="chat-hdr-name" id="chatName">-</div><div class="chat-hdr-role" id="chatRole">-</div></div>
+      </div>
+      <div class="chat-body" id="chatBody"></div>
+      <div class="chat-input-bar">
+        <textarea id="msgInput" placeholder="Escreva uma mensagem..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage();}"></textarea>
+        <button class="send-btn" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button class="new-msg-fab" onclick="document.getElementById('newMsgModal').classList.add('show')"><i class="fa-solid fa-pen"></i></button>
+
+<div class="modal-ov" id="newMsgModal">
+  <div class="modal">
+    <div class="modal-hdr"><h3>Nova Mensagem</h3><button class="modal-close" onclick="document.getElementById('newMsgModal').classList.remove('show')"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="modal-body">
+      <div><label>Para</label><select id="recipientSelect"><option value="">A carregar contactos...</option></select></div>
+      <div><label>Assunto</label><input type="text" id="newSubject" placeholder="Assunto da mensagem"/></div>
+      <div><label>Mensagem</label><textarea id="newBody" rows="4" placeholder="Escreva a sua mensagem..."></textarea></div>
+    </div>
+    <div class="modal-ftr">
+      <button class="btn btn-o" onclick="document.getElementById('newMsgModal').classList.remove('show')">Cancelar</button>
+      <button class="btn btn-g" onclick="startNewThread()"><i class="fa-solid fa-paper-plane"></i> Enviar</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, collection, query, where, getDocs, addDoc, updateDoc, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAl9A_gXDKTB3N6U1f_Bh5FWrOsySjCJGo",
+  authDomain: "dovelingua-site.firebaseapp.com",
+  projectId: "dovelingua-site",
+  storageBucket: "dovelingua-site.firebasestorage.app",
+  messagingSenderId: "271742052334",
+  appId: "1:271742052334:web:bc736373d7ea50001b50ff",
+  measurementId: "G-N8ELT8SMYM"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const ROUTES = { applicant:'application-status.html', student:'student-dashboard.html', teacher:'teacher-dashboard.html', staff:'staff-payments.html', admin:'admin-dashboard.html' };
+let currentUser = null, currentUserData = null, allMessages = [], threads = {}, activeThreadId = null;
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { window.location.href = 'auth.html'; return; }
+  currentUser = user;
+  const snap = await getDoc(doc(db, 'users', user.uid));
+  if (!snap.exists()) { window.location.href = 'auth.html'; return; }
+  currentUserData = snap.data();
+  document.getElementById('backToDash').onclick = () => window.location.href = ROUTES[currentUserData.role] || 'index.html';
+  loadMessages();
+  loadContacts();
+});
+
+async function loadMessages() {
+  try {
+    const q1 = query(collection(db, 'messages'), where('recipientId', '==', currentUser.uid));
+    const q2 = query(collection(db, 'messages'), where('senderId', '==', currentUser.uid));
+    const [snap1, snap2] = await Promise.all([getDocs(q1), getDocs(q2)]);
+    allMessages = [];
+    snap1.forEach(d => allMessages.push({ id: d.id, ...d.data() }));
+    snap2.forEach(d => allMessages.push({ id: d.id, ...d.data() }));
+    buildThreads();
+    renderThreads();
+  } catch (e) { console.log('No messages yet or index building'); renderThreads(); }
+}
+
+function buildThreads() {
+  threads = {};
+  allMessages.forEach(m => {
+    const otherId = m.senderId === currentUser.uid ? m.recipientId : m.senderId;
+    const otherName = m.senderId === currentUser.uid ? (m.recipientName || 'Utilizador') : (m.senderName || 'Utilizador');
+    if (!threads[otherId]) threads[otherId] = { otherId, otherName, messages: [] };
+    threads[otherId].messages.push(m);
+  });
+  Object.values(threads).forEach(t => t.messages.sort((a,b) => (a.sentAt?.seconds||0) - (b.sentAt?.seconds||0)));
+}
+
+window.renderThreads = function() {
+  const search = document.getElementById('threadSearch').value.toLowerCase();
+  const container = document.getElementById('threadItems');
+  const threadArr = Object.values(threads).filter(t => t.otherName.toLowerCase().includes(search));
+  if (threadArr.length === 0) {
+    container.innerHTML = '<div class="empty-threads"><i class="fa-solid fa-comments"></i><p>Sem conversas ainda. Toque em + para começar.</p></div>';
+    return;
+  }
+  container.innerHTML = threadArr.map(t => {
+    const last = t.messages[t.messages.length - 1];
+    return `<div class="thread-item ${activeThreadId===t.otherId?'active':''}" onclick="openThread('${t.otherId}')">
+      <div class="t-avatar">${t.otherName.charAt(0).toUpperCase()}</div>
+      <div class="t-body">
+        <div class="t-top"><span class="t-name">${t.otherName}</span><span class="t-time">${formatTime(last?.sentAt)}</span></div>
+        <div class="t-preview">${last?.subject || last?.body || ''}</div>
+      </div>
+    </div>`;
+  }).join('');
+};
+
+window.openThread = function(otherId) {
+  activeThreadId = otherId;
+  const thread = threads[otherId];
+  document.getElementById('chatEmptyState').style.display = 'none';
+  document.getElementById('activeChatView').style.display = 'flex';
+  document.getElementById('chatAvatar').textContent = thread.otherName.charAt(0).toUpperCase();
+  document.getElementById('chatName').textContent = thread.otherName;
+  document.getElementById('chatRole').textContent = 'DoveLingua';
+  document.getElementById('chatBody').innerHTML = thread.messages.map(m => `
+    <div class="bubble ${m.senderId===currentUser.uid?'sent':'received'}">${m.body || m.subject || ''}<span class="bubble-time">${formatTime(m.sentAt)}</span></div>
+  `).join('');
+  document.getElementById('chatBody').scrollTop = 999999;
+  renderThreads();
+  if (window.innerWidth <= 800) {
+    document.getElementById('threadList').classList.add('hide-mobile');
+    document.getElementById('chatPanel').classList.add('show-mobile');
+  }
+};
+
+window.closeChatMobile = function() {
+  document.getElementById('threadList').classList.remove('hide-mobile');
+  document.getElementById('chatPanel').classList.remove('show-mobile');
+};
+
+function formatTime(ts) {
+  if (!ts) return '';
+  const d = new Date(ts.seconds * 1000);
+  return d.toLocaleDateString('pt-PT', { day:'2-digit', month:'2-digit' });
+}
+
+window.sendMessage = async function() {
+  const input = document.getElementById('msgInput');
+  const body = input.value.trim();
+  if (!body || !activeThreadId) return;
+  const thread = threads[activeThreadId];
+  try {
+    await addDoc(collection(db, 'messages'), {
+      senderId: currentUser.uid, senderName: currentUserData.fullName, senderRole: currentUserData.role,
+      recipientId: activeThreadId, recipientName: thread.otherName, recipientRole: 'unknown',
+      subject: '', body, sentAt: serverTimestamp(), readStatus: false
+    });
+    input.value = '';
+    loadMessages();
+  } catch (e) { alert('Erro ao enviar mensagem. Tente novamente.'); }
+};
+
+async function loadContacts() {
+  const select = document.getElementById('recipientSelect');
+  try {
+    let roleQuery;
+    if (currentUserData.role === 'student') roleQuery = query(collection(db, 'users'), where('role', 'in', ['teacher','admin']));
+    else if (currentUserData.role === 'teacher') roleQuery = query(collection(db, 'users'), where('role', 'in', ['student','admin']));
+    else roleQuery = query(collection(db, 'users'));
+    const snap = await getDocs(roleQuery);
+    const opts = [];
+    snap.forEach(d => { if (d.id !== currentUser.uid) opts.push(`<option value="${d.id}|${d.data().fullName||'Utilizador'}">${d.data().fullName||'Utilizador'} (${d.data().role})</option>`); });
+    select.innerHTML = opts.length ? opts.join('') : '<option value="">Nenhum contacto disponível</option>';
+  } catch (e) { select.innerHTML = '<option value="">Erro ao carregar contactos</option>'; }
+}
+
+window.startNewThread = async function() {
+  const [recipientId, recipientName] = (document.getElementById('recipientSelect').value || '').split('|');
+  const subject = document.getElementById('newSubject').value.trim();
+  const body = document.getElementById('newBody').value.trim();
+  if (!recipientId || !body) { alert('Selecione um destinatário e escreva uma mensagem.'); return; }
+  try {
+    await addDoc(collection(db, 'messages'), {
+      senderId: currentUser.uid, senderName: currentUserData.fullName, senderRole: currentUserData.role,
+      recipientId, recipientName, recipientRole: 'unknown',
+      subject, body, sentAt: serverTimestamp(), readStatus: false
+    });
+    document.getElementById('newMsgModal').classList.remove('show');
+    document.getElementById('newSubject').value = ''; document.getElementById('newBody').value = '';
+    loadMessages();
+  } catch (e) { alert('Erro ao enviar mensagem.'); }
+};
+</script>
+<script src="/key-lock.js"></script>
+</body>
+</html>
