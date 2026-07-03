@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Painel do Aluno - DoveLingua</title>
+<link rel="icon" type="image/png" sizes="32x32" href="https://download.dovelingua.com/website/Favicon_32x32.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --navy:#0B2E73;--navy-d:#082154;--gold:#C9971A;--white:#FFFFFF;
+  --grey:#F4F4F4;--tint:#E8EEF9;--teal:#0E8F7F;
+  --text:#1a2332;--mid:#4a5568;--light:#718096;--border:#e2e8f0;
+  --r:16px;--shadow:0 4px 20px rgba(11,46,115,.08);
+  --amber:#b45309;--amber-bg:#fef3e2;--green:#0E8F7F;--green-bg:#e6f6f4;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--grey);line-height:1.7;}
+a{text-decoration:none;color:inherit;}
+img{max-width:100%;height:auto;display:block;}
+button{font-family:inherit;}
+
+nav{position:sticky;top:0;z-index:999;background:var(--white);border-bottom:1px solid var(--border);padding:0 clamp(1rem,4vw,2.5rem);height:74px;display:flex;align-items:center;justify-content:space-between;}
+.nav-brand img{height:48px;width:auto;}
+.nav-right{display:flex;align-items:center;gap:.6rem;}
+.lang-toggle{display:flex;border:1.5px solid var(--border);border-radius:20px;overflow:hidden;}
+.lang-toggle button{border:none;background:transparent;padding:.32rem .78rem;cursor:pointer;color:var(--light);font-size:.72rem;font-weight:700;}
+.lang-toggle button.active{background:var(--navy);color:var(--white);}
+.user-chip{display:flex;align-items:center;gap:8px;background:var(--tint);border:1px solid var(--border);padding:.4rem .9rem .4rem .5rem;border-radius:24px;font-size:.8rem;color:var(--navy);font-weight:600;}
+.user-chip .av{width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.7rem;}
+.logout-btn{background:none;border:none;color:var(--light);cursor:pointer;font-size:.85rem;padding:6px;}
+.logout-btn:hover{color:var(--red,#c0392b);}
+@media(max-width:480px){.nav-brand img{height:38px;}nav{height:64px;padding:0 1rem;}.user-chip span{display:none;}}
+
+.wrap{max-width:1100px;margin:0 auto;padding:30px 5% 60px;}
+
+.welcome-band{background:linear-gradient(135deg,var(--navy-d),var(--navy) 60%,#123a8a);border-radius:var(--r);padding:28px 30px;color:#fff;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.welcome-band h1{font-family:'Playfair Display',serif;font-size:clamp(19px,2.6vw,24px);margin-bottom:6px;}
+.welcome-band p{font-size:12.5px;color:rgba(255,255,255,.7);}
+.student-code-box{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:12px;padding:12px 20px;text-align:center;}
+.student-code-box .scl{font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+.student-code-box .scv{font-family:'Playfair Display',serif;font-size:16px;color:var(--gold);font-weight:700;letter-spacing:1px;}
+
+.grid-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;}
+.d-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:22px 20px;cursor:pointer;transition:.2s;position:relative;overflow:hidden;}
+.d-card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(11,46,115,.14);border-color:var(--gold);}
+.d-card i.card-icon{font-size:24px;color:var(--navy);margin-bottom:12px;display:block;}
+.d-card h3{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.d-card p{font-size:12px;color:var(--mid);line-height:1.6;}
+.d-card .card-badge{position:absolute;top:16px;right:16px;background:var(--tint);color:var(--navy);font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;}
+
+.section-title{font-family:'Playfair Display',serif;font-size:16px;color:var(--navy);margin:26px 0 14px;display:flex;align-items:center;gap:10px;}
+
+.progress-panel{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:22px 24px;margin-bottom:20px;}
+.progress-panel .pp-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.progress-panel h3{font-size:14px;font-weight:700;color:var(--navy);}
+.level-tag-active{background:var(--navy);color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:12px;}
+.progress-track-lg{background:var(--grey);height:10px;border-radius:10px;overflow:hidden;margin-bottom:10px;}
+.progress-fill-lg{background:linear-gradient(90deg,var(--navy),var(--gold));height:100%;border-radius:10px;transition:width .5s;}
+.progress-meta{display:flex;justify-content:space-between;font-size:11.5px;color:var(--light);}
+
+.two-col{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;}
+.panel{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:20px 22px;}
+.panel h3{font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:14px;}
+.msg-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);}
+.msg-item:last-child{border-bottom:none;}
+.msg-avatar{width:34px;height:34px;border-radius:50%;background:var(--tint);color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+.msg-body{flex:1;min-width:0;}
+.msg-from{font-size:12.5px;font-weight:600;color:var(--text);}
+.msg-preview{font-size:11.5px;color:var(--light);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.msg-time{font-size:10px;color:var(--light);flex-shrink:0;}
+.empty-mini{text-align:center;padding:20px;color:var(--light);font-size:12px;}
+.empty-mini i{font-size:24px;margin-bottom:8px;display:block;color:var(--tint);}
+
+.announce-item{padding:12px 0;border-bottom:1px solid var(--border);}
+.announce-item:last-child{border-bottom:none;}
+.announce-item h4{font-size:12.5px;font-weight:600;color:var(--navy);margin-bottom:3px;}
+.announce-item p{font-size:11.5px;color:var(--light);}
+
+@media(max-width:900px){.grid-cards{grid-template-columns:1fr 1fr;}.two-col{grid-template-columns:1fr;}}
+@media(max-width:520px){.grid-cards{grid-template-columns:1fr;}.welcome-band{flex-direction:column;align-items:flex-start;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand"><img src="https://download.dovelingua.com/website/Master_Wordmar_original.png" alt="DoveLingua"></a>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button id="btn-pt" class="active" onclick="setLang('pt')">PT</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <div class="user-chip"><div class="av" id="userAvatar">A</div><span id="userChipName">Aluno</span></div>
+    <button class="logout-btn" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i></button>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="welcome-band">
+    <div>
+      <h1 id="welcomeName">Bem-vindo(a)</h1>
+      <p data-pt="Este é o seu Painel de Aluno DoveLingua." data-en="This is your DoveLingua Student Panel.">Este é o seu Painel de Aluno DoveLingua.</p>
+    </div>
+    <div class="student-code-box">
+      <div class="scl" data-pt="Código de Aluno" data-en="Student Code">Código de Aluno</div>
+      <div class="scv" id="studentCode">DL-2026-----</div>
+    </div>
+  </div>
+
+  <div class="grid-cards">
+    <div class="d-card" onclick="location.href='grades.html'"><i class="fa-solid fa-chart-line card-icon"></i><h3 data-pt="Progresso e Pauta" data-en="Progress & Grades">Progresso e Pauta</h3><p data-pt="Consulte as suas notas e resultados de testes." data-en="View your grades and test results.">Consulte as suas notas e resultados de testes.</p></div>
+    <div class="d-card" onclick="location.href='certificate.html'"><i class="fa-solid fa-certificate card-icon"></i><h3>🏅 Certificado</h3><p data-pt="Descarregue o seu certificado quando disponível." data-en="Download your certificate when available.">Descarregue o seu certificado quando disponível.</p></div>
+    <div class="d-card" onclick="location.href='messages.html'"><i class="fa-solid fa-comments card-icon"></i><h3 data-pt="Mensagens" data-en="Messages">Mensagens</h3><p data-pt="Comunique com os seus professores." data-en="Communicate with your teachers.">Comunique com os seus professores.</p><span class="card-badge" id="unreadBadge" style="display:none;">Nova</span></div>
+    <div class="d-card" onclick="location.href='receipts.html'"><i class="fa-solid fa-receipt card-icon"></i><h3 data-pt="Recibos" data-en="Receipts">Recibos</h3><p data-pt="Histórico dos seus pagamentos." data-en="Your payment history.">Histórico dos seus pagamentos.</p></div>
+    <div class="d-card" onclick="location.href='documents.html'"><i class="fa-solid fa-folder-open card-icon"></i><h3 data-pt="Documentos" data-en="Documents">Documentos</h3><p data-pt="Materiais partilhados pela academia." data-en="Materials shared by the academy.">Materiais partilhados pela academia.</p></div>
+    <div class="d-card" onclick="window.open('https://classroom.dovelingua.com','_blank')"><i class="fa-solid fa-display card-icon"></i><h3 data-pt="Sala de Aula" data-en="Classroom">Sala de Aula</h3><p data-pt="Aceda às suas aulas na plataforma Moodle." data-en="Access your lessons on the Moodle platform.">Aceda às suas aulas na plataforma Moodle.</p></div>
+  </div>
+
+  <div class="progress-panel">
+    <div class="pp-top">
+      <h3 data-pt="O Seu Nível Atual" data-en="Your Current Level">O Seu Nível Atual</h3>
+      <span class="level-tag-active" id="currentLevelTag">A1</span>
+    </div>
+    <div class="progress-track-lg"><div class="progress-fill-lg" id="levelProgressFill" style="width:0%;"></div></div>
+    <div class="progress-meta">
+      <span id="progressLabel" data-pt="A carregar progresso..." data-en="Loading progress...">A carregar progresso...</span>
+      <span id="progressPercent">0%</span>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="panel">
+      <h3><i class="fa-solid fa-comments" style="color:var(--gold);margin-right:6px;"></i><span data-pt="Mensagens Recentes" data-en="Recent Messages">Mensagens Recentes</span></h3>
+      <div id="recentMessages"><div class="empty-mini"><i class="fa-solid fa-inbox"></i><p data-pt="Sem mensagens ainda." data-en="No messages yet.">Sem mensagens ainda.</p></div></div>
+    </div>
+    <div class="panel">
+      <h3><i class="fa-solid fa-bullhorn" style="color:var(--gold);margin-right:6px;"></i><span data-pt="Avisos da Academia" data-en="Academy Announcements">Avisos da Academia</span></h3>
+      <div id="recentAnnouncements"><div class="empty-mini"><i class="fa-solid fa-bullhorn"></i><p data-pt="Sem avisos no momento." data-en="No announcements right now.">Sem avisos no momento.</p></div></div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, collection, query, where, getDocs, orderBy, limit } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAl9A_gXDKTB3N6U1f_Bh5FWrOsySjCJGo",
+  authDomain: "dovelingua-site.firebaseapp.com",
+  projectId: "dovelingua-site",
+  storageBucket: "dovelingua-site.firebasestorage.app",
+  messagingSenderId: "271742052334",
+  appId: "1:271742052334:web:bc736373d7ea50001b50ff",
+  measurementId: "G-N8ELT8SMYM"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const ROUTES = { applicant:'application-status.html', student:'student-dashboard.html', teacher:'teacher-dashboard.html', staff:'staff-payments.html', admin:'admin-dashboard.html' };
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { window.location.href = 'auth.html'; return; }
+  try {
+    const snap = await getDoc(doc(db, 'users', user.uid));
+    if (!snap.exists()) { window.location.href = 'auth.html'; return; }
+    const data = snap.data();
+    if (data.isBlocked) { await signOut(auth); window.location.href = 'auth.html?blocked=1'; return; }
+    if (data.role !== 'student') { window.location.href = ROUTES[data.role] || 'application-status.html'; return; }
+
+    const firstName = data.fullName ? data.fullName.split(' ')[0] : 'Aluno';
+    document.getElementById('welcomeName').textContent = 'Bem-vindo(a), ' + firstName;
+    document.getElementById('userChipName').textContent = firstName;
+    document.getElementById('userAvatar').textContent = firstName.charAt(0).toUpperCase();
+    document.getElementById('studentCode').textContent = data.studentCode || 'DL-2026-----';
+    document.getElementById('currentLevelTag').textContent = data.currentLevel || 'A1';
+
+    try {
+      const gradesQ = query(collection(db, 'grades'), where('studentId', '==', user.uid));
+      const gradesSnap = await getDocs(gradesQ);
+      let progress = 0;
+      if (!gradesSnap.empty) {
+        const g = gradesSnap.docs[0].data();
+        progress = g.progressPercent || 35;
+      }
+      document.getElementById('levelProgressFill').style.width = progress + '%';
+      document.getElementById('progressPercent').textContent = progress + '%';
+      document.getElementById('progressLabel').textContent = progress > 0 ? 'Progresso no nível atual' : 'Ainda sem registos de progresso';
+    } catch (e) {}
+
+    try {
+      const msgQ = query(collection(db, 'messages'), where('recipientId', '==', user.uid), orderBy('sentAt', 'desc'), limit(3));
+      const msgSnap = await getDocs(msgQ);
+      if (!msgSnap.empty) {
+        document.getElementById('recentMessages').innerHTML = msgSnap.docs.map(d => {
+          const m = d.data();
+          return `<div class="msg-item"><div class="msg-avatar">${(m.senderName||'P').charAt(0)}</div><div class="msg-body"><div class="msg-from">${m.senderName||'Professor'}</div><div class="msg-preview">${m.subject||m.body||''}</div></div></div>`;
+        }).join('');
+      }
+    } catch (e) {}
+
+    try {
+      const annQ = query(collection(db, 'announcements'), orderBy('postedAt', 'desc'), limit(3));
+      const annSnap = await getDocs(annQ);
+      if (!annSnap.empty) {
+        document.getElementById('recentAnnouncements').innerHTML = annSnap.docs.map(d => {
+          const a = d.data();
+          return `<div class="announce-item"><h4>${a.title||''}</h4><p>${(a.body||'').slice(0,80)}...</p></div>`;
+        }).join('');
+      }
+    } catch (e) {}
+
+  } catch (e) { console.error(e); }
+});
+
+document.getElementById('logoutBtn').addEventListener('click', async () => { await signOut(auth); window.location.href = 'index.html'; });
+
+var lang = localStorage.getItem('dvl_lang') || 'pt';
+window.setLang = function(l) {
+  lang = l;
+  document.getElementById('btn-en').classList.toggle('active', l==='en');
+  document.getElementById('btn-pt').classList.toggle('active', l==='pt');
+  document.querySelectorAll('[data-pt]').forEach(el => { const v = el.getAttribute('data-'+l); if (v!==null) el.textContent = v; });
+  localStorage.setItem('dvl_lang', l);
+};
+window.addEventListener('load', () => setLang(lang));
+</script>
+<script src="/key-lock.js"></script>
+</body>
+</html>
