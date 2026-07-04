@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Rever Testes - DoveLingua</title>
+<link rel="icon" type="image/png" sizes="32x32" href="https://download.dovelingua.com/website/Favicon_32x32.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{--navy:#0B2E73;--navy-d:#082154;--gold:#C9971A;--white:#FFFFFF;--grey:#F4F4F4;--tint:#E8EEF9;--text:#1a2332;--mid:#4a5568;--light:#718096;--border:#e2e8f0;--r:14px;--shadow:0 4px 20px rgba(11,46,115,.08);--amber:#b45309;--amber-bg:#fef3e2;--green:#0E8F7F;--green-bg:#e6f6f4;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--grey);line-height:1.6;}
+a{text-decoration:none;color:inherit;}
+button,textarea{font-family:inherit;}
+.s-nav{position:sticky;top:0;z-index:999;background:var(--white);border-bottom:1px solid var(--border);padding:0 4%;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.s-nav-brand img{height:38px;}
+.s-back{display:flex;align-items:center;gap:6px;background:var(--tint);border:1px solid var(--border);border-radius:20px;padding:8px 14px;font-size:12px;font-weight:600;color:var(--navy);cursor:pointer;}
+.s-back:hover{background:var(--navy);color:#fff;}
+.s-hero{background:linear-gradient(135deg,var(--navy-d),var(--navy));padding:18px 4%;}
+.s-hero h1{font-family:'Playfair Display',serif;font-size:clamp(17px,2.4vw,21px);color:#fff;display:flex;align-items:center;gap:8px;}
+.s-hero h1 i{color:var(--gold);}
+.s-wrap{max-width:880px;margin:0 auto;padding:20px 4% 50px;}
+
+.test-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:20px;margin-bottom:14px;}
+.tc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.tc-name{font-size:14px;font-weight:700;color:var(--navy);}
+.tc-badge{font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:10px;background:var(--amber-bg);color:var(--amber);}
+.tc-section{background:var(--grey);border-radius:10px;padding:14px;margin-bottom:10px;}
+.tc-section-label{font-size:11px;font-weight:700;color:var(--navy);text-transform:uppercase;margin-bottom:6px;}
+.tc-content{font-size:13px;color:var(--mid);line-height:1.7;}
+.grade-row{display:flex;gap:10px;align-items:center;margin-top:12px;}
+.grade-row input{width:70px;padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;text-align:center;font-size:14px;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:20px;font-size:12.5px;font-weight:600;border:none;cursor:pointer;}
+.btn-g{background:var(--navy);color:#fff;}
+.btn-g:hover{background:var(--gold);color:var(--navy);}
+.empty-state{text-align:center;padding:60px 20px;color:var(--light);}
+.empty-state i{font-size:36px;margin-bottom:14px;display:block;color:var(--tint);}
+</style>
+</head>
+<body>
+<nav class="s-nav">
+  <a href="index.html" class="s-nav-brand"><img src="https://download.dovelingua.com/website/Master_Wordmar_original.png" alt="DoveLingua"></a>
+  <button class="s-back" onclick="location.href='teacher-dashboard.html'"><i class="fa-solid fa-arrow-left"></i> Painel</button>
+</nav>
+<div class="s-hero"><h1><i class="fa-solid fa-file-pen"></i> Rever Testes de Nível</h1></div>
+<div class="s-wrap">
+  <div id="testsContainer"><div class="empty-state"><i class="fa-solid fa-clipboard-list"></i><p>A carregar testes pendentes...</p></div></div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, collection, query, where, getDocs, updateDoc } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = { apiKey:"AIzaSyAl9A_gXDKTB3N6U1f_Bh5FWrOsySjCJGo", authDomain:"dovelingua-site.firebaseapp.com", projectId:"dovelingua-site", storageBucket:"dovelingua-site.firebasestorage.app", messagingSenderId:"271742052334", appId:"1:271742052334:web:bc736373d7ea50001b50ff", measurementId:"G-N8ELT8SMYM" };
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { window.location.href='auth.html'; return; }
+  const snap = await getDoc(doc(db,'users',user.uid));
+  if (!snap.exists() || (snap.data().role!=='teacher' && snap.data().role!=='admin')) { window.location.href='unauthorized.html'; return; }
+  loadTests();
+});
+
+async function loadTests() {
+  const q = query(collection(db,'testAttempts'), where('status','==','pending_review'));
+  const snap = await getDocs(q);
+  const container = document.getElementById('testsContainer');
+  if (snap.empty) { container.innerHTML = '<div class="empty-state"><i class="fa-solid fa-circle-check"></i><p>Nenhum teste pendente de revisão.</p></div>'; return; }
+  container.innerHTML = snap.docs.map(d => {
+    const t = d.data();
+    return `<div class="test-card">
+      <div class="tc-top"><span class="tc-name">Candidato: ${t.userId ? t.userId.slice(0,8) : '-'}</span><span class="tc-badge">Por Rever</span></div>
+      <div class="tc-section"><div class="tc-section-label">Pontuação Automática</div><div class="tc-content">${t.autoScore||0} / ${t.autoTotal||0} (Leitura + Audição)</div></div>
+      <div class="tc-section"><div class="tc-section-label">Escrita e Oralidade</div><div class="tc-content">Requer avaliação manual do professor.</div></div>
+      <div class="grade-row">
+        <label style="font-size:12px;font-weight:600;color:var(--navy);">Nível Final:</label>
+        <select id="level-${d.id}" style="padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;">
+          <option>Pre-A1</option><option>A1</option><option>A2</option><option>A2+</option><option>B1</option><option>B2</option><option>C1</option>
+        </select>
+        <button class="btn btn-g" onclick="finalizeTest('${d.id}')"><i class="fa-solid fa-check"></i> Confirmar Nível</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+window.finalizeTest = async function(id) {
+  const level = document.getElementById('level-'+id).value;
+  await updateDoc(doc(db,'testAttempts',id), { status:'completed', finalLevel:level });
+  loadTests();
+};
+</script>
+<script src="/key-lock.js"></script>
+</body>
+</html>
