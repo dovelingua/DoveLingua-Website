@@ -20,6 +20,13 @@
 body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--grey);line-height:1.6;}
 a{text-decoration:none;color:inherit;}
 button,input{font-family:inherit;}
+.pt{position:fixed;inset:0;background:linear-gradient(135deg,var(--navy-d),var(--navy));z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s;}
+.pt.on{opacity:1;pointer-events:all;}
+.pt-txt{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:#fff;}
+.ptd{display:inline-block;animation:ptd 1s infinite;}
+.ptd:nth-child(2){animation-delay:.2s;}
+.ptd:nth-child(3){animation-delay:.4s;}
+@keyframes ptd{0%,80%,100%{opacity:.3;transform:translateY(0);}40%{opacity:1;transform:translateY(-5px);}}
 
 nav{position:sticky;top:0;z-index:999;background:var(--white);border-bottom:1px solid var(--border);padding:0 clamp(1rem,4vw,2.5rem);height:70px;display:flex;align-items:center;justify-content:space-between;}
 .nav-brand img{height:44px;}
@@ -73,6 +80,11 @@ nav{position:sticky;top:0;z-index:999;background:var(--white);border-bottom:1px 
 .spin-ov.on{display:flex;}
 .spin{width:44px;height:44px;border:4px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:sp .9s linear infinite;}
 @keyframes sp{to{transform:rotate(360deg);}}
+.tw{position:fixed;top:80px;right:16px;z-index:8000;display:flex;flex-direction:column;gap:8px;max-width:320px;}
+.tm{background:var(--white);border-radius:10px;box-shadow:0 4px 18px rgba(11,46,115,.15);padding:12px 15px;display:flex;align-items:flex-start;gap:9px;font-size:12.5px;color:var(--text);line-height:1.5;transform:translateX(120%);transition:transform .3s;border-left:4px solid var(--green);}
+.tm.show{transform:translateX(0);}
+.tm.w{border-left-color:var(--amber);}
+.tm.e{border-left-color:#c0392b;}
 footer{background:var(--navy);padding:22px 5%;text-align:center;}
 footer p{color:rgba(255,255,255,.4);font-size:11.5px;}
 @media(max-width:520px){.how-grid,.bottom-nav{grid-template-columns:1fr 1fr;}}
@@ -80,11 +92,13 @@ footer p{color:rgba(255,255,255,.4);font-size:11.5px;}
 </head>
 <body>
 
+<div class="pt" id="pt"><div class="pt-txt">DoveLingua<span class="ptd">.</span><span class="ptd">.</span><span class="ptd">.</span></div></div>
 <div class="spin-ov" id="spinOv"><div class="spin"></div></div>
+<div class="tw" id="tw"></div>
 
 <nav>
   <a href="index.html" class="nav-brand"><img src="https://download.dovelingua.com/website/Master_Wordmar_original.png" alt="DoveLingua"></a>
-  <a class="back-link" onclick="location.href='index.html'"><i class="fa-solid fa-house"></i> Início</a>
+  <a class="back-link" onclick="nav('index.html')"><i class="fa-solid fa-house"></i> Início</a>
 </nav>
 
 <div class="hero">
@@ -122,8 +136,8 @@ footer p{color:rgba(255,255,255,.4);font-size:11.5px;}
   </div>
 
   <div class="bottom-nav">
-    <div class="bn-card" onclick="location.href='enrol.html'"><i class="fa-solid fa-pen-to-square"></i><span>Nova Inscrição</span></div>
-    <div class="bn-card" onclick="location.href='contact.html'"><i class="fa-solid fa-envelope"></i><span>Contacto</span></div>
+    <div class="bn-card" onclick="nav('enrol.html')"><i class="fa-solid fa-pen-to-square"></i><span>Nova Inscrição</span></div>
+    <div class="bn-card" onclick="nav('contact.html')"><i class="fa-solid fa-envelope"></i><span>Contacto</span></div>
     <div class="bn-card" onclick="window.open('https://wa.me/258828920143','_blank')"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></div>
   </div>
 </div>
@@ -139,18 +153,22 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 let currentRec = null;
 
+window.nav = function(url){ const p=document.getElementById('pt'); p.classList.add('on'); setTimeout(()=>window.location.href=url,350); };
+window.toast = function(msg,t,dur){ t=t||'s'; dur=dur||4000; const ic={s:'✅',w:'⚠️',e:'❌'}; const wrap=document.getElementById('tw'); const el=document.createElement('div'); el.className='tm '+({s:'',w:'w',e:'e'}[t]); el.innerHTML='<span>'+ic[t]+'</span><span>'+msg+'</span>'; wrap.appendChild(el); requestAnimationFrame(()=>el.classList.add('show')); setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),400);},dur); };
+
 window.checkStatus = async function() {
   const code = document.getElementById('refInput').value.trim().toUpperCase();
-  if (!code) { alert('Introduza o código de referência.'); return; }
+  if (!code) { toast('Por favor, insira o seu Código de Referência.','w'); return; }
+  if (!code.startsWith('DVL-') || code.length < 10) { toast('Código inválido. Os códigos DoveLingua começam com DVL-','e',5000); return; }
   document.getElementById('spinOv').classList.add('on');
   try {
     const q = query(collection(db,'applications'), where('refCode','==',code));
     const snap = await getDocs(q);
     document.getElementById('spinOv').classList.remove('on');
-    if (snap.empty) { alert('Código não encontrado. Verifique e tente novamente.'); return; }
+    if (snap.empty) { toast('Código não encontrado. Verifique e tente novamente.','e',5000); return; }
     currentRec = snap.docs[0].data();
     showResult(currentRec);
-  } catch(e) { document.getElementById('spinOv').classList.remove('on'); alert('Erro ao verificar. Tente novamente.'); }
+  } catch(e) { document.getElementById('spinOv').classList.remove('on'); toast('Erro ao verificar. Por favor, tente novamente.','e'); }
 };
 
 function showResult(rec) {
@@ -167,13 +185,15 @@ function showResult(rec) {
     <div class="dr"><span class="dk">Total</span><span class="dv">${(rec.total||0).toLocaleString('pt-MZ')} MZN</span></div>`;
   document.getElementById('statusExtra').innerHTML = isPaid
     ? `<div class="paid-info"><i class="fa-solid fa-circle-check"></i> Conta ativada. Use "Esqueci a palavra-passe" em Entrar.</div>
-       <div class="action-grid"><a href="auth.html" class="btn btn-g"><i class="fa-solid fa-right-to-bracket"></i> Entrar</a><a href="https://classroom.dovelingua.com" target="_blank" class="btn btn-teal"><i class="fa-solid fa-display"></i> Classroom</a></div>`
+       <div class="action-grid"><a href="auth.html" class="btn btn-g"><i class="fa-solid fa-right-to-bracket"></i> Entrar</a><a href="https://classroom.dovelingua.com" target="_blank" class="btn btn-teal"><i class="fa-solid fa-display"></i> Classroom</a></div>
+       <div class="action-grid" style="margin-top:10px;"><button class="btn btn-gold" style="grid-column:1/-1;" onclick="downloadPendingReceipt()"><i class="fa-solid fa-download"></i> Baixar Recibo Confirmado</button></div>`
     : `<div class="pending-info"><i class="fa-solid fa-circle-info"></i> Confirmação em até 12 horas.</div>
        <div class="action-grid"><a href="https://wa.me/258828920143" target="_blank" class="btn btn-g"><i class="fa-brands fa-whatsapp"></i> Suporte</a><button class="btn btn-gold" onclick="downloadPendingReceipt()"><i class="fa-solid fa-download"></i> Recibo</button></div>`;
 }
 
 window.downloadPendingReceipt = function() {
-  const rec = currentRec; if (!rec) return;
+  const rec = currentRec; if (!rec) { toast('Dados não encontrados.','e'); return; }
+  const isPaid = rec.applicationStatus === 'confirmed' || rec.applicationStatus === 'enrolled';
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
   doc.setFillColor(11,46,115); doc.rect(0,0,210,24,'F');
@@ -182,15 +202,17 @@ window.downloadPendingReceipt = function() {
   doc.setFont('helvetica','bold'); doc.setFontSize(15); doc.setTextColor(11,46,115);
   doc.text('RECIBO - '+rec.refCode, 105, 36, {align:'center'});
   let y=50;
-  [['Nome',rec.fullName],['Nível',rec.levelName],['Total',(rec.total||0).toLocaleString('pt-MZ')+' MZN'],['Estado','PENDENTE']].forEach(r=>{
+  [['Nome',rec.fullName],['Nível',rec.levelName],['Total',(rec.total||0).toLocaleString('pt-MZ')+' MZN'],['Estado',isPaid?'CONFIRMADO':'PENDENTE']].forEach(r=>{
     doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.text(r[0]+':',20,y);
     doc.setFont('helvetica','normal'); doc.text(String(r[1]),70,y); y+=8;
   });
   doc.save('DoveLingua_Recibo_'+rec.refCode+'.pdf');
+  toast('Recibo descarregado!','s');
 };
 
 const params = new URLSearchParams(window.location.search);
 if (params.get('ref')) { document.getElementById('refInput').value = params.get('ref'); checkStatus(); }
+window.addEventListener('load', ()=>document.getElementById('pt').classList.remove('on'));
 </script>
 <script src="/key-lock.js"></script>
 </body>
