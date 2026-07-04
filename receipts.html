@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Recibos - DoveLingua</title>
+<link rel="icon" type="image/png" sizes="32x32" href="https://download.dovelingua.com/website/Favicon_32x32.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --navy:#0B2E73;--navy-d:#082154;--gold:#C9971A;--white:#FFFFFF;
+  --grey:#F4F4F4;--tint:#E8EEF9;--teal:#0E8F7F;
+  --text:#1a2332;--mid:#4a5568;--light:#718096;--border:#e2e8f0;
+  --r:16px;--shadow:0 4px 20px rgba(11,46,115,.08);
+  --amber:#b45309;--amber-bg:#fef3e2;--green:#0E8F7F;--green-bg:#e6f6f4;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--grey);line-height:1.6;}
+a{text-decoration:none;color:inherit;}
+button{font-family:inherit;}
+
+nav{position:sticky;top:0;z-index:999;background:var(--white);border-bottom:1px solid var(--border);padding:0 clamp(1rem,4vw,2.5rem);height:74px;display:flex;align-items:center;justify-content:space-between;}
+.nav-brand img{height:48px;}
+.back-link{font-size:.82rem;color:var(--light);display:flex;align-items:center;gap:6px;cursor:pointer;}
+.back-link:hover{color:var(--navy);}
+
+.wrap{max-width:820px;margin:0 auto;padding:28px 5% 60px;}
+.page-hdr h1{font-family:'Playfair Display',serif;font-size:clamp(19px,2.6vw,24px);color:var(--navy);margin-bottom:16px;}
+
+.receipt-list{display:flex;flex-direction:column;gap:12px;}
+.receipt-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:18px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.rc-icon{width:44px;height:44px;border-radius:10px;background:var(--tint);color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.rc-body{flex:1;min-width:180px;}
+.rc-ref{font-size:13.5px;font-weight:700;color:var(--navy);}
+.rc-meta{font-size:11.5px;color:var(--light);margin-top:2px;}
+.rc-amount{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--navy);}
+.rc-status{font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:10px;margin-top:4px;display:inline-block;}
+.rc-status.confirmed{background:var(--green-bg);color:var(--green);}
+.rc-status.pending{background:var(--amber-bg);color:var(--amber);}
+.rc-actions{display:flex;gap:8px;}
+.btn-sm{padding:8px 16px;border-radius:20px;font-size:11.5px;font-weight:700;border:none;cursor:pointer;background:var(--navy);color:#fff;}
+.btn-sm:hover{background:var(--gold);color:var(--navy);}
+.empty-state{padding:60px 20px;text-align:center;color:var(--light);}
+.empty-state i{font-size:36px;margin-bottom:14px;display:block;color:var(--tint);}
+@media(max-width:560px){.receipt-card{flex-direction:column;align-items:flex-start;}.rc-actions{width:100%;}.btn-sm{flex:1;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand"><img src="https://download.dovelingua.com/website/Master_Wordmar_original.png" alt="DoveLingua"></a>
+  <a class="back-link" onclick="location.href='student-dashboard.html'"><i class="fa-solid fa-arrow-left"></i> Painel</a>
+</nav>
+
+<div class="wrap">
+  <div class="page-hdr"><h1><i class="fa-solid fa-receipt" style="color:var(--gold);margin-right:8px;"></i>Os Meus Recibos</h1></div>
+  <div class="receipt-list" id="receiptList"><div class="empty-state"><i class="fa-solid fa-receipt"></i><p>A carregar recibos...</p></div></div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, collection, query, where, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = { apiKey:"AIzaSyAl9A_gXDKTB3N6U1f_Bh5FWrOsySjCJGo", authDomain:"dovelingua-site.firebaseapp.com", projectId:"dovelingua-site", storageBucket:"dovelingua-site.firebasestorage.app", messagingSenderId:"271742052334", appId:"1:271742052334:web:bc736373d7ea50001b50ff", measurementId:"G-N8ELT8SMYM" };
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const ROUTES = { applicant:'application-status.html', student:'student-dashboard.html', teacher:'teacher-dashboard.html', staff:'staff-payments.html', admin:'admin-dashboard.html' };
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { window.location.href='auth.html'; return; }
+  try {
+    const snap = await getDoc(doc(db,'users',user.uid));
+    if (!snap.exists()) { window.location.href='auth.html'; return; }
+    const data = snap.data();
+    if (data.role !== 'student' && data.role !== 'applicant' && data.role !== 'admin') { window.location.href = ROUTES[data.role] || 'index.html'; return; }
+
+    const q = query(collection(db,'applications'), where('uid','==',user.uid));
+    const appSnap = await getDocs(q);
+    const list = document.getElementById('receiptList');
+    if (appSnap.empty) { list.innerHTML = '<div class="empty-state"><i class="fa-solid fa-receipt"></i><p>Ainda não tem recibos registados.</p></div>'; return; }
+
+    let rows = [];
+    appSnap.forEach(d => rows.push(d.data()));
+    list.innerHTML = rows.map(r => {
+      const isPaid = r.applicationStatus === 'confirmed' || r.applicationStatus === 'enrolled';
+      const dateStr = r.createdAt ? new Date(r.createdAt.seconds*1000).toLocaleDateString('pt-PT') : '';
+      return `<div class="receipt-card">
+        <div class="rc-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+        <div class="rc-body">
+          <div class="rc-ref">${r.refCode||'-'}</div>
+          <div class="rc-meta">${r.levelName||''} - ${dateStr}</div>
+          <span class="rc-status ${isPaid?'confirmed':'pending'}">${isPaid?'Confirmado':'Pendente'}</span>
+        </div>
+        <div class="rc-amount">${(r.total||0).toLocaleString('pt-MZ')} MZN</div>
+        <div class="rc-actions"><button class="btn-sm" onclick="window.open('status.html?ref=${r.refCode}','_blank')">Ver Detalhes</button></div>
+      </div>`;
+    }).join('');
+  } catch(e) { console.error(e); document.getElementById('receiptList').innerHTML = '<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><p>Erro ao carregar recibos.</p></div>'; }
+});
+</script>
+<script src="/key-lock.js"></script>
+</body>
+</html>
