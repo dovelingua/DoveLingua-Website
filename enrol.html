@@ -775,7 +775,7 @@ async function processManual(){
   showSuc();
 }
 
-async function saveAndSend(){
+function fmz(v){ return v.toLocaleString('pt-MZ')+' MZN'; }  async function saveAndSend(){
   const now=new Date(), lvl=S.level, p=PR[lvl], isNew=S.type==='new', mFee=isNew?p.mat:0;
   const tw=lvl==='a1'?p.weeks+p.fsW:p.weeks;
   const cursoCl=S.payMod==='monthly'?p.monthly:p.full;
