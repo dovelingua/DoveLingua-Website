@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Documentos - Admin DoveLingua</title>
+<link rel="icon" type="image/png" sizes="32x32" href="https://download.dovelingua.com/website/Favicon_32x32.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --navy:#0B2E73;--navy-d:#082154;--gold:#C9971A;--white:#FFFFFF;
+  --grey:#F4F4F4;--tint:#E8EEF9;--text:#1a2332;--mid:#4a5568;--light:#718096;--border:#e2e8f0;
+  --r:14px;--shadow:0 4px 20px rgba(11,46,115,.08);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--grey);line-height:1.6;}
+a{text-decoration:none;color:inherit;}
+button,input,select{font-family:inherit;}
+
+.app{display:flex;min-height:100vh;}
+.sidebar{width:250px;background:var(--navy);flex-shrink:0;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;}
+.sb-logo{padding:20px 18px;border-bottom:1px solid rgba(255,255,255,.1);}
+.sb-logo img{height:38px;}
+.sb-nav{flex:1;padding:14px 0;overflow-y:auto;}
+.sb-nav a{display:flex;align-items:center;gap:12px;padding:12px 18px;font-size:13px;color:rgba(255,255,255,.65);cursor:pointer;border-left:3px solid transparent;}
+.sb-nav a:hover{background:rgba(255,255,255,.05);color:#fff;}
+.sb-nav a.active{background:rgba(255,255,255,.08);color:var(--gold);border-left-color:var(--gold);}
+.sb-nav a i{width:18px;text-align:center;}
+.sb-section-label{padding:16px 18px 6px;font-size:10px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;}
+.sb-foot{padding:16px 18px;border-top:1px solid rgba(255,255,255,.1);}
+.sb-foot .admin-name{font-size:12.5px;color:#fff;font-weight:600;}
+.sb-foot .admin-role{font-size:10.5px;color:rgba(255,255,255,.4);}
+.sb-foot a{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:rgba(255,255,255,.5);cursor:pointer;}
+
+.main{flex:1;min-width:0;}
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:40;}
+.topbar h1{font-family:'Playfair Display',serif;font-size:19px;color:var(--navy);}
+.topbar .tb-sub{font-size:12px;color:var(--light);}
+.hamburger-mobile{display:none;background:none;border:none;font-size:20px;color:var(--navy);cursor:pointer;}
+.content{padding:24px 28px 60px;}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:600;border:none;cursor:pointer;}
+.btn-g{background:var(--navy);color:#fff;}
+.btn-g:hover{background:var(--gold);color:var(--navy);}
+.btn-o{background:transparent;color:var(--navy);border:1.5px solid var(--navy);}
+
+.doc-table-wrap{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;}
+.doc-row{display:grid;grid-template-columns:1fr 120px 100px 90px;gap:12px;padding:14px 20px;border-top:1px solid var(--border);align-items:center;font-size:12.5px;}
+.doc-row:first-child{border-top:none;background:var(--grey);font-weight:700;color:var(--light);font-size:10.5px;text-transform:uppercase;}
+.vis-pill{font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;background:var(--tint);color:var(--navy);display:inline-block;}
+.icon-btn{width:28px;height:28px;border-radius:7px;background:var(--grey);border:none;color:var(--mid);cursor:pointer;}
+.icon-btn:hover{background:#c0392b;color:#fff;}
+
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(11,46,115,.5);z-index:500;align-items:center;justify-content:center;padding:16px;}
+.modal-ov.show{display:flex;}
+.modal{background:var(--white);border-radius:var(--r);max-width:460px;width:100%;}
+.modal-hdr{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;}
+.modal-hdr h3{font-family:'Playfair Display',serif;font-size:16px;color:var(--navy);}
+.modal-close{width:30px;height:30px;border-radius:8px;background:var(--grey);border:none;cursor:pointer;}
+.modal-body{padding:20px 24px;display:flex;flex-direction:column;gap:14px;}
+.modal-body label{font-size:11px;font-weight:700;color:var(--mid);text-transform:uppercase;margin-bottom:6px;display:block;}
+.modal-body input,.modal-body select{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:13.5px;outline:none;}
+.modal-ftr{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px;}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:14px 22px;border-radius:12px;font-size:13px;z-index:600;transform:translateY(100px);opacity:0;transition:.3s;}
+.toast.show{transform:translateY(0);opacity:1;}
+@media(max-width:800px){.sidebar{position:fixed;left:-260px;z-index:200;transition:left .25s;}.sidebar.open{left:0;}.hamburger-mobile{display:block;}.doc-row{grid-template-columns:1fr 80px;}.doc-row span:nth-child(3),.doc-row span:nth-child(4){display:none;}}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="sidebar" id="sidebar">
+    <div class="sb-logo"><img src="https://download.dovelingua.com/website/Master_Wordmark_white_tex_navy_background.png" alt="DoveLingua"></div>
+    <div class="sb-nav">
+      <div class="sb-section-label">Gestão</div>
+      <a onclick="location.href='admin-dashboard.html'"><i class="fa-solid fa-gauge"></i> Painel Geral</a>
+      <a onclick="location.href='admin-users.html'"><i class="fa-solid fa-users"></i> Utilizadores</a>
+      <a onclick="location.href='admin-courses.html'"><i class="fa-solid fa-graduation-cap"></i> Cursos</a>
+      <div class="sb-section-label">Avaliação</div>
+      <a onclick="location.href='admin-level-test-editor.html'"><i class="fa-solid fa-clipboard-question"></i> Editor de Testes</a>
+      <a onclick="location.href='admin-announcements.html'"><i class="fa-solid fa-bullhorn"></i> Avisos</a>
+      <a class="active"><i class="fa-solid fa-folder"></i> Documentos</a>
+    </div>
+    <div class="sb-foot"><div class="admin-name" id="adminName">Admin</div><div class="admin-role">Administrador</div><a id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="hamburger-mobile" onclick="document.getElementById('sidebar').classList.toggle('open')"><i class="fa-solid fa-bars"></i></button>
+        <div><h1>Documentos</h1><div class="tb-sub">Gerir ficheiros partilhados</div></div>
+      </div>
+      <button class="btn btn-g" onclick="openModal()"><i class="fa-solid fa-plus"></i> Novo Documento</button>
+    </div>
+    <div class="content">
+      <div class="doc-table-wrap">
+        <div class="doc-row"><span>Título</span><span>Categoria</span><span>Visibilidade</span><span>Ações</span></div>
+        <div id="docList"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="docModal">
+  <div class="modal">
+    <div class="modal-hdr"><h3>Novo Documento</h3><button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="modal-body">
+      <div><label>Título</label><input type="text" id="fTitle" placeholder="Ex: Programa Nível A1"/></div>
+      <div><label>Link do Ficheiro</label><input type="text" id="fLink" placeholder="https://drive.google.com/..."/></div>
+      <div><label>Categoria</label><select id="fCategory"><option value="academic">Académico</option><option value="administrative">Administrativo</option><option value="general">Geral</option></select></div>
+      <div><label>Visibilidade</label><select id="fVisibility"><option value="public">Público</option><option value="student">Alunos</option><option value="teacher">Professores</option></select></div>
+    </div>
+    <div class="modal-ftr"><button class="btn btn-o" onclick="closeModal()">Cancelar</button><button class="btn btn-g" onclick="saveDoc()"><i class="fa-solid fa-floppy-disk"></i> Guardar</button></div>
+  </div>
+</div>
+<div class="toast" id="toast"><span id="toastText"></span></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, deleteDoc, doc, getDoc, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = { apiKey:"AIzaSyAl9A_gXDKTB3N6U1f_Bh5FWrOsySjCJGo", authDomain:"dovelingua-site.firebaseapp.com", projectId:"dovelingua-site", storageBucket:"dovelingua-site.firebasestorage.app", messagingSenderId:"271742052334", appId:"1:271742052334:web:bc736373d7ea50001b50ff", measurementId:"G-N8ELT8SMYM" };
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { window.location.href='auth.html'; return; }
+  const snap = await getDoc(doc(db,'users',user.uid));
+  if (!snap.exists() || snap.data().role !== 'admin') { window.location.href='unauthorized.html'; return; }
+  document.getElementById('adminName').textContent = snap.data().fullName || 'Admin';
+  loadDocs();
+});
+document.getElementById('logoutBtn').addEventListener('click', async () => { await signOut(auth); window.location.href='index.html'; });
+
+const catLabels = { academic:'Académico', administrative:'Administrativo', general:'Geral' };
+const visLabels = { public:'Público', student:'Alunos', teacher:'Professores' };
+async function loadDocs() {
+  const snap = await getDocs(collection(db,'documents'));
+  const list = document.getElementById('docList');
+  if (snap.empty) { list.innerHTML = '<div style="padding:40px;text-align:center;color:var(--light);">Nenhum documento adicionado.</div>'; return; }
+  list.innerHTML = snap.docs.map(d => {
+    const doc_ = d.data();
+    return `<div class="doc-row"><span>${doc_.title}</span><span>${catLabels[doc_.category]||doc_.category}</span><span class="vis-pill">${visLabels[doc_.visibility]||doc_.visibility}</span><span><button class="icon-btn" onclick="deleteDocItem('${d.id}')"><i class="fa-solid fa-trash"></i></button></span></div>`;
+  }).join('');
+}
+window.openModal = function() { document.getElementById('docModal').classList.add('show'); };
+window.closeModal = function() { document.getElementById('docModal').classList.remove('show'); };
+window.saveDoc = async function() {
+  const title = document.getElementById('fTitle').value.trim();
+  const fileLink = document.getElementById('fLink').value.trim();
+  const category = document.getElementById('fCategory').value;
+  const visibility = document.getElementById('fVisibility').value;
+  if (!title || !fileLink) { showToast('Preencha o título e o link.'); return; }
+  try {
+    await addDoc(collection(db,'documents'), { title, fileLink, category, visibility, uploadedAt: serverTimestamp() });
+    showToast('Documento adicionado.'); closeModal(); loadDocs();
+  } catch(e) { showToast('Erro ao guardar.'); }
+};
+window.deleteDocItem = async function(id) {
+  if (!confirm('Eliminar este documento?')) return;
+  await deleteDoc(doc(db,'documents',id));
+  showToast('Documento eliminado.'); loadDocs();
+};
+function showToast(t) { const el=document.getElementById('toast'); el.classList.add('show'); document.getElementById('toastText').textContent=t; setTimeout(()=>el.classList.remove('show'),3000); }
+</script>
+<script src="/key-lock.js"></script>
+</body>
+</html>
