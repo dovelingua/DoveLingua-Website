@@ -786,7 +786,9 @@ async function saveAndSend(){
     const cred = await createUserWithEmailAndPassword(auth, S.email, tempPass);
     uid = cred.user.uid;
     await setDoc(doc(db,'users',uid), { uid, fullName:S.name, email:S.email, phone:S.wa, age:S.age, gender:S.gender, province:S.prov, role:'applicant', status:'active', createdAt:serverTimestamp() });
-  }catch(e){ console.log('Account may already exist'); }
+    const { sendPasswordResetEmail } = await import("https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js");
+    await sendPasswordResetEmail(auth, S.email);
+  }catch(e){ console.log('Account may already exist, or reset email failed:', e); }
 
   const rec = {
     refCode:S.ref, uid, applicationStatus: S.payStatus==='confirmed'?'confirmed':'pending',
