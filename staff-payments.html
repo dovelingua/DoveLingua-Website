@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pagamentos - Staff DoveLingua</title>
+<link rel="icon" type="image/png" sizes="32x32" href="https://download.dovelingua.com/website/Favicon_32x32.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{--navy:#0B2E73;--navy-d:#082154;--gold:#C9971A;--white:#FFFFFF;--grey:#F4F4F4;--tint:#E8EEF9;--text:#1a2332;--mid:#4a5568;--light:#718096;--border:#e2e8f0;--r:14px;--shadow:0 4px 20px rgba(11,46,115,.08);--amber:#b45309;--amber-bg:#fef3e2;--green:#0E8F7F;--green-bg:#e6f6f4;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--grey);line-height:1.6;}
+a{text-decoration:none;color:inherit;}
+button{font-family:inherit;}
+.s-nav{position:sticky;top:0;z-index:999;background:var(--white);border-bottom:1px solid var(--border);padding:0 4%;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.s-nav-brand img{height:38px;}
+.s-back{display:flex;align-items:center;gap:6px;background:var(--tint);border:1px solid var(--border);border-radius:20px;padding:8px 14px;font-size:12px;font-weight:600;color:var(--navy);cursor:pointer;}
+.s-hero{background:linear-gradient(135deg,var(--navy-d),var(--navy));padding:18px 4%;}
+.s-hero h1{font-family:'Playfair Display',serif;font-size:clamp(17px,2.4vw,21px);color:#fff;display:flex;align-items:center;gap:8px;}
+.s-hero h1 i{color:var(--gold);}
+.s-wrap{max-width:900px;margin:0 auto;padding:20px 4% 50px;}
+.pay-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:12px;}
+.pc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;}
+.pc-name{font-size:14px;font-weight:700;color:var(--navy);}
+.pc-badge{font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:10px;background:var(--amber-bg);color:var(--amber);}
+.pc-meta{font-size:12px;color:var(--mid);margin-bottom:6px;}
+.pc-amount{font-family:'Playfair Display',serif;font-size:18px;color:var(--navy);font-weight:700;}
+.pc-actions{display:flex;gap:8px;margin-top:12px;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:20px;font-size:12px;font-weight:600;border:none;cursor:pointer;}
+.btn-g{background:var(--green);color:#fff;}
+.btn-r{background:#fdecea;color:#c0392b;}
+.empty-state{text-align:center;padding:60px 20px;color:var(--light);}
+.empty-state i{font-size:36px;margin-bottom:14px;display:block;color:var(--tint);}
+</style>
+</head>
+<body>
+<nav class="s-nav">
+  <a href="index.html" class="s-nav-brand"><img src="https://download.dovelingua.com/website/Master_Wordmar_original.png" alt="DoveLingua"></a>
+  <button class="s-back" onclick="location.href='index.html'"><i class="fa-solid fa-arrow-left"></i> Sair</button>
+</nav>
+<div class="s-hero"><h1><i class="fa-solid fa-money-check-dollar"></i> Confirmar Pagamentos</h1></div>
+<div class="s-wrap">
+  <div id="payList"><div class="empty-state"><i class="fa-solid fa-hourglass"></i><p>A carregar pagamentos pendentes...</p></div></div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, updateDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = { apiKey:"AIzaSyAl9A_gXDKTB3N6U1f_Bh5FWrOsySjCJGo", authDomain:"dovelingua-site.firebaseapp.com", projectId:"dovelingua-site", storageBucket:"dovelingua-site.firebasestorage.app", messagingSenderId:"271742052334", appId:"1:271742052334:web:bc736373d7ea50001b50ff", measurementId:"G-N8ELT8SMYM" };
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { window.location.href='auth.html'; return; }
+  const snap = await getDoc(doc(db,'users',user.uid));
+  if (!snap.exists() || (snap.data().role!=='staff' && snap.data().role!=='admin')) { window.location.href='unauthorized.html'; return; }
+  loadPending();
+});
+
+async function loadPending() {
+  const q = query(collection(db,'applications'), where('applicationStatus','==','pending'));
+  const snap = await getDocs(q);
+  const list = document.getElementById('payList');
+  if (snap.empty) { list.innerHTML = '<div class="empty-state"><i class="fa-solid fa-circle-check"></i><p>Nenhum pagamento pendente.</p></div>'; return; }
+  list.innerHTML = snap.docs.map(d => {
+    const a = d.data();
+    return `<div class="pay-card">
+      <div class="pc-top"><span class="pc-name">${a.fullName}</span><span class="pc-badge">Pendente</span></div>
+      <div class="pc-meta">Ref: ${a.refCode} · ${a.levelName} · ${a.payMethod||''}</div>
+      <div class="pc-amount">${(a.total||0).toLocaleString('pt-MZ')} MZN</div>
+      <div class="pc-actions">
+        <button class="btn btn-g" onclick="confirmPayment('${d.id}','${a.uid||''}')"><i class="fa-solid fa-check"></i> Confirmar</button>
+        <button class="btn btn-r" onclick="rejectPayment('${d.id}')"><i class="fa-solid fa-xmark"></i> Rejeitar</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+window.confirmPayment = async function(appId, uid) {
+  await updateDoc(doc(db,'applications',appId), { applicationStatus:'confirmed' });
+  if (uid) await updateDoc(doc(db,'users',uid), { role:'student', currentLevel:'A1' });
+  loadPending();
+};
+window.rejectPayment = async function(appId) {
+  if (!confirm('Rejeitar esta inscrição?')) return;
+  await updateDoc(doc(db,'applications',appId), { applicationStatus:'rejected' });
+  loadPending();
+};
+</script>
+<script src="/key-lock.js"></script>
+</body>
+</html>
