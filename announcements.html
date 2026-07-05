@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Avisos - DoveLingua</title>
+<link rel="icon" type="image/png" sizes="32x32" href="https://download.dovelingua.com/website/Favicon_32x32.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{--navy:#0B2E73;--navy-d:#082154;--gold:#C9971A;--white:#FFFFFF;--grey:#F4F4F4;--tint:#E8EEF9;--text:#1a2332;--mid:#4a5568;--light:#718096;--border:#e2e8f0;--r:16px;--shadow:0 4px 20px rgba(11,46,115,.08);}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--grey);line-height:1.7;}
+a{text-decoration:none;color:inherit;}
+img{max-width:100%;height:auto;display:block;}
+
+nav{position:sticky;top:0;z-index:999;background:var(--white);border-bottom:1px solid var(--border);padding:0 clamp(1rem,4vw,2.5rem);height:74px;display:flex;align-items:center;justify-content:space-between;}
+.nav-brand img{height:48px;}
+.back-link{font-size:.82rem;color:var(--light);display:flex;align-items:center;gap:6px;cursor:pointer;}
+.back-link:hover{color:var(--navy);}
+
+.hero{background:linear-gradient(150deg,var(--navy-d),var(--navy) 55%,#123a8a);padding:40px 5% 32px;text-align:center;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(20px,3vw,28px);color:#fff;margin-bottom:8px;}
+.hero p{font-size:12.5px;color:rgba(255,255,255,.65);}
+
+.wrap{max-width:760px;margin:0 auto;padding:28px 5% 60px;}
+.filter-row{display:flex;gap:8px;margin-bottom:20px;}
+.filter-chip{padding:8px 18px;border-radius:20px;background:var(--white);border:1.5px solid var(--border);font-size:12.5px;font-weight:600;color:var(--mid);cursor:pointer;}
+.filter-chip.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+
+.ann-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:22px 24px;margin-bottom:14px;border-left:4px solid var(--gold);}
+.ann-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.ann-date{font-size:11px;color:var(--light);margin-bottom:10px;}
+.ann-body{font-size:13px;color:var(--mid);line-height:1.75;}
+.empty-state{text-align:center;padding:70px 20px;color:var(--light);}
+.empty-state i{font-size:40px;margin-bottom:16px;display:block;color:var(--tint);}
+footer{background:var(--navy);padding:24px 5%;text-align:center;}
+footer p{color:rgba(255,255,255,.4);font-size:11.5px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand"><img src="https://download.dovelingua.com/website/Master_Wordmar_original.png" alt="DoveLingua"></a>
+  <a class="back-link" onclick="location.href='index.html'"><i class="fa-solid fa-house"></i> Início</a>
+</nav>
+
+<div class="hero"><h1><i class="fa-solid fa-bullhorn" style="color:var(--gold);margin-right:8px;"></i>Avisos da DoveLingua</h1><p>Fique a par das últimas novidades da academia</p></div>
+
+<div class="wrap">
+  <div class="filter-row">
+    <div class="filter-chip active" data-aud="all" onclick="filterAnn('all',this)">Todos</div>
+    <div class="filter-chip" data-aud="public" onclick="filterAnn('public',this)">Gerais</div>
+  </div>
+  <div id="annList"><div class="empty-state"><i class="fa-solid fa-bullhorn"></i><p>A carregar avisos...</p></div></div>
+</div>
+
+<footer><p>DoveLingua © 2026 - Todos os direitos reservados.</p></footer>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getFirestore, collection, query, where, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = { apiKey:"AIzaSyAl9A_gXDKTB3N6U1f_Bh5FWrOsySjCJGo", authDomain:"dovelingua-site.firebaseapp.com", projectId:"dovelingua-site", storageBucket:"dovelingua-site.firebasestorage.app", messagingSenderId:"271742052334", appId:"1:271742052334:web:bc736373d7ea50001b50ff", measurementId:"G-N8ELT8SMYM" };
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+let allAnn = [];
+
+async function loadAnn() {
+  try {
+    const q = query(collection(db,'announcements'), where('audience','in',['public','all']), orderBy('postedAt','desc'));
+    const snap = await getDocs(q);
+    allAnn = [];
+    snap.forEach(d => allAnn.push(d.data()));
+    render('all');
+  } catch(e) { document.getElementById('annList').innerHTML = '<div class="empty-state"><i class="fa-solid fa-bullhorn"></i><p>Nenhum aviso disponível.</p></div>'; }
+}
+window.filterAnn = function(aud, el) {
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  render(aud);
+};
+function render(filter) {
+  const list = filter==='all' ? allAnn : allAnn.filter(a=>a.audience===filter);
+  const container = document.getElementById('annList');
+  if (list.length===0) { container.innerHTML = '<div class="empty-state"><i class="fa-solid fa-bullhorn"></i><p>Nenhum aviso disponível nesta categoria.</p></div>'; return; }
+  container.innerHTML = list.map(a => `
+    <div class="ann-card">
+      <div class="ann-title">${a.title}</div>
+      <div class="ann-date">${a.postedAt ? new Date(a.postedAt.seconds*1000).toLocaleDateString('pt-PT',{day:'2-digit',month:'long',year:'numeric'}) : ''}</div>
+      <div class="ann-body">${a.body}</div>
+    </div>`).join('');
+}
+loadAnn();
+</script>
+</body>
+</html>
