@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pauta - Lançar Notas - DoveLingua</title>
+<link rel="icon" type="image/png" sizes="32x32" href="https://download.dovelingua.com/website/Favicon_32x32.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --navy:#0B2E73;--navy-d:#082154;--gold:#C9971A;--white:#FFFFFF;
+  --grey:#F4F4F4;--tint:#E8EEF9;--teal:#0E8F7F;
+  --text:#1a2332;--mid:#4a5568;--light:#718096;--border:#e2e8f0;
+  --r:14px;--shadow:0 4px 20px rgba(11,46,115,.08);
+  --amber:#b45309;--amber-bg:#fef3e2;--red:#c0392b;--red-bg:#fdecea;--green:#0E8F7F;--green-bg:#e6f6f4;--blue:#2563eb;--blue-bg:#eff6ff;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--grey);line-height:1.6;}
+a{text-decoration:none;color:inherit;}
+button,input,select{font-family:inherit;}
+
+.s-nav{position:sticky;top:0;z-index:999;background:var(--white);border-bottom:1px solid var(--border);padding:0 4%;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.s-nav-brand img{height:38px;}
+.s-back{display:flex;align-items:center;gap:6px;background:var(--tint);border:1px solid var(--border);border-radius:20px;padding:8px 14px;font-size:12px;font-weight:600;color:var(--navy);cursor:pointer;}
+.s-back:hover{background:var(--navy);color:#fff;}
+.s-hero{background:linear-gradient(135deg,var(--navy-d),var(--navy));padding:18px 4%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.s-hero h1{font-family:'Playfair Display',serif;font-size:clamp(17px,2.4vw,21px);color:#fff;display:flex;align-items:center;gap:8px;}
+.s-hero h1 i{color:var(--gold);}
+.class-select{padding:8px 16px;border-radius:20px;border:1.5px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;font-size:12.5px;font-weight:600;outline:none;}
+.class-select option{color:var(--text);}
+.s-wrap{max-width:1000px;margin:0 auto;padding:20px 4% 50px;}
+
+.legend-strip{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:600;padding:5px 12px;border-radius:12px;white-space:nowrap;}
+.legend-item.dispensado{background:var(--green-bg);color:var(--green);}
+.legend-item.admitido{background:var(--blue-bg);color:var(--blue);}
+.legend-item.recorrencia{background:var(--amber-bg);color:var(--amber);}
+.legend-item.excluido{background:var(--red-bg);color:var(--red);}
+
+/* DESKTOP TABLE */
+.pauta-wrap{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);overflow-x:auto;margin-bottom:18px;}
+.pauta-table{width:100%;border-collapse:collapse;min-width:820px;}
+.pauta-table thead th{background:var(--navy);color:#fff;font-size:10px;font-weight:700;text-transform:uppercase;padding:10px 8px;text-align:center;white-space:nowrap;}
+.pauta-table thead th:first-child{text-align:left;padding-left:14px;}
+.pauta-table tbody td{padding:8px 6px;border-top:1px solid var(--border);text-align:center;}
+.pauta-table tbody td:first-child{text-align:left;padding-left:14px;font-weight:600;color:var(--navy);font-size:12.5px;}
+.pauta-table tbody tr:hover{background:var(--tint);}
+.score-input{width:52px;padding:6px 4px;border:1.5px solid var(--border);border-radius:6px;text-align:center;font-size:12.5px;}
+.score-input:focus{border-color:var(--navy);outline:none;}
+.media-cell{font-weight:700;color:var(--navy);font-size:13px;}
+.class-pill{font-size:9.5px;font-weight:700;padding:3px 8px;border-radius:8px;white-space:nowrap;}
+.class-pill.dispensado{background:var(--green-bg);color:var(--green);}
+.class-pill.admitido{background:var(--blue-bg);color:var(--blue);}
+.class-pill.recorrencia{background:var(--amber-bg);color:var(--amber);}
+.class-pill.excluido{background:var(--red-bg);color:var(--red);}
+.class-pill.pending{background:var(--grey);color:var(--light);}
+
+/* MOBILE CARDS */
+.mobile-cards{display:none;flex-direction:column;gap:12px;}
+.m-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:16px 18px;}
+.m-card-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.m-card-hdr h4{font-size:13.5px;font-weight:700;color:var(--navy);}
+.m-scores{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;}
+.m-score-box{background:var(--grey);border-radius:8px;padding:6px;}
+.m-score-box label{font-size:9px;color:var(--light);text-transform:uppercase;display:block;margin-bottom:3px;}
+.m-score-box input{width:100%;padding:5px;border:1px solid var(--border);border-radius:6px;text-align:center;font-size:12.5px;}
+.m-card-ftr{display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--border);}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:20px;font-size:13px;font-weight:600;border:none;cursor:pointer;}
+.btn-g{background:var(--navy);color:#fff;}
+.btn-g:hover{background:var(--gold);color:var(--navy);}
+.save-bar{position:sticky;bottom:0;background:var(--white);border-top:1px solid var(--border);padding:14px 4%;display:flex;justify-content:flex-end;box-shadow:0 -4px 12px rgba(0,0,0,.05);}
+.toast{position:fixed;bottom:80px;right:24px;background:var(--navy);color:#fff;padding:14px 22px;border-radius:12px;font-size:13px;z-index:600;transform:translateY(100px);opacity:0;transition:.3s;}
+.toast.show{transform:translateY(0);opacity:1;}
+.empty-state{text-align:center;padding:60px 20px;color:var(--light);}
+.empty-state i{font-size:36px;margin-bottom:14px;display:block;color:var(--tint);}
+
+@media(max-width:800px){.pauta-wrap{display:none;}.mobile-cards{display:flex;}}
+</style>
+</head>
+<body>
+
+<nav class="s-nav">
+  <a href="index.html" class="s-nav-brand"><img src="https://download.dovelingua.com/website/Master_Wordmar_original.png" alt="DoveLingua"></a>
+  <button class="s-back" onclick="location.href='teacher-dashboard.html'"><i class="fa-solid fa-arrow-left"></i> Painel</button>
+</nav>
+
+<div class="s-hero">
+  <h1><i class="fa-solid fa-clipboard-list"></i> Pauta - Lançar Notas</h1>
+  <select class="class-select" id="classSelect" onchange="loadStudents()"><option value="">A carregar turmas...</option></select>
+</div>
+
+<div class="s-wrap">
+  <div class="legend-strip">
+    <span class="legend-item dispensado">Dispensado 17-20</span>
+    <span class="legend-item admitido">Admitido 10-16</span>
+    <span class="legend-item recorrencia">Recorrência 7-9</span>
+    <span class="legend-item excluido">Excluído 0-6</span>
+  </div>
+
+  <div class="pauta-wrap">
+    <table class="pauta-table">
+      <thead>
+        <tr><th>Aluno</th><th>T1</th><th>T2</th><th>T3</th><th>Trab1</th><th>Trab2</th><th>Exame</th><th>Média</th><th>Classificação</th></tr>
+      </thead>
+      <tbody id="pautaBody"><tr><td colspan="9" style="padding:40px;text-align:center;color:var(--light);">Seleccione uma turma para começar.</td></tr></tbody>
+    </table>
+  </div>
+  <div class="mobile-cards" id="mobileCards"></div>
+</div>
+
+<div class="save-bar"><button class="btn btn-g" onclick="saveAllGrades()"><i class="fa-solid fa-floppy-disk"></i> Guardar Notas</button></div>
+<div class="toast" id="toast"><span id="toastText"></span></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = { apiKey:"AIzaSyAl9A_gXDKTB3N6U1f_Bh5FWrOsySjCJGo", authDomain:"dovelingua-site.firebaseapp.com", projectId:"dovelingua-site", storageBucket:"dovelingua-site.firebasestorage.app", messagingSenderId:"271742052334", appId:"1:271742052334:web:bc736373d7ea50001b50ff", measurementId:"G-N8ELT8SMYM" };
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+let teacherId=null, currentStudents=[], currentCourseId='';
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { window.location.href='auth.html'; return; }
+  const snap = await getDoc(doc(db,'users',user.uid));
+  if (!snap.exists() || (snap.data().role!=='teacher' && snap.data().role!=='admin')) { window.location.href='unauthorized.html'; return; }
+  teacherId = user.uid;
+  loadClasses();
+});
+
+async function loadClasses() {
+  const q = query(collection(db,'courses'), where('teacherId','==',teacherId));
+  const snap = await getDocs(q);
+  const sel = document.getElementById('classSelect');
+  if (snap.empty) { sel.innerHTML = '<option value="">Nenhuma turma atribuída</option>'; return; }
+  sel.innerHTML = '<option value="">— Seleccione a turma —</option>' + snap.docs.map(d=>`<option value="${d.id}">${d.data().name} (${d.data().cefr})</option>`).join('');
+}
+
+window.loadStudents = async function() {
+  currentCourseId = document.getElementById('classSelect').value;
+  if (!currentCourseId) return;
+  const q = query(collection(db,'users'), where('role','==','student'), where('assignedTeacherId','==',teacherId));
+  const snap = await getDocs(q);
+  currentStudents = [];
+  snap.forEach(d => currentStudents.push({ id:d.id, ...d.data() }));
+
+  const gradesQ = query(collection(db,'grades'), where('courseId','==',currentCourseId));
+  const gradesSnap = await getDocs(gradesQ);
+  const existingGrades = {};
+  gradesSnap.forEach(d => existingGrades[d.data().studentId] = d.data());
+
+  if (currentStudents.length===0) {
+    document.getElementById('pautaBody').innerHTML = '<tr><td colspan="9" style="padding:40px;text-align:center;color:var(--light);">Nenhum aluno atribuído a esta turma.</td></tr>';
+    document.getElementById('mobileCards').innerHTML = '<div class="empty-state"><i class="fa-solid fa-user-graduate"></i><p>Nenhum aluno nesta turma.</p></div>';
+    return;
+  }
+
+  document.getElementById('pautaBody').innerHTML = currentStudents.map(s => {
+    const g = existingGrades[s.id] || {};
+    return `<tr data-student="${s.id}">
+      <td>${s.fullName}</td>
+      <td><input class="score-input" type="number" min="0" max="20" value="${g.test1??''}" data-field="test1" oninput="recalc('${s.id}')"></td>
+      <td><input class="score-input" type="number" min="0" max="20" value="${g.test2??''}" data-field="test2" oninput="recalc('${s.id}')"></td>
+      <td><input class="score-input" type="number" min="0" max="20" value="${g.test3??''}" data-field="test3" oninput="recalc('${s.id}')"></td>
+      <td><input class="score-input" type="number" min="0" max="20" value="${g.work1??''}" data-field="work1" oninput="recalc('${s.id}')"></td>
+      <td><input class="score-input" type="number" min="0" max="20" value="${g.work2??''}" data-field="work2" oninput="recalc('${s.id}')"></td>
+      <td><input class="score-input" type="number" min="0" max="20" value="${g.finalExam??''}" data-field="finalExam" oninput="recalc('${s.id}')"></td>
+      <td class="media-cell" id="media-${s.id}">-</td>
+      <td id="class-${s.id}"><span class="class-pill pending">-</span></td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('mobileCards').innerHTML = currentStudents.map(s => {
+    const g = existingGrades[s.id] || {};
+    return `<div class="m-card" data-student-m="${s.id}">
+      <div class="m-card-hdr"><h4>${s.fullName}</h4><span id="mclass-${s.id}"><span class="class-pill pending">-</span></span></div>
+      <div class="m-scores">
+        <div class="m-score-box"><label>T1</label><input type="number" min="0" max="20" value="${g.test1??''}" data-field="test1" data-m="${s.id}" oninput="recalc('${s.id}')"></div>
+        <div class="m-score-box"><label>T2</label><input type="number" min="0" max="20" value="${g.test2??''}" data-field="test2" data-m="${s.id}" oninput="recalc('${s.id}')"></div>
+        <div class="m-score-box"><label>T3</label><input type="number" min="0" max="20" value="${g.test3??''}" data-field="test3" data-m="${s.id}" oninput="recalc('${s.id}')"></div>
+        <div class="m-score-box"><label>Trab1</label><input type="number" min="0" max="20" value="${g.work1??''}" data-field="work1" data-m="${s.id}" oninput="recalc('${s.id}')"></div>
+        <div class="m-score-box"><label>Trab2</label><input type="number" min="0" max="20" value="${g.work2??''}" data-field="work2" data-m="${s.id}" oninput="recalc('${s.id}')"></div>
+        <div class="m-score-box"><label>Exame</label><input type="number" min="0" max="20" value="${g.finalExam??''}" data-field="finalExam" data-m="${s.id}" oninput="recalc('${s.id}')"></div>
+      </div>
+      <div class="m-card-ftr"><span style="font-size:11px;color:var(--light);">Média</span><span class="media-cell" id="mmedia-${s.id}">-</span></div>
+    </div>`;
+  }).join('');
+
+  currentStudents.forEach(s => recalc(s.id));
+};
+
+function classify(media) {
+  if (media===null) return { label:'-', cls:'pending' };
+  if (media>=17) return { label:'Dispensado', cls:'dispensado' };
+  if (media>=10) return { label:'Admitido', cls:'admitido' };
+  if (media>=7) return { label:'Recorrência', cls:'recorrencia' };
+  return { label:'Excluído', cls:'excluido' };
+}
+window.recalc = function(studentId) {
+  const row = document.querySelector(`tr[data-student="${studentId}"]`);
+  const scores = [];
+  if (row) row.querySelectorAll('.score-input').forEach(inp => { if (inp.value!=='') scores.push(parseFloat(inp.value)); });
+  const media = scores.length ? Math.round((scores.reduce((a,b)=>a+b,0)/scores.length)*10)/10 : null;
+  const result = classify(media);
+  const mediaEl = document.getElementById('media-'+studentId);
+  if (mediaEl) mediaEl.textContent = media!==null ? media : '-';
+  const classEl = document.getElementById('class-'+studentId);
+  if (classEl) classEl.innerHTML = `<span class="class-pill ${result.cls}">${result.label}</span>`;
+  const mmediaEl = document.getElementById('mmedia-'+studentId);
+  if (mmediaEl) mmediaEl.textContent = media!==null ? media : '-';
+  const mclassEl = document.getElementById('mclass-'+studentId);
+  if (mclassEl) mclassEl.innerHTML = `<span class="class-pill ${result.cls}">${result.label}</span>`;
+};
+
+window.saveAllGrades = async function() {
+  if (!currentCourseId) { showToast('Seleccione uma turma primeiro.'); return; }
+  try {
+    for (const s of currentStudents) {
+      const row = document.querySelector(`tr[data-student="${s.id}"]`);
+      if (!row) continue;
+      const data = { studentId:s.id, courseId:currentCourseId, courseName:document.getElementById('classSelect').selectedOptions[0].text, enteredBy:teacherId };
+      row.querySelectorAll('.score-input').forEach(inp => { data[inp.dataset.field] = inp.value!=='' ? parseFloat(inp.value) : null; });
+      await setDoc(doc(db,'grades', s.id+'_'+currentCourseId), data, { merge:true });
+    }
+    showToast('Notas guardadas com sucesso.');
+  } catch(e) { showToast('Erro ao guardar notas.'); }
+};
+function showToast(t) { const el=document.getElementById('toast'); el.classList.add('show'); document.getElementById('toastText').textContent=t; setTimeout(()=>el.classList.remove('show'),3000); }
+</script>
+<script src="/key-lock.js"></script>
+</body>
+</html>
