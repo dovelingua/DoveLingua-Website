@@ -278,6 +278,12 @@ window.checkStatus = async function() {
   }
 };
 
+function enrolDateTimeStr(rec) {
+  const d = rec.createdAt && rec.createdAt.toDate ? rec.createdAt.toDate() : null;
+  if (!d) return 'data indisponível';
+  return d.toLocaleDateString('pt-MZ') + ' às ' + d.toLocaleTimeString('pt-MZ', {hour:'2-digit', minute:'2-digit'});
+}
+
 function showResult(rec) {
   document.getElementById('resultCard').style.display = 'block';
   const isPaid = rec.applicationStatus === 'confirmed' || rec.applicationStatus === 'enrolled';
@@ -303,7 +309,7 @@ function showResult(rec) {
     ? `<div class="paid-info"><i class="fa-solid fa-circle-check"></i> A sua conta foi ativada. Use "Esqueci a palavra-passe" na página Entrar para definir o seu acesso ao Painel do Estudante.</div>
        <div class="action-grid"><a href="auth.html" class="btn btn-g"><i class="fa-solid fa-right-to-bracket"></i> Entrar</a><a href="student-dashboard.html" class="btn btn-teal"><i class="fa-solid fa-user-graduate"></i> Painel do Estudante</a></div>
        <div class="action-grid" style="margin-top:10px;"><button class="btn btn-gold" style="grid-column:1/-1;" onclick="downloadPendingReceipt()"><i class="fa-solid fa-download"></i> Baixar Recibo Confirmado</button></div>`
-    : `<div class="pending-info"><i class="fa-solid fa-circle-info"></i> O sistema confirma os pagamentos em até <strong>12 horas</strong> após a submissão. Guarde o seu código e volte a consultar mais tarde.</div>
+    : `<div class="pending-info"><i class="fa-solid fa-circle-info"></i> O sistema confirma os pagamentos em até <strong>12 horas</strong> após a submissão. A sua inscrição foi submetida a <strong>${enrolDateTimeStr(rec)}</strong>. Guarde o seu código e volte a consultar mais tarde.</div>
        <div class="action-grid"><a href="https://wa.me/258828920143" target="_blank" class="btn btn-g"><i class="fa-brands fa-whatsapp"></i> Suporte</a><button class="btn btn-gold" onclick="downloadPendingReceipt()"><i class="fa-solid fa-download"></i> Recibo</button></div>`;
 
   setTimeout(()=>{ const el=document.getElementById('resultCard'); const top=el.getBoundingClientRect().top+window.pageYOffset-80; window.scrollTo({top,behavior:'smooth'}); },80);
@@ -339,7 +345,7 @@ window.downloadPendingReceipt = function() {
 
   doc.setFillColor(232,238,249); doc.roundedRect(mg,y,W-mg*2,18,2,2,'F');
   doc.setFont('helvetica','bold'); doc.setFontSize(7.5); doc.setTextColor(14,142,127);
-  doc.text('CÓDIGO DE REFERÊNCIA', mg+4, y+5); doc.text('DATA', mg+64, y+5); doc.text('VENCIMENTO', mg+124, y+5);
+  doc.text('CÓDIGO DE REFERÊNCIA', mg+4, y+5); doc.text('DATA DE INSCRIÇÃO', mg+64, y+5); doc.text('DATA DE VENCIMENTO', mg+124, y+5);
   doc.setFont('helvetica','bold'); doc.setFontSize(9.5); doc.setTextColor(11,46,115);
   doc.text(rec.refCode||'-', mg+4, y+13); doc.setFontSize(9);
   doc.text(now.toLocaleDateString('pt-MZ'), mg+64, y+13);
