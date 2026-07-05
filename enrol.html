@@ -914,7 +914,7 @@ window.downloadReceipt = function(){
 
   doc.setFillColor(232,238,249); doc.roundedRect(mg,y,W-mg*2,18,2,2,'F');
   doc.setFont('helvetica','bold'); doc.setFontSize(7.5); doc.setTextColor(14,142,127);
-  doc.text('CÓDIGO DE REFERÊNCIA', mg+4, y+5); doc.text('DATA', mg+64, y+5); doc.text('VENCIMENTO', mg+124, y+5);
+  doc.text('CÓDIGO DE REFERÊNCIA', mg+4, y+5); doc.text('DATA DE INSCRIÇÃO', mg+64, y+5); doc.text('DATA DE VENCIMENTO', mg+124, y+5);
   doc.setFont('helvetica','bold'); doc.setFontSize(9.5); doc.setTextColor(11,46,115);
   doc.text(rec.refCode, mg+4, y+13); doc.setFontSize(9);
   doc.text(now.toLocaleDateString('pt-MZ'), mg+64, y+13);
