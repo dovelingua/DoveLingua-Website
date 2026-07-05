@@ -309,22 +309,86 @@ function showResult(rec) {
   setTimeout(()=>{ const el=document.getElementById('resultCard'); const top=el.getBoundingClientRect().top+window.pageYOffset-80; window.scrollTo({top,behavior:'smooth'}); },80);
 }
 
+function fmz(v){ return (v||0).toLocaleString('pt-MZ')+' MZN'; }
+
+// Same detailed receipt layout as enrol.html's downloadReceipt(), but sourced
+// entirely from the Firestore record fields already saved by enrol.html's
+// saveAndSend() (courseFee, matriculaFee, discount, materialFee, totalWeeks, etc.)
 window.downloadPendingReceipt = function() {
   const rec = currentRec; if (!rec) { toast('Dados não encontrados.','e'); return; }
   const isPaid = rec.applicationStatus === 'confirmed' || rec.applicationStatus === 'enrolled';
+
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
-  doc.setFillColor(11,46,115); doc.rect(0,0,210,24,'F');
+  const W=210, mg=14; let y=0;
+
+  const now = rec.createdAt && rec.createdAt.toDate ? rec.createdAt.toDate() : new Date();
+  const tw = rec.totalWeeks || '-';
+  const isNew = rec.type === 'new';
+
+  doc.setFillColor(11,46,115); doc.rect(0,0,W,24,'F');
+  doc.setFillColor(201,151,26); doc.rect(0,22,W,2,'F');
   doc.setFont('helvetica','bold'); doc.setFontSize(14); doc.setTextColor(255,255,255);
-  doc.text('DoveLingua English Learning Academy', 105, 12, {align:'center'});
-  doc.setFont('helvetica','bold'); doc.setFontSize(15); doc.setTextColor(11,46,115);
-  doc.text('RECIBO - '+rec.refCode, 105, 36, {align:'center'});
-  let y=50;
-  [['Nome',rec.fullName],['Nível',rec.levelName],['Total',(rec.total||0).toLocaleString('pt-MZ')+' MZN'],['Estado',isPaid?'CONFIRMADO':'PENDENTE']].forEach(r=>{
-    doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.text(r[0]+':',20,y);
-    doc.setFont('helvetica','normal'); doc.text(String(r[1]),70,y); y+=8;
-  });
-  doc.save('DoveLingua_Recibo_'+rec.refCode+'.pdf');
+  doc.text('DoveLingua English Learning Academy', W/2, 11, {align:'center'});
+  doc.setFont('helvetica','italic'); doc.setFontSize(8); doc.setTextColor(201,151,26);
+  doc.text('Master English. Lead Your Future.', W/2, 19, {align:'center'});
+
+  y=32;
+  doc.setFont('helvetica','bold'); doc.setFontSize(16); doc.setTextColor(11,46,115);
+  doc.text('RECIBO DE INSCRIÇÃO', W/2, y, {align:'center'}); y+=12;
+
+  doc.setFillColor(232,238,249); doc.roundedRect(mg,y,W-mg*2,18,2,2,'F');
+  doc.setFont('helvetica','bold'); doc.setFontSize(7.5); doc.setTextColor(14,142,127);
+  doc.text('CÓDIGO DE REFERÊNCIA', mg+4, y+5); doc.text('DATA', mg+64, y+5); doc.text('VENCIMENTO', mg+124, y+5);
+  doc.setFont('helvetica','bold'); doc.setFontSize(9.5); doc.setTextColor(11,46,115);
+  doc.text(rec.refCode||'-', mg+4, y+13); doc.setFontSize(9);
+  doc.text(now.toLocaleDateString('pt-MZ'), mg+64, y+13);
+  const due = new Date(now);
+  if (rec.payMod==='monthly') due.setMonth(due.getMonth()+1); else due.setDate(due.getDate()+ (parseInt(tw)||0) *7);
+  doc.text(due.toLocaleDateString('pt-MZ'), mg+124, y+13);
+  y+=24;
+
+  function secT(t,yy){ doc.setFont('helvetica','bold'); doc.setFontSize(8.5); doc.setTextColor(11,46,115); doc.text(t,mg,yy); doc.setDrawColor(11,46,115); doc.line(mg,yy+2,W-mg,yy+2); return yy+8; }
+  function dRow(lbl,val,yy,sh){ if(sh){doc.setFillColor(245,248,252);doc.rect(mg,yy-4,W-mg*2,7,'F');} doc.setFont('helvetica','bold'); doc.setFontSize(8.5); doc.setTextColor(11,46,115); doc.text(lbl+':',mg+2,yy); doc.setFont('helvetica','normal'); doc.setTextColor(60,60,60); doc.text(String(val),mg+56,yy); return yy+7; }
+
+  const dadosY=y; y=secT('DADOS DO ALUNO',y);
+  const sbX=W-mg-54, sbY=dadosY+4;
+  doc.setFillColor(242,247,247); doc.setDrawColor(11,46,115); doc.roundedRect(sbX,sbY,54,20,2,2,'FD');
+  doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor(201,151,26);
+  doc.text('ESTADO DO PAGAMENTO', sbX+27, sbY+6, {align:'center'});
+  doc.setFontSize(9); doc.setTextColor(isPaid?5:180, isPaid?150:80, isPaid?105:10);
+  doc.text(isPaid?'CONFIRMADO':'PENDENTE', sbX+27, sbY+14, {align:'center'});
+
+  const leftW = sbX-mg-4;
+  const sd = [['Nome',rec.fullName||'-'],['Idade',(rec.age||'-')+' anos'],['Género',rec.gender||'-'],['Email',rec.email||'-'],['WhatsApp',rec.phone||'-'],['Província',rec.province||'-'],['Distrito',rec.district||'-'],['Tipo',isNew?'Nova Inscrição':'Renovação']];
+  sd.forEach((r,i)=>{ if(i<3){ if(i%2===0){doc.setFillColor(245,248,252);doc.rect(mg,y-4,leftW,7,'F');} doc.setFont('helvetica','bold');doc.setFontSize(8.5);doc.setTextColor(11,46,115);doc.text(r[0]+':',mg+2,y);doc.setFont('helvetica','normal');doc.setTextColor(60,60,60);doc.text(String(r[1]),mg+56,y);y+=7; } else { y=dRow(r[0],r[1],y,i%2===0); } });
+  y+=4;
+
+  y=secT('DETALHES DA INSCRIÇÃO',y);
+  const ed = [['Nível',rec.levelName||'-'],['Duração',tw+' semanas'],['Ensino',rec.modality||'-'],['Modalidade de Pagamento',rec.payMod==='monthly'?'Mensal':'Nível Completo'],['Método',rec.payMethod||'-'],['Material',rec.inclMat?'Incluído':'Não incluído']];
+  ed.forEach((r,i)=>{y=dRow(r[0],r[1],y,i%2===0);}); y+=4;
+
+  y=secT('RESUMO DE PAGAMENTO',y);
+  const pd = [['Taxa do Curso', fmz(rec.courseFee)], ['Taxa de Matrícula', fmz(rec.matriculaFee||0)], ['Desconto', rec.discount>0?'- '+fmz(rec.discount):fmz(0)], ['Material', fmz(rec.materialFee)]];
+  pd.forEach((r,i)=>{y=dRow(r[0],r[1],y,i%2===0);});
+  doc.setFillColor(0,139,136); doc.rect(mg,y-2,W-mg*2,10,'F');
+  doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.setTextColor(255,255,255);
+  doc.text('TOTAL', mg+3, y+5); doc.setFontSize(11); doc.text(fmz(rec.total), W-mg-3, y+5, {align:'right'});
+  y+=16;
+
+  doc.setDrawColor(212,220,230); doc.line(mg,y,W-mg,y); y+=8;
+  doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(107,122,141);
+  doc.text('Assinatura do Diretor', W/2, y, {align:'center'});
+  doc.setFont('helvetica','italic'); doc.setFontSize(12); doc.setTextColor(11,46,115);
+  doc.text('Gildo Angélica Dove', W/2, y+8, {align:'center'});
+  y+=20;
+
+  doc.setFillColor(11,46,115); doc.rect(0,266,W,27,'F');
+  doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor(180,200,220);
+  doc.text('www.dovelingua.com | info@dovelingua.com | +258 82 892 0143', W/2, 276, {align:'center'});
+  doc.setFontSize(7); doc.text('DoveLingua © 2026 - Todos os direitos reservados.', W/2, 283, {align:'center'});
+
+  doc.save('DoveLingua_Recibo_'+(rec.refCode||'recibo')+'.pdf');
   toast('Recibo descarregado!','s');
 };
 
