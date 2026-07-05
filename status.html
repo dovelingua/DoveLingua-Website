@@ -388,12 +388,13 @@ window.downloadPendingReceipt = function() {
   doc.text('Assinatura do Diretor', W/2, y, {align:'center'});
   doc.setFont('helvetica','italic'); doc.setFontSize(12); doc.setTextColor(11,46,115);
   doc.text('Gildo Angélica Dove', W/2, y+8, {align:'center'});
-  try { doc.addImage(DL_STAMP_B64, 'PNG', W/2 + 28, y - 26, 26, 26); } catch(e) { console.log('Stamp image failed to render:', e); }
+  const stampY = y - 6;
+  try { doc.addImage(DL_STAMP_B64, 'PNG', W/2 + 32, stampY, 24, 24); } catch(e) { console.log('Stamp image failed to render:', e); }
   y+=20;
 
   doc.setFillColor(11,46,115); doc.rect(0,266,W,27,'F');
   doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor(180,200,220);
-  doc.text('www.dovelingua.com | info@dovelingua.com | contact@dovelingua.com | +258 82 892 0143', W/2, 276, {align:'center'});
+  doc.text('www.dovelingua.com | info@dovelingua.com | +258 82 892 0143', W/2, 276, {align:'center'});
   doc.setFontSize(7); doc.text('DoveLingua © 2026 - Todos os direitos reservados.', W/2, 283, {align:'center'});
 
   doc.save('DoveLingua_Recibo_'+(rec.refCode||'recibo')+'.pdf');
