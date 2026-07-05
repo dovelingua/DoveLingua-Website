@@ -188,7 +188,7 @@ footer p{color:rgba(255,255,255,.4);font-size:11.5px;}
 <div class="wrap">
   <div class="search-card">
     <h2>Consultar Código de Referência</h2>
-    <p>Se já fez a sua inscrição, insira aqui o <strong>Código de Referência</strong> que recebeu no momento da submissão para verificar o estado do seu pagamento. Este código começa sempre por <strong>DVL-ST</strong> e pode ser encontrado no recibo que descarregou (Ex: DVL-ST264821). Se ainda não se inscreveu, visite a página de Inscrição.</p>
+    <p>Se já fez a sua inscrição, insira aqui o <strong>Código de Referência</strong> que recebeu no momento da submissão para verificar o estado do seu pagamento. Este código começa sempre por <strong>DVL-ST</strong> e pode ser encontrado no recibo que descarregou (Ex: DVL-ST260000). Se ainda não se inscreveu, visite a página de Inscrição.</p>
     <div class="search-row">
       <input type="text" id="refInput" placeholder="DVL-ST260000"/>
       <button class="search-btn" onclick="checkStatus()"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -255,7 +255,7 @@ window.checkStatus = async function() {
   input.classList.remove('er');
 
   if (!code) { toast('Por favor, insira o seu Código de Referência.','w'); return; }
-  if (!code.startsWith('DVL-ST')) { input.classList.add('er'); toast('Código inválido. Os códigos DoveLingua começam sempre por DVL-ST (Ex: DVL-ST264821).','e',6000); return; }
+  if (!code.startsWith('DVL-ST')) { input.classList.add('er'); toast('Código inválido. O código começa válido  por DVL-ST (Ex: DVL-ST260000).','e',6000); return; }
   if (code.length < 10) { input.classList.add('er'); toast('Código incompleto. Verifique se copiou o código todo.','e',5500); return; }
 
   document.getElementById('spinOv').classList.add('on');
