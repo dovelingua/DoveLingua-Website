@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Estado do Pagamento - DoveLingua</title>
+<link rel="icon" type="image/png" sizes="32x32" href="https://download.dovelingua.com/website/Favicon_32x32.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{
+  --navy:#0B2E73;--navy-d:#082154;--gold:#C9971A;--white:#FFFFFF;
+  --grey:#F4F4F4;--tint:#E8EEF9;--teal:#0E8F7F;
+  --text:#1a2332;--mid:#4a5568;--light:#718096;--border:#e2e8f0;
+  --r:16px;--shadow:0 4px 20px rgba(11,46,115,.08);
+  --amber:#b45309;--amber-bg:#fef3e2;--green:#0E8F7F;--green-bg:#e6f6f4;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--grey);line-height:1.6;}
+a{text-decoration:none;color:inherit;}
+button,input{font-family:inherit;}
+.pt{position:fixed;inset:0;background:linear-gradient(135deg,var(--navy-d),var(--navy));z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s;}
+.pt.on{opacity:1;pointer-events:all;}
+.pt-txt{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:#fff;}
+.ptd{display:inline-block;animation:ptd 1s infinite;}
+.ptd:nth-child(2){animation-delay:.2s;}
+.ptd:nth-child(3){animation-delay:.4s;}
+@keyframes ptd{0%,80%,100%{opacity:.3;transform:translateY(0);}40%{opacity:1;transform:translateY(-5px);}}
+
+nav{position:sticky;top:0;z-index:999;background:var(--white);border-bottom:1px solid var(--border);padding:0 clamp(1rem,4vw,2.5rem);height:70px;display:flex;align-items:center;justify-content:space-between;}
+.nav-left{display:flex;align-items:center;gap:1rem;}
+.hamburger{display:flex;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;}
+.hamburger span{display:block;width:24px;height:2.5px;background:var(--navy);border-radius:2px;}
+.nav-brand img{height:44px;}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.back-link{font-size:12.5px;color:var(--light);display:flex;align-items:center;gap:6px;cursor:pointer;}
+.back-link:hover{color:var(--navy);}
+.btn-login{background:var(--navy);color:#fff;border:none;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s;font-size:15px;}
+.btn-login:hover{background:var(--gold);color:var(--navy);}
+
+.so{display:none;position:fixed;inset:0;background:rgba(11,46,115,.4);z-index:1100;}
+.so.open{display:block;}
+.sm{position:fixed;top:0;left:-300px;width:290px;max-width:85vw;height:100%;background:var(--white);z-index:1200;transition:left .3s ease;display:flex;flex-direction:column;}
+.sm.open{left:0;}
+.sm-hdr{background:linear-gradient(135deg,var(--navy),var(--navy-d));padding:1.3rem 1.1rem;display:flex;align-items:center;gap:.8rem;position:relative;}
+.sm-cl{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.15);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:15px;}
+.sm-hdr img{height:36px;}
+.sm-nav{flex:1;overflow-y:auto;padding:.5rem 0;}
+.sm-nav a{display:flex;align-items:center;gap:.8rem;padding:.8rem 1.2rem;font-size:.87rem;font-weight:500;color:var(--mid);cursor:pointer;border-left:3px solid transparent;}
+.sm-nav a:hover{background:var(--tint);color:var(--navy);border-left-color:var(--gold);}
+.sm-nav a i{width:18px;text-align:center;color:var(--navy);font-size:.95rem;}
+.sdiv{height:1px;background:var(--border);margin:.4rem 1.2rem;}
+.sm-ft{padding:1rem 1.2rem;border-top:1px solid var(--border);background:var(--grey);}
+.sm-ft p{font-style:italic;font-size:.74rem;color:var(--light);}
+
+.hero{background:linear-gradient(150deg,var(--navy-d),var(--navy) 55%,#123a8a);padding:40px 5% 32px;text-align:center;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(19px,3vw,26px);color:#fff;margin-bottom:8px;}
+.hero-pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px;}
+.hpx{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.1);padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;color:#fff;border:1.5px solid rgba(255,255,255,.25);}
+
+.wrap{max-width:640px;margin:0 auto;padding:26px 5% 60px;}
+.search-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:26px 24px;margin-bottom:20px;}
+.search-card h2{font-size:15px;color:var(--navy);margin-bottom:8px;}
+.search-card p{font-size:12.5px;color:var(--mid);margin-bottom:18px;line-height:1.75;text-align:justify;}
+.search-card p strong{color:var(--navy);}
+.search-row{display:flex;gap:10px;}
+.search-row input{flex:1;padding:12px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;outline:none;letter-spacing:.5px;text-transform:uppercase;}
+.search-row input:focus{border-color:var(--navy);}
+.search-row input.er{border-color:#c0392b;}
+.search-btn{background:var(--navy);color:#fff;border:none;border-radius:10px;padding:12px 22px;font-size:13px;font-weight:700;cursor:pointer;transition:.2s;}
+.search-btn:hover{background:var(--gold);color:var(--navy);}
+
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px;}
+.how-card{text-align:center;border-left:3px solid var(--teal);padding:12px 10px;background:var(--grey);border-radius:8px;}
+.how-num{font-family:'Playfair Display',serif;font-size:17px;color:var(--teal);font-weight:700;}
+.how-title{font-size:10.5px;font-weight:700;color:var(--navy);margin-top:3px;}
+.how-desc{font-size:9.5px;color:var(--light);margin-top:4px;line-height:1.4;}
+
+.result-card{display:none;background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;margin-bottom:20px;}
+.rc-hdr{background:var(--navy);padding:18px 24px;}
+.rc-hdr h3{font-family:'Playfair Display',serif;font-size:16px;color:var(--gold);margin-bottom:2px;}
+.rc-hdr p{font-size:11.5px;color:rgba(255,255,255,.65);}
+.rc-body{padding:22px 24px;}
+.status-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:20px;font-size:13px;font-weight:700;margin-bottom:18px;}
+.status-badge.pending{background:var(--amber-bg);color:var(--amber);}
+.status-badge.paid{background:var(--green-bg);color:var(--green);}
+.ds-title{font-size:10.5px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.5px;margin:14px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--border);}
+.ds-title:first-child{margin-top:0;}
+.dr{display:flex;justify-content:space-between;font-size:12.5px;padding:7px 0;border-bottom:1px solid var(--grey);}
+.dk{font-weight:700;color:var(--navy);min-width:110px;}
+.dv{color:var(--mid);text-align:right;}
+.dr.tot{background:var(--tint);border-radius:8px;padding:9px 10px;margin-top:4px;border-bottom:none;}
+.dr.tot .dk{color:var(--navy);}
+.dr.tot .dv{color:var(--teal);font-family:'Playfair Display',serif;font-size:15px;font-weight:700;}
+.pending-info{background:var(--amber-bg);border-left:4px solid var(--amber);border-radius:10px;padding:16px 18px;margin-top:16px;font-size:12.5px;color:var(--amber);line-height:1.7;}
+.paid-info{background:var(--green-bg);border-left:4px solid var(--green);border-radius:10px;padding:16px 18px;margin-top:16px;font-size:12.5px;color:var(--green);line-height:1.7;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;border-radius:10px;font-size:12.5px;font-weight:700;border:none;cursor:pointer;transition:.2s;}
+.btn:hover{transform:translateY(-2px);}
+.btn-g{background:var(--navy);color:#fff;}
+.btn-teal{background:var(--teal);color:#fff;}
+.btn-gold{background:var(--gold);color:var(--navy);}
+
+.bottom-nav{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px;}
+.bn-card{background:var(--white);border-radius:10px;border:1px solid var(--border);padding:14px 8px;text-align:center;cursor:pointer;transition:.2s;}
+.bn-card:hover{border-color:var(--gold);transform:translateY(-2px);}
+.bn-card i{font-size:18px;color:var(--navy);margin-bottom:6px;display:block;}
+.bn-card span{font-size:10.5px;font-weight:700;color:var(--navy);}
+
+.spin-ov{position:fixed;inset:0;background:rgba(11,46,115,.6);z-index:9000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;}
+.spin-ov.on{display:flex;}
+.spin{width:44px;height:44px;border:4px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:sp .9s linear infinite;}
+@keyframes sp{to{transform:rotate(360deg);}}
+.spin-ov p{color:#fff;font-size:13px;}
+.tw{position:fixed;top:80px;right:16px;z-index:8000;display:flex;flex-direction:column;gap:8px;max-width:320px;}
+.tm{background:var(--white);border-radius:10px;box-shadow:0 4px 18px rgba(11,46,115,.15);padding:12px 15px;display:flex;align-items:flex-start;gap:9px;font-size:12.5px;color:var(--text);line-height:1.5;transform:translateX(120%);transition:transform .3s;border-left:4px solid var(--green);}
+.tm.show{transform:translateX(0);}
+.tm.w{border-left-color:var(--amber);}
+.tm.e{border-left-color:#c0392b;}
+footer{background:var(--navy);padding:22px 5%;text-align:center;}
+footer p{color:rgba(255,255,255,.4);font-size:11.5px;}
+
+.panel-mo{position:fixed;inset:0;background:rgba(11,46,115,.55);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:.28s;}
+.panel-mo.open{opacity:1;pointer-events:all;}
+.panel-mb{background:var(--white);border-radius:16px;max-width:380px;width:100%;overflow:hidden;}
+.panel-mb-top{background:var(--amber-bg);border-bottom:3px solid var(--amber);padding:24px;text-align:center;}
+.panel-mb-top i{font-size:34px;color:var(--amber);margin-bottom:10px;}
+.panel-mb-top h3{font-size:15.5px;color:var(--navy);margin-bottom:8px;}
+.panel-mb-top p{font-size:12.5px;color:var(--mid);line-height:1.7;}
+.panel-mb-ft{padding:16px 20px 20px;display:flex;flex-direction:column;gap:10px;}
+
+@media(max-width:520px){.how-grid,.bottom-nav{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+
+<div class="pt" id="pt"><div class="pt-txt">DoveLingua<span class="ptd">.</span><span class="ptd">.</span><span class="ptd">.</span></div></div>
+<div class="spin-ov" id="spinOv"><div class="spin"></div><p>A verificar o seu código...</p></div>
+<div class="tw" id="tw"></div>
+
+<nav>
+  <div class="nav-left">
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+    <a href="index.html" class="nav-brand"><img src="https://download.dovelingua.com/website/Master_Wordmar_original.png" alt="DoveLingua"></a>
+  </div>
+  <div class="nav-right">
+    <a class="back-link" onclick="nav('index.html')"><i class="fa-solid fa-house"></i> Início</a>
+    <a href="auth.html" class="btn-login" title="Entrar"><i class="fa-solid fa-user"></i></a>
+  </div>
+</nav>
+
+<div class="so" id="sO" onclick="toggleMenu()"></div>
+<div class="sm" id="sM">
+  <div class="sm-hdr">
+    <button class="sm-cl" onclick="toggleMenu()">✕</button>
+    <img src="https://download.dovelingua.com/website/Master_Wordmark_white_tex_navy_background.png" alt="DoveLingua">
+  </div>
+  <div class="sm-nav">
+    <a href="auth.html"><i class="fa-solid fa-gauge"></i>O Meu Painel</a>
+    <a onclick="nav('level-test.html')"><i class="fa-solid fa-clipboard-question"></i>Teste de Nível</a>
+    <div class="sdiv"></div>
+    <a onclick="nav('index.html')"><i class="fa-solid fa-house"></i>Início</a>
+    <a onclick="nav('about.html')"><i class="fa-solid fa-dove"></i>Sobre Nós</a>
+    <a onclick="nav('programme.html')"><i class="fa-solid fa-book-open"></i>O Nosso Programa</a>
+    <a onclick="nav('enrol.html')"><i class="fa-solid fa-clipboard-list"></i>Tornar-me Aluno</a>
+    <a onclick="nav('status.html')"><i class="fa-solid fa-magnifying-glass"></i>Estado do Pagamento</a>
+    <a onclick="nav('student-dashboard.html')"><i class="fa-solid fa-user-graduate"></i>O Meu Painel</a>
+    <a href="https://classroom.dovelingua.com" target="_blank"><i class="fa-solid fa-display"></i>Sala de Aula DoveLingua</a>
+    <div class="sdiv"></div>
+    <a onclick="nav('announcements.html')"><i class="fa-solid fa-bullhorn"></i>Avisos</a>
+    <a onclick="nav('faq.html')"><i class="fa-solid fa-circle-question"></i>FAQ</a>
+    <a onclick="nav('contact.html')"><i class="fa-solid fa-envelope"></i>Contactar Suporte</a>
+    <a onclick="nav('terms.html')"><i class="fa-solid fa-file-lines"></i>Termos e Políticas</a>
+  </div>
+  <div class="sm-ft"><p>"Domina o Inglês. Lidera o Teu Futuro."</p></div>
+</div>
+
+<div class="hero">
+  <h1><i class="fa-solid fa-magnifying-glass" style="color:var(--gold);margin-right:8px;"></i>Estado do Pagamento</h1>
+  <div class="hero-pills">
+    <span class="hpx"><i class="fa-solid fa-bolt"></i> Consulta Rápida</span>
+    <span class="hpx"><i class="fa-solid fa-download"></i> Recibo Incluso</span>
+    <span class="hpx"><i class="fa-solid fa-lock"></i> Seguro</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="search-card">
+    <h2>Consultar Código de Referência</h2>
+    <p>Se já fez a sua inscrição, insira aqui o <strong>Código de Referência</strong> que recebeu no momento da submissão para verificar o estado do seu pagamento. Este código começa sempre por <strong>DVL-ST</strong> e pode ser encontrado no recibo que descarregou (Ex: DVL-ST264821). Se ainda não se inscreveu, visite a página de Inscrição.</p>
+    <div class="search-row">
+      <input type="text" id="refInput" placeholder="DVL-ST260000"/>
+      <button class="search-btn" onclick="checkStatus()"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+    <div class="how-grid">
+      <div class="how-card"><div class="how-num">1</div><div class="how-title">Insira o Código</div><div class="how-desc">Digite o seu Código de Referência</div></div>
+      <div class="how-card"><div class="how-num">2</div><div class="how-title">Verificar</div><div class="how-desc">Clique para consultar</div></div>
+      <div class="how-card"><div class="how-num">3</div><div class="how-title">Veja o Resultado</div><div class="how-desc">Estado do seu pagamento</div></div>
+      <div class="how-card"><div class="how-num">4</div><div class="how-title">Aceda ao Painel</div><div class="how-desc">Se já estiver confirmado</div></div>
+    </div>
+  </div>
+
+  <div class="result-card" id="resultCard">
+    <div class="rc-hdr"><h3 id="rcTitle">Resultado</h3><p id="rcSub">Informação sobre a sua inscrição</p></div>
+    <div class="rc-body">
+      <div id="statusBadgeWrap"></div>
+      <div id="dataRows"></div>
+      <div id="statusExtra"></div>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <div class="bn-card" onclick="nav('enrol.html')"><i class="fa-solid fa-pen-to-square"></i><span>Nova Inscrição</span></div>
+    <div class="bn-card" onclick="nav('contact.html')"><i class="fa-solid fa-envelope"></i><span>Contacto</span></div>
+    <div class="bn-card" onclick="window.open('https://wa.me/258828920143','_blank')"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></div>
+    <div class="bn-card" onclick="openPanelWarning()"><i class="fa-solid fa-user-graduate"></i><span>O Meu Painel</span></div>
+  </div>
+</div>
+
+<div class="panel-mo" id="panelMo">
+  <div class="panel-mb">
+    <div class="panel-mb-top">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <h3>Acesso Restrito</h3>
+      <p>Apenas alunos que concluíram a inscrição com sucesso podem aceder ao Painel do Estudante. Verifique primeiro o estado do seu pagamento acima.</p>
+    </div>
+    <div class="panel-mb-ft">
+      <button class="btn btn-g" onclick="closePanelWarning()">Entendi</button>
+    </div>
+  </div>
+</div>
+
+<footer><p>DoveLingua © 2026 - Todos os direitos reservados.</p></footer>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = { apiKey:"AIzaSyAl9A_gXDKTB3N6U1f_Bh5FWrOsySjCJGo", authDomain:"dovelingua-site.firebaseapp.com", projectId:"dovelingua-site", storageBucket:"dovelingua-site.firebasestorage.app", messagingSenderId:"271742052334", appId:"1:271742052334:web:bc736373d7ea50001b50ff", measurementId:"G-N8ELT8SMYM" };
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+let currentRec = null;
+
+window.nav = function(url){ const p=document.getElementById('pt'); p.classList.add('on'); setTimeout(()=>window.location.href=url,350); };
+window.toggleMenu = function(){ document.getElementById('sM').classList.toggle('open'); document.getElementById('sO').classList.toggle('open'); };
+window.openPanelWarning = function(){ document.getElementById('panelMo').classList.add('open'); };
+window.closePanelWarning = function(){ document.getElementById('panelMo').classList.remove('open'); };
+window.toast = function(msg,t,dur){ t=t||'s'; dur=dur||4500; const ic={s:'✅',w:'⚠️',e:'❌'}; const wrap=document.getElementById('tw'); const el=document.createElement('div'); el.className='tm '+({s:'',w:'w',e:'e'}[t]); el.innerHTML='<span>'+ic[t]+'</span><span>'+msg+'</span>'; wrap.appendChild(el); requestAnimationFrame(()=>el.classList.add('show')); setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),400);},dur); };
+
+window.checkStatus = async function() {
+  const input = document.getElementById('refInput');
+  const code = input.value.trim().toUpperCase();
+  input.classList.remove('er');
+
+  if (!code) { toast('Por favor, insira o seu Código de Referência.','w'); return; }
+  if (!code.startsWith('DVL-ST')) { input.classList.add('er'); toast('Código inválido. Os códigos DoveLingua começam sempre por DVL-ST (Ex: DVL-ST264821).','e',6000); return; }
+  if (code.length < 10) { input.classList.add('er'); toast('Código incompleto. Verifique se copiou o código todo.','e',5500); return; }
+
+  document.getElementById('spinOv').classList.add('on');
+  try {
+    const q = query(collection(db,'applications'), where('refCode','==',code));
+    const snap = await getDocs(q);
+    document.getElementById('spinOv').classList.remove('on');
+    if (snap.empty) { input.classList.add('er'); toast('Código não encontrado. Verifique se o digitou corretamente e tente novamente.','e',6000); return; }
+    currentRec = snap.docs[0].data();
+    showResult(currentRec);
+  } catch(e) {
+    document.getElementById('spinOv').classList.remove('on');
+    console.error(e);
+    if (e.code === 'permission-denied') {
+      toast('Não foi possível aceder ao sistema neste momento. Por favor contacte o suporte via WhatsApp.','e',7000);
+    } else if (!navigator.onLine) {
+      toast('Sem ligação à internet. Verifique a sua conexão e tente novamente.','e',6000);
+    } else {
+      toast('Erro ao verificar o código. Por favor, tente novamente em instantes.','e',6000);
+    }
+  }
+};
+
+function showResult(rec) {
+  document.getElementById('resultCard').style.display = 'block';
+  const isPaid = rec.applicationStatus === 'confirmed' || rec.applicationStatus === 'enrolled';
+  document.getElementById('rcTitle').textContent = isPaid ? 'Pagamento Confirmado ✅' : 'A Aguardar Confirmação';
+  document.getElementById('rcSub').textContent = 'Código: ' + rec.refCode;
+  document.getElementById('statusBadgeWrap').innerHTML = isPaid
+    ? '<span class="status-badge paid"><i class="fa-solid fa-circle-check"></i> PAGO — Pagamento Confirmado</span>'
+    : '<span class="status-badge pending"><i class="fa-solid fa-hourglass-half"></i> PENDENTE — A aguardar confirmação</span>';
+
+  document.getElementById('dataRows').innerHTML = `
+    <div class="ds-title">Dados do Aluno</div>
+    <div class="dr"><span class="dk">Nome</span><span class="dv">${rec.fullName||'-'}</span></div>
+    <div class="dr"><span class="dk">E-mail</span><span class="dv">${rec.email||'-'}</span></div>
+    <div class="dr"><span class="dk">WhatsApp</span><span class="dv">${rec.phone||'-'}</span></div>
+    <div class="ds-title">Detalhes da Inscrição</div>
+    <div class="dr"><span class="dk">Nível</span><span class="dv">${rec.levelName||'-'}</span></div>
+    <div class="dr"><span class="dk">Modalidade</span><span class="dv">${rec.payMod==='monthly'?'Mensal':'Nível Completo'}</span></div>
+    <div class="dr"><span class="dk">Ensino</span><span class="dv">${rec.modality||'-'}</span></div>
+    <div class="ds-title">Resumo de Pagamento</div>
+    <div class="dr tot"><span class="dk">Total</span><span class="dv">${(rec.total||0).toLocaleString('pt-MZ')} MZN</span></div>`;
+
+  document.getElementById('statusExtra').innerHTML = isPaid
+    ? `<div class="paid-info"><i class="fa-solid fa-circle-check"></i> A sua conta foi ativada. Use "Esqueci a palavra-passe" na página Entrar para definir o seu acesso ao Painel do Estudante.</div>
+       <div class="action-grid"><a href="auth.html" class="btn btn-g"><i class="fa-solid fa-right-to-bracket"></i> Entrar</a><a href="student-dashboard.html" class="btn btn-teal"><i class="fa-solid fa-user-graduate"></i> Painel do Estudante</a></div>
+       <div class="action-grid" style="margin-top:10px;"><button class="btn btn-gold" style="grid-column:1/-1;" onclick="downloadPendingReceipt()"><i class="fa-solid fa-download"></i> Baixar Recibo Confirmado</button></div>`
+    : `<div class="pending-info"><i class="fa-solid fa-circle-info"></i> O sistema confirma os pagamentos em até <strong>12 horas</strong> após a submissão. Guarde o seu código e volte a consultar mais tarde.</div>
+       <div class="action-grid"><a href="https://wa.me/258828920143" target="_blank" class="btn btn-g"><i class="fa-brands fa-whatsapp"></i> Suporte</a><button class="btn btn-gold" onclick="downloadPendingReceipt()"><i class="fa-solid fa-download"></i> Recibo</button></div>`;
+
+  setTimeout(()=>{ const el=document.getElementById('resultCard'); const top=el.getBoundingClientRect().top+window.pageYOffset-80; window.scrollTo({top,behavior:'smooth'}); },80);
+}
+
+window.downloadPendingReceipt = function() {
+  const rec = currentRec; if (!rec) { toast('Dados não encontrados.','e'); return; }
+  const isPaid = rec.applicationStatus === 'confirmed' || rec.applicationStatus === 'enrolled';
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
+  doc.setFillColor(11,46,115); doc.rect(0,0,210,24,'F');
+  doc.setFont('helvetica','bold'); doc.setFontSize(14); doc.setTextColor(255,255,255);
+  doc.text('DoveLingua English Learning Academy', 105, 12, {align:'center'});
+  doc.setFont('helvetica','bold'); doc.setFontSize(15); doc.setTextColor(11,46,115);
+  doc.text('RECIBO - '+rec.refCode, 105, 36, {align:'center'});
+  let y=50;
+  [['Nome',rec.fullName],['Nível',rec.levelName],['Total',(rec.total||0).toLocaleString('pt-MZ')+' MZN'],['Estado',isPaid?'CONFIRMADO':'PENDENTE']].forEach(r=>{
+    doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.text(r[0]+':',20,y);
+    doc.setFont('helvetica','normal'); doc.text(String(r[1]),70,y); y+=8;
+  });
+  doc.save('DoveLingua_Recibo_'+rec.refCode+'.pdf');
+  toast('Recibo descarregado!','s');
+};
+
+const params = new URLSearchParams(window.location.search);
+if (params.get('ref')) { document.getElementById('refInput').value = params.get('ref'); checkStatus(); }
+window.addEventListener('load', ()=>document.getElementById('pt').classList.remove('on'));
+</script>
+<script src="/key-lock.js"></script>
+</body>
+</html>
