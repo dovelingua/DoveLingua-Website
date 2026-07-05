@@ -20,26 +20,32 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--grey);line-height:1.6;}
 a{text-decoration:none;color:inherit;}
-button,input,select,textarea{font-family:inherit;text-transform:none;}
-input[data-uppercase],select[data-uppercase]{text-transform:uppercase;}
+button,input,select,textarea{font-family:inherit;}
+input[data-uppercase]{text-transform:uppercase;}
 
-/* SIDEBAR - collapsible like Claude */
+/* ═══ SHARED ADMIN SHELL ═══ */
 .app{display:flex;min-height:100vh;}
-.sidebar{width:250px;background:var(--navy);flex-shrink:0;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;transition:width .25s,left .25s;overflow:hidden;}
-.sidebar.collapsed{width:0;}
-.sb-logo{padding:20px 18px;border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between;white-space:nowrap;}
-.sb-logo img{height:34px;}
-.sb-toggle{background:rgba(255,255,255,.1);border:none;color:#fff;width:30px;height:30px;border-radius:8px;cursor:pointer;flex-shrink:0;}
-.sb-nav{flex:1;padding:14px 0;overflow-y:auto;white-space:nowrap;}
+.sidebar{width:250px;background:var(--navy);flex-shrink:0;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;transition:width .22s ease;overflow:hidden;}
+.sidebar.collapsed{width:72px;}
+.sidebar.collapsed .sb-logo img{display:none;}
+.sidebar.collapsed .sb-nav span,.sidebar.collapsed .admin-name,.sidebar.collapsed .admin-role,.sidebar.collapsed .sb-foot a span,.sidebar.collapsed .sb-section-label{display:none;}
+.sidebar.collapsed .sb-nav a{justify-content:center;}
+.sidebar.collapsed .sb-toggle i{transform:rotate(180deg);}
+.sb-logo{padding:18px;border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between;white-space:nowrap;min-height:38px;}
+.sb-logo img{height:32px;}
+.sb-toggle{background:rgba(255,255,255,.1);border:none;color:#fff;width:30px;height:30px;border-radius:8px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.sb-toggle:hover{background:var(--gold);color:var(--navy);}
+.sb-nav{flex:1;padding:14px 0;overflow-y:auto;overflow-x:hidden;white-space:nowrap;}
 .sb-nav a{display:flex;align-items:center;gap:12px;padding:12px 18px;font-size:13px;color:rgba(255,255,255,.65);cursor:pointer;border-left:3px solid transparent;transition:.15s;}
 .sb-nav a:hover{background:rgba(255,255,255,.05);color:#fff;}
 .sb-nav a.active{background:rgba(255,255,255,.08);color:var(--gold);border-left-color:var(--gold);}
-.sb-nav a i{width:18px;text-align:center;}
+.sb-nav a i{width:18px;text-align:center;flex-shrink:0;}
 .sb-section-label{padding:16px 18px 6px;font-size:10px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;}
-.sb-foot{padding:16px 18px;border-top:1px solid rgba(255,255,255,.1);white-space:nowrap;}
+.sb-foot{padding:16px 18px;border-top:1px solid rgba(255,255,255,.1);white-space:nowrap;overflow:hidden;}
 .sb-foot .admin-name{font-size:12.5px;color:#fff;font-weight:600;}
 .sb-foot .admin-role{font-size:10.5px;color:rgba(255,255,255,.4);}
 .sb-foot a{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:rgba(255,255,255,.5);cursor:pointer;}
+.sb-foot a:hover{color:#fff;}
 
 .main{flex:1;min-width:0;display:flex;flex-direction:column;}
 .topbar{background:var(--navy);border-bottom:3px solid var(--gold);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:40;}
@@ -47,6 +53,11 @@ input[data-uppercase],select[data-uppercase]{text-transform:uppercase;}
 .sb-open-btn{display:none;background:rgba(255,255,255,.1);border:none;color:#fff;width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:15px;}
 .topbar h1{font-family:'Playfair Display',serif;font-size:19px;color:#fff;}
 .topbar .tb-sub{font-size:12px;color:rgba(255,255,255,.6);}
+.topbar-right{display:flex;align-items:center;gap:10px;}
+.view-as-wrap{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border-radius:20px;padding:7px 14px;}
+.view-as-wrap i{color:var(--gold);font-size:12px;}
+.view-as-wrap select{background:none;border:none;color:#fff;font-size:11.5px;cursor:pointer;outline:none;}
+.view-as-wrap select option{color:var(--text);}
 .content{padding:24px 28px 60px;flex:1;}
 .footer-line{background:var(--navy);padding:16px 5%;text-align:center;}
 .footer-line p{color:rgba(255,255,255,.4);font-size:11.5px;}
@@ -57,8 +68,23 @@ input[data-uppercase],select[data-uppercase]{text-transform:uppercase;}
 .btn-o{background:transparent;color:var(--navy);border:1.5px solid var(--navy);}
 .btn-danger{background:var(--red-bg);color:var(--red);}
 .btn-danger:hover{background:var(--red);color:#fff;}
+.btn-success{background:var(--green-bg);color:var(--green);}
+.btn-success:hover{background:var(--green);color:#fff;}
 .btn-sm{padding:6px 14px;font-size:11.5px;}
+.btn:disabled{opacity:.5;cursor:not-allowed;}
 
+.toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:14px 22px;border-radius:12px;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.3);z-index:600;transform:translateY(100px);opacity:0;transition:.3s;}
+.toast.show{transform:translateY(0);opacity:1;}
+
+@media(max-width:900px){
+  .sidebar{position:fixed;left:-260px;z-index:200;width:250px;height:100vh;}
+  .sidebar.mobile-open{left:0;}
+  .sidebar.collapsed{width:250px;}
+  .sb-open-btn{display:block;}
+  .sb-toggle-desktop{display:none!important;}
+}
+
+/* ═══ PAGE SPECIFIC: PEOPLE ═══ */
 .toolbar{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:14px 20px;margin-bottom:18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
 .search-box{display:flex;align-items:center;gap:8px;background:var(--grey);border-radius:20px;padding:8px 14px;flex:1;min-width:200px;max-width:300px;}
 .search-box input{border:none;background:none;outline:none;font-size:12.5px;flex:1;}
@@ -68,10 +94,10 @@ input[data-uppercase],select[data-uppercase]{text-transform:uppercase;}
 .role-tab .cb{background:rgba(0,0,0,.15);padding:1px 7px;border-radius:8px;font-size:10px;}
 .role-tab.active .cb{background:rgba(255,255,255,.2);}
 
-/* MOVEABLE TABLE - fixed name column, scrollable fields */
+/* Moveable/scrollable table — sticky name column, swipe/scroll the rest */
 .u-table-wrap{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;position:relative;}
-.u-table-scroll{overflow-x:auto;}
-.u-table{width:100%;border-collapse:collapse;min-width:1000px;}
+.u-table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.u-table{width:100%;border-collapse:collapse;min-width:1100px;}
 .u-table thead th{background:var(--grey);font-size:10px;font-weight:700;color:var(--light);text-transform:uppercase;padding:12px 14px;text-align:left;white-space:nowrap;}
 .u-table thead th:first-child,.u-table tbody td:first-child{position:sticky;left:0;background:var(--white);z-index:5;box-shadow:2px 0 6px rgba(0,0,0,.05);}
 .u-table tbody td{padding:12px 14px;border-top:1px solid var(--border);font-size:12.5px;white-space:nowrap;}
@@ -90,22 +116,23 @@ input[data-uppercase],select[data-uppercase]{text-transform:uppercase;}
 .status-dot{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;}
 .status-dot::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);}
 .status-dot.blocked::before{background:var(--red);}
+.status-dot.overdue::before{background:var(--amber);}
 .icon-btn{width:30px;height:30px;border-radius:8px;background:var(--grey);border:none;color:var(--mid);cursor:pointer;}
 .icon-btn:hover{background:var(--navy);color:#fff;}
-.empty-state{padding:60px 20px;text-align:center;color:var(--light);}
-.empty-state i{font-size:36px;margin-bottom:14px;display:block;color:var(--tint);}
+.scroll-hint{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--light);padding:8px 20px;border-top:1px solid var(--border);background:var(--grey);}
+.scroll-hint i{color:var(--gold);}
 
-/* MODAL - large, full profile */
+/* MODAL */
 .modal-ov{display:none;position:fixed;inset:0;background:rgba(11,46,115,.55);z-index:500;align-items:flex-start;justify-content:center;padding:20px 16px;overflow-y:auto;}
 .modal-ov.show{display:flex;}
-.modal{background:var(--white);border-radius:var(--r);max-width:760px;width:100%;margin:20px 0;}
+.modal{background:var(--white);border-radius:var(--r);max-width:780px;width:100%;margin:20px 0;}
 .modal-hdr{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--navy);border-radius:var(--r) var(--r) 0 0;}
 .modal-hdr h3{font-family:'Playfair Display',serif;font-size:17px;color:var(--gold);}
 .modal-close{width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,.15);border:none;color:#fff;cursor:pointer;}
 .modal-tabs{display:flex;gap:4px;padding:12px 24px 0;border-bottom:1px solid var(--border);overflow-x:auto;}
 .mtab{padding:10px 16px;font-size:12.5px;font-weight:600;color:var(--light);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;}
 .mtab.active{color:var(--navy);border-bottom-color:var(--gold);}
-.modal-body{padding:20px 24px;max-height:60vh;overflow-y:auto;}
+.modal-body{padding:20px 24px;max-height:65vh;overflow-y:auto;}
 .mpanel{display:none;}
 .mpanel.active{display:block;}
 .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
@@ -116,59 +143,39 @@ input[data-uppercase],select[data-uppercase]{text-transform:uppercase;}
 .role-check{display:flex;align-items:center;gap:8px;background:var(--grey);border-radius:10px;padding:10px 16px;cursor:pointer;}
 .role-check input{width:16px;height:16px;accent-color:var(--navy);}
 .role-check.checked{background:var(--tint);}
-.hist-item{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--grey);font-size:12.5px;}
+.hist-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--grey);font-size:12.5px;gap:10px;}
 .hist-item:last-child{border-bottom:none;}
+.hist-status{font-size:10px;font-weight:700;padding:2px 9px;border-radius:8px;flex-shrink:0;}
+.hist-status.confirmed{background:var(--green-bg);color:var(--green);}
+.hist-status.pending{background:var(--amber-bg);color:var(--amber);}
 .action-grid-modal{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;}
 .form-group{margin-bottom:12px;}
 .form-group label{display:block;font-size:11px;font-weight:700;color:var(--mid);text-transform:uppercase;margin-bottom:5px;}
-.form-group input,.form-group select{width:100%;padding:9px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;outline:none;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:9px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;outline:none;font-family:inherit;}
+.form-group textarea{min-height:70px;resize:vertical;}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .modal-ftr{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.confirm-box{background:var(--amber-bg);border:1px solid var(--amber);border-radius:10px;padding:14px;margin-bottom:14px;font-size:12.5px;color:var(--amber);}
+.due-alert{background:var(--red-bg);color:var(--red);border-radius:8px;padding:10px 14px;font-size:12px;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.payment-row{background:var(--grey);border-radius:10px;padding:12px 14px;margin-bottom:10px;}
+.payment-row .pr-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.payment-row .pr-amt{font-family:'Playfair Display',serif;font-weight:700;color:var(--navy);}
+.payment-row .pr-actions{display:flex;gap:8px;margin-top:8px;}
 .toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:14px 22px;border-radius:12px;font-size:13px;z-index:600;transform:translateY(100px);opacity:0;transition:.3s;}
 .toast.show{transform:translateY(0);opacity:1;}
 
-@media(max-width:900px){
-  .sidebar{position:fixed;left:-260px;z-index:200;width:250px;}
-  .sidebar.mobile-open{left:0;}
-  .sb-open-btn{display:block;}
-  .detail-grid{grid-template-columns:1fr;}
-  .action-grid-modal{grid-template-columns:1fr;}
+@media(max-width:700px){
+  .detail-grid,.action-grid-modal,.form-row-2{grid-template-columns:1fr;}
 }
 </style>
 </head>
 <body>
 
 <div class="app">
-  <div class="sidebar" id="sidebar">
-    <div class="sb-logo"><img src="https://download.dovelingua.com/website/Master_Wordmark_white_tex_navy_background.png" alt="DoveLingua"><button class="sb-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-angles-left"></i></button></div>
-    <div class="sb-nav">
-      <div class="sb-section-label">Gestão</div>
-      <a onclick="location.href='admin-dashboard.html'"><i class="fa-solid fa-gauge"></i> Painel Geral</a>
-      <a class="active"><i class="fa-solid fa-users"></i> Estudantes e Utilizadores</a>
-      <a onclick="location.href='admin-courses.html'"><i class="fa-solid fa-graduation-cap"></i> Cursos</a>
-      <a onclick="location.href='admin-payments.html'"><i class="fa-solid fa-money-check-dollar"></i> Pagamentos</a>
-      <div class="sb-section-label">Avaliação</div>
-      <a onclick="location.href='admin-level-test-editor.html'"><i class="fa-solid fa-clipboard-question"></i> Editor de Testes</a>
-      <a onclick="location.href='admin-announcements.html'"><i class="fa-solid fa-bullhorn"></i> Avisos</a>
-      <a onclick="location.href='admin-documents.html'"><i class="fa-solid fa-folder"></i> Documentos</a>
-      <div class="sb-section-label">Sistema</div>
-      <a onclick="location.href='admin-settings.html'"><i class="fa-solid fa-gear"></i> Configurações</a>
-    </div>
-    <div class="sb-foot"><div class="admin-name" id="adminName">Admin</div><div class="admin-role">Administrador</div><a id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></div>
-  </div>
+  <div id="shellSidebar"></div>
 
   <div class="main">
-    <div class="topbar">
-      <div class="topbar-left">
-        <button class="sb-open-btn" onclick="toggleSidebarMobile()"><i class="fa-solid fa-bars"></i></button>
-        <button class="sb-toggle" id="desktopOpenBtn" onclick="toggleSidebar()" style="display:none;"><i class="fa-solid fa-angles-right"></i></button>
-        <div><h1>Estudantes e Utilizadores</h1><div class="tb-sub">Gestão completa de contas, funções e histórico</div></div>
-      </div>
-      <div style="display:flex;gap:8px;">
-        <button class="btn btn-o" onclick="exportPDF()"><i class="fa-solid fa-file-pdf"></i> PDF</button>
-        <button class="btn btn-o" onclick="exportExcel()"><i class="fa-solid fa-file-excel"></i> Excel</button>
-        <button class="btn btn-g" onclick="openManualEnrol()"><i class="fa-solid fa-user-plus"></i> Inscrever Manualmente</button>
-      </div>
-    </div>
+    <div id="shellTopbar"></div>
 
     <div class="content">
       <div class="toolbar">
@@ -181,19 +188,25 @@ input[data-uppercase],select[data-uppercase]{text-transform:uppercase;}
           <div class="role-tab" data-role="admin" onclick="filterRole('admin',this)">Admin <span class="cb" id="cAdmin">0</span></div>
         </div>
         <div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="searchInput" placeholder="Pesquisar nome, email ou código..." oninput="renderTable()"></div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-o btn-sm" onclick="exportPDF()"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+          <button class="btn btn-o btn-sm" onclick="exportExcel()"><i class="fa-solid fa-file-excel"></i> Excel</button>
+          <button class="btn btn-g btn-sm" onclick="openManualEnrol()"><i class="fa-solid fa-user-plus"></i> Inscrever</button>
+        </div>
       </div>
 
       <div class="u-table-wrap">
         <div class="u-table-scroll">
           <table class="u-table">
-            <thead><tr><th>Estudante</th><th>Email</th><th>Telefone</th><th>Idade</th><th>Género</th><th>Código</th><th>Função(ões)</th><th>Estado</th><th>Ações</th></tr></thead>
+            <thead><tr><th>Estudante</th><th>Email</th><th>Telefone</th><th>Idade</th><th>Género</th><th>Código</th><th>Função(ões)</th><th>Estado</th><th>Vencimento</th><th>Ações</th></tr></thead>
             <tbody id="tableBody"></tbody>
           </table>
         </div>
+        <div class="scroll-hint"><i class="fa-solid fa-arrows-left-right"></i> Deslize para o lado para ver todos os campos</div>
       </div>
     </div>
 
-    <div class="footer-line"><p id="dynamicFooter"></p></div>
+    <div id="shellFooter"></div>
   </div>
 </div>
 
@@ -204,26 +217,47 @@ input[data-uppercase],select[data-uppercase]{text-transform:uppercase;}
     <div class="modal-tabs">
       <div class="mtab active" data-tab="info" onclick="switchTab('info',this)">Informação</div>
       <div class="mtab" data-tab="roles" onclick="switchTab('roles',this)">Funções</div>
+      <div class="mtab" data-tab="enrollment" onclick="switchTab('enrollment',this)">Inscrição</div>
       <div class="mtab" data-tab="financial" onclick="switchTab('financial',this)">Financeiro</div>
-      <div class="mtab" data-tab="history" onclick="switchTab('history',this)">Histórico</div>
       <div class="mtab" data-tab="actions" onclick="switchTab('actions',this)">Ações</div>
     </div>
     <div class="modal-body">
       <div class="mpanel active" id="panel-info">
         <div class="detail-grid" id="infoGrid"></div>
       </div>
+
       <div class="mpanel" id="panel-roles">
-        <p style="font-size:12.5px;color:var(--mid);margin-bottom:10px;">Um utilizador pode ter mais do que uma função (ex: Estudante e Professor).</p>
+        <p style="font-size:12.5px;color:var(--mid);margin-bottom:10px;">Um utilizador pode ter mais do que uma função (ex: Estudante e Professor), tal como no Moodle.</p>
         <div class="role-check-grid" id="roleCheckGrid"></div>
       </div>
+
+      <div class="mpanel" id="panel-enrollment">
+        <div id="dueAlertBox"></div>
+        <div class="form-row-2">
+          <div class="form-group"><label>Curso / Nível</label><select id="fEnrolCourse"><option value="">— Nenhum —</option></select></div>
+          <div class="form-group"><label>Data Limite (Vencimento)</label><input type="date" id="fDueDate"></div>
+        </div>
+        <div class="form-group">
+          <label><input type="checkbox" id="fSuspendCourse" style="width:auto;margin-right:6px;"> Suspender neste curso (mantém acesso ao painel, bloqueia apenas a disciplina)</label>
+        </div>
+        <p style="font-size:11px;color:var(--light);margin-top:8px;"><i class="fa-solid fa-circle-info"></i> A renovação automática e o bloqueio programado por data/hora exigem uma Cloud Function (execução agendada) — este painel define os dados; a função agendada é quem executa a ação automaticamente.</p>
+      </div>
+
       <div class="mpanel" id="panel-financial">
-        <div class="detail-grid" id="financialGrid"></div>
+        <div id="financialSummary" class="detail-grid" style="margin-bottom:16px;"></div>
+        <h4 style="font-size:12.5px;color:var(--navy);margin-bottom:10px;">Histórico de Pagamentos</h4>
+        <div id="paymentsList"></div>
+        <hr style="border:none;border-top:1px solid var(--border);margin:16px 0;">
+        <h4 style="font-size:12.5px;color:var(--navy);margin-bottom:10px;">Registar Pagamento Manualmente</h4>
+        <div class="form-row-2">
+          <div class="form-group"><label>Valor (MZN)</label><input type="number" id="fPayAmount" placeholder="600"></div>
+          <div class="form-group"><label>Referência</label><input type="text" id="fPayRef" data-uppercase placeholder="DVL-2026-0001"></div>
+        </div>
+        <div class="form-group"><label>Link do Comprovativo (opcional)</label><input type="text" id="fPayReceipt" placeholder="https://..."></div>
+        <button class="btn btn-o btn-sm" onclick="addManualPayment()"><i class="fa-solid fa-plus"></i> Adicionar Registo Pendente</button>
       </div>
-      <div class="mpanel" id="panel-history">
-        <div id="historyList"></div>
-      </div>
+
       <div class="mpanel" id="panel-actions">
-        <div class="form-group"><label>Data Limite da Inscrição Atual</label><input type="date" id="fDueDate"></div>
         <div class="form-group"><label>Restringir Funcionalidades</label>
           <select id="fRestrict"><option value="none">Nenhuma restrição</option><option value="messages">Bloquear Mensagens</option><option value="tests">Bloquear Testes</option><option value="full">Restrição Total (apenas ver painel)</option></select>
         </div>
@@ -245,47 +279,62 @@ input[data-uppercase],select[data-uppercase]{text-transform:uppercase;}
   <div class="modal" style="max-width:520px;">
     <div class="modal-hdr"><h3>Inscrever Estudante Manualmente</h3><button class="modal-close" onclick="closeModal('manualEnrolModal')"><i class="fa-solid fa-xmark"></i></button></div>
     <div class="modal-body">
-      <div class="form-group"><label>Nome Completo</label><input type="text" id="meName" data-uppercase style="text-transform:none;"></div>
+      <div class="form-group"><label>Nome Completo</label><input type="text" id="meName"></div>
       <div class="form-group"><label>Email</label><input type="email" id="meEmail"></div>
-      <div class="form-group"><label>Telefone</label><input type="tel" id="mePhone"></div>
-      <div class="form-group"><label>Nível</label><select id="meLevel"><option value="A1">A1</option><option value="A2">A2</option></select></div>
+      <div class="form-row-2">
+        <div class="form-group"><label>Telefone</label><input type="tel" id="mePhone"></div>
+        <div class="form-group"><label>Idade</label><input type="number" id="meAge"></div>
+      </div>
+      <div class="form-row-2">
+        <div class="form-group"><label>Género</label><select id="meGender"><option value="">—</option><option value="Feminino">Feminino</option><option value="Masculino">Masculino</option><option value="Outro">Outro</option></select></div>
+        <div class="form-group"><label>Nível</label><select id="meLevel"><option>Pre-A1</option><option>A1</option><option>A2</option><option>A2+</option><option>B1</option><option>B2</option><option>C1</option></select></div>
+      </div>
       <div class="form-group"><label>Função Inicial</label><select id="meRole"><option value="student">Estudante</option><option value="applicant">Candidato</option></select></div>
+      <div class="form-group"><label>Data Limite Inicial</label><input type="date" id="meDueDate"></div>
     </div>
     <div class="modal-ftr"><button class="btn btn-o" onclick="closeModal('manualEnrolModal')">Cancelar</button><button class="btn btn-g" onclick="submitManualEnrol()"><i class="fa-solid fa-check"></i> Inscrever</button></div>
+  </div>
+</div>
+
+<!-- PAYMENT CONFIRM MODAL -->
+<div class="modal-ov" id="confirmPayModal">
+  <div class="modal" style="max-width:480px;">
+    <div class="modal-hdr"><h3>Confirmar Pagamento</h3><button class="modal-close" onclick="closeModal('confirmPayModal')"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="modal-body">
+      <div class="confirm-box"><i class="fa-solid fa-triangle-exclamation"></i> Reveja o comprovativo e o histórico de inscrição antes de confirmar. Esta ação atualiza o estado financeiro do estudante.</div>
+      <div class="detail-grid" id="confirmPayDetails"></div>
+    </div>
+    <div class="modal-ftr">
+      <button class="btn btn-o" id="confirmPayReceiptBtn" onclick="window.open(window._confirmingPayment?.receiptLink||'#','_blank')"><i class="fa-solid fa-file-arrow-down"></i> Ver Comprovativo</button>
+      <button class="btn btn-success" onclick="confirmPaymentFinal()"><i class="fa-solid fa-check"></i> Confirmar Pagamento</button>
+    </div>
   </div>
 </div>
 
 <div class="toast" id="toast"><span id="toastText"></span></div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
-import { getFirestore, collection, doc, setDoc, updateDoc, getDocs, getDoc, query, where, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+import { mountShell, requireAdmin, showToast, applyAutoUppercase, db, auth } from './admin-shell.js';
+import { createUserWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import { collection, doc, setDoc, updateDoc, getDocs, getDoc, query, where, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
-const firebaseConfig = { apiKey:"AIzaSyAl9A_gXDKTB3N6U1f_Bh5FWrOsySjCJGo", authDomain:"dovelingua-site.firebaseapp.com", projectId:"dovelingua-site", storageBucket:"dovelingua-site.firebasestorage.app", messagingSenderId:"271742052334", appId:"1:271742052334:web:bc736373d7ea50001b50ff", measurementId:"G-N8ELT8SMYM" };
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+mountShell({ activeKey: 'people', pageTitle: 'Estudantes e Utilizadores', pageSubtitle: 'Gestão completa de contas, funções e histórico financeiro' });
 
-let allUsers = [], currentRoleFilter = 'all', editingUid = null;
-document.getElementById('dynamicFooter').textContent = 'DoveLingua © ' + new Date().getFullYear() + ' - Todos os direitos reservados.';
+let allUsers = [], allCourses = [], currentRoleFilter = 'all', editingUid = null;
 
-onAuthStateChanged(auth, async (user) => {
-  if (!user) { window.location.href='auth.html'; return; }
-  const snap = await getDoc(doc(db,'users',user.uid));
-  const roles = snap.exists() ? (snap.data().roles || [snap.data().role]) : [];
-  if (!roles.includes('admin')) { window.location.href='unauthorized.html'; return; }
-  document.getElementById('adminName').textContent = snap.data().fullName || 'Admin';
+requireAdmin(() => {
+  applyAutoUppercase(document.getElementById('fPayRef'));
+  loadCourseOptions();
   loadUsers();
 });
-document.getElementById('logoutBtn').addEventListener('click', async () => { await signOut(auth); window.location.href='index.html'; });
 
-window.toggleSidebar = function() {
-  const sb = document.getElementById('sidebar');
-  sb.classList.toggle('collapsed');
-  document.getElementById('desktopOpenBtn').style.display = sb.classList.contains('collapsed') ? 'block' : 'none';
-};
-window.toggleSidebarMobile = function() { document.getElementById('sidebar').classList.toggle('mobile-open'); };
+async function loadCourseOptions() {
+  const snap = await getDocs(collection(db,'courses'));
+  allCourses = [];
+  snap.forEach(d => allCourses.push({ id:d.id, ...d.data() }));
+  document.getElementById('fEnrolCourse').innerHTML = '<option value="">— Nenhum —</option>' +
+    allCourses.map(c => `<option value="${c.id}">${c.cefr} — ${c.name}</option>`).join('');
+}
 
 async function loadUsers() {
   const snap = await getDocs(collection(db,'users'));
@@ -295,6 +344,8 @@ async function loadUsers() {
   renderTable();
 }
 function getRoles(u) { return u.roles || (u.role ? [u.role] : ['applicant']); }
+function roleLabel(r) { return { applicant:'Candidato', student:'Estudante', teacher:'Professor', staff:'Staff', admin:'Admin' }[r] || r; }
+
 function updateCounts() {
   const c = { applicant:0, student:0, teacher:0, staff:0, admin:0 };
   allUsers.forEach(u => getRoles(u).forEach(r => { if (c[r]!==undefined) c[r]++; }));
@@ -305,12 +356,23 @@ function updateCounts() {
   document.getElementById('cStaff').textContent = c.staff;
   document.getElementById('cAdmin').textContent = c.admin;
 }
+
 window.filterRole = function(role, el) {
   currentRoleFilter = role;
   document.querySelectorAll('.role-tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
   renderTable();
 };
+
+/* Overdue check — client-side READ-ONLY status display.
+   The real automatic block/renew action must run server-side via a
+   scheduled Cloud Function. This only reflects the current stored dueDate
+   for the admin to see; it does not act on it. */
+function isOverdue(u) {
+  if (!u.dueDate) return false;
+  return new Date(u.dueDate) < new Date();
+}
+
 window.renderTable = function() {
   const search = document.getElementById('searchInput').value.toLowerCase();
   const filtered = allUsers.filter(u => {
@@ -320,9 +382,12 @@ window.renderTable = function() {
     return true;
   });
   const body = document.getElementById('tableBody');
-  if (filtered.length===0) { body.innerHTML = '<tr><td colspan="9" style="padding:50px;text-align:center;color:var(--light);">Nenhum resultado encontrado.</td></tr>'; return; }
+  if (filtered.length===0) { body.innerHTML = '<tr><td colspan="10" style="padding:50px;text-align:center;color:var(--light);">Nenhum resultado encontrado.</td></tr>'; return; }
   body.innerHTML = filtered.map(u => {
     const roles = getRoles(u);
+    const overdue = isOverdue(u);
+    let statusClass = u.isBlocked ? 'blocked' : (overdue ? 'overdue' : '');
+    let statusLabel = u.isBlocked ? 'Bloqueado' : (overdue ? 'Vencido' : 'Ativo');
     return `<tr>
       <td><div class="name-cell"><div class="u-avatar">${(u.fullName||'?').charAt(0).toUpperCase()}</div><div><div>${u.fullName||'Sem nome'}</div><div class="u-code">${u.studentCode||''}</div></div></div></td>
       <td>${u.email||'-'}</td>
@@ -331,18 +396,19 @@ window.renderTable = function() {
       <td>${u.gender||'-'}</td>
       <td>${u.studentCode||'-'}</td>
       <td><div class="role-pill">${roles.map(r=>`<span class="role-badge ${r}">${roleLabel(r)}</span>`).join('')}</div></td>
-      <td><span class="status-dot ${u.isBlocked?'blocked':''}">${u.isBlocked?'Bloqueado':'Ativo'}</span></td>
+      <td><span class="status-dot ${statusClass}">${statusLabel}</span></td>
+      <td>${u.dueDate ? new Date(u.dueDate).toLocaleDateString('pt-PT') : '-'}</td>
       <td><button class="icon-btn" onclick="openProfile('${u.uid}')"><i class="fa-solid fa-eye"></i></button></td>
     </tr>`;
   }).join('');
 };
-function roleLabel(r) { return { applicant:'Candidato', student:'Estudante', teacher:'Professor', staff:'Staff', admin:'Admin' }[r] || r; }
 
 window.openProfile = async function(uid) {
   const u = allUsers.find(x=>x.uid===uid);
   if (!u) return;
   editingUid = uid;
   document.getElementById('modalName').textContent = u.fullName || 'Perfil';
+
   document.getElementById('infoGrid').innerHTML = [
     ['Nome Completo',u.fullName],['Email',u.email],['Telefone',u.phone],['Idade',u.age],['Género',u.gender],
     ['Província',u.province],['Código',u.studentCode||'—'],['Registado em',u.createdAt?new Date(u.createdAt.seconds*1000).toLocaleDateString('pt-PT'):'-']
@@ -354,19 +420,49 @@ window.openProfile = async function(uid) {
     <label class="role-check ${userRoles.includes(r)?'checked':''}"><input type="checkbox" value="${r}" ${userRoles.includes(r)?'checked':''} onchange="this.parentElement.classList.toggle('checked',this.checked)"> ${roleLabel(r)}</label>
   `).join('');
 
+  // Enrollment tab
+  document.getElementById('fEnrolCourse').value = u.enrolledCourseId || '';
+  document.getElementById('fDueDate').value = u.dueDate || '';
+  document.getElementById('fSuspendCourse').checked = !!u.suspendedInCourse;
+  const overdue = isOverdue(u);
+  document.getElementById('dueAlertBox').innerHTML = overdue
+    ? `<div class="due-alert"><i class="fa-solid fa-triangle-exclamation"></i> Inscrição vencida desde ${new Date(u.dueDate).toLocaleDateString('pt-PT')}. Renovação automática requer Cloud Function agendada.</div>`
+    : '';
+
+  // Financial tab
   try {
-    const appQ = query(collection(db,'applications'), where('uid','==',uid));
-    const appSnap = await getDocs(appQ);
-    let financialRows = [];
-    appSnap.forEach(d => { const a=d.data(); financialRows.push(['Ref: '+a.refCode, (a.total||0).toLocaleString('pt-MZ')+' MZN - '+(a.applicationStatus==='confirmed'?'Confirmado':'Pendente')]); });
-    document.getElementById('financialGrid').innerHTML = financialRows.length ? financialRows.map(([k,v])=>`<div class="detail-row"><div class="drl">${k}</div><div class="drv">${v}</div></div>`).join('') : '<p style="color:var(--light);">Sem registos financeiros.</p>';
-    document.getElementById('historyList').innerHTML = financialRows.length ? financialRows.map(([k,v])=>`<div class="hist-item"><span>${k}</span><span>${v}</span></div>`).join('') : '<p style="color:var(--light);">Sem histórico ainda.</p>';
-  } catch(e) {}
+    const payQ = query(collection(db,'payments'), where('uid','==',uid));
+    const paySnap = await getDocs(payQ);
+    let payments = [];
+    paySnap.forEach(d => payments.push({ id:d.id, ...d.data() }));
+
+    const totalConfirmed = payments.filter(p=>p.status==='confirmed').reduce((s,p)=>s+(p.amount||0),0);
+    const totalPending = payments.filter(p=>p.status==='pending').reduce((s,p)=>s+(p.amount||0),0);
+    document.getElementById('financialSummary').innerHTML = `
+      <div class="detail-row"><div class="drl">Total Confirmado</div><div class="drv">${totalConfirmed.toLocaleString('pt-MZ')} MZN</div></div>
+      <div class="detail-row"><div class="drl">Total Pendente</div><div class="drv">${totalPending.toLocaleString('pt-MZ')} MZN</div></div>
+    `;
+
+    document.getElementById('paymentsList').innerHTML = payments.length ? payments.map(p => `
+      <div class="payment-row">
+        <div class="pr-top">
+          <span class="pr-amt">${(p.amount||0).toLocaleString('pt-MZ')} MZN</span>
+          <span class="hist-status ${p.status}">${p.status==='confirmed'?'Confirmado':'Pendente'}</span>
+        </div>
+        <div style="font-size:11.5px;color:var(--light);">Ref: ${p.reference||'-'} · ${p.createdAt?new Date(p.createdAt.seconds*1000).toLocaleDateString('pt-PT'):''}</div>
+        ${p.status==='pending' ? `<div class="pr-actions">
+          <button class="btn btn-o btn-sm" onclick='openConfirmPayment(${JSON.stringify({id:p.id,amount:p.amount,reference:p.reference,receiptLink:p.receiptLink||'',uid}).replace(/'/g,"&apos;")})'><i class="fa-solid fa-magnifying-glass"></i> Rever e Confirmar</button>
+        </div>` : ''}
+      </div>
+    `).join('') : '<p style="color:var(--light);font-size:12.5px;">Sem registos de pagamento ainda.</p>';
+  } catch(e) { console.error(e); }
 
   document.getElementById('blockToggleBtn').innerHTML = u.isBlocked ? '<i class="fa-solid fa-check"></i> Desbloquear Conta' : '<i class="fa-solid fa-ban"></i> Bloquear Conta';
   document.getElementById('fRestrict').value = u.restriction || 'none';
   document.getElementById('profileModal').classList.add('show');
+  switchTab('info', document.querySelector('.mtab[data-tab="info"]'));
 };
+
 window.closeModal = function(id) { document.getElementById(id).classList.remove('show'); };
 window.switchTab = function(tab, el) {
   document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('active'));
@@ -379,9 +475,12 @@ window.saveProfile = async function() {
   if (!editingUid) return;
   const checkedRoles = Array.from(document.querySelectorAll('#roleCheckGrid input:checked')).map(c=>c.value);
   const restriction = document.getElementById('fRestrict').value;
+  const enrolledCourseId = document.getElementById('fEnrolCourse').value;
+  const dueDate = document.getElementById('fDueDate').value;
+  const suspendedInCourse = document.getElementById('fSuspendCourse').checked;
   try {
-    const updateData = { roles: checkedRoles, restriction };
     const u = allUsers.find(x=>x.uid===editingUid);
+    const updateData = { roles: checkedRoles, restriction, enrolledCourseId, dueDate, suspendedInCourse };
     if (checkedRoles.includes('student') && !u.studentCode) {
       updateData.studentCode = 'DVL-ST-' + Math.floor(1000+Math.random()*9000);
     }
@@ -391,6 +490,7 @@ window.saveProfile = async function() {
     loadUsers();
   } catch(e) { showToast('Erro ao guardar.'); }
 };
+
 window.toggleBlock = async function() {
   if (!editingUid) return;
   const u = allUsers.find(x=>x.uid===editingUid);
@@ -399,6 +499,7 @@ window.toggleBlock = async function() {
   closeModal('profileModal');
   loadUsers();
 };
+
 window.sendPaymentReminder = async function() {
   if (!editingUid) return;
   const u = allUsers.find(x=>x.uid===editingUid);
@@ -408,19 +509,56 @@ window.sendPaymentReminder = async function() {
   } catch(e) { showToast('Erro ao enviar aviso.'); }
 };
 
+window.addManualPayment = async function() {
+  if (!editingUid) return;
+  const amount = +document.getElementById('fPayAmount').value;
+  const reference = document.getElementById('fPayRef').value.trim();
+  const receiptLink = document.getElementById('fPayReceipt').value.trim();
+  if (!amount || !reference) { showToast('Preencha valor e referência.'); return; }
+  try {
+    await addDoc(collection(db,'payments'), { uid:editingUid, amount, reference, receiptLink, status:'pending', createdAt:serverTimestamp() });
+    showToast('Registo de pagamento adicionado como pendente.');
+    document.getElementById('fPayAmount').value=''; document.getElementById('fPayRef').value=''; document.getElementById('fPayReceipt').value='';
+    openProfile(editingUid);
+  } catch(e) { showToast('Erro ao registar pagamento.'); }
+};
+
+window.openConfirmPayment = function(p) {
+  window._confirmingPayment = p;
+  document.getElementById('confirmPayDetails').innerHTML = `
+    <div class="detail-row"><div class="drl">Valor</div><div class="drv">${(p.amount||0).toLocaleString('pt-MZ')} MZN</div></div>
+    <div class="detail-row"><div class="drl">Referência</div><div class="drv">${p.reference||'-'}</div></div>
+  `;
+  document.getElementById('confirmPayReceiptBtn').disabled = !p.receiptLink;
+  document.getElementById('confirmPayModal').classList.add('show');
+};
+window.confirmPaymentFinal = async function() {
+  const p = window._confirmingPayment;
+  if (!p) return;
+  try {
+    await updateDoc(doc(db,'payments',p.id), { status:'confirmed', confirmedAt:serverTimestamp() });
+    showToast('Pagamento confirmado.');
+    closeModal('confirmPayModal');
+    openProfile(p.uid);
+  } catch(e) { showToast('Erro ao confirmar pagamento.'); }
+};
+
 window.openManualEnrol = function() { document.getElementById('manualEnrolModal').classList.add('show'); };
 window.submitManualEnrol = async function() {
   const fullName = document.getElementById('meName').value.trim();
   const email = document.getElementById('meEmail').value.trim().toLowerCase();
   const phone = document.getElementById('mePhone').value.trim();
+  const age = document.getElementById('meAge').value;
+  const gender = document.getElementById('meGender').value;
   const level = document.getElementById('meLevel').value;
   const role = document.getElementById('meRole').value;
+  const dueDate = document.getElementById('meDueDate').value;
   if (!fullName || !email) { showToast('Preencha nome e email.'); return; }
   try {
     const tempPass = Math.random().toString(36).slice(-10)+'Aa1!';
     const cred = await createUserWithEmailAndPassword(auth, email, tempPass);
     const studentCode = role==='student' ? 'DVL-ST-'+Math.floor(1000+Math.random()*9000) : null;
-    await setDoc(doc(db,'users',cred.user.uid), { uid:cred.user.uid, fullName, email, phone, roles:[role], currentLevel:level, studentCode, status:'active', createdAt:serverTimestamp() });
+    await setDoc(doc(db,'users',cred.user.uid), { uid:cred.user.uid, fullName, email, phone, age:age?+age:null, gender, roles:[role], currentLevel:level, studentCode, dueDate, status:'active', createdAt:serverTimestamp() });
     await sendPasswordResetEmail(auth, email);
     showToast('Estudante inscrito com sucesso. Email de acesso enviado.');
     closeModal('manualEnrolModal');
@@ -430,28 +568,28 @@ window.submitManualEnrol = async function() {
 
 window.exportPDF = function() {
   const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ orientation:'landscape', unit:'mm', format:'a4' });
-  doc.setFont('helvetica','bold'); doc.setFontSize(14); doc.setTextColor(11,46,115);
-  doc.text('DoveLingua - Lista de Estudantes e Utilizadores', 148, 15, {align:'center'});
+  const pdf = new jsPDF({ orientation:'landscape', unit:'mm', format:'a4' });
+  pdf.setFont('helvetica','bold'); pdf.setFontSize(14); pdf.setTextColor(11,46,115);
+  pdf.text('DoveLingua - Lista de Estudantes e Utilizadores', 148, 15, {align:'center'});
   let y = 28;
-  doc.setFontSize(8);
+  pdf.setFontSize(8);
   allUsers.forEach(u => {
-    doc.setFont('helvetica','bold'); doc.text((u.fullName||'-')+' | '+(u.email||'-')+' | '+(u.studentCode||'-')+' | '+getRoles(u).join(', '), 14, y);
+    pdf.setFont('helvetica','bold');
+    pdf.text((u.fullName||'-')+' | '+(u.email||'-')+' | '+(u.studentCode||'-')+' | '+getRoles(u).join(', '), 14, y);
     y += 6;
-    if (y > 190) { doc.addPage(); y = 20; }
+    if (y > 190) { pdf.addPage(); y = 20; }
   });
-  doc.save('DoveLingua_Utilizadores.pdf');
+  pdf.save('DoveLingua_Utilizadores.pdf');
   showToast('PDF exportado.');
 };
 window.exportExcel = function() {
-  const data = allUsers.map(u => ({ Nome:u.fullName, Email:u.email, Telefone:u.phone, Codigo:u.studentCode||'', Funcoes:getRoles(u).join(', '), Estado:u.isBlocked?'Bloqueado':'Ativo' }));
+  const data = allUsers.map(u => ({ Nome:u.fullName, Email:u.email, Telefone:u.phone, Codigo:u.studentCode||'', Funcoes:getRoles(u).join(', '), Estado:u.isBlocked?'Bloqueado':'Ativo', Vencimento:u.dueDate||'' }));
   const ws = XLSX.utils.json_to_sheet(data);
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, 'Utilizadores');
   XLSX.writeFile(wb, 'DoveLingua_Utilizadores.xlsx');
   showToast('Excel exportado.');
 };
-function showToast(t) { const el=document.getElementById('toast'); el.classList.add('show'); document.getElementById('toastText').textContent=t; setTimeout(()=>el.classList.remove('show'),3000); }
 </script>
 <script src="/key-lock.js"></script>
 </body>
