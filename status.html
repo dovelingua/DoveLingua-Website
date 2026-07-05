@@ -389,7 +389,7 @@ window.downloadPendingReceipt = function() {
   doc.setFont('helvetica','italic'); doc.setFontSize(12); doc.setTextColor(11,46,115);
   doc.text('Gildo Angélica Dove', W/2, y+8, {align:'center'});
   const stampY = y - 6;
-  try { doc.addImage(DL_STAMP_B64, 'PNG', W/2 + 25, stampY, 24, 24); } catch(e) { console.log('Stamp image failed to render:', e); }
+  try { doc.addImage(DL_STAMP_B64, 'PNG', W/2 + 10, stampY, 24, 24); } catch(e) { console.log('Stamp image failed to render:', e); }
   y+=20;
 
   doc.setFillColor(11,46,115); doc.rect(0,266,W,27,'F');
