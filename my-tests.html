@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Os Meus Testes - DoveLingua</title>
+<link rel="icon" type="image/png" sizes="32x32" href="https://download.dovelingua.com/website/Favicon_32x32.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{--navy:#0B2E73;--navy-d:#082154;--gold:#C9971A;--white:#FFFFFF;--grey:#F4F4F4;--tint:#E8EEF9;--text:#1a2332;--mid:#4a5568;--light:#718096;--border:#e2e8f0;--r:14px;--shadow:0 4px 20px rgba(11,46,115,.08);--amber:#b45309;--amber-bg:#fef3e2;--green:#0E8F7F;--green-bg:#e6f6f4;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--grey);line-height:1.6;}
+a{text-decoration:none;color:inherit;}
+button{font-family:inherit;}
+.s-nav{position:sticky;top:0;z-index:999;background:var(--white);border-bottom:1px solid var(--border);padding:0 4%;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.s-nav-brand img{height:38px;}
+.s-back{display:flex;align-items:center;gap:6px;background:var(--tint);border:1px solid var(--border);border-radius:20px;padding:8px 14px;font-size:12px;font-weight:600;color:var(--navy);cursor:pointer;}
+.s-hero{background:linear-gradient(135deg,var(--navy-d),var(--navy));padding:18px 4%;}
+.s-hero h1{font-family:'Playfair Display',serif;font-size:clamp(17px,2.4vw,21px);color:#fff;display:flex;align-items:center;gap:8px;}
+.s-hero h1 i{color:var(--gold);}
+.s-wrap{max-width:800px;margin:0 auto;padding:20px 4% 50px;}
+
+.test-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:20px;margin-bottom:14px;}
+.tc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
+.tc-title{font-size:14px;font-weight:700;color:var(--navy);}
+.tc-badge{font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:10px;}
+.tc-badge.pending{background:var(--amber-bg);color:var(--amber);}
+.tc-badge.done{background:var(--green-bg);color:var(--green);}
+.skill-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px;}
+.skill-box{background:var(--grey);border-radius:8px;padding:10px 6px;text-align:center;}
+.skill-box i{font-size:15px;color:var(--navy);margin-bottom:4px;display:block;}
+.skill-box span{font-size:9.5px;color:var(--light);font-weight:600;}
+.result-box{background:var(--tint);border-radius:10px;padding:14px;margin-top:12px;text-align:center;}
+.result-level{font-family:'Playfair Display',serif;font-size:20px;color:var(--navy);font-weight:700;}
+.empty-state{text-align:center;padding:70px 20px;color:var(--light);}
+.empty-state i{font-size:40px;margin-bottom:16px;display:block;color:var(--tint);}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:20px;font-size:13px;font-weight:600;border:none;cursor:pointer;background:var(--navy);color:#fff;margin-top:14px;}
+.btn:hover{background:var(--gold);color:var(--navy);}
+@media(max-width:480px){.skill-grid{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<nav class="s-nav">
+  <a href="index.html" class="s-nav-brand"><img src="https://download.dovelingua.com/website/Master_Wordmar_original.png" alt="DoveLingua"></a>
+  <button class="s-back" id="sBackBtn"><i class="fa-solid fa-arrow-left"></i> Painel</button>
+</nav>
+<div class="s-hero"><h1><i class="fa-solid fa-clipboard-question"></i> Os Meus Testes</h1></div>
+<div class="s-wrap">
+  <div id="testContainer"><div class="empty-state"><i class="fa-solid fa-hourglass"></i><p>A carregar...</p></div></div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = { apiKey:"AIzaSyAl9A_gXDKTB3N6U1f_Bh5FWrOsySjCJGo", authDomain:"dovelingua-site.firebaseapp.com", projectId:"dovelingua-site", storageBucket:"dovelingua-site.firebasestorage.app", messagingSenderId:"271742052334", appId:"1:271742052334:web:bc736373d7ea50001b50ff", measurementId:"G-N8ELT8SMYM" };
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const ROUTES = { applicant:'application-status.html', student:'student-dashboard.html' };
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { window.location.href='auth.html'; return; }
+  const snap = await getDoc(doc(db,'users',user.uid));
+  if (!snap.exists()) { window.location.href='auth.html'; return; }
+  const data = snap.data();
+  document.getElementById('sBackBtn').onclick = () => window.location.href = ROUTES[data.role] || 'index.html';
+
+  const attemptSnap = await getDoc(doc(db,'testAttempts',user.uid));
+  const container = document.getElementById('testContainer');
+  if (!attemptSnap.exists()) {
+    container.innerHTML = `<div class="empty-state"><i class="fa-solid fa-clipboard-question"></i><p>Ainda não realizou nenhum teste de nível.</p><a href="level-test.html" class="btn"><i class="fa-solid fa-play"></i> Fazer Teste de Nível</a></div>`;
+    return;
+  }
+  const t = attemptSnap.data();
+  const isDone = t.status === 'completed';
+  container.innerHTML = `
+    <div class="test-card">
+      <div class="tc-top"><span class="tc-title">Teste de Nível DoveLingua</span><span class="tc-badge ${isDone?'done':'pending'}">${isDone?'Concluído':'Em Análise'}</span></div>
+      <div class="skill-grid">
+        <div class="skill-box"><i class="fa-solid fa-book-open"></i><span>Leitura</span></div>
+        <div class="skill-box"><i class="fa-solid fa-headphones"></i><span>Audição</span></div>
+        <div class="skill-box"><i class="fa-solid fa-pen"></i><span>Escrita</span></div>
+        <div class="skill-box"><i class="fa-solid fa-microphone"></i><span>Oralidade</span></div>
+      </div>
+      ${isDone ? `<div class="result-box"><div style="font-size:10.5px;color:var(--light);text-transform:uppercase;margin-bottom:6px;">O Seu Nível</div><div class="result-level">${t.finalLevel||'-'}</div></div>` :
+      `<div class="result-box"><p style="font-size:12.5px;color:var(--mid);">As secções de Escrita e Oralidade estão a ser avaliadas pela nossa equipa.</p></div>`}
+    </div>`;
+});
+</script>
+<script src="/key-lock.js"></script>
+</body>
+</html>
