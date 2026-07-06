@@ -21,30 +21,41 @@ a{text-decoration:none;color:inherit;}
 button{font-family:inherit;}
 
 .app{display:flex;min-height:100vh;}
-.sidebar{width:250px;background:var(--navy);flex-shrink:0;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;}
-.sb-logo{padding:20px 18px;border-bottom:1px solid rgba(255,255,255,.1);}
-.sb-logo img{height:38px;}
-.sb-nav{flex:1;padding:14px 0;overflow-y:auto;}
+.sidebar{width:250px;background:var(--navy);flex-shrink:0;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;transition:width .25s,left .25s;overflow:hidden;}
+.sidebar.collapsed{width:0;}
+.sb-logo{padding:20px 18px;border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between;white-space:nowrap;}
+.sb-logo img{height:34px;}
+.sb-toggle{background:rgba(255,255,255,.1);border:none;color:#fff;width:30px;height:30px;border-radius:8px;cursor:pointer;flex-shrink:0;}
+.sb-nav{flex:1;padding:14px 0;overflow-y:auto;white-space:nowrap;}
 .sb-nav a{display:flex;align-items:center;gap:12px;padding:12px 18px;font-size:13px;color:rgba(255,255,255,.65);cursor:pointer;border-left:3px solid transparent;transition:.15s;}
 .sb-nav a:hover{background:rgba(255,255,255,.05);color:#fff;}
 .sb-nav a.active{background:rgba(255,255,255,.08);color:var(--gold);border-left-color:var(--gold);}
 .sb-nav a i{width:18px;text-align:center;}
 .sb-section-label{padding:16px 18px 6px;font-size:10px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;}
-.sb-foot{padding:16px 18px;border-top:1px solid rgba(255,255,255,.1);}
+.sb-foot{padding:16px 18px;border-top:1px solid rgba(255,255,255,.1);white-space:nowrap;}
 .sb-foot .admin-name{font-size:12.5px;color:#fff;font-weight:600;}
 .sb-foot .admin-role{font-size:10.5px;color:rgba(255,255,255,.4);}
 .sb-foot a{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:rgba(255,255,255,.5);cursor:pointer;}
-.sb-foot a:hover{color:#fff;}
 
-.main{flex:1;min-width:0;}
-.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:40;}
-.topbar h1{font-family:'Playfair Display',serif;font-size:19px;color:var(--navy);}
-.topbar .tb-sub{font-size:12px;color:var(--light);}
-.hamburger-mobile{display:none;background:none;border:none;font-size:20px;color:var(--navy);cursor:pointer;}
-.content{padding:24px 28px 60px;}
+.main{flex:1;min-width:0;display:flex;flex-direction:column;}
+.topbar{background:var(--navy);border-bottom:3px solid var(--gold);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:40;}
+.topbar-left{display:flex;align-items:center;gap:14px;}
+.sb-open-btn{display:none;background:rgba(255,255,255,.1);border:none;color:#fff;width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:15px;}
+.topbar h1{font-family:'Playfair Display',serif;font-size:19px;color:#fff;}
+.topbar .tb-sub{font-size:12px;color:rgba(255,255,255,.6);}
+.content{padding:24px 28px 60px;flex:1;}
+.footer-line{background:var(--navy);padding:16px 5%;text-align:center;}
+.footer-line p{color:rgba(255,255,255,.4);font-size:11.5px;}
 
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:26px;}
-.stat-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:20px 22px;position:relative;overflow:hidden;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:.2s;white-space:nowrap;}
+.btn-g{background:var(--navy);color:#fff;}
+.btn-g:hover{background:var(--gold);color:var(--navy);}
+.btn-o{background:transparent;color:var(--navy);border:1.5px solid var(--navy);}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px;}
+.stat-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:20px 22px;position:relative;overflow:hidden;cursor:pointer;transition:.2s;}
+.stat-card:hover{transform:translateY(-3px);border-color:var(--gold);}
 .stat-card .sc-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px;}
 .stat-card .sv{font-family:'Playfair Display',serif;font-size:26px;color:var(--navy);font-weight:700;}
 .stat-card .sl{font-size:11.5px;color:var(--light);font-weight:600;margin-top:2px;}
@@ -66,7 +77,7 @@ button{font-family:inherit;}
 .li-sub{font-size:11px;color:var(--light);}
 .li-badge{font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:10px;flex-shrink:0;}
 .li-badge.pending{background:var(--amber-bg);color:var(--amber);}
-.li-badge.new{background:var(--tint);color:var(--navy);}
+.li-badge.overdue{background:var(--red-bg);color:var(--red);}
 
 .quick-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .qa-btn{background:var(--tint);border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:.2s;border:1px solid transparent;}
@@ -79,46 +90,54 @@ button{font-family:inherit;}
 .bar{width:100%;background:linear-gradient(180deg,var(--gold),var(--navy));border-radius:6px 6px 0 0;min-height:4px;}
 .bar-label{font-size:9.5px;color:var(--light);}
 
-@media(max-width:900px){.stats-grid{grid-template-columns:1fr 1fr;}.grid-2{grid-template-columns:1fr;}}
-@media(max-width:800px){.sidebar{position:fixed;left:-260px;z-index:200;transition:left .25s;}.sidebar.open{left:0;}.hamburger-mobile{display:block;}}
+.alert-banner{background:var(--amber-bg);border-left:4px solid var(--amber);border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px;justify-content:space-between;flex-wrap:wrap;}
+.alert-banner p{font-size:12.5px;color:var(--amber);font-weight:600;}
+
+@media(max-width:1000px){.stats-grid{grid-template-columns:1fr 1fr;}.grid-2{grid-template-columns:1fr;}}
+@media(max-width:900px){.sidebar{position:fixed;left:-260px;z-index:200;width:250px;}.sidebar.mobile-open{left:0;}.sb-open-btn{display:block;}}
 </style>
 </head>
 <body>
 
 <div class="app">
   <div class="sidebar" id="sidebar">
-    <div class="sb-logo"><img src="https://download.dovelingua.com/website/Master_Wordmark_white_tex_navy_background.png" alt="DoveLingua"></div>
+    <div class="sb-logo"><img src="https://download.dovelingua.com/website/Master_Wordmark_white_tex_navy_background.png" alt="DoveLingua"><button class="sb-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-angles-left"></i></button></div>
     <div class="sb-nav">
       <div class="sb-section-label">Gestão</div>
       <a class="active"><i class="fa-solid fa-gauge"></i> Painel Geral</a>
-      <a onclick="location.href='admin-users.html'"><i class="fa-solid fa-users"></i> Utilizadores</a>
+      <a onclick="location.href='admin-users.html'"><i class="fa-solid fa-users"></i> Estudantes e Utilizadores</a>
       <a onclick="location.href='admin-courses.html'"><i class="fa-solid fa-graduation-cap"></i> Cursos</a>
+      <a onclick="location.href='admin-payments.html'"><i class="fa-solid fa-money-check-dollar"></i> Pagamentos</a>
       <div class="sb-section-label">Avaliação</div>
       <a onclick="location.href='admin-level-test-editor.html'"><i class="fa-solid fa-clipboard-question"></i> Editor de Testes</a>
       <a onclick="location.href='admin-announcements.html'"><i class="fa-solid fa-bullhorn"></i> Avisos</a>
       <a onclick="location.href='admin-documents.html'"><i class="fa-solid fa-folder"></i> Documentos</a>
+      <div class="sb-section-label">Sistema</div>
+      <a onclick="location.href='admin-settings.html'"><i class="fa-solid fa-gear"></i> Configurações</a>
     </div>
-    <div class="sb-foot">
-      <div class="admin-name" id="adminName">Admin</div>
-      <div class="admin-role">Administrador</div>
-      <a id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
-    </div>
+    <div class="sb-foot"><div class="admin-name" id="adminName">Admin</div><div class="admin-role">Administrador</div><a id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></div>
   </div>
 
   <div class="main">
     <div class="topbar">
-      <div style="display:flex;align-items:center;gap:12px;">
-        <button class="hamburger-mobile" onclick="document.getElementById('sidebar').classList.toggle('open')"><i class="fa-solid fa-bars"></i></button>
+      <div class="topbar-left">
+        <button class="sb-open-btn" onclick="toggleSidebarMobile()"><i class="fa-solid fa-bars"></i></button>
+        <button class="sb-toggle" id="desktopOpenBtn" onclick="toggleSidebar()" style="display:none;"><i class="fa-solid fa-angles-right"></i></button>
         <div><h1>Painel Geral</h1><div class="tb-sub" id="dateToday"></div></div>
       </div>
     </div>
 
     <div class="content">
+      <div class="alert-banner" id="alertBanner" style="display:none;">
+        <p id="alertText"></p>
+        <button class="btn btn-o" style="padding:6px 14px;font-size:11.5px;" onclick="location.href='admin-payments.html'">Ver Agora</button>
+      </div>
+
       <div class="stats-grid">
-        <div class="stat-card"><div class="sc-icon" style="background:var(--tint);color:var(--navy);"><i class="fa-solid fa-users"></i></div><div class="sv" id="statStudents">0</div><div class="sl">Alunos Ativos</div><div class="strend up"><i class="fa-solid fa-arrow-up"></i> este mês</div></div>
-        <div class="stat-card"><div class="sc-icon" style="background:var(--amber-bg);color:var(--amber);"><i class="fa-solid fa-user-clock"></i></div><div class="sv" id="statApplicants">0</div><div class="sl">Candidatos Pendentes</div><div class="strend warn"><i class="fa-solid fa-hourglass-half"></i> a aguardar</div></div>
-        <div class="stat-card"><div class="sc-icon" style="background:var(--green-bg);color:var(--green);"><i class="fa-solid fa-clipboard-question"></i></div><div class="sv" id="statTests">0</div><div class="sl">Testes Realizados</div><div class="strend up"><i class="fa-solid fa-check"></i> total</div></div>
-        <div class="stat-card"><div class="sc-icon" style="background:var(--red-bg);color:var(--red);"><i class="fa-solid fa-receipt"></i></div><div class="sv" id="statPending">0</div><div class="sl">Pagamentos Pendentes</div><div class="strend warn"><i class="fa-solid fa-triangle-exclamation"></i> requer ação</div></div>
+        <div class="stat-card" onclick="location.href='admin-users.html?filter=student'"><div class="sc-icon" style="background:var(--tint);color:var(--navy);"><i class="fa-solid fa-user-graduate"></i></div><div class="sv" id="statStudents">0</div><div class="sl">Estudantes Ativos</div><div class="strend up"><i class="fa-solid fa-arrow-up"></i> este mês</div></div>
+        <div class="stat-card" onclick="location.href='admin-users.html?filter=applicant'"><div class="sc-icon" style="background:var(--amber-bg);color:var(--amber);"><i class="fa-solid fa-user-clock"></i></div><div class="sv" id="statApplicants">0</div><div class="sl">Candidatos Pendentes</div><div class="strend warn"><i class="fa-solid fa-hourglass-half"></i> a aguardar</div></div>
+        <div class="stat-card" onclick="location.href='admin-level-test-editor.html'"><div class="sc-icon" style="background:var(--green-bg);color:var(--green);"><i class="fa-solid fa-clipboard-question"></i></div><div class="sv" id="statTests">0</div><div class="sl">Testes Realizados</div><div class="strend up"><i class="fa-solid fa-check"></i> total</div></div>
+        <div class="stat-card" onclick="location.href='admin-payments.html'"><div class="sc-icon" style="background:var(--red-bg);color:var(--red);"><i class="fa-solid fa-receipt"></i></div><div class="sv" id="statPending">0</div><div class="sl">Pagamentos por Confirmar</div><div class="strend warn"><i class="fa-solid fa-triangle-exclamation"></i> a confirmar</div></div>
       </div>
 
       <div class="grid-2">
@@ -129,9 +148,9 @@ button{font-family:inherit;}
         <div class="panel">
           <h3>Ações Rápidas</h3>
           <div class="quick-actions">
-            <div class="qa-btn" onclick="location.href='admin-level-test-editor.html'"><i class="fa-solid fa-plus"></i><span>Nova Pergunta</span></div>
+            <div class="qa-btn" onclick="location.href='admin-users.html'"><i class="fa-solid fa-user-plus"></i><span>Inscrever Estudante</span></div>
+            <div class="qa-btn" onclick="location.href='admin-payments.html'"><i class="fa-solid fa-money-check-dollar"></i><span>Confirmar Pagamento</span></div>
             <div class="qa-btn" onclick="location.href='admin-announcements.html'"><i class="fa-solid fa-bullhorn"></i><span>Novo Aviso</span></div>
-            <div class="qa-btn" onclick="location.href='admin-users.html'"><i class="fa-solid fa-user-check"></i><span>Confirmar Pagamento</span></div>
             <div class="qa-btn" onclick="location.href='admin-courses.html'"><i class="fa-solid fa-graduation-cap"></i><span>Gerir Cursos</span></div>
           </div>
         </div>
@@ -148,6 +167,8 @@ button{font-family:inherit;}
         </div>
       </div>
     </div>
+
+    <div class="footer-line"><p id="dynamicFooter"></p></div>
   </div>
 </div>
 
@@ -156,84 +177,77 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/fireba
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
 import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAl9A_gXDKTB3N6U1f_Bh5FWrOsySjCJGo",
-  authDomain: "dovelingua-site.firebaseapp.com",
-  projectId: "dovelingua-site",
-  storageBucket: "dovelingua-site.firebasestorage.app",
-  messagingSenderId: "271742052334",
-  appId: "1:271742052334:web:bc736373d7ea50001b50ff",
-  measurementId: "G-N8ELT8SMYM"
-};
+const firebaseConfig = { apiKey:"AIzaSyAl9A_gXDKTB3N6U1f_Bh5FWrOsySjCJGo", authDomain:"dovelingua-site.firebaseapp.com", projectId:"dovelingua-site", storageBucket:"dovelingua-site.firebasestorage.app", messagingSenderId:"271742052334", appId:"1:271742052334:web:bc736373d7ea50001b50ff", measurementId:"G-N8ELT8SMYM" };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
 document.getElementById('dateToday').textContent = new Date().toLocaleDateString('pt-PT', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+document.getElementById('dynamicFooter').textContent = 'DoveLingua © ' + new Date().getFullYear() + ' - Todos os direitos reservados.';
+
+window.toggleSidebar = function() {
+  const sb = document.getElementById('sidebar');
+  sb.classList.toggle('collapsed');
+  document.getElementById('desktopOpenBtn').style.display = sb.classList.contains('collapsed') ? 'block' : 'none';
+};
+window.toggleSidebarMobile = function() { document.getElementById('sidebar').classList.toggle('mobile-open'); };
+
+function getRoles(u) { return u.roles || (u.role ? [u.role] : ['applicant']); }
 
 onAuthStateChanged(auth, async (user) => {
-  if (!user) { window.location.href = 'auth.html'; return; }
-  try {
-    const snap = await getDoc(doc(db, 'users', user.uid));
-    if (!snap.exists() || snap.data().role !== 'admin') { window.location.href = 'unauthorized.html'; return; }
-    document.getElementById('adminName').textContent = snap.data().fullName || 'Admin';
-    loadDashboard();
-  } catch (e) { window.location.href = 'auth.html'; }
+  if (!user) { window.location.href='auth.html'; return; }
+  const snap = await getDoc(doc(db,'users',user.uid));
+  const roles = snap.exists() ? getRoles(snap.data()) : [];
+  if (!roles.includes('admin')) { window.location.href='unauthorized.html'; return; }
+  document.getElementById('adminName').textContent = snap.data().fullName || 'Admin';
+  loadDashboard();
 });
-
-document.getElementById('logoutBtn').addEventListener('click', async () => { await signOut(auth); window.location.href = 'index.html'; });
+document.getElementById('logoutBtn').addEventListener('click', async () => { await signOut(auth); window.location.href='index.html'; });
 
 async function loadDashboard() {
   try {
-    const usersSnap = await getDocs(collection(db, 'users'));
-    let students = 0, applicants = 0, teachers = 0, staff = 0, admins = 0;
+    const usersSnap = await getDocs(collection(db,'users'));
+    let students=0, applicants=0, teachers=0, staff=0, admins=0;
     const recentApplicants = [];
     usersSnap.forEach(d => {
-      const u = d.data();
-      if (u.role === 'student') students++;
-      else if (u.role === 'applicant') { applicants++; recentApplicants.push(u); }
-      else if (u.role === 'teacher') teachers++;
-      else if (u.role === 'staff') staff++;
-      else if (u.role === 'admin') admins++;
+      const u = d.data(); const roles = getRoles(u);
+      if (roles.includes('student')) students++;
+      if (roles.includes('applicant')) { applicants++; recentApplicants.push(u); }
+      if (roles.includes('teacher')) teachers++;
+      if (roles.includes('staff')) staff++;
+      if (roles.includes('admin')) admins++;
     });
     document.getElementById('statStudents').textContent = students;
     document.getElementById('statApplicants').textContent = applicants;
 
-    const testsSnap = await getDocs(collection(db, 'testAttempts'));
+    const testsSnap = await getDocs(collection(db,'testAttempts'));
     document.getElementById('statTests').textContent = testsSnap.size;
 
-    const appsSnap = await getDocs(collection(db, 'applications'));
+    const appsSnap = await getDocs(collection(db,'applications'));
     let pending = 0;
     appsSnap.forEach(d => { if (d.data().applicationStatus === 'pending') pending++; });
     document.getElementById('statPending').textContent = pending;
 
-    const listEl = document.getElementById('recentApplicants');
-    if (recentApplicants.length === 0) {
-      listEl.innerHTML = '<div class="list-item"><div class="li-body"><div class="li-sub">Nenhum candidato ainda.</div></div></div>';
-    } else {
-      listEl.innerHTML = recentApplicants.slice(0,5).map(u => `
-        <div class="list-item">
-          <div class="li-avatar">${(u.fullName||'A').charAt(0).toUpperCase()}</div>
-          <div class="li-body"><div class="li-title">${u.fullName||'Candidato'}</div><div class="li-sub">${u.email||''}</div></div>
-          <span class="li-badge pending">Pendente</span>
-        </div>
-      `).join('');
+    if (pending > 0) {
+      document.getElementById('alertBanner').style.display = 'flex';
+      document.getElementById('alertText').innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Existem ${pending} pagamento(s) por confirmar.`;
     }
 
+    const listEl = document.getElementById('recentApplicants');
+    listEl.innerHTML = recentApplicants.length ? recentApplicants.slice(0,5).map(u => `
+      <div class="list-item"><div class="li-avatar">${(u.fullName||'A').charAt(0).toUpperCase()}</div>
+      <div class="li-body"><div class="li-title">${u.fullName||'Candidato'}</div><div class="li-sub">${u.email||''}</div></div>
+      <span class="li-badge pending">Pendente</span></div>`).join('') : '<div class="list-item"><div class="li-body"><div class="li-sub">Nenhum candidato ainda.</div></div></div>';
+
     const total = students+applicants+teachers+staff+admins || 1;
-    const roles = [{n:'Alunos',v:students,c:'var(--navy)'},{n:'Candidatos',v:applicants,c:'var(--amber)'},{n:'Professores',v:teachers,c:'var(--teal)'},{n:'Staff',v:staff,c:'var(--gold)'}];
-    document.getElementById('roleBreakdown').innerHTML = roles.map(r => `
-      <div style="margin-bottom:12px;">
-        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span>${r.n}</span><span style="font-weight:700;">${r.v}</span></div>
-        <div style="background:var(--grey);height:6px;border-radius:6px;overflow:hidden;"><div style="background:${r.c};height:100%;width:${(r.v/total*100)}%;"></div></div>
-      </div>
-    `).join('');
+    const roleData = [{n:'Estudantes',v:students,c:'var(--navy)'},{n:'Candidatos',v:applicants,c:'var(--amber)'},{n:'Professores',v:teachers,c:'var(--teal)'},{n:'Staff',v:staff,c:'var(--gold)'}];
+    document.getElementById('roleBreakdown').innerHTML = roleData.map(r => `
+      <div style="margin-bottom:12px;"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span>${r.n}</span><span style="font-weight:700;">${r.v}</span></div>
+      <div style="background:var(--grey);height:6px;border-radius:6px;overflow:hidden;"><div style="background:${r.c};height:100%;width:${(r.v/total*100)}%;"></div></div></div>`).join('');
 
-    const chartEl = document.getElementById('chartBars');
     const days = ['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
-    chartEl.innerHTML = days.map(d => `<div class="bar-col"><div class="bar" style="height:${Math.random()*80+10}px;"></div><div class="bar-label">${d}</div></div>`).join('');
-
-  } catch (e) { console.error(e); }
+    document.getElementById('chartBars').innerHTML = days.map(d => `<div class="bar-col"><div class="bar" style="height:${Math.random()*80+10}px;"></div><div class="bar-label">${d}</div></div>`).join('');
+  } catch(e) { console.error(e); }
 }
 </script>
 <script src="/key-lock.js"></script>
