@@ -120,59 +120,190 @@ button,input,select,textarea{font-family:inherit;}
 <div class="toast" id="toast"><span id="toastText"></span></div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, deleteDoc, doc, getDoc, getDocs, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+// ============================================
+// IMPORT FROM SINGLE SOURCE OF TRUTH
+// ============================================
+import { 
+  db,
+  authStateListener,
+  signOutUser,
+  getUserData,
+  getRoles,
+  collection,
+  addDoc,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+  orderBy,
+  serverTimestamp
+} from "./firebase-shared.js";
 
-const firebaseConfig = { apiKey:"AIzaSyAl9A_gXDKTB3N6U1f_Bh5FWrOsySjCJGo", authDomain:"dovelingua-site.firebaseapp.com", projectId:"dovelingua-site", storageBucket:"dovelingua-site.firebasestorage.app", messagingSenderId:"271742052334", appId:"1:271742052334:web:bc736373d7ea50001b50ff", measurementId:"G-N8ELT8SMYM" };
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+// ============================================
+// UI FUNCTIONS
+// ============================================
+const audLabels = { 
+  public: 'Público', 
+  student: 'Alunos', 
+  teacher: 'Professores', 
+  all: 'Todos' 
+};
 
-onAuthStateChanged(auth, async (user) => {
-  if (!user) { window.location.href='auth.html'; return; }
-  const snap = await getDoc(doc(db,'users',user.uid));
-  if (!snap.exists() || snap.data().role !== 'admin') { window.location.href='unauthorized.html'; return; }
-  document.getElementById('adminName').textContent = snap.data().fullName || 'Admin';
-  loadAnnouncements();
-});
-document.getElementById('logoutBtn').addEventListener('click', async () => { await signOut(auth); window.location.href='index.html'; });
-
-const audLabels = { public:'Público', student:'Alunos', teacher:'Professores', all:'Todos' };
-async function loadAnnouncements() {
-  const q = query(collection(db,'announcements'), orderBy('postedAt','desc'));
-  const snap = await getDocs(q);
-  const list = document.getElementById('annList');
-  if (snap.empty) { list.innerHTML = '<p style="color:var(--light);text-align:center;padding:40px;">Nenhum aviso publicado ainda.</p>'; return; }
-  list.innerHTML = snap.docs.map(d => {
-    const a = d.data();
-    return `<div class="ann-card">
-      <div class="ann-top"><span class="ann-title">${a.title}</span><span class="ann-audience">${audLabels[a.audience]||a.audience}</span></div>
-      <div class="ann-body-text">${a.body}</div>
-      <div class="ann-meta"><span>${a.postedAt?new Date(a.postedAt.seconds*1000).toLocaleDateString('pt-PT'):''}</span>
-      <div class="ann-actions"><button class="icon-btn del" onclick="deleteAnn('${d.id}')"><i class="fa-solid fa-trash"></i></button></div></div>
-    </div>`;
-  }).join('');
+function showToast(t) { 
+  const el = document.getElementById('toast'); 
+  el.classList.add('show'); 
+  document.getElementById('toastText').textContent = t; 
+  setTimeout(() => el.classList.remove('show'), 3000); 
 }
-window.openModal = function() { document.getElementById('annModal').classList.add('show'); };
-window.closeModal = function() { document.getElementById('annModal').classList.remove('show'); };
+
+// ============================================
+// LOAD ANNOUNCEMENTS
+// ============================================
+async function loadAnnouncements() {
+  try {
+    const q = query(collection(db, 'announcements'), orderBy('postedAt', 'desc'));
+    const snap = await getDocs(q);
+    const list = document.getElementById('annList');
+    
+    if (snap.empty) { 
+      list.innerHTML = '<p style="color:var(--light);text-align:center;padding:40px;">Nenhum aviso publicado ainda.</p>'; 
+      return; 
+    }
+    
+    list.innerHTML = snap.docs.map(d => {
+      const a = d.data();
+      const postedDate = a.postedAt ? new Date(a.postedAt.seconds * 1000).toLocaleDateString('pt-PT') : '';
+      return `
+        <div class="ann-card">
+          <div class="ann-top">
+            <span class="ann-title">${a.title}</span>
+            <span class="ann-audience">${audLabels[a.audience] || a.audience}</span>
+          </div>
+          <div class="ann-body-text">${a.body}</div>
+          <div class="ann-meta">
+            <span>${postedDate}</span>
+            <div class="ann-actions">
+              <button class="icon-btn del" onclick="deleteAnn('${d.id}')"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  } catch (e) {
+    console.error('Error loading announcements:', e);
+    showToast('Erro ao carregar avisos.');
+  }
+}
+
+// ============================================
+// MODAL FUNCTIONS
+// ============================================
+window.openModal = function() { 
+  document.getElementById('annModal').classList.add('show'); 
+};
+
+window.closeModal = function() { 
+  document.getElementById('annModal').classList.remove('show'); 
+  // Clear form fields
+  document.getElementById('fTitle').value = '';
+  document.getElementById('fBody').value = '';
+  document.getElementById('fAudience').value = 'public';
+};
+
+// ============================================
+// PUBLISH ANNOUNCEMENT
+// ============================================
 window.publish = async function() {
   const title = document.getElementById('fTitle').value.trim();
   const body = document.getElementById('fBody').value.trim();
   const audience = document.getElementById('fAudience').value;
-  if (!title || !body) { showToast('Preencha o título e a mensagem.'); return; }
+  
+  if (!title || !body) { 
+    showToast('Preencha o título e a mensagem.'); 
+    return; 
+  }
+  
   try {
-    await addDoc(collection(db,'announcements'), { title, body, audience, postedAt: serverTimestamp() });
-    showToast('Aviso publicado com sucesso.'); closeModal(); loadAnnouncements();
-    document.getElementById('fTitle').value=''; document.getElementById('fBody').value='';
-  } catch(e) { showToast('Erro ao publicar.'); }
+    await addDoc(collection(db, 'announcements'), { 
+      title, 
+      body, 
+      audience, 
+      postedAt: serverTimestamp() 
+    });
+    showToast('Aviso publicado com sucesso.'); 
+    closeModal(); 
+    loadAnnouncements();
+  } catch(e) { 
+    console.error('Error publishing:', e);
+    showToast('Erro ao publicar aviso.'); 
+  }
 };
+
+// ============================================
+// DELETE ANNOUNCEMENT
+// ============================================
 window.deleteAnn = async function(id) {
   if (!confirm('Eliminar este aviso?')) return;
-  await deleteDoc(doc(db,'announcements',id));
-  showToast('Aviso eliminado.'); loadAnnouncements();
+  try {
+    await deleteDoc(doc(db, 'announcements', id));
+    showToast('Aviso eliminado.'); 
+    loadAnnouncements();
+  } catch(e) {
+    console.error('Error deleting:', e);
+    showToast('Erro ao eliminar aviso.');
+  }
 };
-function showToast(t) { const el=document.getElementById('toast'); el.classList.add('show'); document.getElementById('toastText').textContent=t; setTimeout(()=>el.classList.remove('show'),3000); }
+
+// ============================================
+// AUTH STATE LISTENER
+// ============================================
+authStateListener(async (user) => {
+  if (!user) { 
+    window.location.href = 'auth.html'; 
+    return; 
+  }
+  
+  try {
+    const userData = await getUserData(user);
+    
+    if (!userData) {
+      window.location.href = 'auth.html';
+      return;
+    }
+    
+    // Check if user is blocked
+    if (userData.isBlocked) {
+      await signOutUser();
+      window.location.href = 'auth.html?blocked=1';
+      return;
+    }
+    
+    // Check if user has admin role
+    const roles = getRoles(userData);
+    if (!roles.includes('admin')) {
+      window.location.href = 'unauthorized.html';
+      return;
+    }
+    
+    // Display admin name
+    document.getElementById('adminName').textContent = userData.fullName || 'Admin';
+    
+    // Load announcements
+    loadAnnouncements();
+    
+  } catch (e) {
+    console.error('Auth check failed:', e);
+    window.location.href = 'auth.html';
+  }
+});
+
+// ============================================
+// LOGOUT
+// ============================================
+document.getElementById('logoutBtn').addEventListener('click', async () => { 
+  await signOutUser(); 
+  window.location.href = 'index.html'; 
+});
 </script>
 <script src="/key-lock.js"></script>
 </body>
