@@ -1,186 +1,304 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<!-- ... all your existing head content ... -->
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Entrar - DoveLingua</title>
+<link rel="icon" type="image/png" sizes="32x32" href="https://download.dovelingua.com/website/Favicon_32x32.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:linear-gradient(160deg,#082154 0%,#0B2E73 50%,#123a8a 100%);min-height:100vh;font-family:'Inter',sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:16px 16px 20px;overflow-x:hidden;}
+
+.app-header{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:26px;}
+.app-header img{max-width:220px;width:80%;height:auto;}
+.app-header .app-by{font-size:12px;color:rgba(255,255,255,.55);letter-spacing:.3px;}
+
+.blocked-banner{display:none;background:linear-gradient(135deg,#7f0000,#c0392b);border:1px solid #e74c3c;border-radius:14px;padding:16px 20px;max-width:420px;width:100%;margin-bottom:20px;text-align:center;}
+.blocked-banner.show{display:block;}
+.blocked-banner .b-icon{font-size:26px;margin-bottom:6px;}
+.blocked-banner .b-title{font-size:15px;font-weight:700;color:#fff;}
+.blocked-banner .b-msg{font-size:13px;color:rgba(255,255,255,.8);margin-top:4px;}
+
+.card{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);border-radius:24px;padding:28px 24px;max-width:420px;width:100%;backdrop-filter:blur(16px);box-shadow:0 8px 32px rgba(0,0,0,.25);}
+
+.tabs{display:flex;background:rgba(0,0,0,.25);border-radius:50px;padding:4px;margin-bottom:20px;}
+.tab-btn{flex:1;padding:10px;font-size:14px;font-weight:700;color:rgba(255,255,255,.45);background:transparent;border:none;border-radius:50px;cursor:pointer;transition:.25s;}
+.tab-btn.active{background:linear-gradient(135deg,#0B2E73,#123a8a);color:#fff;}
+
+.error-banner{display:none;background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.4);border-radius:12px;padding:12px 16px;font-size:13px;color:#ff8f85;margin-bottom:18px;line-height:1.5;}
+.error-banner.show{display:block;}
+.success-banner{display:none;background:rgba(201,151,26,.18);border:1px solid rgba(201,151,26,.5);border-radius:12px;padding:12px 16px;font-size:13px;color:#f0d38a;margin-bottom:18px;line-height:1.5;}
+.success-banner.show{display:block;}
+
+.form-section{display:none;}
+.form-section.active{display:block;}
+
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:12px;font-weight:600;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.8px;margin-bottom:7px;}
+.field input{width:100%;background:rgba(255,255,255,.94);border:1.5px solid rgba(255,255,255,.3);border-radius:12px;padding:13px 16px;font-size:15px;color:#0f1f2e;outline:none;transition:.2s;}
+.field input::placeholder{color:#7a8a9a;}
+.field input:focus{border-color:#C9971A;background:#fff;box-shadow:0 0 0 3px rgba(201,151,26,.2);}
+.field input.input-error{border-color:#e74c3c !important;}
+
+.pw-wrap{position:relative;}
+.pw-wrap input{padding-right:44px;}
+.pw-toggle{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:#4a5568;padding:4px;}
+
+.forgot-link{display:block;text-align:right;font-size:12px;color:rgba(255,255,255,.55);margin-top:-10px;margin-bottom:20px;cursor:pointer;}
+.forgot-link:hover{color:rgba(255,255,255,.85);}
+
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.15);}
+.divider span{font-size:12px;color:rgba(255,255,255,.45);white-space:nowrap;}
+
+.btn-primary{width:100%;padding:15px;background:linear-gradient(135deg,#C9971A,#e0a800);color:#0B2E73;font-size:15px;font-weight:800;border:none;border-radius:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:.2s;margin-bottom:12px;}
+.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,151,26,.35);}
+.btn-primary:disabled{opacity:.6;cursor:not-allowed;}
+
+.btn-google{width:100%;padding:14px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.18);border-radius:14px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:.2s;margin-bottom:4px;}
+.btn-google:hover:not(:disabled){background:rgba(255,255,255,.14);}
+.google-icon{width:20px;height:20px;}
+
+.spinner{width:18px;height:18px;border:3px solid rgba(11,46,115,.3);border-top-color:#0B2E73;border-radius:50%;animation:spin .7s linear infinite;display:none;}
+.spinner-white{border-color:rgba(255,255,255,.2);border-top-color:#fff;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading .spinner{display:block;}
+.loading .btn-label{display:none;}
+
+.field-error{font-size:12px;color:#ff6b6b;margin-top:5px;display:none;}
+.field-error.show{display:block;}
+.optional-lbl{font-size:10px;color:rgba(255,255,255,.4);font-weight:400;text-transform:none;}
+
+.success-screen{display:none;flex-direction:column;align-items:center;text-align:center;padding:28px 0 16px;}
+.success-screen.show{display:flex;}
+.success-screen .s-icon{font-size:56px;margin-bottom:14px;}
+.success-screen h2{font-size:21px;font-weight:800;color:#C9971A;margin-bottom:8px;}
+.success-screen .s-msg{font-size:13.5px;color:rgba(255,255,255,.68);margin-bottom:22px;line-height:1.6;}
+.success-screen .redirect-spinner{width:22px;height:22px;border:3px solid rgba(201,151,26,.25);border-top-color:#C9971A;border-radius:50%;animation:spin .7s linear infinite;}
+
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;align-items:flex-end;justify-content:center;}
+.modal-overlay.show{display:flex;}
+.modal-sheet{background:linear-gradient(160deg,#082154,#0B2E73);border-top-left-radius:24px;border-top-right-radius:24px;border:1px solid rgba(201,151,26,.35);padding:28px 24px 40px;width:100%;max-width:480px;}
+.modal-handle{width:40px;height:4px;background:rgba(255,255,255,.15);border-radius:50px;margin:0 auto 20px;}
+.modal-title{font-size:18px;font-weight:800;color:#f0d38a;margin-bottom:6px;}
+.modal-sub{font-size:13px;color:rgba(255,255,255,.55);margin-bottom:16px;line-height:1.5;}
+.modal-sheet .field input{background:rgba(255,255,255,.94);color:#0f1f2e;}
+.modal-actions{display:flex;flex-direction:column;gap:10px;margin-top:20px;}
+.btn-skip{background:transparent;border:1.5px solid rgba(255,255,255,.15);border-radius:14px;color:rgba(255,255,255,.5);font-size:14px;font-weight:600;padding:13px;cursor:pointer;}
+.btn-skip:hover{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.8);}
+
+.auth-footer{margin-top:14px;text-align:center;font-size:10.5px;color:rgba(255,255,255,.25);line-height:1.6;}
+.auth-footer a{color:rgba(255,255,255,.42);text-decoration:none;}
+
+@media(max-width:360px){.card{padding:22px 16px;}}
+</style>
 </head>
 <body>
-<!-- ... all your existing HTML content ... -->
+
+<div class="app-header">
+  <img src="https://download.dovelingua.com/website/Master_Wordmark_white_tex_navy_background.png" alt="DoveLingua">
+  <div class="app-by">Domina o Inglês. Lidera o Teu Futuro.</div>
+</div>
+
+<div class="blocked-banner" id="blockedBanner">
+  <div class="b-icon"><i class="fa-solid fa-ban"></i></div>
+  <div class="b-title">Conta Bloqueada</div>
+  <div class="b-msg">A sua conta foi suspensa. Contacta o suporte para mais informações.</div>
+</div>
+
+<div class="card" id="mainCard">
+
+  <div class="tabs">
+    <button class="tab-btn active" id="tabLogin" onclick="switchTab('login')">Entrar</button>
+    <button class="tab-btn" id="tabRegister" onclick="switchTab('register')">Criar Conta</button>
+  </div>
+
+  <div class="error-banner" id="errorBanner"></div>
+  <div class="success-banner" id="successBanner"></div>
+
+  <!-- LOGIN -->
+  <div class="form-section active" id="sectionLogin">
+    <button class="btn-google" id="btnGoogleLogin" onclick="signInGoogle()">
+      <svg class="google-icon" viewBox="0 0 24 24">
+        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+      </svg>
+      <span class="btn-label">Continuar com o Google</span>
+      <div class="spinner spinner-white"></div>
+    </button>
+    <div class="divider"><span>ou entra com email</span></div>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" id="loginEmail" placeholder="o.seu@email.com" autocomplete="email"/>
+      <div class="field-error" id="errLoginEmail"></div>
+    </div>
+    <div class="field">
+      <label>Palavra-passe</label>
+      <div class="pw-wrap">
+        <input type="password" id="loginPassword" placeholder="A sua palavra-passe" autocomplete="current-password" onkeydown="if(event.key==='Enter') signInEmail()"/>
+        <button class="pw-toggle" type="button" onclick="togglePw('loginPassword',this)"><i class="fa-solid fa-eye"></i></button>
+      </div>
+      <div class="field-error" id="errLoginPassword"></div>
+    </div>
+    <a class="forgot-link" onclick="openResetModal()">Esqueceu a palavra-passe?</a>
+    <button class="btn-primary" id="btnEmailLogin" onclick="signInEmail()">
+      <div class="spinner"></div><span class="btn-label">Entrar</span>
+    </button>
+  </div>
+
+  <!-- REGISTER -->
+  <div class="form-section" id="sectionRegister">
+
+    <div class="success-screen" id="registerSuccess">
+      <div class="s-icon">🎉</div>
+      <h2>Bem-vindo à DoveLingua!</h2>
+      <p class="s-msg">A sua conta foi criada com sucesso.<br/>A preparar o seu painel...</p>
+      <div class="redirect-spinner"></div>
+    </div>
+
+    <div id="registerForm">
+      <button class="btn-google" id="btnGoogleRegister" onclick="registerGoogle()">
+        <svg class="google-icon" viewBox="0 0 24 24">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        <span class="btn-label">Continuar com o Google</span>
+        <div class="spinner spinner-white"></div>
+      </button>
+      <div class="divider"><span>ou regista com email</span></div>
+      <div class="field">
+        <label>Nome completo</label>
+        <input type="text" id="regName" placeholder="O teu nome completo" autocomplete="name"/>
+        <div class="field-error" id="errRegName"></div>
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="regEmail" placeholder="o.seu@email.com" autocomplete="email"/>
+        <div class="field-error" id="errRegEmail"></div>
+      </div>
+      <div class="field">
+        <label>WhatsApp</label>
+        <input type="tel" id="regPhone" placeholder="+258 84 000 0000" autocomplete="tel"/>
+        <div class="field-error" id="errRegPhone"></div>
+      </div>
+      <div class="field">
+        <label>Palavra-passe</label>
+        <div class="pw-wrap">
+          <input type="password" id="regPassword" placeholder="Mínimo 6 caracteres" autocomplete="new-password"/>
+          <button class="pw-toggle" type="button" onclick="togglePw('regPassword',this)"><i class="fa-solid fa-eye"></i></button>
+        </div>
+        <div class="field-error" id="errRegPassword"></div>
+      </div>
+      <div class="field">
+        <label>Confirmar Palavra-passe</label>
+        <div class="pw-wrap">
+          <input type="password" id="regConfirm" placeholder="Repete a palavra-passe" autocomplete="new-password" onkeydown="if(event.key==='Enter') registerEmail()"/>
+          <button class="pw-toggle" type="button" onclick="togglePw('regConfirm',this)"><i class="fa-solid fa-eye"></i></button>
+        </div>
+        <div class="field-error" id="errRegConfirm"></div>
+      </div>
+      <button class="btn-primary" id="btnEmailRegister" onclick="registerEmail()">
+        <div class="spinner"></div><span class="btn-label">Criar Conta</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="auth-footer">
+  Ao continuares, aceitas os nossos <a href="terms.html">Termos e Políticas</a><br/>
+  DoveLingua © 2026 - Todos os Direitos Reservados
+</div>
+
+<!-- RESET PASSWORD MODAL -->
+<div class="modal-overlay" id="resetModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title"><i class="fa-solid fa-key"></i> Recuperar Palavra-passe</div>
+    <div class="modal-sub">Envia um email de recuperação para o teu email.</div>
+    <div class="error-banner" id="resetError"></div>
+    <div class="success-banner" id="resetSuccess"></div>
+    <div class="field">
+      <label>Email da conta</label>
+      <input type="email" id="resetEmail" placeholder="o.seu@email.com" onkeydown="if(event.key==='Enter') sendResetEmail()"/>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-primary" id="btnSendReset" onclick="sendResetEmail()">
+        <div class="spinner"></div><span class="btn-label">Enviar Email de Recuperação</span>
+      </button>
+      <button class="btn-skip" onclick="closeResetModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+// ============================================
+// IMPORT FROM SINGLE SOURCE OF TRUTH
+// ============================================
 import { 
-  getAuth, 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword, 
-  signInWithPopup, 
-  GoogleAuthProvider, 
-  updateProfile, 
-  sendPasswordResetEmail, 
-  onAuthStateChanged, 
-  signOut 
-} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
-import { 
-  getFirestore, 
-  doc, 
-  setDoc, 
-  getDoc, 
-  serverTimestamp 
-} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+  authStateListener,
+  signInWithEmail,
+  signInWithGoogle,
+  signUpWithEmail,
+  signOutUser,
+  sendPasswordReset,
+  createUserDocument,
+  getUserData,
+  getRouteForRole,
+  getErrorMessage,
+  updateUserProfile
+} from "./firebase-shared.js";
 
 // ============================================
-// FIREBASE CONFIGURATION - SINGLE SOURCE OF TRUTH
-// ============================================
-const firebaseConfig = {
-  apiKey: "AIzaSyAl9A_gXDKTB3N6U1f_Bh5FWrOsySjCJGo",
-  authDomain: "dovelingua-site.firebaseapp.com",
-  projectId: "dovelingua-site",
-  storageBucket: "dovelingua-site.firebasestorage.app",
-  messagingSenderId: "271742052334",
-  appId: "1:271742052334:web:bc736373d7ea50001b50ff",
-  measurementId: "G-N8ELT8SMYM"
-};
-
-// Initialize Firebase (ONLY HERE)
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
-
-// ============================================
-// CONFIGURATION
-// ============================================
-const ADMIN_EMAILS = ['your-admin-email@example.com', 'second-admin@example.com'];
-
-const ROUTES = { 
-  applicant: 'application-status.html', 
-  student: 'student-dashboard.html', 
-  teacher: 'teacher-dashboard.html', 
-  staff: 'staff-payments.html', 
-  admin: 'admin-dashboard.html' 
-};
-
-const ERR = {
-  'auth/email-already-in-use': 'Este email já está registado. Tente iniciar sessão.',
-  'auth/invalid-email': 'O formato do email não é válido.',
-  'auth/weak-password': 'Usa pelo menos 6 caracteres na palavra-passe.',
-  'auth/network-request-failed': 'Sem ligação à internet. Verifica a sua ligação.',
-  'auth/user-not-found': 'Não encontrámos nenhuma conta com este email.',
-  'auth/wrong-password': 'Palavra-passe incorrecta.',
-  'auth/too-many-requests': 'Demasiadas tentativas. Aguarda alguns minutos.',
-  'auth/invalid-credential': 'Email ou palavra-passe incorrectos. Se criou a conta com o Google, usa o botão "Continuar com o Google".'
-};
-
-// ============================================
-// EXPORTED FUNCTIONS - Available to all other files
-// ============================================
-export function getErrorMessage(code) {
-  return ERR[code] || 'Ocorreu um erro inesperado. Tenta novamente.';
-}
-
-export async function createUserDocument(uid, name, email, phone) {
-  const role = ADMIN_EMAILS.includes(email) ? 'admin' : 'applicant';
-  await setDoc(doc(db, 'users', uid), {
-    uid,
-    fullName: name || 'Aluno',
-    email,
-    phone: phone || null,
-    role: role,
-    status: 'active',
-    createdAt: serverTimestamp()
-  });
-  return role;
-}
-
-export async function getUserRole(user) {
-  if (!user) return null;
-  const snap = await getDoc(doc(db, 'users', user.uid));
-  if (!snap.exists()) return null;
-  return snap.data();
-}
-
-export async function isUserBlocked(user) {
-  if (!user) return false;
-  const snap = await getDoc(doc(db, 'users', user.uid));
-  if (!snap.exists()) return false;
-  return snap.data().isBlocked === true;
-}
-
-export function signInWithEmail(email, password) {
-  return signInWithEmailAndPassword(auth, email, password);
-}
-
-export function signUpWithEmail(email, password) {
-  return createUserWithEmailAndPassword(auth, email, password);
-}
-
-export function signInWithGoogle() {
-  return signInWithPopup(auth, provider);
-}
-
-export function signOutUser() {
-  return signOut(auth);
-}
-
-export function sendPasswordReset(email) {
-  return sendPasswordResetEmail(auth, email);
-}
-
-export function updateUserProfile(user, data) {
-  return updateProfile(user, data);
-}
-
-export function authStateListener(callback) {
-  return onAuthStateChanged(auth, callback);
-}
-
-export function getRouteForRole(role) {
-  return ROUTES[role] || 'application-status.html';
-}
-
-// Export Firebase instances directly
-export { app, auth, db, provider, ADMIN_EMAILS, ROUTES };
-
-// ============================================
-// AUTH.HTML UI LOGIC (Same as before)
+// UI STATE
 // ============================================
 let _justRegistered = false;
+let errorTimer = null;
 
-function showError(msg, id='errorBanner'){ 
-  const el=document.getElementById(id); 
-  if(!el)return; 
-  el.textContent=msg; 
+// ============================================
+// UI FUNCTIONS
+// ============================================
+function showError(msg, id = 'errorBanner') { 
+  const el = document.getElementById(id); 
+  if (!el) return; 
+  el.textContent = msg; 
   el.classList.add('show'); 
   clearTimeout(errorTimer); 
-  errorTimer=setTimeout(()=>el.classList.remove('show'),6000); 
+  errorTimer = setTimeout(() => el.classList.remove('show'), 6000); 
 }
 
-function hideError(id='errorBanner'){ 
+function hideError(id = 'errorBanner') { 
   document.getElementById(id)?.classList.remove('show'); 
 }
 
-function setLoading(btnId,on){ 
-  const b=document.getElementById(btnId); 
-  if(!b)return; 
-  b.disabled=on; 
-  b.classList.toggle('loading',on); 
+function setLoading(btnId, on) { 
+  const b = document.getElementById(btnId); 
+  if (!b) return; 
+  b.disabled = on; 
+  b.classList.toggle('loading', on); 
 }
 
-function showFieldError(id,msg){ 
-  const el=document.getElementById(id); 
-  if(!el)return; 
-  el.textContent=msg; 
+function showFieldError(id, msg) { 
+  const el = document.getElementById(id); 
+  if (!el) return; 
+  el.textContent = msg; 
   el.classList.add('show'); 
 }
 
-function clearFieldErrors(){ 
-  document.querySelectorAll('.field-error').forEach(e=>{
-    e.textContent='';
+function clearFieldErrors() { 
+  document.querySelectorAll('.field-error').forEach(e => {
+    e.textContent = '';
     e.classList.remove('show');
   }); 
-  document.querySelectorAll('.field input').forEach(e=>e.classList.remove('input-error')); 
+  document.querySelectorAll('.field input').forEach(e => e.classList.remove('input-error')); 
 }
 
-function showSuccessAndRedirect(role){
+function showSuccessAndRedirect(role) {
   document.getElementById('registerForm').style.display = 'none';
   document.getElementById('registerSuccess').classList.add('show');
   setTimeout(() => {
@@ -188,17 +306,21 @@ function showSuccessAndRedirect(role){
   }, 1500);
 }
 
-// Check blocked status
+// ============================================
+// CHECK BLOCKED STATUS
+// ============================================
 if (new URLSearchParams(window.location.search).get('blocked') === '1') {
   document.getElementById('blockedBanner').classList.add('show');
 }
 
-// Auth state listener
+// ============================================
+// AUTH STATE LISTENER
+// ============================================
 authStateListener(async (user) => {
   if (!user || _justRegistered) return;
   
   try {
-    const userData = await getUserRole(user);
+    const userData = await getUserData(user);
     if (!userData) return;
     
     if (userData.isBlocked) {
@@ -213,13 +335,17 @@ authStateListener(async (user) => {
   }
 });
 
-// Global functions for onclick handlers
-window.signInGoogle = async function(){
+// ============================================
+// GLOBAL FUNCTIONS FOR ONCLICK HANDLERS
+// ============================================
+
+// Google Sign In
+window.signInGoogle = async function() {
   hideError(); 
   setLoading('btnGoogleLogin', true);
   try {
     const result = await signInWithGoogle();
-    const userData = await getUserRole(result.user);
+    const userData = await getUserData(result.user);
     
     if (!userData) {
       _justRegistered = true;
@@ -229,7 +355,7 @@ window.signInGoogle = async function(){
     } else {
       if (userData.isBlocked) {
         await signOutUser();
-        window.location.href='auth.html?blocked=1';
+        window.location.href = 'auth.html?blocked=1';
         return;
       }
       window.location.href = getRouteForRole(userData.role);
@@ -242,7 +368,8 @@ window.signInGoogle = async function(){
   }
 };
 
-window.signInEmail = async function(){
+// Email Sign In
+window.signInEmail = async function() {
   hideError(); 
   clearFieldErrors();
   const email = document.getElementById('loginEmail').value.trim();
@@ -250,21 +377,21 @@ window.signInEmail = async function(){
   let err = false;
   
   if (!email) { 
-    showFieldError('errLoginEmail','⚠️ Introduz o teu endereço de email.'); 
+    showFieldError('errLoginEmail', '⚠️ Introduz o teu endereço de email.'); 
     document.getElementById('loginEmail').classList.add('input-error'); 
-    err=true; 
+    err = true; 
   }
   if (!pwd) { 
-    showFieldError('errLoginPassword','⚠️ Introduz a sua palavra-passe.'); 
+    showFieldError('errLoginPassword', '⚠️ Introduz a sua palavra-passe.'); 
     document.getElementById('loginPassword').classList.add('input-error'); 
-    err=true; 
+    err = true; 
   }
   if (err) return;
   
   setLoading('btnEmailLogin', true);
   try {
     const result = await signInWithEmail(email, pwd);
-    const userData = await getUserRole(result.user);
+    const userData = await getUserData(result.user);
     window.location.href = getRouteForRole(userData?.role);
   } catch (e) { 
     showError(getErrorMessage(e.code)); 
@@ -273,7 +400,8 @@ window.signInEmail = async function(){
   }
 };
 
-window.registerEmail = async function(){
+// Email Registration
+window.registerEmail = async function() {
   hideError(); 
   clearFieldErrors();
   const name = document.getElementById('regName').value.trim();
@@ -285,53 +413,49 @@ window.registerEmail = async function(){
   let err = false;
 
   if (!name) { 
-    showFieldError('errRegName','⚠️ Por favor escreve o teu nome completo.'); 
+    showFieldError('errRegName', '⚠️ Por favor escreve o teu nome completo.'); 
     document.getElementById('regName').classList.add('input-error'); 
-    err=true; 
-  }
-  else if (parts.length < 2) { 
-    showFieldError('errRegName','⚠️ Escreve o teu nome e apelido.'); 
+    err = true; 
+  } else if (parts.length < 2) { 
+    showFieldError('errRegName', '⚠️ Escreve o teu nome e apelido.'); 
     document.getElementById('regName').classList.add('input-error'); 
-    err=true; 
+    err = true; 
   }
 
   if (!email) { 
-    showFieldError('errRegEmail','⚠️ Por favor introduz o teu email.'); 
+    showFieldError('errRegEmail', '⚠️ Por favor introduz o teu email.'); 
     document.getElementById('regEmail').classList.add('input-error'); 
-    err=true; 
-  }
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { 
-    showFieldError('errRegEmail','⚠️ Email inválido.'); 
+    err = true; 
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { 
+    showFieldError('errRegEmail', '⚠️ Email inválido.'); 
     document.getElementById('regEmail').classList.add('input-error'); 
-    err=true; 
+    err = true; 
   }
 
   if (!phone) { 
-    showFieldError('errRegPhone','⚠️ Por favor introduz o teu número de WhatsApp.'); 
+    showFieldError('errRegPhone', '⚠️ Por favor introduz o teu número de WhatsApp.'); 
     document.getElementById('regPhone').classList.add('input-error'); 
-    err=true; 
+    err = true; 
   }
 
   if (!pwd) { 
-    showFieldError('errRegPassword','⚠️ Por favor cria uma palavra-passe.'); 
+    showFieldError('errRegPassword', '⚠️ Por favor cria uma palavra-passe.'); 
     document.getElementById('regPassword').classList.add('input-error'); 
-    err=true; 
-  }
-  else if (pwd.length < 6) { 
-    showFieldError('errRegPassword','⚠️ Mínimo 6 caracteres.'); 
+    err = true; 
+  } else if (pwd.length < 6) { 
+    showFieldError('errRegPassword', '⚠️ Mínimo 6 caracteres.'); 
     document.getElementById('regPassword').classList.add('input-error'); 
-    err=true; 
+    err = true; 
   }
 
   if (!confirm) { 
-    showFieldError('errRegConfirm','⚠️ Confirma a sua palavra-passe.'); 
+    showFieldError('errRegConfirm', '⚠️ Confirma a sua palavra-passe.'); 
     document.getElementById('regConfirm').classList.add('input-error'); 
-    err=true; 
-  }
-  else if (pwd !== confirm) { 
-    showFieldError('errRegConfirm','⚠️ As palavras-passe não coincidem.'); 
+    err = true; 
+  } else if (pwd !== confirm) { 
+    showFieldError('errRegConfirm', '⚠️ As palavras-passe não coincidem.'); 
     document.getElementById('regConfirm').classList.add('input-error'); 
-    err=true; 
+    err = true; 
   }
 
   if (err) return;
@@ -351,17 +475,18 @@ window.registerEmail = async function(){
   }
 };
 
-window.registerGoogle = async function(){
+// Google Registration
+window.registerGoogle = async function() {
   hideError(); 
   setLoading('btnGoogleRegister', true);
   try {
     const result = await signInWithGoogle();
-    const userData = await getUserRole(result.user);
+    const userData = await getUserData(result.user);
     
     if (userData) {
       if (userData.isBlocked) {
         await signOutUser();
-        window.location.href='auth.html?blocked=1';
+        window.location.href = 'auth.html?blocked=1';
         return;
       }
       window.location.href = getRouteForRole(userData.role);
@@ -380,17 +505,18 @@ window.registerGoogle = async function(){
   }
 };
 
-window.openResetModal = function(){
+// Reset Password Modal
+window.openResetModal = function() {
   const e = document.getElementById('loginEmail').value.trim();
   if (e) document.getElementById('resetEmail').value = e;
   document.getElementById('resetModal').classList.add('show');
 };
 
-window.closeResetModal = function(){ 
+window.closeResetModal = function() { 
   document.getElementById('resetModal').classList.remove('show'); 
 };
 
-window.sendResetEmail = async function(){
+window.sendResetEmail = async function() {
   hideError('resetError');
   const email = document.getElementById('resetEmail').value.trim();
   if (!email) { 
@@ -409,15 +535,17 @@ window.sendResetEmail = async function(){
   }
 };
 
-window.switchTab = function(tab){
+// Tab Switch
+window.switchTab = function(tab) {
   hideError();
-  document.getElementById('sectionLogin').classList.toggle('active', tab==='login');
-  document.getElementById('sectionRegister').classList.toggle('active', tab==='register');
-  document.getElementById('tabLogin').classList.toggle('active', tab==='login');
-  document.getElementById('tabRegister').classList.toggle('active', tab==='register');
+  document.getElementById('sectionLogin').classList.toggle('active', tab === 'login');
+  document.getElementById('sectionRegister').classList.toggle('active', tab === 'register');
+  document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+  document.getElementById('tabRegister').classList.toggle('active', tab === 'register');
 };
 
-window.togglePw = function(id, btn){
+// Toggle Password Visibility
+window.togglePw = function(id, btn) {
   const inp = document.getElementById(id);
   const show = inp.type === 'password';
   inp.type = show ? 'text' : 'password';
