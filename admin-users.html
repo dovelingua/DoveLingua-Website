@@ -15,17 +15,17 @@
   --grey:#F4F4F4;--tint:#E8EEF9;--teal:#0E8F7F;
   --text:#1a2332;--mid:#4a5568;--light:#718096;--border:#e2e8f0;
   --r:14px;--shadow:0 4px 20px rgba(11,46,115,.08);
-  --amber:#b45309;--amber-bg:#fef3e2;--red:#c0392b;--red-bg:#fdecea;--green:#0E8F7F;--green-bg:#e6f6f4;
+  --amber:#b45309;--amber-bg:#fef3e2;--red:#c0392b;--red-bg:#fdecea;
+  --green:#0E8F7F;--green-bg:#e6f6f4;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--grey);line-height:1.6;}
 a{text-decoration:none;color:inherit;}
-button,input,select,textarea{font-family:inherit;text-transform:none;}
-input[data-uppercase],select[data-uppercase]{text-transform:uppercase;}
+button,input,select,textarea{font-family:inherit;}
 
-/* SIDEBAR - collapsible like Claude */
+/* SIDEBAR */
 .app{display:flex;min-height:100vh;}
-.sidebar{width:250px;background:var(--navy);flex-shrink:0;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;transition:width .25s,left .25s;overflow:hidden;}
+.sidebar{width:250px;background:var(--navy);flex-shrink:0;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;transition:width .25s;overflow:hidden;}
 .sidebar.collapsed{width:0;}
 .sb-logo{padding:20px 18px;border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between;white-space:nowrap;}
 .sb-logo img{height:34px;}
@@ -41,26 +41,44 @@ input[data-uppercase],select[data-uppercase]{text-transform:uppercase;}
 .sb-foot .admin-role{font-size:10.5px;color:rgba(255,255,255,.4);}
 .sb-foot a{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:rgba(255,255,255,.5);cursor:pointer;}
 
+/* MAIN */
 .main{flex:1;min-width:0;display:flex;flex-direction:column;}
+
+/* TOPBAR — navy background, so buttons must be white */
 .topbar{background:var(--navy);border-bottom:3px solid var(--gold);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:40;}
 .topbar-left{display:flex;align-items:center;gap:14px;}
 .sb-open-btn{display:none;background:rgba(255,255,255,.1);border:none;color:#fff;width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:15px;}
 .topbar h1{font-family:'Playfair Display',serif;font-size:19px;color:#fff;}
 .topbar .tb-sub{font-size:12px;color:rgba(255,255,255,.6);}
-.content{padding:24px 28px 60px;flex:1;}
-.footer-line{background:var(--navy);padding:16px 5%;text-align:center;}
-.footer-line p{color:rgba(255,255,255,.4);font-size:11.5px;}
+.topbar-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
 
+/* Base button */
 .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:.2s;white-space:nowrap;}
+
+/* Topbar outline buttons — white on navy */
+.btn-topbar-o{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.45);}
+.btn-topbar-o:hover{background:rgba(255,255,255,.12);border-color:#fff;}
+
+/* Solid gold/navy button for primary CTA in topbar */
+.btn-topbar-g{background:var(--gold);color:var(--navy);}
+.btn-topbar-g:hover{background:#e0aa1e;}
+
+/* Content area buttons */
 .btn-g{background:var(--navy);color:#fff;}
 .btn-g:hover{background:var(--gold);color:var(--navy);}
 .btn-o{background:transparent;color:var(--navy);border:1.5px solid var(--navy);}
+.btn-o:hover{background:var(--navy);color:#fff;}
 .btn-danger{background:var(--red-bg);color:var(--red);}
 .btn-danger:hover{background:var(--red);color:#fff;}
 .btn-sm{padding:6px 14px;font-size:11.5px;}
 
+.content{padding:24px 28px 60px;flex:1;}
+.footer-line{background:var(--navy);padding:16px 5%;text-align:center;}
+.footer-line p{color:rgba(255,255,255,.4);font-size:11.5px;}
+
+/* TOOLBAR */
 .toolbar{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:14px 20px;margin-bottom:18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
-.search-box{display:flex;align-items:center;gap:8px;background:var(--grey);border-radius:20px;padding:8px 14px;flex:1;min-width:200px;max-width:300px;}
+.search-box{display:flex;align-items:center;gap:8px;background:var(--grey);border-radius:20px;padding:8px 14px;flex:1;min-width:200px;max-width:340px;}
 .search-box input{border:none;background:none;outline:none;font-size:12.5px;flex:1;}
 .role-tabs{display:flex;gap:6px;overflow-x:auto;}
 .role-tab{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:18px;background:var(--white);border:1.5px solid var(--border);color:var(--mid);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;}
@@ -68,37 +86,76 @@ input[data-uppercase],select[data-uppercase]{text-transform:uppercase;}
 .role-tab .cb{background:rgba(0,0,0,.15);padding:1px 7px;border-radius:8px;font-size:10px;}
 .role-tab.active .cb{background:rgba(255,255,255,.2);}
 
-/* MOVEABLE TABLE - fixed name column, scrollable fields */
-.u-table-wrap{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;position:relative;}
-.u-table-scroll{overflow-x:auto;}
-.u-table{width:100%;border-collapse:collapse;min-width:1000px;}
-.u-table thead th{background:var(--grey);font-size:10px;font-weight:700;color:var(--light);text-transform:uppercase;padding:12px 14px;text-align:left;white-space:nowrap;}
-.u-table thead th:first-child,.u-table tbody td:first-child{position:sticky;left:0;background:var(--white);z-index:5;box-shadow:2px 0 6px rgba(0,0,0,.05);}
-.u-table tbody td{padding:12px 14px;border-top:1px solid var(--border);font-size:12.5px;white-space:nowrap;}
-.u-table tbody tr:hover td{background:var(--tint);}
+/* TABLE WRAPPER — horizontal scroll, sticky first column */
+.u-table-wrap{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;}
+.u-table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.u-table{width:100%;border-collapse:collapse;min-width:1600px;}
+.u-table thead th{
+  background:var(--navy);
+  color:rgba(255,255,255,.85);
+  font-size:10px;font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+  padding:11px 13px;
+  text-align:left;
+  white-space:nowrap;
+  border-right:1px solid rgba(255,255,255,.08);
+}
+.u-table thead th:last-child{border-right:none;}
+
+/* Sticky first column */
+.u-table thead th:first-child,
+.u-table tbody td:first-child{
+  position:sticky;left:0;z-index:5;
+  box-shadow:3px 0 8px rgba(0,0,0,.08);
+}
+.u-table thead th:first-child{background:var(--navy-d);}
+.u-table tbody td:first-child{background:var(--white);}
 .u-table tbody tr:hover td:first-child{background:var(--tint);}
+
+.u-table tbody td{
+  padding:11px 13px;
+  border-top:1px solid var(--border);
+  border-right:1px solid var(--border);
+  font-size:12px;
+  white-space:nowrap;
+  color:var(--text);
+  vertical-align:middle;
+}
+.u-table tbody td:last-child{border-right:none;}
+.u-table tbody tr:hover td{background:var(--tint);}
+
 .name-cell{display:flex;align-items:center;gap:10px;min-width:180px;}
 .u-avatar{width:32px;height:32px;border-radius:50%;background:var(--tint);color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
 .u-code{font-size:10px;color:var(--light);}
-.role-pill{display:inline-flex;gap:3px;flex-wrap:wrap;}
-.role-badge{font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:8px;}
+
+/* Badges */
+.role-badge{font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:8px;margin:1px;}
 .role-badge.applicant{background:var(--amber-bg);color:var(--amber);}
 .role-badge.student{background:var(--green-bg);color:var(--green);}
 .role-badge.teacher{background:var(--tint);color:var(--navy);}
 .role-badge.staff{background:#f3e8ff;color:#7c3aed;}
 .role-badge.admin{background:#fee2e2;color:#dc2626;}
+
+.pay-badge{font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:8px;}
+.pay-badge.confirmed{background:var(--green-bg);color:var(--green);}
+.pay-badge.pending{background:var(--amber-bg);color:var(--amber);}
+.pay-badge.none{background:var(--grey);color:var(--light);}
+
 .status-dot{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;}
 .status-dot::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);}
 .status-dot.blocked::before{background:var(--red);}
-.icon-btn{width:30px;height:30px;border-radius:8px;background:var(--grey);border:none;color:var(--mid);cursor:pointer;}
-.icon-btn:hover{background:var(--navy);color:#fff;}
-.empty-state{padding:60px 20px;text-align:center;color:var(--light);}
-.empty-state i{font-size:36px;margin-bottom:14px;display:block;color:var(--tint);}
 
-/* MODAL - large, full profile */
+.icon-btn{width:30px;height:30px;border-radius:8px;background:var(--grey);border:none;color:var(--mid);cursor:pointer;transition:.15s;}
+.icon-btn:hover{background:var(--navy);color:#fff;}
+
+.empty-state{padding:60px 20px;text-align:center;color:var(--light);}
+.empty-state i{font-size:36px;margin-bottom:14px;display:block;color:var(--border);}
+
+/* MODAL */
 .modal-ov{display:none;position:fixed;inset:0;background:rgba(11,46,115,.55);z-index:500;align-items:flex-start;justify-content:center;padding:20px 16px;overflow-y:auto;}
 .modal-ov.show{display:flex;}
-.modal{background:var(--white);border-radius:var(--r);max-width:760px;width:100%;margin:20px 0;}
+.modal{background:var(--white);border-radius:var(--r);max-width:820px;width:100%;margin:20px 0;}
 .modal-hdr{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--navy);border-radius:var(--r) var(--r) 0 0;}
 .modal-hdr h3{font-family:'Playfair Display',serif;font-size:17px;color:var(--gold);}
 .modal-close{width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,.15);border:none;color:#fff;cursor:pointer;}
@@ -108,23 +165,42 @@ input[data-uppercase],select[data-uppercase]{text-transform:uppercase;}
 .modal-body{padding:20px 24px;max-height:60vh;overflow-y:auto;}
 .mpanel{display:none;}
 .mpanel.active{display:block;}
+
 .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .detail-row{background:var(--grey);border-radius:8px;padding:10px 14px;}
 .detail-row .drl{font-size:10px;color:var(--light);text-transform:uppercase;margin-bottom:2px;}
-.detail-row .drv{font-size:13px;font-weight:600;color:var(--navy);}
+.detail-row .drv{font-size:13px;font-weight:600;color:var(--navy);word-break:break-word;}
+
 .role-check-grid{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
 .role-check{display:flex;align-items:center;gap:8px;background:var(--grey);border-radius:10px;padding:10px 16px;cursor:pointer;}
 .role-check input{width:16px;height:16px;accent-color:var(--navy);}
 .role-check.checked{background:var(--tint);}
+
 .hist-item{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--grey);font-size:12.5px;}
 .hist-item:last-child{border-bottom:none;}
+
 .action-grid-modal{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;}
 .form-group{margin-bottom:12px;}
 .form-group label{display:block;font-size:11px;font-weight:700;color:var(--mid);text-transform:uppercase;margin-bottom:5px;}
 .form-group input,.form-group select{width:100%;padding:9px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;outline:none;}
+.form-group input:focus,.form-group select:focus{border-color:var(--navy);}
+
 .modal-ftr{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+
+/* MANUAL ENROL MODAL */
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+
+/* TOAST */
 .toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:14px 22px;border-radius:12px;font-size:13px;z-index:600;transform:translateY(100px);opacity:0;transition:.3s;}
 .toast.show{transform:translateY(0);opacity:1;}
+
+/* SCROLL HINT — subtle fade on right edge of table */
+.u-table-wrap::after{
+  content:'';display:block;position:absolute;right:0;top:0;bottom:0;width:32px;
+  background:linear-gradient(to right, transparent, rgba(255,255,255,.7));
+  pointer-events:none;border-radius:0 var(--r) var(--r) 0;
+}
+.u-table-wrap{position:relative;}
 
 @media(max-width:900px){
   .sidebar{position:fixed;left:-260px;z-index:200;width:250px;}
@@ -132,14 +208,21 @@ input[data-uppercase],select[data-uppercase]{text-transform:uppercase;}
   .sb-open-btn{display:block;}
   .detail-grid{grid-template-columns:1fr;}
   .action-grid-modal{grid-template-columns:1fr;}
+  .fr2{grid-template-columns:1fr;}
+  .topbar{padding:12px 16px;}
+  .content{padding:16px 12px 60px;}
 }
 </style>
 </head>
 <body>
 
 <div class="app">
+  <!-- SIDEBAR -->
   <div class="sidebar" id="sidebar">
-    <div class="sb-logo"><img src="https://download.dovelingua.com/website/Master_Wordmark_white_tex_navy_background.png" alt="DoveLingua"><button class="sb-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-angles-left"></i></button></div>
+    <div class="sb-logo">
+      <img src="https://download.dovelingua.com/website/Master_Wordmark_white_tex_navy_background.png" alt="DoveLingua">
+      <button class="sb-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-angles-left"></i></button>
+    </div>
     <div class="sb-nav">
       <div class="sb-section-label">Gestão</div>
       <a onclick="location.href='admin-dashboard.html'"><i class="fa-solid fa-gauge"></i> Painel Geral</a>
@@ -153,26 +236,41 @@ input[data-uppercase],select[data-uppercase]{text-transform:uppercase;}
       <div class="sb-section-label">Sistema</div>
       <a onclick="location.href='admin-settings.html'"><i class="fa-solid fa-gear"></i> Configurações</a>
     </div>
-    <div class="sb-foot"><div class="admin-name" id="adminName">Admin</div><div class="admin-role">Administrador</div><a id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></div>
+    <div class="sb-foot">
+      <div class="admin-name" id="adminName">Admin</div>
+      <div class="admin-role">Administrador</div>
+      <a id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
+    </div>
   </div>
 
+  <!-- MAIN -->
   <div class="main">
     <div class="topbar">
       <div class="topbar-left">
         <button class="sb-open-btn" onclick="toggleSidebarMobile()"><i class="fa-solid fa-bars"></i></button>
         <button class="sb-toggle" id="desktopOpenBtn" onclick="toggleSidebar()" style="display:none;"><i class="fa-solid fa-angles-right"></i></button>
-        <div><h1>Estudantes e Utilizadores</h1><div class="tb-sub">Gestão completa de contas, funções e histórico</div></div>
+        <div>
+          <h1>Estudantes e Utilizadores</h1>
+          <div class="tb-sub">Gestão completa de contas, inscrições e histórico</div>
+        </div>
       </div>
-      <div style="display:flex;gap:8px;">
-        <button class="btn btn-o" onclick="exportPDF()"><i class="fa-solid fa-file-pdf"></i> PDF</button>
-        <button class="btn btn-o" onclick="exportExcel()"><i class="fa-solid fa-file-excel"></i> Excel</button>
-        <button class="btn btn-g" onclick="openManualEnrol()"><i class="fa-solid fa-user-plus"></i> Inscrever Manualmente</button>
+      <div class="topbar-actions">
+        <button class="btn btn-topbar-o" onclick="exportPDF()">
+          <i class="fa-solid fa-file-pdf"></i> Exportar PDF
+        </button>
+        <button class="btn btn-topbar-o" onclick="exportExcel()">
+          <i class="fa-solid fa-file-excel"></i> Exportar Excel
+        </button>
+        <button class="btn btn-topbar-g" onclick="openManualEnrol()">
+          <i class="fa-solid fa-user-plus"></i> Inscrever Manualmente
+        </button>
       </div>
     </div>
 
     <div class="content">
+      <!-- FILTERS TOOLBAR -->
       <div class="toolbar">
-        <div class="role-tabs">
+        <div class="role-tabs" id="roleTabs">
           <div class="role-tab active" data-role="all" onclick="filterRole('all',this)">Todos <span class="cb" id="cAll">0</span></div>
           <div class="role-tab" data-role="applicant" onclick="filterRole('applicant',this)">Candidatos <span class="cb" id="cApplicant">0</span></div>
           <div class="role-tab" data-role="student" onclick="filterRole('student',this)">Estudantes <span class="cb" id="cStudent">0</span></div>
@@ -180,13 +278,41 @@ input[data-uppercase],select[data-uppercase]{text-transform:uppercase;}
           <div class="role-tab" data-role="staff" onclick="filterRole('staff',this)">Staff <span class="cb" id="cStaff">0</span></div>
           <div class="role-tab" data-role="admin" onclick="filterRole('admin',this)">Admin <span class="cb" id="cAdmin">0</span></div>
         </div>
-        <div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="searchInput" placeholder="Pesquisar nome, email ou código..." oninput="renderTable()"></div>
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass" style="color:var(--light);"></i>
+          <input type="text" id="searchInput" placeholder="Nome, email, ref., telefone..." oninput="renderTable()">
+        </div>
       </div>
 
+      <!-- TABLE -->
       <div class="u-table-wrap">
         <div class="u-table-scroll">
           <table class="u-table">
-            <thead><tr><th>Estudante</th><th>Email</th><th>Telefone</th><th>Idade</th><th>Género</th><th>Código</th><th>Função(ões)</th><th>Estado</th><th>Ações</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Nome / Código</th>
+                <th>Ref. Inscrição</th>
+                <th>Data Inscrição</th>
+                <th>Data Vencimento</th>
+                <th>Estado Pgto.</th>
+                <th>Email</th>
+                <th>WhatsApp</th>
+                <th>Telefone Chamadas</th>
+                <th>Idade</th>
+                <th>Género</th>
+                <th>Nível</th>
+                <th>Mod. Pagamento</th>
+                <th>Mod. Ensino</th>
+                <th>Total Pago (MZN)</th>
+                <th>Material</th>
+                <th>Disponibilidade</th>
+                <th>Província</th>
+                <th>Distrito</th>
+                <th>Função(ões)</th>
+                <th>Estado Conta</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
             <tbody id="tableBody"></tbody>
           </table>
         </div>
@@ -197,261 +323,733 @@ input[data-uppercase],select[data-uppercase]{text-transform:uppercase;}
   </div>
 </div>
 
-<!-- FULL PROFILE MODAL -->
+<!-- ═══════════════════════════════════════════════════════
+     FULL PROFILE MODAL
+═══════════════════════════════════════════════════════ -->
 <div class="modal-ov" id="profileModal">
   <div class="modal">
-    <div class="modal-hdr"><h3 id="modalName">Perfil do Utilizador</h3><button class="modal-close" onclick="closeModal('profileModal')"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="modal-hdr">
+      <h3 id="modalName">Perfil do Utilizador</h3>
+      <button class="modal-close" onclick="closeModal('profileModal')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
     <div class="modal-tabs">
       <div class="mtab active" data-tab="info" onclick="switchTab('info',this)">Informação</div>
+      <div class="mtab" data-tab="enrol" onclick="switchTab('enrol',this)">Inscrição</div>
       <div class="mtab" data-tab="roles" onclick="switchTab('roles',this)">Funções</div>
       <div class="mtab" data-tab="financial" onclick="switchTab('financial',this)">Financeiro</div>
       <div class="mtab" data-tab="history" onclick="switchTab('history',this)">Histórico</div>
       <div class="mtab" data-tab="actions" onclick="switchTab('actions',this)">Ações</div>
     </div>
     <div class="modal-body">
+
+      <!-- TAB: INFO -->
       <div class="mpanel active" id="panel-info">
         <div class="detail-grid" id="infoGrid"></div>
       </div>
+
+      <!-- TAB: ENROL -->
+      <div class="mpanel" id="panel-enrol">
+        <div class="detail-grid" id="enrolGrid"></div>
+      </div>
+
+      <!-- TAB: ROLES -->
       <div class="mpanel" id="panel-roles">
-        <p style="font-size:12.5px;color:var(--mid);margin-bottom:10px;">Um utilizador pode ter mais do que uma função (ex: Estudante e Professor).</p>
+        <p style="font-size:12.5px;color:var(--mid);margin-bottom:10px;">
+          Um utilizador pode ter mais do que uma função (ex: Estudante e Professor).
+        </p>
         <div class="role-check-grid" id="roleCheckGrid"></div>
       </div>
+
+      <!-- TAB: FINANCIAL -->
       <div class="mpanel" id="panel-financial">
         <div class="detail-grid" id="financialGrid"></div>
       </div>
+
+      <!-- TAB: HISTORY -->
       <div class="mpanel" id="panel-history">
         <div id="historyList"></div>
       </div>
+
+      <!-- TAB: ACTIONS -->
       <div class="mpanel" id="panel-actions">
-        <div class="form-group"><label>Data Limite da Inscrição Atual</label><input type="date" id="fDueDate"></div>
-        <div class="form-group"><label>Restringir Funcionalidades</label>
-          <select id="fRestrict"><option value="none">Nenhuma restrição</option><option value="messages">Bloquear Mensagens</option><option value="tests">Bloquear Testes</option><option value="full">Restrição Total (apenas ver painel)</option></select>
+        <div class="form-group">
+          <label>Data Limite da Inscrição Actual</label>
+          <input type="date" id="fDueDate">
+        </div>
+        <div class="form-group">
+          <label>Restringir Funcionalidades</label>
+          <select id="fRestrict">
+            <option value="none">Nenhuma restrição</option>
+            <option value="messages">Bloquear Mensagens</option>
+            <option value="tests">Bloquear Testes</option>
+            <option value="full">Restrição Total (apenas ver painel)</option>
+          </select>
         </div>
         <div class="action-grid-modal">
-          <button class="btn btn-o" onclick="sendPaymentReminder()"><i class="fa-solid fa-bell"></i> Enviar Aviso de Pagamento</button>
-          <button class="btn btn-danger" id="blockToggleBtn" onclick="toggleBlock()"><i class="fa-solid fa-ban"></i> Bloquear Conta</button>
+          <button class="btn btn-o" onclick="sendPaymentReminder()">
+            <i class="fa-solid fa-bell"></i> Enviar Aviso de Pagamento
+          </button>
+          <button class="btn btn-danger" id="blockToggleBtn" onclick="toggleBlock()">
+            <i class="fa-solid fa-ban"></i> Bloquear Conta
+          </button>
         </div>
       </div>
+
     </div>
     <div class="modal-ftr">
       <button class="btn btn-o" onclick="closeModal('profileModal')">Fechar</button>
-      <button class="btn btn-g" onclick="saveProfile()"><i class="fa-solid fa-floppy-disk"></i> Guardar Alterações</button>
+      <button class="btn btn-g" onclick="saveProfile()">
+        <i class="fa-solid fa-floppy-disk"></i> Guardar Alterações
+      </button>
     </div>
   </div>
 </div>
 
-<!-- MANUAL ENROL MODAL -->
+<!-- ═══════════════════════════════════════════════════════
+     MANUAL ENROL MODAL
+═══════════════════════════════════════════════════════ -->
 <div class="modal-ov" id="manualEnrolModal">
-  <div class="modal" style="max-width:520px;">
-    <div class="modal-hdr"><h3>Inscrever Estudante Manualmente</h3><button class="modal-close" onclick="closeModal('manualEnrolModal')"><i class="fa-solid fa-xmark"></i></button></div>
-    <div class="modal-body">
-      <div class="form-group"><label>Nome Completo</label><input type="text" id="meName" data-uppercase style="text-transform:none;"></div>
-      <div class="form-group"><label>Email</label><input type="email" id="meEmail"></div>
-      <div class="form-group"><label>Telefone</label><input type="tel" id="mePhone"></div>
-      <div class="form-group"><label>Nível</label><select id="meLevel"><option value="A1">A1</option><option value="A2">A2</option></select></div>
-      <div class="form-group"><label>Função Inicial</label><select id="meRole"><option value="student">Estudante</option><option value="applicant">Candidato</option></select></div>
+  <div class="modal" style="max-width:560px;">
+    <div class="modal-hdr">
+      <h3>Inscrever Estudante Manualmente</h3>
+      <button class="modal-close" onclick="closeModal('manualEnrolModal')"><i class="fa-solid fa-xmark"></i></button>
     </div>
-    <div class="modal-ftr"><button class="btn btn-o" onclick="closeModal('manualEnrolModal')">Cancelar</button><button class="btn btn-g" onclick="submitManualEnrol()"><i class="fa-solid fa-check"></i> Inscrever</button></div>
+    <div class="modal-body">
+      <div class="fr2">
+        <div class="form-group"><label>Nome Completo *</label><input type="text" id="meName"></div>
+        <div class="form-group"><label>Email *</label><input type="email" id="meEmail"></div>
+      </div>
+      <div class="fr2">
+        <div class="form-group"><label>WhatsApp</label><input type="tel" id="meWhatsapp" placeholder="84 000 0000"></div>
+        <div class="form-group"><label>Telefone Chamadas</label><input type="tel" id="mePhone" placeholder="82 000 0000"></div>
+      </div>
+      <div class="fr2">
+        <div class="form-group"><label>Idade</label><input type="number" id="meAge" min="12" max="80"></div>
+        <div class="form-group"><label>Género</label>
+          <select id="meGender"><option value="">— Seleccione —</option><option>Masculino</option><option>Feminino</option></select>
+        </div>
+      </div>
+      <div class="fr2">
+        <div class="form-group"><label>Nível</label>
+          <select id="meLevel"><option value="A1">A1 — Iniciante</option><option value="A2">A2 — Básico</option></select>
+        </div>
+        <div class="form-group"><label>Modalidade de Ensino</label>
+          <select id="meModality"><option value="Online">Online</option><option value="Presencial">Presencial</option></select>
+        </div>
+      </div>
+      <div class="fr2">
+        <div class="form-group"><label>Província</label>
+          <select id="meProvince">
+            <option value="">— Seleccione —</option>
+            <option>Maputo Cidade</option><option>Maputo Província</option><option>Gaza</option>
+            <option>Inhambane</option><option>Sofala</option><option>Manica</option>
+            <option>Tete</option><option>Zambézia</option><option>Nampula</option>
+            <option>Niassa</option><option>Cabo Delgado</option><option>Fora de Moçambique</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Distrito</label><input type="text" id="meDistrict" placeholder="Ex: Maxixe"></div>
+      </div>
+      <div class="form-group"><label>Função Inicial</label>
+        <select id="meRole"><option value="student">Estudante</option><option value="applicant">Candidato</option></select>
+      </div>
+    </div>
+    <div class="modal-ftr">
+      <button class="btn btn-o" onclick="closeModal('manualEnrolModal')">Cancelar</button>
+      <button class="btn btn-g" onclick="submitManualEnrol()">
+        <i class="fa-solid fa-check"></i> Inscrever
+      </button>
+    </div>
   </div>
 </div>
 
 <div class="toast" id="toast"><span id="toastText"></span></div>
 
+<!-- ═══════════════════════════════════════════════════════
+     JAVASCRIPT — imports from firebase-shared.js
+═══════════════════════════════════════════════════════ -->
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
-import { getFirestore, collection, doc, setDoc, updateDoc, getDocs, getDoc, query, where, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+import {
+  auth, db,
+  doc, setDoc, getDoc, updateDoc, addDoc,
+  collection, getDocs, query, where,
+  serverTimestamp,
+  onSnapshot
+} from './firebase-shared.js';
 
-const firebaseConfig = { apiKey:"AIzaSyAl9A_gXDKTB3N6U1f_Bh5FWrOsySjCJGo", authDomain:"dovelingua-site.firebaseapp.com", projectId:"dovelingua-site", storageBucket:"dovelingua-site.firebasestorage.app", messagingSenderId:"271742052334", appId:"1:271742052334:web:bc736373d7ea50001b50ff", measurementId:"G-N8ELT8SMYM" };
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+import {
+  onAuthStateChanged, signOut,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail
+} from 'https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js';
 
-let allUsers = [], currentRoleFilter = 'all', editingUid = null;
-document.getElementById('dynamicFooter').textContent = 'DoveLingua © ' + new Date().getFullYear() + ' - Todos os direitos reservados.';
+// ─── State ───────────────────────────────────────────────
+let allUsers      = [];   // merged user + application data
+let currentFilter = 'all';
+let editingUid    = null;
+
+// ─── Boot ────────────────────────────────────────────────
+document.getElementById('dynamicFooter').textContent =
+  'DoveLingua © ' + new Date().getFullYear() + ' — Todos os direitos reservados.';
 
 onAuthStateChanged(auth, async (user) => {
-  if (!user) { window.location.href='auth.html'; return; }
-  const snap = await getDoc(doc(db,'users',user.uid));
-  const roles = snap.exists() ? (snap.data().roles || [snap.data().role]) : [];
-  if (!roles.includes('admin')) { window.location.href='unauthorized.html'; return; }
+  if (!user) { location.href = 'auth.html'; return; }
+  const snap = await getDoc(doc(db, 'users', user.uid));
+  if (!snap.exists()) { location.href = 'auth.html'; return; }
+  const roles = snap.data().roles || [snap.data().role];
+  if (!roles.includes('admin')) { location.href = 'unauthorized.html'; return; }
   document.getElementById('adminName').textContent = snap.data().fullName || 'Admin';
-  loadUsers();
+  loadData();
 });
-document.getElementById('logoutBtn').addEventListener('click', async () => { await signOut(auth); window.location.href='index.html'; });
 
-window.toggleSidebar = function() {
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+  await signOut(auth);
+  location.href = 'index.html';
+});
+
+// ─── Sidebar toggles ─────────────────────────────────────
+window.toggleSidebar = function () {
   const sb = document.getElementById('sidebar');
   sb.classList.toggle('collapsed');
-  document.getElementById('desktopOpenBtn').style.display = sb.classList.contains('collapsed') ? 'block' : 'none';
+  document.getElementById('desktopOpenBtn').style.display =
+    sb.classList.contains('collapsed') ? 'block' : 'none';
 };
-window.toggleSidebarMobile = function() { document.getElementById('sidebar').classList.toggle('mobile-open'); };
+window.toggleSidebarMobile = function () {
+  document.getElementById('sidebar').classList.toggle('mobile-open');
+};
 
-async function loadUsers() {
-  const snap = await getDocs(collection(db,'users'));
-  allUsers = [];
-  snap.forEach(d => allUsers.push({ uid:d.id, ...d.data() }));
+// ─── Load & merge data ───────────────────────────────────
+async function loadData() {
+  // 1. Fetch all users
+  const usersSnap = await getDocs(collection(db, 'users'));
+  const usersMap  = {};
+  usersSnap.forEach(d => { usersMap[d.id] = { uid: d.id, ...d.data() }; });
+
+  // 2. Fetch all applications, index by uid (keep latest per uid)
+  const appSnap = await getDocs(collection(db, 'applications'));
+  const appMap  = {};
+  appSnap.forEach(d => {
+    const a = d.data();
+    if (!a.uid) return;
+    // keep the most recent application per user
+    if (!appMap[a.uid] || (a.createdAt?.seconds || 0) > (appMap[a.uid].createdAt?.seconds || 0)) {
+      appMap[a.uid] = { appId: d.id, ...a };
+    }
+  });
+
+  // 3. Merge
+  allUsers = Object.values(usersMap).map(u => ({
+    ...u,
+    ...(appMap[u.uid] ? { _app: appMap[u.uid] } : {})
+  }));
+
   updateCounts();
   renderTable();
 }
-function getRoles(u) { return u.roles || (u.role ? [u.role] : ['applicant']); }
+
+// ─── Helpers ─────────────────────────────────────────────
+function getRoles(u) {
+  return u.roles || (u.role ? [u.role] : ['applicant']);
+}
+
+function roleLabel(r) {
+  return { applicant:'Candidato', student:'Estudante', teacher:'Professor',
+           staff:'Staff', admin:'Admin' }[r] || r;
+}
+
+function fmt(ts) {
+  if (!ts) return '—';
+  const d = ts.seconds ? new Date(ts.seconds * 1000) : new Date(ts);
+  return d.toLocaleDateString('pt-MZ');
+}
+
+function fmtMzn(v) {
+  if (!v && v !== 0) return '—';
+  return Number(v).toLocaleString('pt-MZ') + ' MZN';
+}
+
+function dueDate(app) {
+  if (!app) return '—';
+  if (app.dueDate) return fmt(app.dueDate);
+  if (!app.createdAt) return '—';
+  const enrolMs = app.createdAt.seconds * 1000;
+  const weeks   = app.payMod === 'monthly' ? 4 : (app.totalWeeks || 12);
+  return new Date(enrolMs + weeks * 7 * 86400000).toLocaleDateString('pt-MZ');
+}
+
+// ─── Counts ──────────────────────────────────────────────
 function updateCounts() {
   const c = { applicant:0, student:0, teacher:0, staff:0, admin:0 };
-  allUsers.forEach(u => getRoles(u).forEach(r => { if (c[r]!==undefined) c[r]++; }));
-  document.getElementById('cAll').textContent = allUsers.length;
+  allUsers.forEach(u => getRoles(u).forEach(r => { if (c[r] !== undefined) c[r]++; }));
+  document.getElementById('cAll').textContent      = allUsers.length;
   document.getElementById('cApplicant').textContent = c.applicant;
-  document.getElementById('cStudent').textContent = c.student;
-  document.getElementById('cTeacher').textContent = c.teacher;
-  document.getElementById('cStaff').textContent = c.staff;
-  document.getElementById('cAdmin').textContent = c.admin;
+  document.getElementById('cStudent').textContent   = c.student;
+  document.getElementById('cTeacher').textContent   = c.teacher;
+  document.getElementById('cStaff').textContent     = c.staff;
+  document.getElementById('cAdmin').textContent     = c.admin;
 }
-window.filterRole = function(role, el) {
-  currentRoleFilter = role;
-  document.querySelectorAll('.role-tab').forEach(t=>t.classList.remove('active'));
+
+// ─── Filter ──────────────────────────────────────────────
+window.filterRole = function (role, el) {
+  currentFilter = role;
+  document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
   renderTable();
 };
-window.renderTable = function() {
+
+// ─── Render table ────────────────────────────────────────
+window.renderTable = function () {
   const search = document.getElementById('searchInput').value.toLowerCase();
   const filtered = allUsers.filter(u => {
     const roles = getRoles(u);
-    if (currentRoleFilter!=='all' && !roles.includes(currentRoleFilter)) return false;
-    if (search && !(u.fullName||'').toLowerCase().includes(search) && !(u.email||'').toLowerCase().includes(search) && !(u.studentCode||'').toLowerCase().includes(search)) return false;
+    if (currentFilter !== 'all' && !roles.includes(currentFilter)) return false;
+    const app = u._app || {};
+    const haystack = [
+      u.fullName, u.email, u.phone, u.studentCode,
+      app.refCode, app.phone, app.wa, app.callPhone
+    ].join(' ').toLowerCase();
+    if (search && !haystack.includes(search)) return false;
     return true;
   });
+
   const body = document.getElementById('tableBody');
-  if (filtered.length===0) { body.innerHTML = '<tr><td colspan="9" style="padding:50px;text-align:center;color:var(--light);">Nenhum resultado encontrado.</td></tr>'; return; }
+  if (!filtered.length) {
+    body.innerHTML = `<tr><td colspan="21" class="empty-state">
+      <i class="fa-solid fa-users-slash"></i>Nenhum resultado encontrado.</td></tr>`;
+    return;
+  }
+
   body.innerHTML = filtered.map(u => {
     const roles = getRoles(u);
+    const app   = u._app || {};
+
+    // payment status badge
+    const ps = app.applicationStatus || 'none';
+    const psLabel = { confirmed:'Confirmado', pending:'Pendente', none:'—' }[ps] || ps;
+    const psBadge = `<span class="pay-badge ${ps}">${psLabel}</span>`;
+
+    // role badges
+    const roleBadges = roles.map(r => `<span class="role-badge ${r}">${roleLabel(r)}</span>`).join('');
+
+    // account status
+    const statusHtml = u.isBlocked
+      ? `<span class="status-dot blocked">Bloqueado</span>`
+      : `<span class="status-dot">Activo</span>`;
+
     return `<tr>
-      <td><div class="name-cell"><div class="u-avatar">${(u.fullName||'?').charAt(0).toUpperCase()}</div><div><div>${u.fullName||'Sem nome'}</div><div class="u-code">${u.studentCode||''}</div></div></div></td>
-      <td>${u.email||'-'}</td>
-      <td>${u.phone||'-'}</td>
-      <td>${u.age||'-'}</td>
-      <td>${u.gender||'-'}</td>
-      <td>${u.studentCode||'-'}</td>
-      <td><div class="role-pill">${roles.map(r=>`<span class="role-badge ${r}">${roleLabel(r)}</span>`).join('')}</div></td>
-      <td><span class="status-dot ${u.isBlocked?'blocked':''}">${u.isBlocked?'Bloqueado':'Ativo'}</span></td>
-      <td><button class="icon-btn" onclick="openProfile('${u.uid}')"><i class="fa-solid fa-eye"></i></button></td>
+      <td>
+        <div class="name-cell">
+          <div class="u-avatar">${(u.fullName || '?').charAt(0).toUpperCase()}</div>
+          <div>
+            <div style="font-weight:600;">${u.fullName || 'Sem nome'}</div>
+            <div class="u-code">${u.studentCode || app.refCode || ''}</div>
+          </div>
+        </div>
+      </td>
+      <td>${app.refCode || '—'}</td>
+      <td>${fmt(app.createdAt || u.createdAt)}</td>
+      <td>${dueDate(app)}</td>
+      <td>${psBadge}</td>
+      <td>${u.email || '—'}</td>
+      <td>${app.phone || u.phone || '—'}</td>
+      <td>${app.callPhone || '—'}</td>
+      <td>${app.age || u.age || '—'}</td>
+      <td>${app.gender || u.gender || '—'}</td>
+      <td>${app.levelName || app.cefr || app.level || '—'}</td>
+      <td>${app.payMod === 'monthly' ? 'Mensal' : app.payMod === 'full' ? 'Nível Completo' : '—'}</td>
+      <td>${app.modality || '—'}</td>
+      <td>${fmtMzn(app.total)}</td>
+      <td>${app.inclMat ? 'Incluído' : app.inclMat === false ? 'Não' : '—'}</td>
+      <td>${app.avail || '—'}</td>
+      <td>${app.province || u.province || '—'}</td>
+      <td>${app.district || '—'}</td>
+      <td><div style="display:flex;flex-wrap:wrap;gap:2px;">${roleBadges}</div></td>
+      <td>${statusHtml}</td>
+      <td>
+        <button class="icon-btn" title="Ver perfil" onclick="openProfile('${u.uid}')">
+          <i class="fa-solid fa-eye"></i>
+        </button>
+      </td>
     </tr>`;
   }).join('');
 };
-function roleLabel(r) { return { applicant:'Candidato', student:'Estudante', teacher:'Professor', staff:'Staff', admin:'Admin' }[r] || r; }
 
-window.openProfile = async function(uid) {
-  const u = allUsers.find(x=>x.uid===uid);
+// ─── Open Profile Modal ──────────────────────────────────
+window.openProfile = async function (uid) {
+  const u = allUsers.find(x => x.uid === uid);
   if (!u) return;
   editingUid = uid;
-  document.getElementById('modalName').textContent = u.fullName || 'Perfil';
-  document.getElementById('infoGrid').innerHTML = [
-    ['Nome Completo',u.fullName],['Email',u.email],['Telefone',u.phone],['Idade',u.age],['Género',u.gender],
-    ['Província',u.province],['Código',u.studentCode||'—'],['Registado em',u.createdAt?new Date(u.createdAt.seconds*1000).toLocaleDateString('pt-PT'):'-']
-  ].map(([k,v])=>`<div class="detail-row"><div class="drl">${k}</div><div class="drv">${v||'-'}</div></div>`).join('');
+  const app = u._app || {};
 
-  const allRoles = ['applicant','student','teacher','staff','admin'];
+  document.getElementById('modalName').textContent = u.fullName || 'Perfil';
+
+  // TAB: Info
+  document.getElementById('infoGrid').innerHTML = [
+    ['Nome Completo',    u.fullName],
+    ['Email',            u.email],
+    ['WhatsApp',         app.phone || u.phone],
+    ['Telefone Chamadas',app.callPhone],
+    ['Idade',            app.age || u.age],
+    ['Género',           app.gender || u.gender],
+    ['Província',        app.province || u.province],
+    ['Distrito',         app.district],
+    ['Código de Aluno',  u.studentCode || '—'],
+    ['Registado em',     fmt(u.createdAt)],
+  ].map(([k,v]) => `
+    <div class="detail-row">
+      <div class="drl">${k}</div>
+      <div class="drv">${v || '—'}</div>
+    </div>`).join('');
+
+  // TAB: Enrol
+  document.getElementById('enrolGrid').innerHTML = [
+    ['Ref. Inscrição',      app.refCode],
+    ['Tipo',                app.type === 'new' ? 'Nova Inscrição' : app.type === 'renew' ? 'Renovação' : '—'],
+    ['Nível',               app.levelName || app.cefr || app.level],
+    ['Duração',             app.totalWeeks ? app.totalWeeks + ' semanas' : '—'],
+    ['Modalidade de Ensino',app.modality],
+    ['Disponibilidade',     app.avail],
+    ['Mod. Pagamento',      app.payMod === 'monthly' ? 'Mensal' : app.payMod === 'full' ? 'Nível Completo' : '—'],
+    ['Método Pagamento',    app.payMethod],
+    ['Data de Inscrição',   fmt(app.createdAt)],
+    ['Data de Vencimento',  dueDate(app)],
+    ['Estado Pagamento',    app.applicationStatus || '—'],
+    ['Material Didáctico',  app.inclMat ? 'Incluído (250 MZN)' : 'Não incluído'],
+  ].map(([k,v]) => `
+    <div class="detail-row">
+      <div class="drl">${k}</div>
+      <div class="drv">${v || '—'}</div>
+    </div>`).join('');
+
+  // TAB: Roles
+  const allRoles  = ['applicant','student','teacher','staff','admin'];
   const userRoles = getRoles(u);
   document.getElementById('roleCheckGrid').innerHTML = allRoles.map(r => `
-    <label class="role-check ${userRoles.includes(r)?'checked':''}"><input type="checkbox" value="${r}" ${userRoles.includes(r)?'checked':''} onchange="this.parentElement.classList.toggle('checked',this.checked)"> ${roleLabel(r)}</label>
-  `).join('');
+    <label class="role-check ${userRoles.includes(r) ? 'checked' : ''}">
+      <input type="checkbox" value="${r}" ${userRoles.includes(r) ? 'checked' : ''}
+        onchange="this.parentElement.classList.toggle('checked',this.checked)">
+      ${roleLabel(r)}
+    </label>`).join('');
 
+  // TAB: Financial
+  document.getElementById('financialGrid').innerHTML = [
+    ['Taxa do Curso',    fmtMzn(app.courseFee)],
+    ['Taxa de Matrícula',fmtMzn(app.matriculaFee)],
+    ['Desconto',         app.discount > 0 ? '− ' + fmtMzn(app.discount) : '—'],
+    ['Material',         app.inclMat ? fmtMzn(250) : '—'],
+    ['Total Pago',       fmtMzn(app.total)],
+    ['Ref. Transacção',  app.txId || '—'],
+    ['Estado',           app.applicationStatus || '—'],
+  ].map(([k,v]) => `
+    <div class="detail-row">
+      <div class="drl">${k}</div>
+      <div class="drv">${v || '—'}</div>
+    </div>`).join('');
+
+  // TAB: History — list all applications for this user
   try {
-    const appQ = query(collection(db,'applications'), where('uid','==',uid));
-    const appSnap = await getDocs(appQ);
-    let financialRows = [];
-    appSnap.forEach(d => { const a=d.data(); financialRows.push(['Ref: '+a.refCode, (a.total||0).toLocaleString('pt-MZ')+' MZN - '+(a.applicationStatus==='confirmed'?'Confirmado':'Pendente')]); });
-    document.getElementById('financialGrid').innerHTML = financialRows.length ? financialRows.map(([k,v])=>`<div class="detail-row"><div class="drl">${k}</div><div class="drv">${v}</div></div>`).join('') : '<p style="color:var(--light);">Sem registos financeiros.</p>';
-    document.getElementById('historyList').innerHTML = financialRows.length ? financialRows.map(([k,v])=>`<div class="hist-item"><span>${k}</span><span>${v}</span></div>`).join('') : '<p style="color:var(--light);">Sem histórico ainda.</p>';
-  } catch(e) {}
+    const histSnap = await getDocs(query(collection(db,'applications'), where('uid','==',uid)));
+    const items = [];
+    histSnap.forEach(d => items.push(d.data()));
+    items.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+    document.getElementById('historyList').innerHTML = items.length
+      ? items.map(a => `
+          <div class="hist-item">
+            <span><strong>${a.refCode || '—'}</strong> · ${a.levelName || a.level || '—'}</span>
+            <span>${fmtMzn(a.total)} · ${fmt(a.createdAt)}</span>
+          </div>`).join('')
+      : '<p style="color:var(--light);font-size:13px;">Sem histórico de inscrições.</p>';
+  } catch(e) {
+    document.getElementById('historyList').innerHTML =
+      '<p style="color:var(--light);font-size:13px;">Erro ao carregar histórico.</p>';
+  }
 
-  document.getElementById('blockToggleBtn').innerHTML = u.isBlocked ? '<i class="fa-solid fa-check"></i> Desbloquear Conta' : '<i class="fa-solid fa-ban"></i> Bloquear Conta';
+  // TAB: Actions
+  document.getElementById('blockToggleBtn').innerHTML = u.isBlocked
+    ? '<i class="fa-solid fa-check"></i> Desbloquear Conta'
+    : '<i class="fa-solid fa-ban"></i> Bloquear Conta';
   document.getElementById('fRestrict').value = u.restriction || 'none';
+  if (app.dueDate) {
+    const d = app.dueDate.seconds ? new Date(app.dueDate.seconds*1000) : new Date(app.dueDate);
+    document.getElementById('fDueDate').value = d.toISOString().split('T')[0];
+  } else {
+    document.getElementById('fDueDate').value = '';
+  }
+
+  // Reset to first tab
+  switchTab('info', document.querySelector('.mtab[data-tab="info"]'));
   document.getElementById('profileModal').classList.add('show');
 };
-window.closeModal = function(id) { document.getElementById(id).classList.remove('show'); };
-window.switchTab = function(tab, el) {
-  document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.mpanel').forEach(p=>p.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('panel-'+tab).classList.add('active');
+
+// ─── Modal helpers ───────────────────────────────────────
+window.closeModal = function (id) {
+  document.getElementById(id).classList.remove('show');
 };
 
-window.saveProfile = async function() {
+window.switchTab = function (tab, el) {
+  document.querySelectorAll('.mtab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.mpanel').forEach(p => p.classList.remove('active'));
+  if (el) el.classList.add('active');
+  document.getElementById('panel-' + tab).classList.add('active');
+};
+
+// ─── Save profile ────────────────────────────────────────
+window.saveProfile = async function () {
   if (!editingUid) return;
-  const checkedRoles = Array.from(document.querySelectorAll('#roleCheckGrid input:checked')).map(c=>c.value);
-  const restriction = document.getElementById('fRestrict').value;
+  const checkedRoles = Array.from(document.querySelectorAll('#roleCheckGrid input:checked')).map(c => c.value);
+  const restriction  = document.getElementById('fRestrict').value;
+  const dueDateVal   = document.getElementById('fDueDate').value;
   try {
     const updateData = { roles: checkedRoles, restriction };
-    const u = allUsers.find(x=>x.uid===editingUid);
+    const u = allUsers.find(x => x.uid === editingUid);
+    // auto-assign student code when role becomes student
     if (checkedRoles.includes('student') && !u.studentCode) {
-      updateData.studentCode = 'DVL-ST-' + Math.floor(1000+Math.random()*9000);
+      updateData.studentCode = 'DVL-ST-' + Math.floor(1000 + Math.random() * 9000);
     }
-    await updateDoc(doc(db,'users',editingUid), updateData);
-    showToast('Perfil atualizado com sucesso.');
+    await updateDoc(doc(db, 'users', editingUid), updateData);
+
+    // update due date on application if present
+    if (u._app?.appId && dueDateVal) {
+      await updateDoc(doc(db, 'applications', u._app.appId), {
+        dueDate: new Date(dueDateVal)
+      });
+    }
+
+    showToast('Perfil actualizado com sucesso.');
     closeModal('profileModal');
-    loadUsers();
-  } catch(e) { showToast('Erro ao guardar.'); }
+    loadData();
+  } catch(e) {
+    showToast('Erro ao guardar alterações.');
+    console.error(e);
+  }
 };
-window.toggleBlock = async function() {
+
+// ─── Toggle block ────────────────────────────────────────
+window.toggleBlock = async function () {
   if (!editingUid) return;
-  const u = allUsers.find(x=>x.uid===editingUid);
-  await updateDoc(doc(db,'users',editingUid), { isBlocked: !u.isBlocked });
+  const u = allUsers.find(x => x.uid === editingUid);
+  await updateDoc(doc(db, 'users', editingUid), { isBlocked: !u.isBlocked });
   showToast(u.isBlocked ? 'Conta desbloqueada.' : 'Conta bloqueada.');
   closeModal('profileModal');
-  loadUsers();
+  loadData();
 };
-window.sendPaymentReminder = async function() {
+
+// ─── Payment reminder ────────────────────────────────────
+window.sendPaymentReminder = async function () {
   if (!editingUid) return;
-  const u = allUsers.find(x=>x.uid===editingUid);
+  const u = allUsers.find(x => x.uid === editingUid);
   try {
-    await addDoc(collection(db,'messages'), { senderId:'system', senderName:'DoveLingua', senderRole:'admin', recipientId:editingUid, recipientName:u.fullName, subject:'Aviso de Pagamento', body:'Este é um lembrete de que o seu pagamento está pendente. Por favor regularize a sua situação.', sentAt:serverTimestamp(), readStatus:false });
-    showToast('Aviso enviado com sucesso.');
-  } catch(e) { showToast('Erro ao enviar aviso.'); }
+    await addDoc(collection(db, 'messages'), {
+      senderId:     'system',
+      senderName:   'DoveLingua',
+      senderRole:   'admin',
+      recipientId:  editingUid,
+      recipientName:u.fullName,
+      subject:      'Aviso de Pagamento',
+      body:         'Este é um lembrete de que o seu pagamento está pendente. Por favor regularize a sua situação.',
+      sentAt:       serverTimestamp(),
+      readStatus:   false
+    });
+    showToast('Aviso de pagamento enviado.');
+  } catch(e) {
+    showToast('Erro ao enviar aviso.');
+  }
 };
 
-window.openManualEnrol = function() { document.getElementById('manualEnrolModal').classList.add('show'); };
-window.submitManualEnrol = async function() {
+// ─── Manual enrol ────────────────────────────────────────
+window.openManualEnrol = function () {
+  document.getElementById('manualEnrolModal').classList.add('show');
+};
+
+window.submitManualEnrol = async function () {
   const fullName = document.getElementById('meName').value.trim();
-  const email = document.getElementById('meEmail').value.trim().toLowerCase();
-  const phone = document.getElementById('mePhone').value.trim();
-  const level = document.getElementById('meLevel').value;
-  const role = document.getElementById('meRole').value;
-  if (!fullName || !email) { showToast('Preencha nome e email.'); return; }
+  const email    = document.getElementById('meEmail').value.trim().toLowerCase();
+  const whatsapp = document.getElementById('meWhatsapp').value.trim();
+  const phone    = document.getElementById('mePhone').value.trim();
+  const age      = document.getElementById('meAge').value.trim();
+  const gender   = document.getElementById('meGender').value;
+  const level    = document.getElementById('meLevel').value;
+  const modality = document.getElementById('meModality').value;
+  const province = document.getElementById('meProvince').value;
+  const district = document.getElementById('meDistrict').value.trim();
+  const role     = document.getElementById('meRole').value;
+
+  if (!fullName || !email) { showToast('Preencha pelo menos o nome e o email.'); return; }
+
   try {
-    const tempPass = Math.random().toString(36).slice(-10)+'Aa1!';
-    const cred = await createUserWithEmailAndPassword(auth, email, tempPass);
-    const studentCode = role==='student' ? 'DVL-ST-'+Math.floor(1000+Math.random()*9000) : null;
-    await setDoc(doc(db,'users',cred.user.uid), { uid:cred.user.uid, fullName, email, phone, roles:[role], currentLevel:level, studentCode, status:'active', createdAt:serverTimestamp() });
+    const tempPass = Math.random().toString(36).slice(-10) + 'Aa1!';
+    const cred     = await createUserWithEmailAndPassword(auth, email, tempPass);
+    const uid      = cred.user.uid;
+    const studentCode = role === 'student' ? 'DVL-ST-' + Math.floor(1000 + Math.random() * 9000) : null;
+
+    await setDoc(doc(db, 'users', uid), {
+      uid, fullName, email,
+      phone: whatsapp || phone || null,
+      age: age || null,
+      gender: gender || null,
+      province: province || null,
+      roles: [role],
+      studentCode,
+      status: 'active',
+      createdAt: serverTimestamp()
+    });
+
+    // create a basic application record so data appears in table
+    await addDoc(collection(db, 'applications'), {
+      uid, fullName, email,
+      phone: whatsapp || null,
+      callPhone: phone || null,
+      age: age || null,
+      gender: gender || null,
+      level: level.toLowerCase(),
+      levelName: level,
+      modality,
+      province: province || null,
+      district: district || null,
+      type: 'manual',
+      applicationStatus: 'pending',
+      createdAt: serverTimestamp()
+    });
+
     await sendPasswordResetEmail(auth, email);
-    showToast('Estudante inscrito com sucesso. Email de acesso enviado.');
+    showToast('Estudante inscrito. Email de acesso enviado.');
     closeModal('manualEnrolModal');
-    loadUsers();
-  } catch(e) { showToast('Erro: ' + (e.code==='auth/email-already-in-use' ? 'este email já existe.' : 'tente novamente.')); }
+    loadData();
+  } catch(e) {
+    showToast(e.code === 'auth/email-already-in-use'
+      ? 'Este email já existe no sistema.'
+      : 'Erro ao inscrever. Tente novamente.');
+    console.error(e);
+  }
 };
 
-window.exportPDF = function() {
+// ─── Export PDF ──────────────────────────────────────────
+window.exportPDF = function () {
   const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ orientation:'landscape', unit:'mm', format:'a4' });
-  doc.setFont('helvetica','bold'); doc.setFontSize(14); doc.setTextColor(11,46,115);
-  doc.text('DoveLingua - Lista de Estudantes e Utilizadores', 148, 15, {align:'center'});
-  let y = 28;
-  doc.setFontSize(8);
-  allUsers.forEach(u => {
-    doc.setFont('helvetica','bold'); doc.text((u.fullName||'-')+' | '+(u.email||'-')+' | '+(u.studentCode||'-')+' | '+getRoles(u).join(', '), 14, y);
-    y += 6;
-    if (y > 190) { doc.addPage(); y = 20; }
+  const pdoc = new jsPDF({ orientation:'landscape', unit:'mm', format:'a4' });
+  const W = 297;
+
+  // Header
+  pdoc.setFillColor(11,46,115); pdoc.rect(0,0,W,18,'F');
+  pdoc.setFont('helvetica','bold'); pdoc.setFontSize(13);
+  pdoc.setTextColor(255,255,255);
+  pdoc.text('DoveLingua — Lista de Estudantes e Utilizadores', W/2, 12, {align:'center'});
+  pdoc.setFontSize(8); pdoc.setTextColor(201,151,26);
+  pdoc.text('Exportado em ' + new Date().toLocaleString('pt-MZ'), W/2, 16, {align:'center'});
+
+  let y = 26;
+  const cols = [
+    {h:'Nome',           w:38},
+    {h:'Ref.',           w:24},
+    {h:'Inscr.',         w:20},
+    {h:'Vencimento',     w:22},
+    {h:'Pgto.',          w:22},
+    {h:'Email',          w:42},
+    {h:'WhatsApp',       w:22},
+    {h:'Nível',          w:16},
+    {h:'Ensino',         w:18},
+    {h:'Total',          w:22},
+    {h:'Província',      w:22},
+    {h:'Função',         w:20},
+    {h:'Estado',         w:18},
+  ];
+
+  // Column headers
+  let x = 8;
+  pdoc.setFillColor(11,46,115);
+  pdoc.rect(8, y-4, W-16, 8, 'F');
+  pdoc.setFont('helvetica','bold'); pdoc.setFontSize(7); pdoc.setTextColor(255,255,255);
+  cols.forEach(c => { pdoc.text(c.h, x+1, y); x += c.w; });
+  y += 6;
+
+  allUsers.forEach((u, idx) => {
+    if (y > 188) { pdoc.addPage(); y = 14; }
+    const app = u._app || {};
+    const roles = getRoles(u).map(roleLabel).join(', ');
+    const row = [
+      (u.fullName || '').substring(0,22),
+      app.refCode || '—',
+      fmt(app.createdAt || u.createdAt),
+      dueDate(app),
+      app.applicationStatus === 'confirmed' ? 'Confirmado' : app.applicationStatus === 'pending' ? 'Pendente' : '—',
+      (u.email || '').substring(0,26),
+      app.phone || u.phone || '—',
+      app.levelName || app.level || '—',
+      app.modality || '—',
+      app.total ? String(app.total) + ' MZN' : '—',
+      app.province || u.province || '—',
+      roles.substring(0,16),
+      u.isBlocked ? 'Bloqueado' : 'Activo',
+    ];
+    if (idx % 2 === 0) {
+      pdoc.setFillColor(240,244,252); pdoc.rect(8, y-3.5, W-16, 6.5, 'F');
+    }
+    pdoc.setFont('helvetica','normal'); pdoc.setFontSize(6.5); pdoc.setTextColor(30,40,60);
+    x = 8;
+    row.forEach((v,i) => { pdoc.text(String(v), x+1, y); x += cols[i].w; });
+    y += 7;
   });
-  doc.save('DoveLingua_Utilizadores.pdf');
-  showToast('PDF exportado.');
+
+  // Footer
+  pdoc.setFillColor(11,46,115); pdoc.rect(0,196,W,5,'F');
+  pdoc.setFont('helvetica','italic'); pdoc.setFontSize(6.5); pdoc.setTextColor(201,151,26);
+  pdoc.text('DoveLingua © ' + new Date().getFullYear() + ' — Confidencial', W/2, 199.5, {align:'center'});
+
+  pdoc.save('DoveLingua_Utilizadores_' + new Date().toISOString().split('T')[0] + '.pdf');
+  showToast('PDF exportado com sucesso.');
 };
-window.exportExcel = function() {
-  const data = allUsers.map(u => ({ Nome:u.fullName, Email:u.email, Telefone:u.phone, Codigo:u.studentCode||'', Funcoes:getRoles(u).join(', '), Estado:u.isBlocked?'Bloqueado':'Ativo' }));
-  const ws = XLSX.utils.json_to_sheet(data);
+
+// ─── Export Excel ────────────────────────────────────────
+window.exportExcel = function () {
+  const rows = allUsers.map(u => {
+    const app = u._app || {};
+    return {
+      'Nome':               u.fullName || '',
+      'Ref. Inscrição':     app.refCode || '',
+      'Data Inscrição':     fmt(app.createdAt || u.createdAt),
+      'Data Vencimento':    dueDate(app),
+      'Estado Pagamento':   app.applicationStatus || '',
+      'Email':              u.email || '',
+      'WhatsApp':           app.phone || u.phone || '',
+      'Tel. Chamadas':      app.callPhone || '',
+      'Idade':              app.age || u.age || '',
+      'Género':             app.gender || u.gender || '',
+      'Nível':              app.levelName || app.level || '',
+      'Mod. Pagamento':     app.payMod === 'monthly' ? 'Mensal' : app.payMod === 'full' ? 'Nível Completo' : '',
+      'Mod. Ensino':        app.modality || '',
+      'Total (MZN)':        app.total || '',
+      'Material':           app.inclMat ? 'Sim' : 'Não',
+      'Disponibilidade':    app.avail || '',
+      'Província':          app.province || u.province || '',
+      'Distrito':           app.district || '',
+      'Função(ões)':        getRoles(u).map(roleLabel).join(', '),
+      'Estado Conta':       u.isBlocked ? 'Bloqueado' : 'Activo',
+      'Código de Aluno':    u.studentCode || '',
+      'TX ID':              app.txId || '',
+    };
+  });
+
+  const ws = XLSX.utils.json_to_sheet(rows);
+  // Column widths
+  ws['!cols'] = [
+    {wch:28},{wch:18},{wch:16},{wch:16},{wch:16},
+    {wch:30},{wch:16},{wch:16},{wch:8},{wch:12},
+    {wch:14},{wch:18},{wch:14},{wch:14},{wch:10},
+    {wch:20},{wch:20},{wch:16},{wch:20},{wch:14},
+    {wch:16},{wch:14}
+  ];
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, 'Utilizadores');
-  XLSX.writeFile(wb, 'DoveLingua_Utilizadores.xlsx');
-  showToast('Excel exportado.');
+  XLSX.writeFile(wb, 'DoveLingua_Utilizadores_' + new Date().toISOString().split('T')[0] + '.xlsx');
+  showToast('Excel exportado com sucesso.');
 };
-function showToast(t) { const el=document.getElementById('toast'); el.classList.add('show'); document.getElementById('toastText').textContent=t; setTimeout(()=>el.classList.remove('show'),3000); }
+
+// ─── Toast ───────────────────────────────────────────────
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  document.getElementById('toastText').textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3200);
+}
 </script>
 <script src="/key-lock.js"></script>
 </body>
