@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Painel Geral - Admin DoveLingua</title>
+<title>Cursos - Admin DoveLingua</title>
 <link rel="icon" type="image/png" sizes="32x32" href="https://download.dovelingua.com/website/Favicon_32x32.png">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -18,7 +18,7 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--grey);line-height:1.6;}
 a{text-decoration:none;color:inherit;}
-button{font-family:inherit;}
+button,input,select,textarea{font-family:inherit;}
 
 .app{display:flex;min-height:100vh;}
 .sidebar{width:250px;background:var(--navy);flex-shrink:0;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;transition:width .25s,left .25s;overflow:hidden;}
@@ -47,53 +47,59 @@ button{font-family:inherit;}
 .footer-line{background:var(--navy);padding:16px 5%;text-align:center;}
 .footer-line p{color:rgba(255,255,255,.4);font-size:11.5px;}
 
-.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:.2s;white-space:nowrap;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:.2s;}
 .btn-g{background:var(--navy);color:#fff;}
 .btn-g:hover{background:var(--gold);color:var(--navy);}
 .btn-o{background:transparent;color:var(--navy);border:1.5px solid var(--navy);}
+.btn-danger{background:var(--red-bg);color:var(--red);}
+.btn-danger:hover{background:var(--red);color:#fff;}
 
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px;}
-.stat-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:20px 22px;position:relative;overflow:hidden;cursor:pointer;transition:.2s;}
-.stat-card:hover{transform:translateY(-3px);border-color:var(--gold);}
-.stat-card .sc-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px;}
-.stat-card .sv{font-family:'Playfair Display',serif;font-size:26px;color:var(--navy);font-weight:700;}
-.stat-card .sl{font-size:11.5px;color:var(--light);font-weight:600;margin-top:2px;}
-.stat-card .strend{font-size:11px;margin-top:8px;display:flex;align-items:center;gap:4px;}
-.strend.up{color:var(--green);}
-.strend.warn{color:var(--amber);}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
+.stat-box{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:18px 20px;}
+.stat-box .sv{font-family:'Playfair Display',serif;font-size:24px;color:var(--navy);font-weight:700;}
+.stat-box .sl{font-size:11px;color:var(--light);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-top:2px;}
 
-.grid-2{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-bottom:20px;}
-.panel{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:20px 22px;}
-.panel h3{font-size:14.5px;font-weight:700;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;}
-.panel h3 a{font-size:11.5px;color:var(--light);font-weight:500;cursor:pointer;}
-.panel h3 a:hover{color:var(--navy);}
+.course-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;}
+.course-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;}
+.cc-cover{height:90px;background:linear-gradient(135deg,var(--navy-d),var(--navy));position:relative;display:flex;align-items:center;justify-content:center;background-size:cover;background-position:center;}
+.cc-cover.has-img::before{content:'';position:absolute;inset:0;background:rgba(11,46,115,.4);}
+.cc-cover i{font-size:28px;color:rgba(255,255,255,.3);position:relative;z-index:1;}
+.cc-cefr-badge{position:absolute;top:10px;right:10px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:700;padding:3px 12px;border-radius:10px;z-index:2;}
+.cc-status{position:absolute;top:10px;left:10px;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;z-index:2;}
+.cc-status.open{background:var(--green-bg);color:var(--green);}
+.cc-status.closed{background:var(--red-bg);color:var(--red);}
+.cc-body{padding:16px 18px;}
+.cc-name{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.cc-meta{font-size:11.5px;color:var(--light);margin-bottom:12px;}
+.cc-progress-wrap{margin-bottom:10px;}
+.cc-progress-label{display:flex;justify-content:space-between;font-size:10.5px;color:var(--light);margin-bottom:4px;}
+.cc-progress-track{background:var(--grey);height:6px;border-radius:6px;overflow:hidden;}
+.cc-progress-fill{background:linear-gradient(90deg,var(--navy),var(--gold));height:100%;}
+.cc-row{display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-top:1px solid var(--grey);}
+.cc-row span:first-child{color:var(--light);}
+.cc-row span:last-child{font-weight:600;color:var(--text);}
+.cc-actions{display:flex;gap:8px;margin-top:12px;}
+.icon-btn{width:32px;height:32px;border-radius:8px;background:var(--grey);border:none;color:var(--mid);cursor:pointer;}
+.icon-btn:hover{background:var(--navy);color:#fff;}
+.icon-btn.del:hover{background:var(--red);}
 
-.list-item{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);}
-.list-item:last-child{border-bottom:none;}
-.li-avatar{width:36px;height:36px;border-radius:50%;background:var(--tint);color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;flex-shrink:0;}
-.li-body{flex:1;min-width:0;}
-.li-title{font-size:13px;font-weight:600;color:var(--text);}
-.li-sub{font-size:11px;color:var(--light);}
-.li-badge{font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:10px;flex-shrink:0;}
-.li-badge.pending{background:var(--amber-bg);color:var(--amber);}
-.li-badge.overdue{background:var(--red-bg);color:var(--red);}
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(11,46,115,.5);z-index:500;align-items:flex-start;justify-content:center;padding:20px 16px;overflow-y:auto;}
+.modal-ov.show{display:flex;}
+.modal{background:var(--white);border-radius:var(--r);max-width:520px;width:100%;margin:20px 0;}
+.modal-hdr{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--navy);border-radius:var(--r) var(--r) 0 0;}
+.modal-hdr h3{font-family:'Playfair Display',serif;font-size:16px;color:var(--gold);}
+.modal-close{width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,.15);border:none;color:#fff;cursor:pointer;}
+.modal-body{padding:20px 24px;display:flex;flex-direction:column;gap:14px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-group label{display:block;font-size:11px;font-weight:700;color:var(--mid);text-transform:uppercase;margin-bottom:6px;}
+.form-group input,.form-group select{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:13.5px;outline:none;}
+.modal-ftr{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px;}
+.password-confirm-box{background:var(--red-bg);border-radius:10px;padding:14px;margin-top:10px;}
+.password-confirm-box label{color:var(--red);}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:14px 22px;border-radius:12px;font-size:13px;z-index:600;transform:translateY(100px);opacity:0;transition:.3s;}
+.toast.show{transform:translateY(0);opacity:1;}
 
-.quick-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.qa-btn{background:var(--tint);border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:.2s;border:1px solid transparent;}
-.qa-btn:hover{border-color:var(--navy);background:var(--white);}
-.qa-btn i{font-size:20px;color:var(--navy);margin-bottom:8px;display:block;}
-.qa-btn span{font-size:11.5px;font-weight:600;color:var(--navy);}
-
-.chart-bars{display:flex;align-items:flex-end;gap:8px;height:120px;margin-top:10px;}
-.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;}
-.bar{width:100%;background:linear-gradient(180deg,var(--gold),var(--navy));border-radius:6px 6px 0 0;min-height:4px;}
-.bar-label{font-size:9.5px;color:var(--light);}
-
-.alert-banner{background:var(--amber-bg);border-left:4px solid var(--amber);border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px;justify-content:space-between;flex-wrap:wrap;}
-.alert-banner p{font-size:12.5px;color:var(--amber);font-weight:600;}
-
-@media(max-width:1000px){.stats-grid{grid-template-columns:1fr 1fr;}.grid-2{grid-template-columns:1fr;}}
-@media(max-width:900px){.sidebar{position:fixed;left:-260px;z-index:200;width:250px;}.sidebar.mobile-open{left:0;}.sb-open-btn{display:block;}}
+@media(max-width:900px){.sidebar{position:fixed;left:-260px;z-index:200;width:250px;}.sidebar.mobile-open{left:0;}.sb-open-btn{display:block;}.stats-row{grid-template-columns:1fr 1fr;}.form-row{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -103,9 +109,9 @@ button{font-family:inherit;}
     <div class="sb-logo"><img src="https://download.dovelingua.com/website/Master_Wordmark_white_tex_navy_background.png" alt="DoveLingua"><button class="sb-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-angles-left"></i></button></div>
     <div class="sb-nav">
       <div class="sb-section-label">Gestão</div>
-      <a class="active"><i class="fa-solid fa-gauge"></i> Painel Geral</a>
+      <a onclick="location.href='admin-dashboard.html'"><i class="fa-solid fa-gauge"></i> Painel Geral</a>
       <a onclick="location.href='admin-users.html'"><i class="fa-solid fa-users"></i> Estudantes e Utilizadores</a>
-      <a onclick="location.href='admin-courses.html'"><i class="fa-solid fa-graduation-cap"></i> Cursos</a>
+      <a class="active"><i class="fa-solid fa-graduation-cap"></i> Cursos</a>
       <a onclick="location.href='admin-payments.html'"><i class="fa-solid fa-money-check-dollar"></i> Pagamentos</a>
       <div class="sb-section-label">Avaliação</div>
       <a onclick="location.href='admin-level-test-editor.html'"><i class="fa-solid fa-clipboard-question"></i> Editor de Testes</a>
@@ -122,90 +128,106 @@ button{font-family:inherit;}
       <div class="topbar-left">
         <button class="sb-open-btn" onclick="toggleSidebarMobile()"><i class="fa-solid fa-bars"></i></button>
         <button class="sb-toggle" id="desktopOpenBtn" onclick="toggleSidebar()" style="display:none;"><i class="fa-solid fa-angles-right"></i></button>
-        <div><h1>Painel Geral</h1><div class="tb-sub" id="dateToday"></div></div>
+        <div><h1>Cursos</h1><div class="tb-sub">Níveis, professores atribuídos, preços e prazos</div></div>
       </div>
+      <button class="btn btn-g" onclick="openModal()"><i class="fa-solid fa-plus"></i> Novo Curso</button>
     </div>
 
     <div class="content">
-      <div class="alert-banner" id="alertBanner" style="display:none;">
-        <p id="alertText"></p>
-        <button class="btn btn-o" style="padding:6px 14px;font-size:11.5px;" onclick="location.href='admin-payments.html'">Ver Agora</button>
+      <div class="stats-row">
+        <div class="stat-box"><div class="sv" id="statTotal">0</div><div class="sl">Total de Cursos</div></div>
+        <div class="stat-box"><div class="sv" id="statOpen">0</div><div class="sl">Abertos</div></div>
+        <div class="stat-box"><div class="sv" id="statStudents">0</div><div class="sl">Estudantes Inscritos</div></div>
+        <div class="stat-box"><div class="sv" id="statTeachers">0</div><div class="sl">Professores Atribuídos</div></div>
       </div>
-
-      <div class="stats-grid">
-        <div class="stat-card" onclick="location.href='admin-users.html?filter=student'"><div class="sc-icon" style="background:var(--tint);color:var(--navy);"><i class="fa-solid fa-user-graduate"></i></div><div class="sv" id="statStudents">0</div><div class="sl">Estudantes Ativos</div><div class="strend up"><i class="fa-solid fa-arrow-up"></i> este mês</div></div>
-        <div class="stat-card" onclick="location.href='admin-users.html?filter=applicant'"><div class="sc-icon" style="background:var(--amber-bg);color:var(--amber);"><i class="fa-solid fa-user-clock"></i></div><div class="sv" id="statApplicants">0</div><div class="sl">Candidatos Pendentes</div><div class="strend warn"><i class="fa-solid fa-hourglass-half"></i> a aguardar</div></div>
-        <div class="stat-card" onclick="location.href='admin-level-test-editor.html'"><div class="sc-icon" style="background:var(--green-bg);color:var(--green);"><i class="fa-solid fa-clipboard-question"></i></div><div class="sv" id="statTests">0</div><div class="sl">Testes Realizados</div><div class="strend up"><i class="fa-solid fa-check"></i> total</div></div>
-        <div class="stat-card" onclick="location.href='admin-payments.html'"><div class="sc-icon" style="background:var(--red-bg);color:var(--red);"><i class="fa-solid fa-receipt"></i></div><div class="sv" id="statPending">0</div><div class="sl">Pagamentos por Confirmar</div><div class="strend warn"><i class="fa-solid fa-triangle-exclamation"></i> a confirmar</div></div>
-      </div>
-
-      <div class="grid-2">
-        <div class="panel">
-          <h3>Candidatos Recentes <a onclick="location.href='admin-users.html'">Ver todos →</a></h3>
-          <div id="recentApplicants"><div class="list-item"><div class="li-body"><div class="li-sub">A carregar...</div></div></div></div>
-        </div>
-        <div class="panel">
-          <h3>Ações Rápidas</h3>
-          <div class="quick-actions">
-            <div class="qa-btn" onclick="location.href='admin-users.html'"><i class="fa-solid fa-user-plus"></i><span>Inscrever Estudante</span></div>
-            <div class="qa-btn" onclick="location.href='admin-payments.html'"><i class="fa-solid fa-money-check-dollar"></i><span>Confirmar Pagamento</span></div>
-            <div class="qa-btn" onclick="location.href='admin-announcements.html'"><i class="fa-solid fa-bullhorn"></i><span>Novo Aviso</span></div>
-            <div class="qa-btn" onclick="location.href='admin-courses.html'"><i class="fa-solid fa-graduation-cap"></i><span>Gerir Cursos</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div class="panel">
-          <h3>Testes de Nível — Últimos 7 Dias</h3>
-          <div class="chart-bars" id="chartBars"></div>
-        </div>
-        <div class="panel">
-          <h3>Distribuição de Utilizadores</h3>
-          <div id="roleBreakdown"></div>
-        </div>
-      </div>
+      <div class="course-grid" id="courseGrid"></div>
     </div>
 
     <div class="footer-line"><p id="dynamicFooter"></p></div>
   </div>
 </div>
 
+<div class="modal-ov" id="courseModal">
+  <div class="modal">
+    <div class="modal-hdr"><h3 id="modalTitle">Novo Curso</h3><button class="modal-close" onclick="closeModal('courseModal')"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><label>Nível CEFR</label><select id="fCefr"><option>Pre-A1</option><option>A1</option><option>A2</option><option>A2+</option><option>B1</option><option>B2</option><option>C1</option></select></div>
+        <div class="form-group"><label>Nome do Nível</label><input type="text" id="fName" placeholder="Ex: Beginner"/></div>
+      </div>
+      <div class="form-group"><label>Imagem de Capa (Link)</label><input type="text" id="fCover" placeholder="https://..."/></div>
+      <div class="form-group"><label>Professor Atribuído</label><select id="fTeacher"><option value="">— Nenhum —</option></select></div>
+      <div class="form-row">
+        <div class="form-group"><label>Preço Mensal (MZN)</label><input type="number" id="fMonthly" placeholder="600"/></div>
+        <div class="form-group"><label>Preço Completo (MZN)</label><input type="number" id="fFull" placeholder="1665"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Data de Início</label><input type="date" id="fStartDate"/></div>
+        <div class="form-group"><label>Data Limite (Fim do Programa)</label><input type="date" id="fEndDate"/></div>
+      </div>
+      <div class="form-group"><label>Estado</label><select id="fStatus"><option value="open">Aberto</option><option value="closed">Fechado</option></select></div>
+    </div>
+    <div class="modal-ftr"><button class="btn btn-o" onclick="closeModal('courseModal')">Cancelar</button><button class="btn btn-g" onclick="saveCourse()"><i class="fa-solid fa-floppy-disk"></i> Guardar</button></div>
+  </div>
+</div>
+
+<div class="modal-ov" id="deleteModal">
+  <div class="modal" style="max-width:400px;">
+    <div class="modal-hdr"><h3>Confirmar Eliminação</h3><button class="modal-close" onclick="closeModal('deleteModal')"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:var(--mid);">Esta ação é irreversível. Introduza a sua palavra-passe de administrador para confirmar.</p>
+      <div class="password-confirm-box">
+        <div class="form-group" style="margin-bottom:0;"><label>Palavra-passe</label><input type="password" id="fDeletePass" placeholder="A sua palavra-passe"/></div>
+      </div>
+    </div>
+    <div class="modal-ftr"><button class="btn btn-o" onclick="closeModal('deleteModal')">Cancelar</button><button class="btn btn-danger" onclick="confirmDelete()"><i class="fa-solid fa-trash"></i> Eliminar Curso</button></div>
+  </div>
+</div>
+<div class="toast" id="toast"><span id="toastText"></span></div>
+
 <script type="module">
 // ============================================
 // IMPORT FROM SINGLE SOURCE OF TRUTH
 // ============================================
 import { 
+  auth,
   db,
   authStateListener,
   signOutUser,
   getUserData,
   getRoles,
   collection,
-  getDocs,
   doc,
-  getDoc
+  setDoc,
+  addDoc,
+  deleteDoc,
+  getDocs,
+  getDoc,
+  query,
+  where,
+  EmailAuthProvider,
+  reauthenticateWithCredential
 } from "./firebase-shared.js";
+
+// ============================================
+// STATE
+// ============================================
+let editingId = null;
+let deletingId = null;
+let teachers = [];
 
 // ============================================
 // UI SETUP
 // ============================================
-document.getElementById('dateToday').textContent = new Date().toLocaleDateString('pt-PT', { 
-  weekday:'long', 
-  year:'numeric', 
-  month:'long', 
-  day:'numeric' 
-});
-
 document.getElementById('dynamicFooter').textContent = 'DoveLingua © ' + new Date().getFullYear() + ' - Todos os direitos reservados.';
 
 // ============================================
 // SIDEBAR FUNCTIONS
 // ============================================
-window.toggleSidebar = function() {
-  const sb = document.getElementById('sidebar');
-  sb.classList.toggle('collapsed');
-  document.getElementById('desktopOpenBtn').style.display = sb.classList.contains('collapsed') ? 'block' : 'none';
+window.toggleSidebar = function() { 
+  const sb = document.getElementById('sidebar'); 
+  sb.classList.toggle('collapsed'); 
+  document.getElementById('desktopOpenBtn').style.display = sb.classList.contains('collapsed') ? 'block' : 'none'; 
 };
 
 window.toggleSidebarMobile = function() { 
@@ -213,11 +235,205 @@ window.toggleSidebarMobile = function() {
 };
 
 // ============================================
-// HELPER FUNCTIONS
+// TOAST NOTIFICATION
 // ============================================
-function getRolesFromData(u) { 
-  return u.roles || (u.role ? [u.role] : ['applicant']); 
+function showToast(t) { 
+  const el = document.getElementById('toast'); 
+  el.classList.add('show'); 
+  document.getElementById('toastText').textContent = t; 
+  setTimeout(() => el.classList.remove('show'), 3000); 
 }
+
+// ============================================
+// LOAD TEACHERS
+// ============================================
+async function loadTeachers() {
+  try {
+    const snap = await getDocs(collection(db, 'users'));
+    teachers = [];
+    snap.forEach(d => { 
+      if (getRoles(d.data()).includes('teacher')) {
+        teachers.push({ id: d.id, ...d.data() }); 
+      }
+    });
+    document.getElementById('fTeacher').innerHTML = '<option value="">— Nenhum —</option>' + 
+      teachers.map(t => `<option value="${t.id}">${t.fullName}</option>`).join('');
+  } catch (e) {
+    console.error('Error loading teachers:', e);
+  }
+}
+
+// ============================================
+// LOAD COURSES
+// ============================================
+async function loadCourses() {
+  try {
+    const snap = await getDocs(collection(db, 'courses'));
+    const grid = document.getElementById('courseGrid');
+    let total = 0, open = 0, students = 0, teacherSet = new Set();
+    const cards = [];
+    const today = new Date();
+    window._courses = {};
+    
+    snap.forEach(d => {
+      const c = d.data(); 
+      window._courses[d.id] = c; 
+      total++;
+      if (c.status === 'open') open++;
+      students += c.studentCount || 0;
+      if (c.teacherId) teacherSet.add(c.teacherId);
+      
+      const teacherName = teachers.find(t => t.id === c.teacherId)?.fullName || 'Não atribuído';
+      
+      let progressPct = 0;
+      if (c.startDate && c.endDate) {
+        const start = new Date(c.startDate).getTime();
+        const end = new Date(c.endDate).getTime();
+        const now = today.getTime();
+        progressPct = Math.max(0, Math.min(100, Math.round(((now - start) / (end - start)) * 100)));
+      }
+      
+      const daysLeft = c.endDate ? Math.ceil((new Date(c.endDate) - today) / (1000 * 60 * 60 * 24)) : null;
+      
+      cards.push(`
+        <div class="course-card">
+          <div class="cc-cover ${c.cover ? 'has-img' : ''}" style="${c.cover ? `background-image:url('${c.cover}');` : ''}">
+            <span class="cc-status ${c.status}">${c.status === 'open' ? 'Aberto' : 'Fechado'}</span>
+            <span class="cc-cefr-badge">${c.cefr}</span>
+            ${!c.cover ? '<i class="fa-solid fa-graduation-cap"></i>' : ''}
+          </div>
+          <div class="cc-body">
+            <div class="cc-name">${c.name}</div>
+            <div class="cc-meta">Professor: ${teacherName}</div>
+            ${c.endDate ? `
+              <div class="cc-progress-wrap">
+                <div class="cc-progress-label">
+                  <span>Progresso do Programa</span>
+                  <span>${daysLeft >= 0 ? daysLeft + ' dias restantes' : 'Concluído'}</span>
+                </div>
+                <div class="cc-progress-track">
+                  <div class="cc-progress-fill" style="width:${progressPct}%;"></div>
+                </div>
+              </div>
+            ` : ''}
+            <div class="cc-row"><span>Mensal</span><span>${(c.monthly || 0).toLocaleString('pt-MZ')} MZN</span></div>
+            <div class="cc-row"><span>Completo</span><span>${(c.full || 0).toLocaleString('pt-MZ')} MZN</span></div>
+            <div class="cc-row"><span>Estudantes</span><span>${c.studentCount || 0}</span></div>
+            <div class="cc-actions">
+              <button class="icon-btn" onclick='editCourse("${d.id}")'><i class="fa-solid fa-pen"></i></button>
+              <button class="icon-btn del" onclick="promptDelete('${d.id}')"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </div>
+        </div>
+      `);
+    });
+    
+    grid.innerHTML = cards.join('') || 
+      '<p style="color:var(--light);grid-column:1/-1;text-align:center;padding:40px;">Nenhum curso criado ainda.</p>';
+    
+    document.getElementById('statTotal').textContent = total;
+    document.getElementById('statOpen').textContent = open;
+    document.getElementById('statStudents').textContent = students;
+    document.getElementById('statTeachers').textContent = teacherSet.size;
+    
+  } catch (e) {
+    console.error('Error loading courses:', e);
+    showToast('Erro ao carregar cursos.');
+  }
+}
+
+// ============================================
+// MODAL FUNCTIONS
+// ============================================
+window.openModal = function() { 
+  editingId = null; 
+  document.getElementById('modalTitle').textContent = 'Novo Curso'; 
+  document.querySelectorAll('#courseModal input').forEach(i => i.value = ''); 
+  document.getElementById('courseModal').classList.add('show'); 
+};
+
+window.closeModal = function(id) { 
+  document.getElementById(id).classList.remove('show'); 
+};
+
+window.editCourse = function(id) {
+  const c = window._courses[id]; 
+  editingId = id;
+  document.getElementById('modalTitle').textContent = 'Editar Curso';
+  document.getElementById('fCefr').value = c.cefr || 'A1';
+  document.getElementById('fName').value = c.name || '';
+  document.getElementById('fCover').value = c.cover || '';
+  document.getElementById('fTeacher').value = c.teacherId || '';
+  document.getElementById('fMonthly').value = c.monthly || '';
+  document.getElementById('fFull').value = c.full || '';
+  document.getElementById('fStartDate').value = c.startDate || '';
+  document.getElementById('fEndDate').value = c.endDate || '';
+  document.getElementById('fStatus').value = c.status || 'open';
+  document.getElementById('courseModal').classList.add('show');
+};
+
+// ============================================
+// SAVE COURSE
+// ============================================
+window.saveCourse = async function() {
+  const data = {
+    cefr: document.getElementById('fCefr').value,
+    name: document.getElementById('fName').value.trim(),
+    cover: document.getElementById('fCover').value.trim(),
+    teacherId: document.getElementById('fTeacher').value,
+    monthly: +document.getElementById('fMonthly').value || 0,
+    full: +document.getElementById('fFull').value || 0,
+    startDate: document.getElementById('fStartDate').value,
+    endDate: document.getElementById('fEndDate').value,
+    status: document.getElementById('fStatus').value
+  };
+  
+  if (!data.name) { showToast('Introduza o nome do curso.'); return; }
+  
+  try {
+    if (editingId) {
+      await setDoc(doc(db, 'courses', editingId), data, { merge: true });
+    } else {
+      await addDoc(collection(db, 'courses'), { ...data, studentCount: 0 });
+    }
+    showToast('Curso guardado com sucesso.'); 
+    closeModal('courseModal'); 
+    loadCourses();
+  } catch(e) { 
+    console.error('Error saving course:', e);
+    showToast('Erro ao guardar curso.'); 
+  }
+};
+
+// ============================================
+// DELETE COURSE
+// ============================================
+window.promptDelete = function(id) { 
+  deletingId = id; 
+  document.getElementById('fDeletePass').value = ''; 
+  document.getElementById('deleteModal').classList.add('show'); 
+};
+
+window.confirmDelete = async function() {
+  const pass = document.getElementById('fDeletePass').value;
+  if (!pass) { showToast('Introduza a sua palavra-passe.'); return; }
+  
+  try {
+    const user = auth.currentUser;
+    if (!user) { showToast('Utilizador não autenticado.'); return; }
+    
+    const cred = EmailAuthProvider.credential(user.email, pass);
+    await reauthenticateWithCredential(user, cred);
+    await deleteDoc(doc(db, 'courses', deletingId));
+    
+    showToast('Curso eliminado.'); 
+    closeModal('deleteModal'); 
+    loadCourses();
+  } catch(e) { 
+    console.error('Error deleting course:', e);
+    showToast('Palavra-passe incorreta ou erro ao eliminar.'); 
+  }
+};
 
 // ============================================
 // AUTH STATE LISTENER
@@ -249,7 +465,9 @@ authStateListener(async (user) => {
     }
     
     document.getElementById('adminName').textContent = userData.fullName || 'Admin';
-    loadDashboard();
+    
+    await loadTeachers();
+    await loadCourses();
     
   } catch (e) {
     console.error('Auth check failed:', e);
@@ -264,93 +482,6 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
   await signOutUser(); 
   window.location.href = 'index.html'; 
 });
-
-// ============================================
-// DASHBOARD DATA LOADING
-// ============================================
-async function loadDashboard() {
-  try {
-    const usersSnap = await getDocs(collection(db, 'users'));
-    let students = 0, applicants = 0, teachers = 0, staff = 0, admins = 0;
-    const recentApplicants = [];
-    
-    usersSnap.forEach(d => {
-      const u = d.data(); 
-      const roles = getRolesFromData(u);
-      if (roles.includes('student')) students++;
-      if (roles.includes('applicant')) { 
-        applicants++; 
-        recentApplicants.push(u); 
-      }
-      if (roles.includes('teacher')) teachers++;
-      if (roles.includes('staff')) staff++;
-      if (roles.includes('admin')) admins++;
-    });
-    
-    document.getElementById('statStudents').textContent = students;
-    document.getElementById('statApplicants').textContent = applicants;
-
-    const testsSnap = await getDocs(collection(db, 'testAttempts'));
-    document.getElementById('statTests').textContent = testsSnap.size;
-
-    const appsSnap = await getDocs(collection(db, 'applications'));
-    let pending = 0;
-    appsSnap.forEach(d => { 
-      if (d.data().applicationStatus === 'pending') pending++; 
-    });
-    document.getElementById('statPending').textContent = pending;
-
-    if (pending > 0) {
-      document.getElementById('alertBanner').style.display = 'flex';
-      document.getElementById('alertText').innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Existem ${pending} pagamento(s) por confirmar.`;
-    }
-
-    const listEl = document.getElementById('recentApplicants');
-    listEl.innerHTML = recentApplicants.length ? 
-      recentApplicants.slice(0, 5).map(u => `
-        <div class="list-item">
-          <div class="li-avatar">${(u.fullName || 'A').charAt(0).toUpperCase()}</div>
-          <div class="li-body">
-            <div class="li-title">${u.fullName || 'Candidato'}</div>
-            <div class="li-sub">${u.email || ''}</div>
-          </div>
-          <span class="li-badge pending">Pendente</span>
-        </div>
-      `).join('') : 
-      '<div class="list-item"><div class="li-body"><div class="li-sub">Nenhum candidato ainda.</div></div></div>';
-
-    const total = students + applicants + teachers + staff + admins || 1;
-    const roleData = [
-      { n: 'Estudantes', v: students, c: 'var(--navy)' },
-      { n: 'Candidatos', v: applicants, c: 'var(--amber)' },
-      { n: 'Professores', v: teachers, c: 'var(--teal)' },
-      { n: 'Staff', v: staff, c: 'var(--gold)' }
-    ];
-    
-    document.getElementById('roleBreakdown').innerHTML = roleData.map(r => `
-      <div style="margin-bottom:12px;">
-        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">
-          <span>${r.n}</span>
-          <span style="font-weight:700;">${r.v}</span>
-        </div>
-        <div style="background:var(--grey);height:6px;border-radius:6px;overflow:hidden;">
-          <div style="background:${r.c};height:100%;width:${(r.v / total * 100)}%;"></div>
-        </div>
-      </div>
-    `).join('');
-
-    const days = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
-    document.getElementById('chartBars').innerHTML = days.map(d => `
-      <div class="bar-col">
-        <div class="bar" style="height:${Math.random() * 80 + 10}px;"></div>
-        <div class="bar-label">${d}</div>
-      </div>
-    `).join('');
-    
-  } catch (e) { 
-    console.error('Error loading dashboard:', e); 
-  }
-}
 </script>
 <script src="/key-lock.js"></script>
 </body>
