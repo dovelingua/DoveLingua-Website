@@ -186,302 +186,115 @@ button,input,select,textarea{font-family:inherit;}
 <div class="toast" id="toast"><span id="toastText"></span></div>
 
 <script type="module">
-// ============================================
-// IMPORT FROM SINGLE SOURCE OF TRUTH
-// ============================================
-import { 
-  auth,
-  db,
-  authStateListener,
-  signOutUser,
-  getUserData,
-  getRoles,
-  collection,
-  doc,
-  setDoc,
-  addDoc,
-  deleteDoc,
-  getDocs,
-  getDoc,
-  query,
-  where,
-  EmailAuthProvider,
-  reauthenticateWithCredential
-} from "./firebase-shared.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut, EmailAuthProvider, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import { getFirestore, collection, doc, setDoc, addDoc, deleteDoc, getDocs, getDoc, query, where } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
-// ============================================
-// STATE
-// ============================================
-let editingId = null;
-let deletingId = null;
-let teachers = [];
+const firebaseConfig = { apiKey:"AIzaSyAl9A_gXDKTB3N6U1f_Bh5FWrOsySjCJGo", authDomain:"dovelingua-site.firebaseapp.com", projectId:"dovelingua-site", storageBucket:"dovelingua-site.firebasestorage.app", messagingSenderId:"271742052334", appId:"1:271742052334:web:bc736373d7ea50001b50ff", measurementId:"G-N8ELT8SMYM" };
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+let editingId=null, deletingId=null, teachers=[];
 
-// ============================================
-// UI SETUP
-// ============================================
 document.getElementById('dynamicFooter').textContent = 'DoveLingua © ' + new Date().getFullYear() + ' - Todos os direitos reservados.';
+function getRoles(u) { return u.roles || (u.role ? [u.role] : ['applicant']); }
 
-// ============================================
-// SIDEBAR FUNCTIONS
-// ============================================
-window.toggleSidebar = function() { 
-  const sb = document.getElementById('sidebar'); 
-  sb.classList.toggle('collapsed'); 
-  document.getElementById('desktopOpenBtn').style.display = sb.classList.contains('collapsed') ? 'block' : 'none'; 
-};
+window.toggleSidebar = function() { const sb=document.getElementById('sidebar'); sb.classList.toggle('collapsed'); document.getElementById('desktopOpenBtn').style.display = sb.classList.contains('collapsed')?'block':'none'; };
+window.toggleSidebarMobile = function() { document.getElementById('sidebar').classList.toggle('mobile-open'); };
 
-window.toggleSidebarMobile = function() { 
-  document.getElementById('sidebar').classList.toggle('mobile-open'); 
-};
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { window.location.href='auth.html'; return; }
+  const snap = await getDoc(doc(db,'users',user.uid));
+  const roles = snap.exists() ? getRoles(snap.data()) : [];
+  if (!roles.includes('admin')) { window.location.href='unauthorized.html'; return; }
+  document.getElementById('adminName').textContent = snap.data().fullName || 'Admin';
+  loadTeachers();
+  loadCourses();
+});
+document.getElementById('logoutBtn').addEventListener('click', async () => { await signOut(auth); window.location.href='index.html'; });
 
-// ============================================
-// TOAST NOTIFICATION
-// ============================================
-function showToast(t) { 
-  const el = document.getElementById('toast'); 
-  el.classList.add('show'); 
-  document.getElementById('toastText').textContent = t; 
-  setTimeout(() => el.classList.remove('show'), 3000); 
-}
-
-// ============================================
-// LOAD TEACHERS
-// ============================================
 async function loadTeachers() {
-  try {
-    const snap = await getDocs(collection(db, 'users'));
-    teachers = [];
-    snap.forEach(d => { 
-      if (getRoles(d.data()).includes('teacher')) {
-        teachers.push({ id: d.id, ...d.data() }); 
-      }
-    });
-    document.getElementById('fTeacher').innerHTML = '<option value="">— Nenhum —</option>' + 
-      teachers.map(t => `<option value="${t.id}">${t.fullName}</option>`).join('');
-  } catch (e) {
-    console.error('Error loading teachers:', e);
-  }
+  const snap = await getDocs(collection(db,'users'));
+  teachers = [];
+  snap.forEach(d => { if (getRoles(d.data()).includes('teacher')) teachers.push({ id:d.id, ...d.data() }); });
+  document.getElementById('fTeacher').innerHTML = '<option value="">— Nenhum —</option>' + teachers.map(t=>`<option value="${t.id}">${t.fullName}</option>`).join('');
 }
 
-// ============================================
-// LOAD COURSES
-// ============================================
 async function loadCourses() {
-  try {
-    const snap = await getDocs(collection(db, 'courses'));
-    const grid = document.getElementById('courseGrid');
-    let total = 0, open = 0, students = 0, teacherSet = new Set();
-    const cards = [];
-    const today = new Date();
-    window._courses = {};
-    
-    snap.forEach(d => {
-      const c = d.data(); 
-      window._courses[d.id] = c; 
-      total++;
-      if (c.status === 'open') open++;
-      students += c.studentCount || 0;
-      if (c.teacherId) teacherSet.add(c.teacherId);
-      
-      const teacherName = teachers.find(t => t.id === c.teacherId)?.fullName || 'Não atribuído';
-      
-      let progressPct = 0;
-      if (c.startDate && c.endDate) {
-        const start = new Date(c.startDate).getTime();
-        const end = new Date(c.endDate).getTime();
-        const now = today.getTime();
-        progressPct = Math.max(0, Math.min(100, Math.round(((now - start) / (end - start)) * 100)));
-      }
-      
-      const daysLeft = c.endDate ? Math.ceil((new Date(c.endDate) - today) / (1000 * 60 * 60 * 24)) : null;
-      
-      cards.push(`
-        <div class="course-card">
-          <div class="cc-cover ${c.cover ? 'has-img' : ''}" style="${c.cover ? `background-image:url('${c.cover}');` : ''}">
-            <span class="cc-status ${c.status}">${c.status === 'open' ? 'Aberto' : 'Fechado'}</span>
-            <span class="cc-cefr-badge">${c.cefr}</span>
-            ${!c.cover ? '<i class="fa-solid fa-graduation-cap"></i>' : ''}
-          </div>
-          <div class="cc-body">
-            <div class="cc-name">${c.name}</div>
-            <div class="cc-meta">Professor: ${teacherName}</div>
-            ${c.endDate ? `
-              <div class="cc-progress-wrap">
-                <div class="cc-progress-label">
-                  <span>Progresso do Programa</span>
-                  <span>${daysLeft >= 0 ? daysLeft + ' dias restantes' : 'Concluído'}</span>
-                </div>
-                <div class="cc-progress-track">
-                  <div class="cc-progress-fill" style="width:${progressPct}%;"></div>
-                </div>
-              </div>
-            ` : ''}
-            <div class="cc-row"><span>Mensal</span><span>${(c.monthly || 0).toLocaleString('pt-MZ')} MZN</span></div>
-            <div class="cc-row"><span>Completo</span><span>${(c.full || 0).toLocaleString('pt-MZ')} MZN</span></div>
-            <div class="cc-row"><span>Estudantes</span><span>${c.studentCount || 0}</span></div>
-            <div class="cc-actions">
-              <button class="icon-btn" onclick='editCourse("${d.id}")'><i class="fa-solid fa-pen"></i></button>
-              <button class="icon-btn del" onclick="promptDelete('${d.id}')"><i class="fa-solid fa-trash"></i></button>
-            </div>
-          </div>
-        </div>
-      `);
-    });
-    
-    grid.innerHTML = cards.join('') || 
-      '<p style="color:var(--light);grid-column:1/-1;text-align:center;padding:40px;">Nenhum curso criado ainda.</p>';
-    
-    document.getElementById('statTotal').textContent = total;
-    document.getElementById('statOpen').textContent = open;
-    document.getElementById('statStudents').textContent = students;
-    document.getElementById('statTeachers').textContent = teacherSet.size;
-    
-  } catch (e) {
-    console.error('Error loading courses:', e);
-    showToast('Erro ao carregar cursos.');
-  }
+  const snap = await getDocs(collection(db,'courses'));
+  const grid = document.getElementById('courseGrid');
+  let total=0, open=0, students=0, teacherSet=new Set();
+  const cards = [];
+  const today = new Date();
+  window._courses = {};
+  snap.forEach(d => {
+    const c = d.data(); window._courses[d.id]=c; total++;
+    if (c.status==='open') open++;
+    students += c.studentCount||0;
+    if (c.teacherId) teacherSet.add(c.teacherId);
+    const teacherName = teachers.find(t=>t.id===c.teacherId)?.fullName || 'Não atribuído';
+    let progressPct = 0;
+    if (c.startDate && c.endDate) {
+      const start = new Date(c.startDate).getTime(), end = new Date(c.endDate).getTime(), now = today.getTime();
+      progressPct = Math.max(0, Math.min(100, Math.round(((now-start)/(end-start))*100)));
+    }
+    const daysLeft = c.endDate ? Math.ceil((new Date(c.endDate)-today)/(1000*60*60*24)) : null;
+    cards.push(`<div class="course-card">
+      <div class="cc-cover ${c.cover?'has-img':''}" style="${c.cover?`background-image:url('${c.cover}');`:''}">
+        <span class="cc-status ${c.status}">${c.status==='open'?'Aberto':'Fechado'}</span>
+        <span class="cc-cefr-badge">${c.cefr}</span>
+        ${!c.cover?'<i class="fa-solid fa-graduation-cap"></i>':''}
+      </div>
+      <div class="cc-body">
+        <div class="cc-name">${c.name}</div>
+        <div class="cc-meta">Professor: ${teacherName}</div>
+        ${c.endDate ? `<div class="cc-progress-wrap"><div class="cc-progress-label"><span>Progresso do Programa</span><span>${daysLeft>=0?daysLeft+' dias restantes':'Concluído'}</span></div><div class="cc-progress-track"><div class="cc-progress-fill" style="width:${progressPct}%;"></div></div></div>` : ''}
+        <div class="cc-row"><span>Mensal</span><span>${(c.monthly||0).toLocaleString('pt-MZ')} MZN</span></div>
+        <div class="cc-row"><span>Completo</span><span>${(c.full||0).toLocaleString('pt-MZ')} MZN</span></div>
+        <div class="cc-row"><span>Estudantes</span><span>${c.studentCount||0}</span></div>
+        <div class="cc-actions"><button class="icon-btn" onclick='editCourse("${d.id}")'><i class="fa-solid fa-pen"></i></button><button class="icon-btn del" onclick="promptDelete('${d.id}')"><i class="fa-solid fa-trash"></i></button></div>
+      </div></div>`);
+  });
+  grid.innerHTML = cards.join('') || '<p style="color:var(--light);grid-column:1/-1;text-align:center;padding:40px;">Nenhum curso criado ainda.</p>';
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statOpen').textContent = open;
+  document.getElementById('statStudents').textContent = students;
+  document.getElementById('statTeachers').textContent = teacherSet.size;
 }
 
-// ============================================
-// MODAL FUNCTIONS
-// ============================================
-window.openModal = function() { 
-  editingId = null; 
-  document.getElementById('modalTitle').textContent = 'Novo Curso'; 
-  document.querySelectorAll('#courseModal input').forEach(i => i.value = ''); 
-  document.getElementById('courseModal').classList.add('show'); 
-};
-
-window.closeModal = function(id) { 
-  document.getElementById(id).classList.remove('show'); 
-};
-
+window.openModal = function() { editingId=null; document.getElementById('modalTitle').textContent='Novo Curso'; document.querySelectorAll('#courseModal input').forEach(i=>i.value=''); document.getElementById('courseModal').classList.add('show'); };
+window.closeModal = function(id) { document.getElementById(id).classList.remove('show'); };
 window.editCourse = function(id) {
-  const c = window._courses[id]; 
-  editingId = id;
-  document.getElementById('modalTitle').textContent = 'Editar Curso';
-  document.getElementById('fCefr').value = c.cefr || 'A1';
-  document.getElementById('fName').value = c.name || '';
-  document.getElementById('fCover').value = c.cover || '';
-  document.getElementById('fTeacher').value = c.teacherId || '';
-  document.getElementById('fMonthly').value = c.monthly || '';
-  document.getElementById('fFull').value = c.full || '';
-  document.getElementById('fStartDate').value = c.startDate || '';
-  document.getElementById('fEndDate').value = c.endDate || '';
-  document.getElementById('fStatus').value = c.status || 'open';
+  const c = window._courses[id]; editingId=id;
+  document.getElementById('modalTitle').textContent='Editar Curso';
+  document.getElementById('fCefr').value=c.cefr; document.getElementById('fName').value=c.name;
+  document.getElementById('fCover').value=c.cover||''; document.getElementById('fTeacher').value=c.teacherId||'';
+  document.getElementById('fMonthly').value=c.monthly; document.getElementById('fFull').value=c.full;
+  document.getElementById('fStartDate').value=c.startDate||''; document.getElementById('fEndDate').value=c.endDate||'';
+  document.getElementById('fStatus').value=c.status;
   document.getElementById('courseModal').classList.add('show');
 };
-
-// ============================================
-// SAVE COURSE
-// ============================================
 window.saveCourse = async function() {
-  const data = {
-    cefr: document.getElementById('fCefr').value,
-    name: document.getElementById('fName').value.trim(),
-    cover: document.getElementById('fCover').value.trim(),
-    teacherId: document.getElementById('fTeacher').value,
-    monthly: +document.getElementById('fMonthly').value || 0,
-    full: +document.getElementById('fFull').value || 0,
-    startDate: document.getElementById('fStartDate').value,
-    endDate: document.getElementById('fEndDate').value,
-    status: document.getElementById('fStatus').value
-  };
-  
-  if (!data.name) { showToast('Introduza o nome do curso.'); return; }
-  
+  const data = { cefr:document.getElementById('fCefr').value, name:document.getElementById('fName').value, cover:document.getElementById('fCover').value, teacherId:document.getElementById('fTeacher').value, monthly:+document.getElementById('fMonthly').value, full:+document.getElementById('fFull').value, startDate:document.getElementById('fStartDate').value, endDate:document.getElementById('fEndDate').value, status:document.getElementById('fStatus').value };
   try {
-    if (editingId) {
-      await setDoc(doc(db, 'courses', editingId), data, { merge: true });
-    } else {
-      await addDoc(collection(db, 'courses'), { ...data, studentCount: 0 });
-    }
-    showToast('Curso guardado com sucesso.'); 
-    closeModal('courseModal'); 
-    loadCourses();
-  } catch(e) { 
-    console.error('Error saving course:', e);
-    showToast('Erro ao guardar curso.'); 
-  }
+    if (editingId) await setDoc(doc(db,'courses',editingId), data, { merge:true });
+    else await addDoc(collection(db,'courses'), { ...data, studentCount:0 });
+    showToast('Curso guardado com sucesso.'); closeModal('courseModal'); loadCourses();
+  } catch(e) { showToast('Erro ao guardar.'); }
 };
-
-// ============================================
-// DELETE COURSE
-// ============================================
-window.promptDelete = function(id) { 
-  deletingId = id; 
-  document.getElementById('fDeletePass').value = ''; 
-  document.getElementById('deleteModal').classList.add('show'); 
-};
-
+window.promptDelete = function(id) { deletingId=id; document.getElementById('fDeletePass').value=''; document.getElementById('deleteModal').classList.add('show'); };
 window.confirmDelete = async function() {
   const pass = document.getElementById('fDeletePass').value;
   if (!pass) { showToast('Introduza a sua palavra-passe.'); return; }
-  
   try {
     const user = auth.currentUser;
-    if (!user) { showToast('Utilizador não autenticado.'); return; }
-    
     const cred = EmailAuthProvider.credential(user.email, pass);
     await reauthenticateWithCredential(user, cred);
-    await deleteDoc(doc(db, 'courses', deletingId));
-    
-    showToast('Curso eliminado.'); 
-    closeModal('deleteModal'); 
-    loadCourses();
-  } catch(e) { 
-    console.error('Error deleting course:', e);
-    showToast('Palavra-passe incorreta ou erro ao eliminar.'); 
-  }
+    await deleteDoc(doc(db,'courses',deletingId));
+    showToast('Curso eliminado.'); closeModal('deleteModal'); loadCourses();
+  } catch(e) { showToast('Palavra-passe incorreta ou erro ao eliminar.'); }
 };
-
-// ============================================
-// AUTH STATE LISTENER
-// ============================================
-authStateListener(async (user) => {
-  if (!user) { 
-    window.location.href = 'auth.html'; 
-    return; 
-  }
-  
-  try {
-    const userData = await getUserData(user);
-    
-    if (!userData) {
-      window.location.href = 'auth.html';
-      return;
-    }
-    
-    if (userData.isBlocked) {
-      await signOutUser();
-      window.location.href = 'auth.html?blocked=1';
-      return;
-    }
-    
-    const roles = getRoles(userData);
-    if (!roles.includes('admin')) {
-      window.location.href = 'unauthorized.html';
-      return;
-    }
-    
-    document.getElementById('adminName').textContent = userData.fullName || 'Admin';
-    
-    await loadTeachers();
-    await loadCourses();
-    
-  } catch (e) {
-    console.error('Auth check failed:', e);
-    window.location.href = 'auth.html';
-  }
-});
-
-// ============================================
-// LOGOUT
-// ============================================
-document.getElementById('logoutBtn').addEventListener('click', async () => { 
-  await signOutUser(); 
-  window.location.href = 'index.html'; 
-});
+function showToast(t) { const el=document.getElementById('toast'); el.classList.add('show'); document.getElementById('toastText').textContent=t; setTimeout(()=>el.classList.remove('show'),3000); }
 </script>
 <script src="/key-lock.js"></script>
 </body>
