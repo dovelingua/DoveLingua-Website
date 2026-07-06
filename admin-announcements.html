@@ -13,6 +13,7 @@
   --grey:#F4F4F4;--tint:#E8EEF9;--teal:#0E8F7F;
   --text:#1a2332;--mid:#4a5568;--light:#718096;--border:#e2e8f0;
   --r:14px;--shadow:0 4px 20px rgba(11,46,115,.08);
+  --amber:#b45309;--amber-bg:#fef3e2;--red:#c0392b;--red-bg:#fdecea;--green:#0E8F7F;--green-bg:#e6f6f4;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--grey);line-height:1.6;}
@@ -20,89 +21,114 @@ a{text-decoration:none;color:inherit;}
 button,input,select,textarea{font-family:inherit;}
 
 .app{display:flex;min-height:100vh;}
-.sidebar{width:250px;background:var(--navy);flex-shrink:0;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;}
-.sb-logo{padding:20px 18px;border-bottom:1px solid rgba(255,255,255,.1);}
-.sb-logo img{height:38px;}
-.sb-nav{flex:1;padding:14px 0;overflow-y:auto;}
+.sidebar{width:250px;background:var(--navy);flex-shrink:0;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;transition:width .25s;overflow:hidden;}
+.sidebar.collapsed{width:0;}
+.sb-logo{padding:20px 18px;border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between;white-space:nowrap;}
+.sb-logo img{height:34px;}
+.sb-toggle{background:rgba(255,255,255,.1);border:none;color:#fff;width:30px;height:30px;border-radius:8px;cursor:pointer;flex-shrink:0;}
+.sb-nav{flex:1;padding:14px 0;overflow-y:auto;white-space:nowrap;}
 .sb-nav a{display:flex;align-items:center;gap:12px;padding:12px 18px;font-size:13px;color:rgba(255,255,255,.65);cursor:pointer;border-left:3px solid transparent;transition:.15s;}
 .sb-nav a:hover{background:rgba(255,255,255,.05);color:#fff;}
 .sb-nav a.active{background:rgba(255,255,255,.08);color:var(--gold);border-left-color:var(--gold);}
 .sb-nav a i{width:18px;text-align:center;}
 .sb-section-label{padding:16px 18px 6px;font-size:10px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;}
-.sb-foot{padding:16px 18px;border-top:1px solid rgba(255,255,255,.1);}
+.sb-foot{padding:16px 18px;border-top:1px solid rgba(255,255,255,.1);white-space:nowrap;}
 .sb-foot .admin-name{font-size:12.5px;color:#fff;font-weight:600;}
 .sb-foot .admin-role{font-size:10.5px;color:rgba(255,255,255,.4);}
 .sb-foot a{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:rgba(255,255,255,.5);cursor:pointer;}
 
-.main{flex:1;min-width:0;}
-.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:40;}
-.topbar h1{font-family:'Playfair Display',serif;font-size:19px;color:var(--navy);}
-.topbar .tb-sub{font-size:12px;color:var(--light);}
-.hamburger-mobile{display:none;background:none;border:none;font-size:20px;color:var(--navy);cursor:pointer;}
-.content{padding:24px 28px 60px;}
+.main{flex:1;min-width:0;display:flex;flex-direction:column;}
+.topbar{background:var(--navy);border-bottom:3px solid var(--gold);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:40;}
+.topbar-left{display:flex;align-items:center;gap:14px;}
+.sb-open-btn{display:none;background:rgba(255,255,255,.1);border:none;color:#fff;width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:15px;}
+.topbar h1{font-family:'Playfair Display',serif;font-size:19px;color:#fff;}
+.topbar .tb-sub{font-size:12px;color:rgba(255,255,255,.6);}
+.content{padding:24px 28px 60px;flex:1;}
+.footer-line{background:var(--navy);padding:16px 5%;text-align:center;}
+.footer-line p{color:rgba(255,255,255,.4);font-size:11.5px;}
 
 .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:600;border:none;cursor:pointer;}
+.btn-topbar-g{background:var(--gold);color:var(--navy);}
+.btn-topbar-g:hover{background:#e0aa1e;}
 .btn-g{background:var(--navy);color:#fff;}
 .btn-g:hover{background:var(--gold);color:var(--navy);}
 .btn-o{background:transparent;color:var(--navy);border:1.5px solid var(--navy);}
 
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px;}
+.stat-box{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:18px 20px;}
+.stat-box .sv{font-family:'Playfair Display',serif;font-size:24px;color:var(--navy);font-weight:700;}
+.stat-box .sl{font-size:11px;color:var(--light);font-weight:600;text-transform:uppercase;margin-top:2px;}
+
 .ann-list{display:flex;flex-direction:column;gap:12px;}
-.ann-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:18px 20px;}
-.ann-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+.ann-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:18px 20px;border-left:4px solid var(--gold);}
+.ann-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;flex-wrap:wrap;gap:8px;}
 .ann-title{font-size:14.5px;font-weight:700;color:var(--navy);}
 .ann-audience{font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;background:var(--tint);color:var(--navy);}
 .ann-body-text{font-size:12.5px;color:var(--mid);line-height:1.65;margin-bottom:10px;}
-.ann-meta{font-size:11px;color:var(--light);display:flex;justify-content:space-between;}
-.ann-actions{display:flex;gap:6px;}
+.ann-meta{font-size:11px;color:var(--light);display:flex;justify-content:space-between;align-items:center;}
 .icon-btn{width:28px;height:28px;border-radius:7px;background:var(--grey);border:none;color:var(--mid);cursor:pointer;}
 .icon-btn:hover{background:var(--navy);color:#fff;}
-.icon-btn.del:hover{background:#c0392b;}
+.icon-btn.del:hover{background:var(--red);}
 
-.modal-ov{display:none;position:fixed;inset:0;background:rgba(11,46,115,.5);z-index:500;align-items:center;justify-content:center;padding:16px;}
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(11,46,115,.55);z-index:500;align-items:center;justify-content:center;padding:16px;}
 .modal-ov.show{display:flex;}
 .modal{background:var(--white);border-radius:var(--r);max-width:520px;width:100%;}
-.modal-hdr{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;}
-.modal-hdr h3{font-family:'Playfair Display',serif;font-size:16px;color:var(--navy);}
-.modal-close{width:30px;height:30px;border-radius:8px;background:var(--grey);border:none;cursor:pointer;}
-.modal-body{padding:20px 24px;display:flex;flex-direction:column;gap:14px;}
+.modal-hdr{padding:18px 22px;border-bottom:1px solid var(--border);background:var(--navy);border-radius:var(--r) var(--r) 0 0;display:flex;justify-content:space-between;}
+.modal-hdr h3{font-family:'Playfair Display',serif;font-size:16px;color:var(--gold);}
+.modal-close{width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.15);border:none;color:#fff;cursor:pointer;}
+.modal-body{padding:18px 22px;display:flex;flex-direction:column;gap:12px;}
 .modal-body label{font-size:11px;font-weight:700;color:var(--mid);text-transform:uppercase;margin-bottom:6px;display:block;}
 .modal-body input,.modal-body select,.modal-body textarea{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:13.5px;outline:none;}
 .modal-body textarea{min-height:100px;resize:vertical;}
-.modal-ftr{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px;}
+.modal-ftr{padding:14px 22px 18px;display:flex;justify-content:flex-end;gap:10px;}
 .toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:14px 22px;border-radius:12px;font-size:13px;z-index:600;transform:translateY(100px);opacity:0;transition:.3s;}
 .toast.show{transform:translateY(0);opacity:1;}
-@media(max-width:800px){.sidebar{position:fixed;left:-260px;z-index:200;transition:left .25s;}.sidebar.open{left:0;}.hamburger-mobile{display:block;}}
+.empty-state{text-align:center;padding:60px 20px;color:var(--light);}
+.empty-state i{font-size:36px;margin-bottom:14px;display:block;color:var(--border);}
+@media(max-width:900px){.sidebar{position:fixed;left:-260px;z-index:200;width:250px;}.sidebar.mobile-open{left:0;}.sb-open-btn{display:block;}.stats-row{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
 <body>
 
 <div class="app">
   <div class="sidebar" id="sidebar">
-    <div class="sb-logo"><img src="https://download.dovelingua.com/website/Master_Wordmark_white_tex_navy_background.png" alt="DoveLingua"></div>
+    <div class="sb-logo"><img src="https://download.dovelingua.com/website/Master_Wordmark_white_tex_navy_background.png" alt="DoveLingua"><button class="sb-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-angles-left"></i></button></div>
     <div class="sb-nav">
       <div class="sb-section-label">Gestão</div>
       <a onclick="location.href='admin-dashboard.html'"><i class="fa-solid fa-gauge"></i> Painel Geral</a>
-      <a onclick="location.href='admin-users.html'"><i class="fa-solid fa-users"></i> Utilizadores</a>
+      <a onclick="location.href='admin-users.html'"><i class="fa-solid fa-users"></i> Estudantes e Utilizadores</a>
       <a onclick="location.href='admin-courses.html'"><i class="fa-solid fa-graduation-cap"></i> Cursos</a>
+      <a onclick="location.href='admin-payments.html'"><i class="fa-solid fa-money-check-dollar"></i> Pagamentos</a>
       <div class="sb-section-label">Avaliação</div>
       <a onclick="location.href='admin-level-test-editor.html'"><i class="fa-solid fa-clipboard-question"></i> Editor de Testes</a>
       <a class="active"><i class="fa-solid fa-bullhorn"></i> Avisos</a>
       <a onclick="location.href='admin-documents.html'"><i class="fa-solid fa-folder"></i> Documentos</a>
+      <div class="sb-section-label">Sistema</div>
+      <a onclick="location.href='admin-settings.html'"><i class="fa-solid fa-gear"></i> Configurações</a>
     </div>
     <div class="sb-foot"><div class="admin-name" id="adminName">Admin</div><div class="admin-role">Administrador</div><a id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></div>
   </div>
 
   <div class="main">
     <div class="topbar">
-      <div style="display:flex;align-items:center;gap:12px;">
-        <button class="hamburger-mobile" onclick="document.getElementById('sidebar').classList.toggle('open')"><i class="fa-solid fa-bars"></i></button>
+      <div class="topbar-left">
+        <button class="sb-open-btn" onclick="toggleSidebarMobile()"><i class="fa-solid fa-bars"></i></button>
+        <button class="sb-toggle" id="desktopOpenBtn" onclick="toggleSidebar()" style="display:none;"><i class="fa-solid fa-angles-right"></i></button>
         <div><h1>Avisos</h1><div class="tb-sub">Publicar notícias e comunicados</div></div>
       </div>
-      <button class="btn btn-g" onclick="openModal()"><i class="fa-solid fa-plus"></i> Novo Aviso</button>
+      <button class="btn btn-topbar-g" onclick="openModal()"><i class="fa-solid fa-plus"></i> Novo Aviso</button>
     </div>
+
     <div class="content">
+      <div class="stats-row">
+        <div class="stat-box"><div class="sv" id="statTotal">0</div><div class="sl">Total Publicados</div></div>
+        <div class="stat-box"><div class="sv" id="statPublic">0</div><div class="sl">Públicos</div></div>
+        <div class="stat-box"><div class="sv" id="statThisMonth">0</div><div class="sl">Este Mês</div></div>
+      </div>
       <div class="ann-list" id="annList"></div>
     </div>
+
+    <div class="footer-line"><p id="dynamicFooter"></p></div>
   </div>
 </div>
 
@@ -112,7 +138,7 @@ button,input,select,textarea{font-family:inherit;}
     <div class="modal-body">
       <div><label>Título</label><input type="text" id="fTitle" placeholder="Título do aviso"/></div>
       <div><label>Mensagem</label><textarea id="fBody" placeholder="Conteúdo do aviso..."></textarea></div>
-      <div><label>Audiência</label><select id="fAudience"><option value="public">Público</option><option value="student">Alunos</option><option value="teacher">Professores</option><option value="all">Todos</option></select></div>
+      <div><label>Audiência</label><select id="fAudience"><option value="public">Público</option><option value="student">Estudantes</option><option value="teacher">Professores</option><option value="all">Todos</option></select></div>
     </div>
     <div class="modal-ftr"><button class="btn btn-o" onclick="closeModal()">Cancelar</button><button class="btn btn-g" onclick="publish()"><i class="fa-solid fa-paper-plane"></i> Publicar</button></div>
   </div>
@@ -120,191 +146,72 @@ button,input,select,textarea{font-family:inherit;}
 <div class="toast" id="toast"><span id="toastText"></span></div>
 
 <script type="module">
-// ============================================
-// IMPORT FROM SINGLE SOURCE OF TRUTH
-// ============================================
-import { 
-  db,
-  authStateListener,
-  signOutUser,
-  getUserData,
-  getRoles,
-  collection,
-  addDoc,
-  deleteDoc,
-  doc,
-  getDocs,
-  query,
-  orderBy,
+import {
+  auth, db,
+  doc, getDoc,
+  collection, addDoc, deleteDoc, getDocs, query, orderBy,
   serverTimestamp
-} from "./firebase-shared.js";
+} from './firebase-shared.js';
+import { onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js';
 
-// ============================================
-// UI FUNCTIONS
-// ============================================
-const audLabels = { 
-  public: 'Público', 
-  student: 'Alunos', 
-  teacher: 'Professores', 
-  all: 'Todos' 
-};
+document.getElementById('dynamicFooter').textContent = 'DoveLingua © ' + new Date().getFullYear() + ' - Todos os direitos reservados.';
+function getRoles(u) { return u.roles || (u.role ? [u.role] : ['applicant']); }
+window.toggleSidebar = function() { const sb=document.getElementById('sidebar'); sb.classList.toggle('collapsed'); document.getElementById('desktopOpenBtn').style.display=sb.classList.contains('collapsed')?'block':'none'; };
+window.toggleSidebarMobile = function() { document.getElementById('sidebar').classList.toggle('mobile-open'); };
 
-function showToast(t) { 
-  const el = document.getElementById('toast'); 
-  el.classList.add('show'); 
-  document.getElementById('toastText').textContent = t; 
-  setTimeout(() => el.classList.remove('show'), 3000); 
-}
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { location.href='auth.html'; return; }
+  const snap = await getDoc(doc(db,'users',user.uid));
+  if (!snap.exists() || !getRoles(snap.data()).includes('admin')) { location.href='unauthorized.html'; return; }
+  document.getElementById('adminName').textContent = snap.data().fullName || 'Admin';
+  loadAnnouncements();
+});
+document.getElementById('logoutBtn').addEventListener('click', async () => { await signOut(auth); location.href='index.html'; });
 
-// ============================================
-// LOAD ANNOUNCEMENTS
-// ============================================
+const audLabels = { public:'Público', student:'Estudantes', teacher:'Professores', all:'Todos' };
 async function loadAnnouncements() {
-  try {
-    const q = query(collection(db, 'announcements'), orderBy('postedAt', 'desc'));
-    const snap = await getDocs(q);
-    const list = document.getElementById('annList');
-    
-    if (snap.empty) { 
-      list.innerHTML = '<p style="color:var(--light);text-align:center;padding:40px;">Nenhum aviso publicado ainda.</p>'; 
-      return; 
-    }
-    
-    list.innerHTML = snap.docs.map(d => {
-      const a = d.data();
-      const postedDate = a.postedAt ? new Date(a.postedAt.seconds * 1000).toLocaleDateString('pt-PT') : '';
-      return `
-        <div class="ann-card">
-          <div class="ann-top">
-            <span class="ann-title">${a.title}</span>
-            <span class="ann-audience">${audLabels[a.audience] || a.audience}</span>
-          </div>
-          <div class="ann-body-text">${a.body}</div>
-          <div class="ann-meta">
-            <span>${postedDate}</span>
-            <div class="ann-actions">
-              <button class="icon-btn del" onclick="deleteAnn('${d.id}')"><i class="fa-solid fa-trash"></i></button>
-            </div>
-          </div>
-        </div>
-      `;
-    }).join('');
-  } catch (e) {
-    console.error('Error loading announcements:', e);
-    showToast('Erro ao carregar avisos.');
-  }
+  const q = query(collection(db,'announcements'), orderBy('postedAt','desc'));
+  const snap = await getDocs(q);
+  const list = document.getElementById('annList');
+  if (snap.empty) { list.innerHTML = '<div class="empty-state"><i class="fa-solid fa-bullhorn"></i><p>Nenhum aviso publicado ainda.</p></div>'; return; }
+  let publicCount=0, thisMonthCount=0;
+  const now = new Date();
+  const items = snap.docs.map(d => {
+    const a = d.data();
+    if (a.audience==='public') publicCount++;
+    if (a.postedAt) { const dt=new Date(a.postedAt.seconds*1000); if (dt.getMonth()===now.getMonth() && dt.getFullYear()===now.getFullYear()) thisMonthCount++; }
+    return `<div class="ann-card">
+      <div class="ann-top"><span class="ann-title">${a.title}</span><span class="ann-audience">${audLabels[a.audience]||a.audience}</span></div>
+      <div class="ann-body-text">${a.body}</div>
+      <div class="ann-meta"><span>${a.postedAt ? new Date(a.postedAt.seconds*1000).toLocaleDateString('pt-PT') : ''}</span>
+      <button class="icon-btn del" onclick="deleteAnn('${d.id}')"><i class="fa-solid fa-trash"></i></button></div>
+    </div>`;
+  });
+  list.innerHTML = items.join('');
+  document.getElementById('statTotal').textContent = snap.size;
+  document.getElementById('statPublic').textContent = publicCount;
+  document.getElementById('statThisMonth').textContent = thisMonthCount;
 }
-
-// ============================================
-// MODAL FUNCTIONS
-// ============================================
-window.openModal = function() { 
-  document.getElementById('annModal').classList.add('show'); 
-};
-
-window.closeModal = function() { 
-  document.getElementById('annModal').classList.remove('show'); 
-  // Clear form fields
-  document.getElementById('fTitle').value = '';
-  document.getElementById('fBody').value = '';
-  document.getElementById('fAudience').value = 'public';
-};
-
-// ============================================
-// PUBLISH ANNOUNCEMENT
-// ============================================
+window.openModal = function() { document.getElementById('annModal').classList.add('show'); };
+window.closeModal = function() { document.getElementById('annModal').classList.remove('show'); };
 window.publish = async function() {
   const title = document.getElementById('fTitle').value.trim();
   const body = document.getElementById('fBody').value.trim();
   const audience = document.getElementById('fAudience').value;
-  
-  if (!title || !body) { 
-    showToast('Preencha o título e a mensagem.'); 
-    return; 
-  }
-  
+  if (!title || !body) { showToast('Preencha o título e a mensagem.'); return; }
   try {
-    await addDoc(collection(db, 'announcements'), { 
-      title, 
-      body, 
-      audience, 
-      postedAt: serverTimestamp() 
-    });
-    showToast('Aviso publicado com sucesso.'); 
-    closeModal(); 
-    loadAnnouncements();
-  } catch(e) { 
-    console.error('Error publishing:', e);
-    showToast('Erro ao publicar aviso.'); 
-  }
+    await addDoc(collection(db,'announcements'), { title, body, audience, postedAt: serverTimestamp() });
+    showToast('Aviso publicado com sucesso.'); closeModal(); loadAnnouncements();
+    document.getElementById('fTitle').value=''; document.getElementById('fBody').value='';
+  } catch(e) { showToast('Erro ao publicar.'); }
 };
-
-// ============================================
-// DELETE ANNOUNCEMENT
-// ============================================
 window.deleteAnn = async function(id) {
   if (!confirm('Eliminar este aviso?')) return;
-  try {
-    await deleteDoc(doc(db, 'announcements', id));
-    showToast('Aviso eliminado.'); 
-    loadAnnouncements();
-  } catch(e) {
-    console.error('Error deleting:', e);
-    showToast('Erro ao eliminar aviso.');
-  }
+  await deleteDoc(doc(db,'announcements',id));
+  showToast('Aviso eliminado.'); loadAnnouncements();
 };
-
-// ============================================
-// AUTH STATE LISTENER
-// ============================================
-authStateListener(async (user) => {
-  if (!user) { 
-    window.location.href = 'auth.html'; 
-    return; 
-  }
-  
-  try {
-    const userData = await getUserData(user);
-    
-    if (!userData) {
-      window.location.href = 'auth.html';
-      return;
-    }
-    
-    // Check if user is blocked
-    if (userData.isBlocked) {
-      await signOutUser();
-      window.location.href = 'auth.html?blocked=1';
-      return;
-    }
-    
-    // Check if user has admin role
-    const roles = getRoles(userData);
-    if (!roles.includes('admin')) {
-      window.location.href = 'unauthorized.html';
-      return;
-    }
-    
-    // Display admin name
-    document.getElementById('adminName').textContent = userData.fullName || 'Admin';
-    
-    // Load announcements
-    loadAnnouncements();
-    
-  } catch (e) {
-    console.error('Auth check failed:', e);
-    window.location.href = 'auth.html';
-  }
-});
-
-// ============================================
-// LOGOUT
-// ============================================
-document.getElementById('logoutBtn').addEventListener('click', async () => { 
-  await signOutUser(); 
-  window.location.href = 'index.html'; 
-});
+function showToast(t) { const el=document.getElementById('toast'); el.classList.add('show'); document.getElementById('toastText').textContent=t; setTimeout(()=>el.classList.remove('show'),3000); }
 </script>
 <script src="/key-lock.js"></script>
 </body>
-</html>
+                                </html>
