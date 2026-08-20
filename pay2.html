@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Debito Pay — Diagnostic Test</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 32px;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 20px;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      color: #444;
+      margin-bottom: 6px;
+      margin-top: 16px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+      transition: border 0.2s;
+    }
+
+    input:focus, select:focus {
+      border-color: #4f46e5;
+    }
+
+    button {
+      margin-top: 24px;
+      width: 100%;
+      padding: 12px;
+      background: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover { background: #3730a3; }
+    button:disabled { background: #aaa; cursor: not-allowed; }
+
+    .log-box {
+      margin-top: 28px;
+      background: #0f172a;
+      color: #94fabc;
+      border-radius: 8px;
+      padding: 16px;
+      font-family: monospace;
+      font-size: 13px;
+      min-height: 120px;
+      max-height: 320px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .log-title {
+      font-size: 12px;
+      font-weight: bold;
+      color: #888;
+      margin-top: 20px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .status-ok   { color: #22c55e; font-weight: bold; }
+    .status-err  { color: #ef4444; font-weight: bold; }
+    .status-info { color: #60a5fa; }
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>🔬 Debito Pay — Diagnostic Test</h1>
+  <p class="subtitle">This page sends a real test payment to your Worker and shows exactly what happens.</p>
+
+  <label>Full Name</label>
+  <input type="text" id="name" placeholder="e.g. João Silva" value="João Teste" />
+
+  <label>Email</label>
+  <input type="email" id="email" placeholder="e.g. joao@email.com" value="test@test.com" />
+
+  <label>Phone Number (payer's mobile money number)</label>
+  <input type="tel" id="phone" placeholder="e.g. 841234567" />
+
+  <label>Amount (MZN)</label>
+  <input type="number" id="amount" placeholder="e.g. 100" value="1" min="1" />
+
+  <label>Payment Method</label>
+  <select id="method">
+    <option value="mpesa">M-Pesa</option>
+    <option value="emola">e-Mola</option>
+  </select>
+
+  <button id="payBtn" onclick="runTest()">▶ Run Diagnostic Test</button>
+
+  <p class="log-title">📋 Diagnostic Log</p>
+  <div class="log-box" id="log">Waiting for test...\n</div>
+</div>
+
+<script>
+  const WORKER_URL = 'https://pay.dovelingua.com/';
+
+  function log(msg, type) {
+    const box = document.getElementById('log');
+    const time = new Date().toLocaleTimeString();
+    let colored = '';
+    if (type === 'ok')   colored = `<span class="status-ok">[${time}] ✅ ${msg}</span>`;
+    if (type === 'err')  colored = `<span class="status-err">[${time}] ❌ ${msg}</span>`;
+    if (type === 'info') colored = `<span class="status-info">[${time}] ℹ️  ${msg}</span>`;
+    if (!type)           colored = `[${time}] ${msg}`;
+    box.innerHTML += colored + '\n';
+    box.scrollTop = box.scrollHeight;
+  }
+
+  async function runTest() {
+    const btn = document.getElementById('payBtn');
+    const box = document.getElementById('log');
+    box.innerHTML = '';
+    btn.disabled = true;
+    btn.textContent = '⏳ Testing...';
+
+    const name   = document.getElementById('name').value.trim();
+    const email  = document.getElementById('email').value.trim();
+    const phone  = document.getElementById('phone').value.trim();
+    const amount = document.getElementById('amount').value.trim();
+    const method = document.getElementById('method').value;
+
+    // Basic validation
+    if (!phone) {
+      log('Phone number is required!', 'err');
+      btn.disabled = false;
+      btn.textContent = '▶ Run Diagnostic Test';
+      return;
+    }
+
+    const payload = {
+      name:     name,
+      email:    email,
+      phone:    phone,
+      amount:   parseFloat(amount),
+      currency: 'MZN',
+      method:   method
+    };
+
+    log('Starting diagnostic...', 'info');
+    log('Worker URL: ' + WORKER_URL, 'info');
+    log('Payload being sent: ' + JSON.stringify(payload, null, 2), 'info');
+
+    try {
+      log('Sending POST request to Worker...', 'info');
+
+      const response = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      log('Worker responded with HTTP status: ' + response.status, response.status === 200 ? 'ok' : 'err');
+
+      let data;
+      const rawText = await response.text();
+      log('Raw response from Worker: ' + rawText, 'info');
+
+      try {
+        data = JSON.parse(rawText);
+        log('Parsed response: ' + JSON.stringify(data, null, 2), 'info');
+      } catch(e) {
+        log('Response is not valid JSON — this is a problem!', 'err');
+      }
+
+      if (response.ok) {
+        log('Request reached the Worker successfully!', 'ok');
+        if (data && data.error) {
+          log('But Debito Pay returned an error: ' + data.error, 'err');
+        }
+      } else {
+        log('Worker or Debito Pay rejected the request. Status: ' + response.status, 'err');
+        if (data) log('Error details: ' + JSON.stringify(data), 'err');
+      }
+
+    } catch (err) {
+      log('FETCH FAILED — could not reach the Worker at all!', 'err');
+      log('Error: ' + err.message, 'err');
+      log('Possible causes: Worker is down, CORS issue, or wrong URL.', 'info');
+    }
+
+    btn.disabled = false;
+    btn.textContent = '▶ Run Diagnostic Test';
+  }
+</script>
+</body>
+</html>
