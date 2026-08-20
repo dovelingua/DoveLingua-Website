@@ -173,14 +173,15 @@
       return;
     }
 
-    const payload = {
-      name:     name,
-      email:    email,
-      phone:    phone,
-      amount:   parseFloat(amount),
-      currency: 'MZN',
-      method:   method
-    };
+   const payload = {
+  action:   'process',
+  name:     name,
+  email:    email,
+  phone:    phone,
+  amount:   parseFloat(amount),
+  currency: 'MZN',
+  method:   method
+};
 
     log('Starting diagnostic...', 'info');
     log('Worker URL: ' + WORKER_URL, 'info');
