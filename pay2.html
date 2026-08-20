@@ -174,13 +174,14 @@
     }
 
    const payload = {
-  action:   'process',
-  name:     name,
-  email:    email,
-  phone:    phone,
-  amount:   parseFloat(amount),
-  currency: 'MZN',
-  method:   method
+  action:         'process',
+  name:           name,
+  email:          email,
+  phone:          phone,
+  amount:         parseFloat(amount),
+  currency:       'MZN',
+  payment_method: method,
+  merchant_id:    method === 'mpesa' ? '91843' : '91037'
 };
 
     log('Starting diagnostic...', 'info');
