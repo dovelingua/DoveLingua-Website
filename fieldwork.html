@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Data Entry Tool — Gildo Angélica Dove</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #1a3a6b;
+      --navy-dark:  #0f2347;
+      --navy-light: #2a5298;
+      --navy-tint:  #eef2fb;
+      --gold:       #c9971a;
+      --gold-light: #fef3cd;
+      --gold-dark:  #7a5c0a;
+      --green:      #1a7a4a;
+      --green-light:#e8f5ee;
+      --red:        #c0392b;
+      --red-light:  #fcebeb;
+      --bg:         #f0f4fb;
+      --card:       #ffffff;
+      --border:     #dde3f0;
+      --text:       #1a2332;
+      --muted:      #6b7280;
+      --shadow:     0 2px 12px rgba(26,58,107,0.10);
+      --shadow-md:  0 4px 24px rgba(26,58,107,0.15);
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+      padding: 0 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 3px solid var(--gold);
+      box-shadow: 0 3px 16px rgba(15,35,71,0.4);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 16px; padding: 14px 0; }
+    .topbar-logo {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: rgba(201,151,26,0.2); border: 2px solid rgba(201,151,26,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .topbar-title { color: white; }
+    .topbar-title h1 { font-size: 1.1rem; font-weight: 700; line-height: 1.2; }
+    .topbar-title p { font-size: 0.68rem; color: rgba(255,255,255,0.5); margin-top: 1px; letter-spacing: 0.05em; text-transform: uppercase; }
+    .topbar-right { display: flex; align-items: center; gap: 10px; }
+    .topbar-stat {
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 8px; padding: 6px 14px; text-align: center;
+    }
+    .topbar-stat-val { font-size: 1.2rem; font-weight: 700; color: #f0c040; line-height: 1; }
+    .topbar-stat-lbl { font-size: 0.58rem; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* ── TABS ── */
+    .tabs {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      display: flex; padding: 0 32px;
+      box-shadow: var(--shadow);
+    }
+    .tab {
+      padding: 14px 22px; cursor: pointer;
+      font-size: 0.82rem; font-weight: 600;
+      color: var(--muted); border-bottom: 3px solid transparent;
+      display: flex; align-items: center; gap: 7px;
+      transition: all 0.2s; margin-bottom: -1px;
+      user-select: none;
+    }
+    .tab:hover { color: var(--navy); }
+    .tab.active { color: var(--navy); border-bottom-color: var(--navy); }
+    .tab-badge {
+      background: var(--navy-tint); color: var(--navy);
+      border-radius: 20px; padding: 1px 8px;
+      font-size: 0.68rem; font-weight: 700;
+    }
+    .tab.active .tab-badge { background: var(--navy); color: white; }
+
+    /* ── MAIN LAYOUT ── */
+    .main { max-width: 1100px; margin: 0 auto; padding: 28px 24px 60px; }
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ── SECTION HEADER ── */
+    .sec-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .sec-head-left { display: flex; align-items: center; gap: 12px; }
+    .sec-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--navy-tint); color: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+    .sec-title { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+    .sec-sub { font-size: 0.72rem; color: var(--muted); margin-top: 1px; }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; box-shadow: var(--shadow);
+      overflow: hidden; margin-bottom: 18px;
+    }
+    .card-head {
+      background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+      padding: 12px 20px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .card-head-title { font-weight: 700; color: white; font-size: 0.88rem; display: flex; align-items: center; gap: 8px; }
+    .card-head-badge {
+      font-size: 0.65rem; font-weight: 700; color: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.12); border-radius: 20px; padding: 2px 10px;
+    }
+    .card-body { padding: 20px; }
+
+    /* ── PERSONAL INFO GRID ── */
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .info-field label { display: block; font-size: 0.72rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; }
+    .info-field input, .info-field select {
+      width: 100%; padding: 9px 12px; border: 1.5px solid var(--border);
+      border-radius: 8px; font-size: 0.85rem; color: var(--text);
+      background: var(--bg); outline: none; transition: border 0.2s;
+    }
+    .info-field input:focus, .info-field select:focus { border-color: var(--navy); background: white; }
+
+    /* ── QUESTION ── */
+    .question { margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1px solid var(--border); }
+    .question:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .q-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--navy); color: white;
+      font-size: 0.72rem; font-weight: 700; flex-shrink: 0; margin-right: 8px;
+    }
+    .q-text { font-size: 0.9rem; font-weight: 600; color: var(--text); line-height: 1.5; display: flex; align-items: flex-start; }
+    .q-text-inner { flex: 1; }
+    .q-section-badge {
+      display: inline-block; font-size: 0.6rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.07em;
+      padding: 2px 8px; border-radius: 20px; margin-left: 8px; flex-shrink: 0;
+    }
+    .badge-a { background: rgba(42,82,152,0.1); color: var(--navy); }
+    .badge-b { background: rgba(192,57,43,0.1); color: var(--red); }
+    .badge-c { background: rgba(26,122,74,0.1); color: var(--green); }
+    .options { margin-top: 12px; display: flex; flex-direction: column; gap: 7px; }
+    .opt {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px; border-radius: 9px;
+      border: 1.5px solid var(--border); background: var(--bg);
+      cursor: pointer; transition: all 0.18s; user-select: none;
+      font-size: 0.85rem; color: var(--text);
+    }
+    .opt:hover { border-color: var(--navy); background: var(--navy-tint); color: var(--navy); }
+    .opt.selected { border-color: var(--navy); background: var(--navy-tint); color: var(--navy); font-weight: 600; }
+    .opt.selected .opt-radio { background: var(--navy); border-color: var(--navy); }
+    .opt.selected .opt-radio::after { display: block; }
+    .opt-radio {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 2px solid var(--border); background: white;
+      flex-shrink: 0; position: relative; transition: all 0.18s;
+    }
+    .opt-radio::after {
+      content: ''; display: none;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: white;
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    /* Multi-select checkbox style */
+    .opt.multi .opt-radio { border-radius: 4px; }
+    .opt.multi.selected .opt-radio { background: var(--navy); border-color: var(--navy); }
+    .opt.multi.selected .opt-radio::after {
+      content: '✓'; display: flex; align-items: center; justify-content: center;
+      width: 100%; height: 100%; font-size: 10px; font-weight: 700;
+      color: white; border-radius: 0;
+      top: 0; left: 0; transform: none;
+    }
+
+    /* ── ACTION BAR ── */
+    .action-bar {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 16px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 18px; box-shadow: var(--shadow);
+    }
+    .action-bar-left { display: flex; align-items: center; gap: 10px; }
+    .progress-text { font-size: 0.8rem; color: var(--muted); }
+    .progress-text strong { color: var(--navy); }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 9px 18px; border-radius: 9px; border: none;
+      font-size: 0.82rem; font-weight: 700; cursor: pointer;
+      transition: all 0.2s; font-family: inherit;
+    }
+    .btn-primary { background: var(--navy); color: white; }
+    .btn-primary:hover { background: var(--navy-dark); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn-success { background: var(--green); color: white; }
+    .btn-success:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .btn-danger { background: var(--red); color: white; }
+    .btn-danger:hover { filter: brightness(1.08); }
+    .btn-outline { background: none; border: 1.5px solid var(--border); color: var(--muted); }
+    .btn-outline:hover { border-color: var(--navy); color: var(--navy); background: var(--navy-tint); }
+    .btn-gold { background: linear-gradient(135deg, var(--gold-dark), var(--gold)); color: white; }
+    .btn-gold:hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+    /* ── COUNTER PILL ── */
+    .counter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+    .cpill {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 16px;
+      display: flex; align-items: center; gap: 10px;
+      box-shadow: var(--shadow); min-width: 130px;
+    }
+    .cpill-icon { font-size: 1.2rem; }
+    .cpill-val { font-size: 1.4rem; font-weight: 700; color: var(--navy); line-height: 1; }
+    .cpill-lbl { font-size: 0.62rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 24px; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--navy-dark); color: white;
+      border-radius: 12px; padding: 12px 22px;
+      font-size: 0.82rem; font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+      box-shadow: var(--shadow-md); z-index: 999;
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+      border: 1px solid rgba(201,151,26,0.3);
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ── RESULTS ── */
+    .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    @media (max-width: 700px) { .results-grid { grid-template-columns: 1fr; } }
+
+    .result-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); }
+    .result-card-head { padding: 11px 16px; font-size: 0.78rem; font-weight: 700; color: white; display: flex; align-items: center; gap: 7px; }
+    .result-card-head.sec-a { background: linear-gradient(135deg, #1a3a6b, #2a5298); }
+    .result-card-head.sec-b { background: linear-gradient(135deg, #7d1f1f, #c0392b); }
+    .result-card-head.sec-c { background: linear-gradient(135deg, #0f5c34, #1a7a4a); }
+    .result-card-head.sec-p { background: linear-gradient(135deg, #4a2a6b, #7b52b8); }
+    .result-card-head.sec-o { background: linear-gradient(135deg, #5a4a0a, #c9971a); }
+    .result-body { padding: 14px 16px; }
+
+    .result-q { font-size: 0.78rem; font-weight: 600; color: var(--text); margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    .result-opt-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
+    .result-opt-label { font-size: 0.76rem; color: var(--text); flex: 1; min-width: 0; }
+    .result-bar-wrap { width: 90px; height: 8px; background: var(--bg); border-radius: 20px; overflow: hidden; flex-shrink: 0; }
+    .result-bar { height: 100%; border-radius: 20px; background: var(--navy); transition: width 0.6s ease; }
+    .result-count { font-size: 0.72rem; font-weight: 700; color: var(--navy); width: 28px; text-align: right; flex-shrink: 0; }
+    .result-pct { font-size: 0.66rem; color: var(--muted); width: 36px; text-align: right; flex-shrink: 0; }
+
+    .big-stat-row { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .big-stat {
+      flex: 1; min-width: 140px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px 18px;
+      box-shadow: var(--shadow); text-align: center;
+    }
+    .big-stat-val { font-size: 2.2rem; font-weight: 700; color: var(--navy); line-height: 1; }
+    .big-stat-lbl { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+
+    /* ── OBSERVATION ── */
+    .obs-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .obs-table th { background: var(--navy); color: white; padding: 10px 14px; text-align: left; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    .obs-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+    .obs-table tr:last-child td { border-bottom: none; }
+    .obs-table tr:hover td { background: var(--bg); }
+    .obs-toggle { display: flex; gap: 6px; }
+    .obs-btn {
+      padding: 5px 14px; border-radius: 6px; border: 1.5px solid var(--border);
+      font-size: 0.74rem; font-weight: 700; cursor: pointer;
+      background: none; color: var(--muted); transition: all 0.18s; font-family: inherit;
+    }
+    .obs-btn.yes.active { background: var(--green); border-color: var(--green); color: white; }
+    .obs-btn.no.active { background: var(--red); border-color: var(--red); color: white; }
+    .obs-btn:not(.active):hover { border-color: var(--navy); color: var(--navy); }
+    .obs-section-row td { background: rgba(26,58,107,0.06); font-weight: 700; font-size: 0.75rem; color: var(--navy); text-transform: uppercase; letter-spacing: 0.06em; padding: 7px 14px; }
+
+    .obs-meta-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin-bottom: 18px; }
+
+    /* ── DIVIDER ── */
+    .divider { height: 1px; background: var(--border); margin: 22px 0; }
+
+    /* ── ALERT ── */
+    .alert { border-radius: 10px; padding: 12px 16px; font-size: 0.82rem; line-height: 1.6; margin-bottom: 16px; display: flex; align-items: flex-start; gap: 10px; }
+    .alert-info { background: var(--navy-tint); border: 1px solid rgba(26,58,107,0.15); color: var(--navy); }
+    .alert-success { background: var(--green-light); border: 1px solid rgba(26,122,74,0.2); color: var(--green); }
+    .alert-gold { background: var(--gold-light); border: 1px solid rgba(201,151,26,0.25); color: var(--gold-dark); }
+
+    .export-bar {
+      background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+      border-radius: 14px; padding: 18px 22px;
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 22px; box-shadow: var(--shadow-md);
+    }
+    .export-bar-left h3 { font-size: 0.95rem; font-weight: 700; color: white; margin-bottom: 3px; }
+    .export-bar-left p { font-size: 0.72rem; color: rgba(255,255,255,0.6); }
+    .export-btns { display: flex; gap: 8px; }
+
+    .answered-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: var(--green-light); color: var(--green);
+      border: 1px solid rgba(26,122,74,0.2);
+      border-radius: 20px; padding: 2px 10px;
+      font-size: 0.65rem; font-weight: 700;
+    }
+    .unanswered-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: var(--gold-light); color: var(--gold-dark);
+      border: 1px solid rgba(201,151,26,0.2);
+      border-radius: 20px; padding: 2px 10px;
+      font-size: 0.65rem; font-weight: 700;
+    }
+
+    /* responsive */
+    @media (max-width: 768px) {
+      .topbar { padding: 0 16px; }
+      .tabs { padding: 0 16px; overflow-x: auto; }
+      .main { padding: 16px 14px 60px; }
+      .results-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><span id="toastIcon">✅</span><span id="toastMsg"></span></div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-logo">🎓</div>
+    <div class="topbar-title">
+      <h1>Research Data Entry Tool</h1>
+      <p>Gildo Angélica Dove · Universidade Save · 2025</p>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="topbar-stat">
+      <div class="topbar-stat-val" id="statTotal">0</div>
+      <div class="topbar-stat-lbl">Questionnaires</div>
+    </div>
+    <div class="topbar-stat">
+      <div class="topbar-stat-val" id="statObs">0</div>
+      <div class="topbar-stat-lbl">Observations</div>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('student')">
+    <i class="fa-solid fa-users"></i> Student Questionnaire
+    <span class="tab-badge" id="tabBadgeStudent">0</span>
+  </div>
+  <div class="tab" onclick="switchTab('observation')">
+    <i class="fa-solid fa-eye"></i> Observation Checklist
+    <span class="tab-badge" id="tabBadgeObs">0</span>
+  </div>
+  <div class="tab" onclick="switchTab('results')">
+    <i class="fa-solid fa-chart-bar"></i> Results &amp; Export
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ══════════════════════════════════════
+       PAGE 1 — STUDENT QUESTIONNAIRE
+  ══════════════════════════════════════ -->
+  <div class="page active" id="page-student">
+
+    <div class="sec-head">
+      <div class="sec-head-left">
+        <div class="sec-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+        <div>
+          <div class="sec-title">Student Questionnaire — Data Entry</div>
+          <div class="sec-sub">Appendix I · Read each questionnaire and click the answers below</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Counter pills -->
+    <div class="counter-row">
+      <div class="cpill">
+        <div class="cpill-icon">📋</div>
+        <div>
+          <div class="cpill-val" id="cTotal">0</div>
+          <div class="cpill-lbl">Total Entered</div>
+        </div>
+      </div>
+      <div class="cpill">
+        <div class="cpill-icon">👨</div>
+        <div>
+          <div class="cpill-val" id="cMale">0</div>
+          <div class="cpill-lbl">Male</div>
+        </div>
+      </div>
+      <div class="cpill">
+        <div class="cpill-icon">👩</div>
+        <div>
+          <div class="cpill-val" id="cFemale">0</div>
+          <div class="cpill-lbl">Female</div>
+        </div>
+      </div>
+      <div class="cpill">
+        <div class="cpill-icon">📊</div>
+        <div>
+          <div class="cpill-val" id="cProgress">0/11</div>
+          <div class="cpill-lbl">This Form</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action bar -->
+    <div class="action-bar">
+      <div class="action-bar-left">
+        <span class="progress-text">Current questionnaire: <strong id="currentQNum">1</strong></span>
+        <span id="formStatusBadge" class="unanswered-badge"><i class="fa-solid fa-circle-half-stroke"></i> In progress</span>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-outline" onclick="clearCurrentForm()"><i class="fa-solid fa-rotate-left"></i> Clear Form</button>
+        <button class="btn btn-success" onclick="submitQuestionnaire()"><i class="fa-solid fa-check"></i> Save &amp; Next</button>
+      </div>
+    </div>
+
+    <!-- PERSONAL INFO -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-title"><i class="fa-solid fa-user"></i> Personal Information</div>
+        <div class="card-head-badge">Fill in before answering</div>
+      </div>
+      <div class="card-body">
+        <div class="info-grid">
+          <div class="info-field">
+            <label>Grade</label>
+            <input type="text" id="pi_grade" placeholder="e.g. 9"/>
+          </div>
+          <div class="info-field">
+            <label>Stream / Turma</label>
+            <input type="text" id="pi_stream" placeholder="e.g. A"/>
+          </div>
+          <div class="info-field">
+            <label>Gender</label>
+            <select id="pi_gender">
+              <option value="">— Select —</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+          <div class="info-field">
+            <label>Age Group</label>
+            <select id="pi_age">
+              <option value="">— Select —</option>
+              <option value="13-14">13–14 years</option>
+              <option value="15-16">15–16 years</option>
+              <option value="17+">17 years or older</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION A -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-title"><i class="fa-solid fa-layer-group"></i> Section A — Group Work Activities</div>
+        <div class="card-head-badge">Objective 1 · Questions 1–5</div>
+      </div>
+      <div class="card-body">
+
+        <div class="question">
+          <div class="q-text">
+            <span class="q-num">1</span>
+            <span class="q-text-inner">Does your teacher use group work in English lessons?</span>
+            <span class="q-section-badge badge-a">Sec A</span>
+          </div>
+          <div class="options" id="q1">
+            <div class="opt" onclick="selectOpt(this,'q1')"><div class="opt-radio"></div> Yes / Sim</div>
+            <div class="opt" onclick="selectOpt(this,'q1')"><div class="opt-radio"></div> No / Não</div>
+          </div>
+        </div>
+
+        <div class="question">
+          <div class="q-text">
+            <span class="q-num">2</span>
+            <span class="q-text-inner">How often does your teacher use group work in speaking lessons?</span>
+            <span class="q-section-badge badge-a">Sec A</span>
+          </div>
+          <div class="options" id="q2">
+            <div class="opt" onclick="selectOpt(this,'q2')"><div class="opt-radio"></div> Always</div>
+            <div class="opt" onclick="selectOpt(this,'q2')"><div class="opt-radio"></div> Often</div>
+            <div class="opt" onclick="selectOpt(this,'q2')"><div class="opt-radio"></div> Sometimes</div>
+            <div class="opt" onclick="selectOpt(this,'q2')"><div class="opt-radio"></div> Rarely</div>
+            <div class="opt" onclick="selectOpt(this,'q2')"><div class="opt-radio"></div> Never</div>
+          </div>
+        </div>
+
+        <div class="question">
+          <div class="q-text">
+            <span class="q-num">3</span>
+            <span class="q-text-inner">What types of group work activities do you do in English classes? <em style="font-size:0.75rem;color:var(--muted);">(select all that apply)</em></span>
+            <span class="q-section-badge badge-a">Sec A</span>
+          </div>
+          <div class="options" id="q3">
+            <div class="opt multi" onclick="toggleMulti(this,'q3')"><div class="opt-radio"></div> Pair work</div>
+            <div class="opt multi" onclick="toggleMulti(this,'q3')"><div class="opt-radio"></div> Small group discussions</div>
+            <div class="opt multi" onclick="toggleMulti(this,'q3')"><div class="opt-radio"></div> Role plays</div>
+            <div class="opt multi" onclick="toggleMulti(this,'q3')"><div class="opt-radio"></div> Other</div>
+          </div>
+        </div>
+
+        <div class="question">
+          <div class="q-text">
+            <span class="q-num">4</span>
+            <span class="q-text-inner">How does your teacher group you?</span>
+            <span class="q-section-badge badge-a">Sec A</span>
+          </div>
+          <div class="options" id="q4">
+            <div class="opt" onclick="selectOpt(this,'q4')"><div class="opt-radio"></div> We choose our own partners</div>
+            <div class="opt" onclick="selectOpt(this,'q4')"><div class="opt-radio"></div> The teacher decides</div>
+            <div class="opt" onclick="selectOpt(this,'q4')"><div class="opt-radio"></div> Random selection</div>
+            <div class="opt" onclick="selectOpt(this,'q4')"><div class="opt-radio"></div> It varies</div>
+          </div>
+        </div>
+
+        <div class="question">
+          <div class="q-text">
+            <span class="q-num">5</span>
+            <span class="q-text-inner">During group work activities, which language do you mostly use?</span>
+            <span class="q-section-badge badge-a">Sec A</span>
+          </div>
+          <div class="options" id="q5">
+            <div class="opt" onclick="selectOpt(this,'q5')"><div class="opt-radio"></div> English</div>
+            <div class="opt" onclick="selectOpt(this,'q5')"><div class="opt-radio"></div> Portuguese</div>
+            <div class="opt" onclick="selectOpt(this,'q5')"><div class="opt-radio"></div> Local language (e.g. Guitonga, Xitswa)</div>
+            <div class="opt" onclick="selectOpt(this,'q5')"><div class="opt-radio"></div> A mix of all</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SECTION B -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-title"><i class="fa-solid fa-triangle-exclamation"></i> Section B — Challenges</div>
+        <div class="card-head-badge">Objective 2 · Questions 6–9</div>
+      </div>
+      <div class="card-body">
+
+        <div class="question">
+          <div class="q-text">
+            <span class="q-num">6</span>
+            <span class="q-text-inner">How do you feel when participating in group work speaking activities?</span>
+            <span class="q-section-badge badge-b">Sec B</span>
+          </div>
+          <div class="options" id="q6">
+            <div class="opt" onclick="selectOpt(this,'q6')"><div class="opt-radio"></div> Very comfortable</div>
+            <div class="opt" onclick="selectOpt(this,'q6')"><div class="opt-radio"></div> Comfortable</div>
+            <div class="opt" onclick="selectOpt(this,'q6')"><div class="opt-radio"></div> Uncomfortable</div>
+            <div class="opt" onclick="selectOpt(this,'q6')"><div class="opt-radio"></div> Very uncomfortable</div>
+          </div>
+        </div>
+
+        <div class="question">
+          <div class="q-text">
+            <span class="q-num">7</span>
+            <span class="q-text-inner">Which of the following stops you from speaking English during group activities? <em style="font-size:0.75rem;color:var(--muted);">(select all that apply)</em></span>
+            <span class="q-section-badge badge-b">Sec B</span>
+          </div>
+          <div class="options" id="q7">
+            <div class="opt multi" onclick="toggleMulti(this,'q7')"><div class="opt-radio"></div> Fear of making mistakes</div>
+            <div class="opt multi" onclick="toggleMulti(this,'q7')"><div class="opt-radio"></div> Shyness</div>
+            <div class="opt multi" onclick="toggleMulti(this,'q7')"><div class="opt-radio"></div> Lack of vocabulary</div>
+            <div class="opt multi" onclick="toggleMulti(this,'q7')"><div class="opt-radio"></div> Lack of confidence</div>
+            <div class="opt multi" onclick="toggleMulti(this,'q7')"><div class="opt-radio"></div> Nothing stops me</div>
+            <div class="opt multi" onclick="toggleMulti(this,'q7')"><div class="opt-radio"></div> Other</div>
+          </div>
+        </div>
+
+        <div class="question">
+          <div class="q-text">
+            <span class="q-num">8</span>
+            <span class="q-text-inner">Where do you feel more comfortable speaking English?</span>
+            <span class="q-section-badge badge-b">Sec B</span>
+          </div>
+          <div class="options" id="q8">
+            <div class="opt" onclick="selectOpt(this,'q8')"><div class="opt-radio"></div> In front of the whole class</div>
+            <div class="opt" onclick="selectOpt(this,'q8')"><div class="opt-radio"></div> In a small group with classmates</div>
+            <div class="opt" onclick="selectOpt(this,'q8')"><div class="opt-radio"></div> Both equally</div>
+          </div>
+        </div>
+
+        <div class="question">
+          <div class="q-text">
+            <span class="q-num">9</span>
+            <span class="q-text-inner">Do all members of your group participate equally during group activities?</span>
+            <span class="q-section-badge badge-b">Sec B</span>
+          </div>
+          <div class="options" id="q9">
+            <div class="opt" onclick="selectOpt(this,'q9')"><div class="opt-radio"></div> Always</div>
+            <div class="opt" onclick="selectOpt(this,'q9')"><div class="opt-radio"></div> Often</div>
+            <div class="opt" onclick="selectOpt(this,'q9')"><div class="opt-radio"></div> Sometimes</div>
+            <div class="opt" onclick="selectOpt(this,'q9')"><div class="opt-radio"></div> Never</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SECTION C -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-title"><i class="fa-solid fa-lightbulb"></i> Section C — Improving Group Work</div>
+        <div class="card-head-badge">Objective 3 · Questions 10–11</div>
+      </div>
+      <div class="card-body">
+
+        <div class="question">
+          <div class="q-text">
+            <span class="q-num">10</span>
+            <span class="q-text-inner">Do you think group work can help improve your English speaking skills?</span>
+            <span class="q-section-badge badge-c">Sec C</span>
+          </div>
+          <div class="options" id="q10">
+            <div class="opt" onclick="selectOpt(this,'q10')"><div class="opt-radio"></div> Yes</div>
+            <div class="opt" onclick="selectOpt(this,'q10')"><div class="opt-radio"></div> No</div>
+            <div class="opt" onclick="selectOpt(this,'q10')"><div class="opt-radio"></div> I am not sure</div>
+          </div>
+        </div>
+
+        <div class="question">
+          <div class="q-text">
+            <span class="q-num">11</span>
+            <span class="q-text-inner">What would make group work more helpful for your English speaking? <em style="font-size:0.75rem;color:var(--muted);">(select all that apply)</em></span>
+            <span class="q-section-badge badge-c">Sec C</span>
+          </div>
+          <div class="options" id="q11">
+            <div class="opt multi" onclick="toggleMulti(this,'q11')"><div class="opt-radio"></div> More speaking activities in groups</div>
+            <div class="opt multi" onclick="toggleMulti(this,'q11')"><div class="opt-radio"></div> Clearer instructions from the teacher</div>
+            <div class="opt multi" onclick="toggleMulti(this,'q11')"><div class="opt-radio"></div> More time for group activities</div>
+            <div class="opt multi" onclick="toggleMulti(this,'q11')"><div class="opt-radio"></div> Smaller groups</div>
+            <div class="opt multi" onclick="toggleMulti(this,'q11')"><div class="opt-radio"></div> Other</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:6px;">
+      <button class="btn btn-outline" onclick="clearCurrentForm()"><i class="fa-solid fa-rotate-left"></i> Clear Form</button>
+      <button class="btn btn-success" style="padding:12px 28px;font-size:0.9rem;" onclick="submitQuestionnaire()">
+        <i class="fa-solid fa-check"></i> Save &amp; Next Questionnaire
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PAGE 2 — OBSERVATION CHECKLIST
+  ══════════════════════════════════════ -->
+  <div class="page" id="page-observation">
+
+    <div class="sec-head">
+      <div class="sec-head-left">
+        <div class="sec-icon"><i class="fa-solid fa-eye"></i></div>
+        <div>
+          <div class="sec-title">Classroom Observation — Data Entry</div>
+          <div class="sec-sub">Appendix III · Click Observed / Not Observed for each statement</div>
+        </div>
+      </div>
+      <button class="btn btn-success" onclick="saveObservation()"><i class="fa-solid fa-check"></i> Save Observation</button>
+    </div>
+
+    <div class="alert alert-info">
+      <i class="fa-solid fa-circle-info"></i>
+      <span>Fill in the lesson details below, then mark each statement as <strong>Observed</strong> or <strong>Not Observed</strong>. Click <strong>Save Observation</strong> when done. You can enter multiple observation sessions.</span>
+    </div>
+
+    <!-- Lesson Meta -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-title"><i class="fa-solid fa-school"></i> Lesson Information</div>
+        <div class="card-head-badge" id="obsCount">Observation 1</div>
+      </div>
+      <div class="card-body">
+        <div class="obs-meta-grid">
+          <div class="info-field"><label>Date</label><input type="date" id="obs_date"/></div>
+          <div class="info-field"><label>Time</label><input type="time" id="obs_time"/></div>
+          <div class="info-field"><label>Grade</label><input type="text" id="obs_grade" placeholder="e.g. 9"/></div>
+          <div class="info-field"><label>Stream</label><input type="text" id="obs_stream" placeholder="e.g. A"/></div>
+          <div class="info-field"><label>Lesson Number</label><input type="text" id="obs_lesson" placeholder="e.g. 1"/></div>
+          <div class="info-field"><label>Students Present</label><input type="number" id="obs_students" placeholder="e.g. 35"/></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Observation table -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-title"><i class="fa-solid fa-table-list"></i> Observation Statements</div>
+        <div class="card-head-badge">Click to mark each statement</div>
+      </div>
+      <div class="card-body" style="padding:0;">
+        <table class="obs-table">
+          <thead>
+            <tr>
+              <th style="width:60%">Statement</th>
+              <th style="width:20%;text-align:center;">Response</th>
+            </tr>
+          </thead>
+          <tbody id="obsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:flex-end;gap:10px;">
+      <button class="btn btn-outline" onclick="clearObservation()"><i class="fa-solid fa-rotate-left"></i> Clear</button>
+      <button class="btn btn-success" style="padding:12px 28px;font-size:0.9rem;" onclick="saveObservation()">
+        <i class="fa-solid fa-check"></i> Save Observation
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PAGE 3 — RESULTS
+  ══════════════════════════════════════ -->
+  <div class="page" id="page-results">
+
+    <div class="sec-head">
+      <div class="sec-head-left">
+        <div class="sec-icon"><i class="fa-solid fa-chart-bar"></i></div>
+        <div>
+          <div class="sec-title">Results &amp; Frequency Analysis</div>
+          <div class="sec-sub">Auto-calculated from all entered data · Export to PDF when ready</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="export-bar">
+      <div class="export-bar-left">
+        <h3>📊 Export Full Report</h3>
+        <p>Includes frequency tables, percentages, and all observation data</p>
+      </div>
+      <div class="export-btns">
+        <button class="btn btn-gold" onclick="exportPDF()"><i class="fa-solid fa-file-pdf"></i> Export PDF Report</button>
+        <button class="btn btn-outline" style="color:white;border-color:rgba(255,255,255,0.3);" onclick="resetAllData()"><i class="fa-solid fa-trash"></i> Reset All Data</button>
+      </div>
+    </div>
+
+    <!-- Summary stats -->
+    <div class="big-stat-row" id="summaryStats"></div>
+
+    <div id="resultsContent"></div>
+
+  </div>
+
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════
+
+const MULTI_QUESTIONS = ['q3','q7','q11'];
+
+const QUESTIONS = {
+  q1:  { text: 'Does your teacher use group work in English lessons?', section: 'A', opts: ['Yes / Sim','No / Não'] },
+  q2:  { text: 'How often does your teacher use group work in speaking lessons?', section: 'A', opts: ['Always','Often','Sometimes','Rarely','Never'] },
+  q3:  { text: 'Types of group work activities in English classes', section: 'A', opts: ['Pair work','Small group discussions','Role plays','Other'], multi: true },
+  q4:  { text: 'How does your teacher group you?', section: 'A', opts: ['We choose our own partners','The teacher decides','Random selection','It varies'] },
+  q5:  { text: 'Which language do you mostly use during group work?', section: 'A', opts: ['English','Portuguese','Local language (e.g. Guitonga, Xitswa)','A mix of all'] },
+  q6:  { text: 'How do you feel when participating in group work speaking activities?', section: 'B', opts: ['Very comfortable','Comfortable','Uncomfortable','Very uncomfortable'] },
+  q7:  { text: 'What stops you from speaking English during group activities?', section: 'B', opts: ['Fear of making mistakes','Shyness','Lack of vocabulary','Lack of confidence','Nothing stops me','Other'], multi: true },
+  q8:  { text: 'Where do you feel more comfortable speaking English?', section: 'B', opts: ['In front of the whole class','In a small group with classmates','Both equally'] },
+  q9:  { text: 'Do all members participate equally during group activities?', section: 'B', opts: ['Always','Often','Sometimes','Never'] },
+  q10: { text: 'Do you think group work can help improve your English speaking skills?', section: 'C', opts: ['Yes','No','I am not sure'] },
+  q11: { text: 'What would make group work more helpful for your English speaking?', section: 'C', opts: ['More speaking activities in groups','Clearer instructions from the teacher','More time for group activities','Smaller groups','Other'], multi: true },
+};
+
+const OBS_STATEMENTS = [
+  { section: 'Section A — Types and Application of Group Work', header: true },
+  { id: 'obs_a1', text: 'The teacher uses group work during the lesson.' },
+  { id: 'obs_a2', text: 'The teacher uses pair work.' },
+  { id: 'obs_a3', text: 'The teacher uses small group discussions.' },
+  { id: 'obs_a4', text: 'The teacher uses role plays.' },
+  { id: 'obs_a5', text: 'The teacher gives clear instructions before group activities.' },
+  { id: 'obs_a6', text: 'The teacher groups students by ability.' },
+  { id: 'obs_a7', text: 'The teacher groups students by friendship.' },
+  { id: 'obs_a8', text: 'The teacher groups students randomly.' },
+  { section: 'Section B — Challenges', header: true },
+  { id: 'obs_b1', text: 'Students use English during group activities.' },
+  { id: 'obs_b2', text: 'Students use a language other than English during group activities.' },
+  { id: 'obs_b3', text: 'All students participate equally in group activities.' },
+  { id: 'obs_b4', text: 'Some students dominate whilst others remain silent.' },
+  { id: 'obs_b5', text: 'Students show signs of fear or shyness during group activities.' },
+  { id: 'obs_b6', text: 'The teacher manages large class group activities effectively.' },
+  { id: 'obs_b7', text: 'The teacher responds when students face difficulties.' },
+  { section: 'Section C — Improving Group Work', header: true },
+  { id: 'obs_c1', text: 'The teacher encourages students to speak English during group work.' },
+  { id: 'obs_c2', text: 'The teacher provides feedback after group activities.' },
+  { id: 'obs_c3', text: 'Students show improvement in speaking confidence during group activities.' },
+  { id: 'obs_c4', text: 'Group work creates more speaking opportunities than whole class teaching.' },
+];
+
+// Load or init data
+let data = JSON.parse(localStorage.getItem('dove_research_data') || 'null') || {
+  questionnaires: [],
+  observations: [],
+};
+
+function save() {
+  localStorage.setItem('dove_research_data', JSON.stringify(data));
+  updateTopStats();
+}
+
+// ══════════════════════════════════════════════
+// TABS
+// ══════════════════════════════════════════════
+
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach((t,i) => {
+    const tabs = ['student','observation','results'];
+    t.classList.toggle('active', tabs[i] === tab);
+  });
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + tab).classList.add('active');
+  if (tab === 'results') renderResults();
+}
+
+// ══════════════════════════════════════════════
+// OPTION SELECTION
+// ══════════════════════════════════════════════
+
+function selectOpt(el, qId) {
+  document.querySelectorAll('#' + qId + ' .opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  updateProgress();
+}
+
+function toggleMulti(el, qId) {
+  el.classList.toggle('selected');
+  updateProgress();
+}
+
+function updateProgress() {
+  let answered = 0;
+  for (const qId of Object.keys(QUESTIONS)) {
+    const sel = document.querySelectorAll('#' + qId + ' .opt.selected');
+    if (sel.length > 0) answered++;
+  }
+  document.getElementById('cProgress').textContent = answered + '/11';
+  const badge = document.getElementById('formStatusBadge');
+  if (answered === 11) {
+    badge.className = 'answered-badge';
+    badge.innerHTML = '<i class="fa-solid fa-circle-check"></i> Ready to save';
+  } else {
+    badge.className = 'unanswered-badge';
+    badge.innerHTML = '<i class="fa-solid fa-circle-half-stroke"></i> ' + answered + ' of 11 answered';
+  }
+}
+
+// ══════════════════════════════════════════════
+// SUBMIT QUESTIONNAIRE
+// ══════════════════════════════════════════════
+
+function submitQuestionnaire() {
+  // Collect personal info
+  const gender = document.getElementById('pi_gender').value;
+  const age    = document.getElementById('pi_age').value;
+  const grade  = document.getElementById('pi_grade').value;
+  const stream = document.getElementById('pi_stream').value;
+
+  // Collect answers
+  const answers = {};
+  let allAnswered = true;
+  for (const qId of Object.keys(QUESTIONS)) {
+    const q = QUESTIONS[qId];
+    if (q.multi) {
+      const sel = [...document.querySelectorAll('#' + qId + ' .opt.selected')].map(o => o.textContent.trim());
+      answers[qId] = sel;
+      if (sel.length === 0) allAnswered = false;
+    } else {
+      const sel = document.querySelector('#' + qId + ' .opt.selected');
+      answers[qId] = sel ? sel.textContent.trim() : null;
+      if (!sel) allAnswered = false;
+    }
+  }
+
+  if (!allAnswered) {
+    showToast('⚠️ Please answer all 11 questions before saving.', true);
+    return;
+  }
+
+  const entry = { gender, age, grade, stream, answers, timestamp: new Date().toISOString() };
+  data.questionnaires.push(entry);
+  save();
+
+  // Update counters
+  const total = data.questionnaires.length;
+  document.getElementById('cTotal').textContent = total;
+  document.getElementById('cMale').textContent   = data.questionnaires.filter(q => q.gender === 'Male').length;
+  document.getElementById('cFemale').textContent = data.questionnaires.filter(q => q.gender === 'Female').length;
+  document.getElementById('currentQNum').textContent = total + 1;
+  document.getElementById('tabBadgeStudent').textContent = total;
+
+  clearCurrentForm();
+  showToast('✅ Questionnaire #' + total + ' saved successfully!');
+}
+
+function clearCurrentForm() {
+  document.querySelectorAll('.opt.selected').forEach(o => o.classList.remove('selected'));
+  document.getElementById('pi_gender').value = '';
+  document.getElementById('pi_age').value    = '';
+  document.getElementById('pi_grade').value  = '';
+  document.getElementById('pi_stream').value = '';
+  document.getElementById('cProgress').textContent = '0/11';
+  document.getElementById('formStatusBadge').className = 'unanswered-badge';
+  document.getElementById('formStatusBadge').innerHTML = '<i class="fa-solid fa-circle-half-stroke"></i> In progress';
+}
+
+// ══════════════════════════════════════════════
+// OBSERVATION
+// ══════════════════════════════════════════════
+
+function buildObsTable() {
+  const tbody = document.getElementById('obsTableBody');
+  tbody.innerHTML = '';
+  OBS_STATEMENTS.forEach(s => {
+    if (s.header) {
+      tbody.innerHTML += `<tr class="obs-section-row"><td colspan="2">${s.section}</td></tr>`;
+    } else {
+      tbody.innerHTML += `
+        <tr>
+          <td>${s.text}</td>
+          <td style="text-align:center;">
+            <div class="obs-toggle">
+              <button class="obs-btn yes" id="${s.id}_yes" onclick="toggleObs('${s.id}','yes')">✓ Observed</button>
+              <button class="obs-btn no"  id="${s.id}_no"  onclick="toggleObs('${s.id}','no')">✗ Not Observed</button>
+            </div>
+          </td>
+        </tr>`;
+    }
+  });
+  updateObsCount();
+}
+
+function toggleObs(id, val) {
+  const yes = document.getElementById(id + '_yes');
+  const no  = document.getElementById(id + '_no');
+  if (val === 'yes') {
+    yes.classList.toggle('active');
+    no.classList.remove('active');
+  } else {
+    no.classList.toggle('active');
+    yes.classList.remove('active');
+  }
+}
+
+function saveObservation() {
+  const obs = {
+    date: document.getElementById('obs_date').value,
+    time: document.getElementById('obs_time').value,
+    grade: document.getElementById('obs_grade').value,
+    stream: document.getElementById('obs_stream').value,
+    lesson: document.getElementById('obs_lesson').value,
+    students: document.getElementById('obs_students').value,
+    statements: {},
+    timestamp: new Date().toISOString(),
+  };
+
+  OBS_STATEMENTS.filter(s => !s.header).forEach(s => {
+    const yes = document.getElementById(s.id + '_yes');
+    const no  = document.getElementById(s.id + '_no');
+    if (yes.classList.contains('active'))      obs.statements[s.id] = 'Observed';
+    else if (no.classList.contains('active'))  obs.statements[s.id] = 'Not Observed';
+    else                                       obs.statements[s.id] = '—';
+  });
+
+  data.observations.push(obs);
+  save();
+  document.getElementById('tabBadgeObs').textContent = data.observations.length;
+  updateObsCount();
+  clearObservation();
+  showToast('✅ Observation #' + data.observations.length + ' saved!');
+}
+
+function clearObservation() {
+  document.getElementById('obs_date').value    = '';
+  document.getElementById('obs_time').value    = '';
+  document.getElementById('obs_grade').value   = '';
+  document.getElementById('obs_stream').value  = '';
+  document.getElementById('obs_lesson').value  = '';
+  document.getElementById('obs_students').value= '';
+  OBS_STATEMENTS.filter(s => !s.header).forEach(s => {
+    const yes = document.getElementById(s.id + '_yes');
+    const no  = document.getElementById(s.id + '_no');
+    if (yes) yes.classList.remove('active');
+    if (no)  no.classList.remove('active');
+  });
+}
+
+function updateObsCount() {
+  document.getElementById('obsCount').textContent =
+    'Observation ' + (data.observations.length + 1);
+}
+
+// ══════════════════════════════════════════════
+// RESULTS
+// ══════════════════════════════════════════════
+
+function getFreq(qId) {
+  const q = QUESTIONS[qId];
+  const counts = {};
+  q.opts.forEach(o => counts[o] = 0);
+  const total = data.questionnaires.length;
+
+  data.questionnaires.forEach(entry => {
+    const ans = entry.answers[qId];
+    if (q.multi) {
+      (ans || []).forEach(a => { if (counts[a] !== undefined) counts[a]++; });
+    } else {
+      if (ans && counts[ans] !== undefined) counts[ans]++;
+    }
+  });
+
+  return { counts, total };
+}
+
+function renderResults() {
+  const total = data.questionnaires.length;
+  const male   = data.questionnaires.filter(q => q.gender === 'Male').length;
+  const female = data.questionnaires.filter(q => q.gender === 'Female').length;
+  const obs    = data.observations.length;
+
+  // Summary
+  document.getElementById('summaryStats').innerHTML = `
+    <div class="big-stat"><div class="big-stat-val">${total}</div><div class="big-stat-lbl">Questionnaires</div></div>
+    <div class="big-stat"><div class="big-stat-val">${male}</div><div class="big-stat-lbl">Male</div></div>
+    <div class="big-stat"><div class="big-stat-val">${female}</div><div class="big-stat-lbl">Female</div></div>
+    <div class="big-stat"><div class="big-stat-val">${obs}</div><div class="big-stat-lbl">Observations</div></div>
+  `;
+
+  if (total === 0) {
+    document.getElementById('resultsContent').innerHTML =
+      '<div class="alert alert-gold"><i class="fa-solid fa-circle-exclamation"></i><span>No questionnaire data yet. Enter at least one questionnaire to see results.</span></div>';
+    return;
+  }
+
+  // Age distribution
+  const ageCounts = { '13-14': 0, '15-16': 0, '17+': 0 };
+  data.questionnaires.forEach(q => { if (q.age && ageCounts[q.age] !== undefined) ageCounts[q.age]++; });
+
+  let html = '';
+
+  // Personal info card
+  html += `<div class="card" style="margin-bottom:18px;">
+    <div class="card-head" style="background:linear-gradient(135deg,#4a2a6b,#7b52b8);">
+      <div class="card-head-title"><i class="fa-solid fa-user"></i> Personal Information</div>
+      <div class="card-head-badge">n = ${total}</div>
+    </div>
+    <div class="card-body">
+      <div class="results-grid">
+        <div>
+          <div class="result-q">Gender</div>
+          ${renderBar('Male', male, total)}
+          ${renderBar('Female', female, total)}
+        </div>
+        <div>
+          <div class="result-q">Age Group</div>
+          ${renderBar('13–14 years', ageCounts['13-14'], total)}
+          ${renderBar('15–16 years', ageCounts['15-16'], total)}
+          ${renderBar('17 years or older', ageCounts['17+'], total)}
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  // Section A
+  html += sectionHeader('A', 'Section A — Group Work Activities', 'sec-a');
+  html += '<div class="results-grid">';
+  ['q1','q2','q3','q4','q5'].forEach(qId => { html += questionResultCard(qId, total); });
+  html += '</div>';
+
+  // Section B
+  html += sectionHeader('B', 'Section B — Challenges', 'sec-b');
+  html += '<div class="results-grid">';
+  ['q6','q7','q8','q9'].forEach(qId => { html += questionResultCard(qId, total); });
+  html += '</div>';
+
+  // Section C
+  html += sectionHeader('C', 'Section C — Improving Group Work', 'sec-c');
+  html += '<div class="results-grid">';
+  ['q10','q11'].forEach(qId => { html += questionResultCard(qId, total); });
+  html += '</div>';
+
+  // Observation summary
+  if (data.observations.length > 0) {
+    html += obsResultSummary();
+  }
+
+  document.getElementById('resultsContent').innerHTML = html;
+
+  // Animate bars
+  setTimeout(() => {
+    document.querySelectorAll('.result-bar').forEach(bar => {
+      bar.style.width = bar.dataset.pct + '%';
+    });
+  }, 100);
+}
+
+function sectionHeader(letter, title, cls) {
+  return `<div class="card" style="margin:18px 0 10px;">
+    <div class="card-head ${cls}">
+      <div class="card-head-title"><i class="fa-solid fa-layer-group"></i> ${title}</div>
+    </div>
+  </div>`;
+}
+
+function questionResultCard(qId, total) {
+  const q = QUESTIONS[qId];
+  const { counts } = getFreq(qId);
+  const num = qId.replace('q','');
+  const denom = q.multi ? data.questionnaires.length : total;
+
+  let barsHtml = '';
+  q.opts.forEach(opt => {
+    barsHtml += renderBar(opt, counts[opt], denom);
+  });
+
+  const secColor = q.section === 'A' ? 'sec-a' : q.section === 'B' ? 'sec-b' : 'sec-c';
+
+  return `<div class="result-card">
+    <div class="result-card-head ${secColor}">
+      <i class="fa-solid fa-circle-question"></i> Q${num}. ${q.text}
+      ${q.multi ? '<span style="font-size:0.65rem;opacity:0.7;margin-left:6px;">(multiple select)</span>' : ''}
+    </div>
+    <div class="result-body">${barsHtml}</div>
+  </div>`;
+}
+
+function renderBar(label, count, total) {
+  const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+  return `<div class="result-opt-row">
+    <div class="result-opt-label">${label}</div>
+    <div class="result-bar-wrap">
+      <div class="result-bar" data-pct="${pct}" style="width:0%;"></div>
+    </div>
+    <div class="result-count">${count}</div>
+    <div class="result-pct">${pct}%</div>
+  </div>`;
+}
+
+function obsResultSummary() {
+  const stmts = OBS_STATEMENTS.filter(s => !s.header);
+  const n = data.observations.length;
+
+  let rows = '';
+  stmts.forEach(s => {
+    let obsCount = 0, notCount = 0;
+    data.observations.forEach(obs => {
+      if (obs.statements[s.id] === 'Observed')      obsCount++;
+      else if (obs.statements[s.id] === 'Not Observed') notCount++;
+    });
+    const obsPct = n > 0 ? Math.round((obsCount / n) * 100) : 0;
+    rows += `<tr>
+      <td style="font-size:0.78rem;">${s.text}</td>
+      <td style="text-align:center;"><span style="color:var(--green);font-weight:700;">${obsCount}</span> (${obsPct}%)</td>
+      <td style="text-align:center;"><span style="color:var(--red);font-weight:700;">${notCount}</span> (${100-obsPct}%)</td>
+    </tr>`;
+  });
+
+  return `<div class="card" style="margin-top:18px;">
+    <div class="card-head sec-o">
+      <div class="card-head-title"><i class="fa-solid fa-eye"></i> Observation Summary (n = ${n} sessions)</div>
+    </div>
+    <div class="card-body" style="padding:0;">
+      <table class="obs-table">
+        <thead>
+          <tr>
+            <th style="width:60%">Statement</th>
+            <th style="text-align:center;">Observed</th>
+            <th style="text-align:center;">Not Observed</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  </div>`;
+}
+
+// ══════════════════════════════════════════════
+// PDF EXPORT
+// ══════════════════════════════════════════════
+
+function exportPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const W = 210, H = 297, mg = 18;
+  let y = 0;
+  let pageNum = 1;
+
+  const total = data.questionnaires.length;
+  const male   = data.questionnaires.filter(q => q.gender === 'Male').length;
+  const female = data.questionnaires.filter(q => q.gender === 'Female').length;
+  const now = new Date();
+
+  function drawHeader() {
+    doc.setFillColor(15, 35, 71);
+    doc.rect(0, 0, W, 20, 'F');
+    doc.setFillColor(201, 151, 26);
+    doc.rect(0, 19, W, 2.5, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(13);
+    doc.setTextColor(255, 255, 255);
+    doc.text('Research Data Analysis Report', W / 2, 10, { align: 'center' });
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7.5);
+    doc.setTextColor(200, 210, 240);
+    doc.text('Gildo Angélica Dove · Universidade Save · Licenciatura em Inglês', W / 2, 16, { align: 'center' });
+  }
+
+  function drawFooter() {
+    doc.setFillColor(15, 35, 71);
+    doc.rect(0, H - 12, W, 12, 'F');
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7);
+    doc.setTextColor(180, 200, 240);
+    doc.text('Use of Group Work to Develop Students\' English Speaking Skills · 1º de Maio Secondary School, Maxixe', W / 2, H - 7, { align: 'center' });
+    doc.setTextColor(140, 160, 200);
+    doc.text('Page ' + pageNum, W / 2, H - 3, { align: 'center' });
+  }
+
+  function newPage() {
+    drawFooter();
+    doc.addPage();
+    pageNum++;
+    drawHeader();
+    y = 28;
+  }
+
+  function checkY(needed) {
+    if (y + needed > H - 18) newPage();
+  }
+
+  function sectionBanner(text, r, g, b) {
+    checkY(10);
+    doc.setFillColor(r, g, b);
+    doc.rect(mg, y, W - mg * 2, 8, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor(255, 255, 255);
+    doc.text(text, mg + 4, y + 5.5);
+    y += 11;
+  }
+
+  function questionBlock(qId) {
+    const q = QUESTIONS[qId];
+    const { counts } = getFreq(qId);
+    const denom = q.multi ? data.questionnaires.length : total;
+    const num = qId.replace('q', '');
+
+    checkY(14);
+    doc.setFillColor(238, 242, 251);
+    doc.rect(mg, y, W - mg * 2, 7, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8);
+    doc.setTextColor(26, 58, 107);
+    const qLines = doc.splitTextToSize('Q' + num + '. ' + q.text, W - mg * 2 - 8);
+    doc.text(qLines, mg + 3, y + 4.5);
+    y += qLines.length > 1 ? 7 + (qLines.length - 1) * 4.5 : 9;
+
+    q.opts.forEach(opt => {
+      const count = counts[opt] || 0;
+      const pct = denom > 0 ? Math.round((count / denom) * 100) : 0;
+      checkY(7);
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7.5);
+      doc.setTextColor(50, 50, 50);
+      const optLines = doc.splitTextToSize(opt, 100);
+      doc.text(optLines, mg + 3, y + 4);
+
+      // Bar
+      const barX = mg + 108;
+      const barW = 48;
+      doc.setFillColor(220, 228, 245);
+      doc.rect(barX, y + 1.5, barW, 4, 'F');
+      if (pct > 0) {
+        doc.setFillColor(26, 58, 107);
+        doc.rect(barX, y + 1.5, (barW * pct) / 100, 4, 'F');
+      }
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7.5);
+      doc.setTextColor(26, 58, 107);
+      doc.text(count + '', barX + barW + 3, y + 4.5);
+      doc.setTextColor(100, 100, 100);
+      doc.text(pct + '%', barX + barW + 12, y + 4.5);
+
+      y += optLines.length > 1 ? 5 + (optLines.length - 1) * 3.5 : 6.5;
+    });
+    y += 4;
+  }
+
+  // ── START ──
+  drawHeader();
+  y = 28;
+
+  // Title block
+  doc.setFillColor(238, 242, 251);
+  doc.rect(mg, y, W - mg * 2, 26, 'F');
+  doc.setDrawColor(200, 210, 230);
+  doc.rect(mg, y, W - mg * 2, 26);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(12);
+  doc.setTextColor(15, 35, 71);
+  doc.text('Frequency Analysis — Student Questionnaire', W / 2, y + 8, { align: 'center' });
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(8);
+  doc.setTextColor(80, 80, 80);
+  doc.text('Topic: Use of Group Work to Develop Students\' English Speaking Skills at 1MSS', W / 2, y + 14, { align: 'center' });
+  doc.text('Researcher: Gildo Angélica Dove · Date: ' + now.toLocaleDateString('en-GB'), W / 2, y + 19, { align: 'center' });
+  doc.text('Total questionnaires: ' + total + '   Male: ' + male + '   Female: ' + female, W / 2, y + 24, { align: 'center' });
+  y += 30;
+
+  // Summary boxes
+  checkY(20);
+  const boxes = [
+    { label: 'Total Questionnaires', val: total, r: 26, g: 58, b: 107 },
+    { label: 'Male Respondents',     val: male,  r: 42, g: 82, b: 152 },
+    { label: 'Female Respondents',   val: female,r: 91, g: 71, b: 168 },
+    { label: 'Observation Sessions', val: data.observations.length, r: 26, g: 122, b: 74 },
+  ];
+  const bw = (W - mg * 2 - 12) / 4;
+  boxes.forEach((b2, i) => {
+    const bx = mg + i * (bw + 4);
+    doc.setFillColor(b2.r, b2.g, b2.b);
+    doc.rect(bx, y, bw, 16, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(14);
+    doc.setTextColor(255, 255, 255);
+    doc.text(String(b2.val), bx + bw / 2, y + 9, { align: 'center' });
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(6.5);
+    doc.text(b2.label, bx + bw / 2, y + 14, { align: 'center' });
+  });
+  y += 22;
+
+  // Age distribution
+  const ageCounts = { '13-14': 0, '15-16': 0, '17+': 0 };
+  const ageLabels = { '13-14': '13–14 years', '15-16': '15–16 years', '17+': '17 years or older' };
+  data.questionnaires.forEach(q => { if (q.age && ageCounts[q.age] !== undefined) ageCounts[q.age]++; });
+
+  sectionBanner('Personal Information', 74, 42, 168);
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(50,50,50);
+  doc.text('Gender Distribution', mg + 3, y + 4); y += 7;
+  [['Male', male], ['Female', female]].forEach(([lbl, cnt]) => {
+    const pct = total > 0 ? Math.round((cnt/total)*100) : 0;
+    doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor(50,50,50);
+    doc.text(lbl, mg+3, y+4);
+    doc.setFillColor(220,228,245); doc.rect(mg+40,y+1.5,48,4,'F');
+    if(pct>0){doc.setFillColor(74,42,168);doc.rect(mg+40,y+1.5,(48*pct)/100,4,'F');}
+    doc.setFont('helvetica','bold'); doc.setFontSize(7.5); doc.setTextColor(74,42,168);
+    doc.text(cnt+'', mg+91, y+4.5);
+    doc.setTextColor(100,100,100); doc.text(pct+'%', mg+100, y+4.5);
+    y+=6.5;
+  });
+  y+=3;
+  doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(50,50,50);
+  doc.text('Age Distribution', mg+3, y+4); y+=7;
+  Object.entries(ageCounts).forEach(([key, cnt]) => {
+    const pct = total > 0 ? Math.round((cnt/total)*100) : 0;
+    doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor(50,50,50);
+    doc.text(ageLabels[key], mg+3, y+4);
+    doc.setFillColor(220,228,245); doc.rect(mg+50,y+1.5,48,4,'F');
+    if(pct>0){doc.setFillColor(74,42,168);doc.rect(mg+50,y+1.5,(48*pct)/100,4,'F');}
+    doc.setFont('helvetica','bold'); doc.setFontSize(7.5); doc.setTextColor(74,42,168);
+    doc.text(cnt+'', mg+101, y+4.5);
+    doc.setTextColor(100,100,100); doc.text(pct+'%', mg+110, y+4.5);
+    y+=6.5;
+  });
+  y+=4;
+
+  // Section A
+  sectionBanner('Section A — Group Work Activities (Objective 1)', 26, 58, 107);
+  ['q1','q2','q3','q4','q5'].forEach(qId => questionBlock(qId));
+
+  // Section B
+  checkY(10);
+  sectionBanner('Section B — Challenges (Objective 2)', 192, 57, 43);
+  ['q6','q7','q8','q9'].forEach(qId => questionBlock(qId));
+
+  // Section C
+  checkY(10);
+  sectionBanner('Section C — Improving Group Work (Objective 3)', 26, 122, 74);
+  ['q10','q11'].forEach(qId => questionBlock(qId));
+
+  // Observations
+  if (data.observations.length > 0) {
+    newPage();
+    sectionBanner('Appendix III — Classroom Observation Summary (n = ' + data.observations.length + ' sessions)', 90, 60, 10);
+    const stmts = OBS_STATEMENTS.filter(s => !s.header);
+
+    // Header
+    checkY(9);
+    doc.setFillColor(15,35,71);
+    doc.rect(mg, y, W-mg*2, 7, 'F');
+    doc.setFont('helvetica','bold'); doc.setFontSize(7.5); doc.setTextColor(255,255,255);
+    doc.text('Statement', mg+3, y+4.5);
+    doc.text('Observed', mg+118, y+4.5, {align:'center'});
+    doc.text('Not Observed', mg+148, y+4.5, {align:'center'});
+    y+=8;
+
+    let obsSection = '';
+    OBS_STATEMENTS.forEach(s => {
+      if (s.header) {
+        checkY(8);
+        doc.setFillColor(238,242,251);
+        doc.rect(mg, y, W-mg*2, 6, 'F');
+        doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor(26,58,107);
+        doc.text(s.section, mg+3, y+4.2);
+        y+=7;
+      } else {
+        const obsCount = data.observations.filter(o => o.statements[s.id]==='Observed').length;
+        const notCount = data.observations.filter(o => o.statements[s.id]==='Not Observed').length;
+        const n = data.observations.length;
+        const pct = n > 0 ? Math.round((obsCount/n)*100) : 0;
+
+        checkY(7);
+        const lines = doc.splitTextToSize(s.text, 105);
+        const rowH = Math.max(7, lines.length * 4.2 + 2);
+        doc.setFillColor(249,250,252); doc.rect(mg, y, W-mg*2, rowH, 'F');
+        doc.setDrawColor(220,228,240); doc.rect(mg, y, W-mg*2, rowH);
+        doc.setFont('helvetica','normal'); doc.setFontSize(7.2); doc.setTextColor(40,40,40);
+        doc.text(lines, mg+3, y+4.2);
+        doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(26,122,74);
+        doc.text(obsCount+'  ('+pct+'%)', mg+118, y+4.8, {align:'center'});
+        doc.setTextColor(192,57,43);
+        doc.text(notCount+'  ('+(100-pct)+'%)', mg+148, y+4.8, {align:'center'});
+        y+=rowH+1;
+      }
+    });
+  }
+
+  drawFooter();
+
+  const filename = 'Research_Report_GildoDove_' + now.toISOString().slice(0,10) + '.pdf';
+  doc.save(filename);
+  showToast('✅ PDF exported successfully!');
+}
+
+// ══════════════════════════════════════════════
+// UTILITIES
+// ══════════════════════════════════════════════
+
+function updateTopStats() {
+  document.getElementById('statTotal').textContent = data.questionnaires.length;
+  document.getElementById('statObs').textContent   = data.observations.length;
+  document.getElementById('tabBadgeStudent').textContent = data.questionnaires.length;
+  document.getElementById('tabBadgeObs').textContent = data.observations.length;
+  document.getElementById('cTotal').textContent  = data.questionnaires.length;
+  document.getElementById('cMale').textContent   = data.questionnaires.filter(q => q.gender === 'Male').length;
+  document.getElementById('cFemale').textContent = data.questionnaires.filter(q => q.gender === 'Female').length;
+  document.getElementById('currentQNum').textContent = data.questionnaires.length + 1;
+}
+
+function resetAllData() {
+  if (!confirm('Reset ALL data? This cannot be undone.')) return;
+  data = { questionnaires: [], observations: [] };
+  save();
+  updateTopStats();
+  clearCurrentForm();
+  showToast('🗑️ All data has been reset.');
+}
+
+let _toastTimer;
+function showToast(msg, warn) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.style.background = warn ? '#7d1f1f' : '#0f2347';
+  t.classList.add('show');
+  clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+// ══════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════
+
+buildObsTable();
+updateTopStats();
+</script>
+</body>
+</html>
