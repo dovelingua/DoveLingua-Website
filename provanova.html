@@ -7,11 +7,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background: #0a0a0a;
+      background: #000d2e;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -26,16 +27,16 @@
       overflow: hidden;
       position: relative;
       box-shadow:
-        0 0 0 8px #1a1a1a,
-        0 0 0 10px #2a2a2a,
-        0 50px 100px rgba(0,0,0,0.9);
+        0 0 0 8px #0a1628,
+        0 0 0 10px #1a2640,
+        0 50px 100px rgba(0,0,0,0.95);
     }
 
     /* ── SPLASH ROOT ── */
     #pwa-splash {
       position: absolute;
       inset: 0;
-      background: #0038CC;
+      background: #002C9A;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -43,69 +44,104 @@
       overflow: hidden;
     }
 
-    /* subtle noise texture overlay */
+    /* light bloom top */
     #pwa-splash::before {
       content: '';
       position: absolute;
       inset: 0;
-      background-image:
-        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(91,155,255,0.35) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 40% at 80% 110%, rgba(0,20,100,0.4) 0%, transparent 70%);
+      background:
+        radial-gradient(ellipse 70% 45% at 50% -5%, rgba(91,155,255,0.28) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 30% at 15% 110%, rgba(0,15,80,0.5) 0%, transparent 60%);
       pointer-events: none;
+      z-index: 0;
     }
 
-    /* ── WORD STAGE ── */
-    #word-stage {
+    /* ── STACK STAGE ── */
+    #stack-stage {
       position: absolute;
       inset: 0;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
+      padding: 0 36px;
+      gap: 0;
       z-index: 2;
     }
 
-    .word-line {
-      position: absolute;
+    /* each feature row */
+    .feat-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      opacity: 0;
+      transform: translateY(-40px);
+      margin-bottom: 22px;
+      will-change: transform, opacity;
+    }
+
+    .feat-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: rgba(255, 179, 0, 0.12);
+      border: 1px solid rgba(255, 179, 0, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .feat-icon i {
+      font-size: 15px;
+      color: #FFB300;
+    }
+
+    .feat-text {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      opacity: 0;
-      pointer-events: none;
+      gap: 2px;
     }
 
-    .word-main {
-      font-size: 52px;
+    .feat-word {
+      font-size: 28px;
       font-weight: 900;
       color: #ffffff;
-      letter-spacing: -2px;
+      letter-spacing: -0.8px;
       line-height: 1;
-      text-align: center;
     }
 
-    .word-sub {
-      font-size: 12px;
+    .feat-word .dot {
+      color: #FFB300;
+    }
+
+    /* alternate: gold word */
+    .feat-word.gold-word {
+      color: #FFB300;
+    }
+
+    .feat-label {
+      font-size: 10px;
       font-weight: 500;
-      color: rgba(255,255,255,0.45);
-      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      text-align: center;
     }
 
-    /* the "Tudo num só lugar." line is styled differently */
-    .word-bridge {
-      font-size: 22px;
-      font-weight: 300;
-      color: rgba(255,255,255,0.7);
-      letter-spacing: -0.3px;
-      text-align: center;
-      line-height: 1.4;
+    /* divider line between rows */
+    .feat-divider {
+      width: 0px;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      margin-bottom: 22px;
+      border-radius: 99px;
+      opacity: 0;
+      transition: width 0.3s ease, opacity 0.3s ease;
     }
 
-    .word-bridge strong {
-      font-weight: 800;
-      color: #ffffff;
+    .feat-divider.show {
+      width: 100%;
+      opacity: 1;
     }
 
     /* ── LOGO LOCK ── */
@@ -116,116 +152,139 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      z-index: 3;
+      z-index: 4;
       opacity: 0;
       pointer-events: none;
     }
 
-    .logo-icon {
-      width: 76px;
-      height: 76px;
-      background: rgba(255,255,255,0.12);
-      border: 1.5px solid rgba(255,255,255,0.2);
-      border-radius: 22px;
+    .logo-ring {
+      width: 80px;
+      height: 80px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(255,255,255,0.15);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 20px;
-      backdrop-filter: blur(12px);
+      margin-bottom: 22px;
+      position: relative;
     }
 
-    .logo-icon svg {
-      width: 36px;
-      height: 36px;
+    /* gold corner accent on logo box */
+    .logo-ring::after {
+      content: '';
+      position: absolute;
+      top: -1.5px;
+      right: -1.5px;
+      width: 20px;
+      height: 20px;
+      border-top: 2px solid #FFB300;
+      border-right: 2px solid #FFB300;
+      border-radius: 0 24px 0 0;
+    }
+
+    .logo-ring i {
+      font-size: 32px;
+      color: #ffffff;
     }
 
     .logo-name {
-      font-size: 36px;
+      font-size: 38px;
       font-weight: 900;
       color: #ffffff;
-      letter-spacing: -1.2px;
-      margin-bottom: 8px;
+      letter-spacing: -1.5px;
+      line-height: 1;
+      margin-bottom: 6px;
     }
 
-    .logo-name span {
-      color: rgba(255,255,255,0.5);
+    .logo-name .nova {
+      color: #FFB300;
     }
 
     .logo-tagline {
-      font-size: 11px;
-      font-weight: 500;
-      color: rgba(255,255,255,0.35);
-      letter-spacing: 0.1em;
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.18em;
       text-transform: uppercase;
+      margin-bottom: 28px;
     }
 
-    /* thin gold line beneath logo */
-    .logo-line {
+    /* gold line under logo */
+    .gold-line {
       width: 0px;
       height: 2px;
-      background: rgba(255,255,255,0.2);
+      background: linear-gradient(90deg, transparent, #FFB300, transparent);
       border-radius: 99px;
-      margin-top: 32px;
-      transition: width 0.6s ease;
+      transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .logo-line.grow {
-      width: 48px;
+    .gold-line.grow {
+      width: 80px;
+    }
+
+    /* slogan under gold line */
+    .logo-slogan {
+      margin-top: 16px;
+      font-size: 11px;
+      font-weight: 400;
+      font-style: italic;
+      color: rgba(255,255,255,0.2);
+      text-align: center;
+      max-width: 220px;
+      line-height: 1.6;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .logo-slogan.show {
+      opacity: 1;
     }
 
     /* ── BOTTOM BRAND ── */
-    .splash-brand {
+    #splash-brand {
       position: absolute;
-      bottom: 28px;
-      font-size: 10px;
+      bottom: 24px;
+      font-size: 9px;
       font-weight: 500;
-      color: rgba(255,255,255,0.18);
-      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.15);
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      z-index: 4;
+      z-index: 5;
       opacity: 0;
+      transition: opacity 0.5s ease;
     }
 
-    /* ── ANIMATIONS ── */
+    #splash-brand.show { opacity: 1; }
 
-    /* word flash in */
-    @keyframes wordIn {
-      0%   { opacity: 0; transform: translateY(14px); }
-      15%  { opacity: 1; transform: translateY(0); }
-      75%  { opacity: 1; transform: translateY(0); }
-      100% { opacity: 0; transform: translateY(-10px); }
+    /* ── KEYFRAMES ── */
+    @keyframes rowDrop {
+      0%   { opacity: 0; transform: translateY(-40px); }
+      55%  { opacity: 1; transform: translateY(4px); }
+      75%  { transform: translateY(-2px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* bridge line — stays a bit longer */
-    @keyframes bridgeIn {
-      0%   { opacity: 0; transform: translateY(10px); }
-      12%  { opacity: 1; transform: translateY(0); }
-      80%  { opacity: 1; transform: translateY(0); }
-      100% { opacity: 0; transform: translateY(-8px); }
+    @keyframes logoReveal {
+      0%   { opacity: 0; transform: scale(0.9) translateY(10px); }
+      60%  { opacity: 1; transform: scale(1.02) translateY(-2px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
     }
 
-    /* logo locks in */
-    @keyframes logoIn {
-      0%   { opacity: 0; transform: scale(0.88); }
-      60%  { opacity: 1; transform: scale(1.02); }
-      100% { opacity: 1; transform: scale(1); }
+    @keyframes stackFadeOut {
+      0%   { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(12px); }
     }
 
-    /* brand line fades */
-    @keyframes brandIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-    /* replay btn */
+    /* ── REPLAY ── */
     .replay-btn {
       position: fixed;
       bottom: 28px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(255,255,255,0.08);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.12);
       padding: 10px 28px;
       border-radius: 50px;
       font-family: 'Inter', sans-serif;
@@ -237,7 +296,7 @@
       z-index: 999;
       white-space: nowrap;
     }
-    .replay-btn:hover { background: rgba(255,255,255,0.16); }
+    .replay-btn:hover { background: rgba(255,255,255,0.12); }
   </style>
 </head>
 <body>
@@ -245,33 +304,54 @@
   <div class="phone-frame">
     <div id="pwa-splash">
 
-      <!-- WORD STAGE -->
-      <div id="word-stage">
+      <!-- STACK STAGE -->
+      <div id="stack-stage">
 
-        <div class="word-line" id="w1">
-          <div class="word-main">ACs.</div>
-          <div class="word-sub">Avaliações Contínuas</div>
+        <div class="feat-row" id="r1">
+          <div class="feat-icon"><i class="fa-solid fa-pen-to-square"></i></div>
+          <div class="feat-text">
+            <div class="feat-word">ACs<span class="dot">.</span></div>
+            <div class="feat-label">Avaliações Contínuas</div>
+          </div>
         </div>
 
-        <div class="word-line" id="w2">
-          <div class="word-main">AT.</div>
-          <div class="word-sub">Avaliação Trimestral</div>
+        <div class="feat-divider" id="d1"></div>
+
+        <div class="feat-row" id="r2">
+          <div class="feat-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+          <div class="feat-text">
+            <div class="feat-word">AT<span class="dot">.</span></div>
+            <div class="feat-label">Avaliação Trimestral</div>
+          </div>
         </div>
 
-        <div class="word-line" id="w3">
-          <div class="word-main">Fichas.</div>
-          <div class="word-sub">Exercícios e Revisão</div>
+        <div class="feat-divider" id="d2"></div>
+
+        <div class="feat-row" id="r3">
+          <div class="feat-icon"><i class="fa-solid fa-file-lines"></i></div>
+          <div class="feat-text">
+            <div class="feat-word gold-word">Fichas<span class="dot">.</span></div>
+            <div class="feat-label">Exercícios e Revisão</div>
+          </div>
         </div>
 
-        <div class="word-line" id="w4">
-          <div class="word-main">Exames.</div>
-          <div class="word-sub">Preparação Oficial</div>
+        <div class="feat-divider" id="d3"></div>
+
+        <div class="feat-row" id="r4">
+          <div class="feat-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          <div class="feat-text">
+            <div class="feat-word">Exames<span class="dot">.</span></div>
+            <div class="feat-label">Preparação para Exames</div>
+          </div>
         </div>
 
-        <div class="word-line" id="w5">
-          <div class="word-bridge">
-            Tudo o que precisas.<br>
-            <strong>Num só lugar.</strong>
+        <div class="feat-divider" id="d4"></div>
+
+        <div class="feat-row" id="r5">
+          <div class="feat-icon"><i class="fa-solid fa-people-group"></i></div>
+          <div class="feat-text">
+            <div class="feat-word gold-word">Grupo<span class="dot">.</span></div>
+            <div class="feat-label">Trabalho em Grupo</div>
           </div>
         </div>
 
@@ -279,23 +359,19 @@
 
       <!-- LOGO LOCK -->
       <div id="logo-lock">
-        <div class="logo-icon">
-          <!-- pen + document SVG inline -->
-          <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="6" y="4" width="18" height="24" rx="3" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
-            <path d="M10 10h10M10 14h10M10 18h6" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M23 20l7-7-3-3-7 7v3h3z" fill="rgba(255,179,0,0.9)" stroke="rgba(255,179,0,1)" stroke-width="0.5" stroke-linejoin="round"/>
-          </svg>
+        <div class="logo-ring">
+          <i class="fa-solid fa-file-pen"></i>
         </div>
-        <div class="logo-name">Prova<span>Nova</span></div>
+        <div class="logo-name">Prova<span class="nova">Nova</span></div>
         <div class="logo-tagline">Plataforma Docente</div>
-        <div class="logo-line" id="logo-line"></div>
+        <div class="gold-line" id="gold-line"></div>
+        <div class="logo-slogan" id="logo-slogan">
+          "Melhor Professor é quem<br>chega à sala preparado"
+        </div>
       </div>
 
       <!-- BRAND -->
-      <div class="splash-brand" id="splash-brand">
-        © <span id="splash-year"></span> ProvaNova
-      </div>
+      <div id="splash-brand">© <span id="splash-year"></span> ProvaNova</div>
 
     </div>
   </div>
@@ -307,73 +383,131 @@
 
     const wait = ms => new Promise(r => setTimeout(r, ms));
 
-    function clearAll() {
+    // Simulates router readiness — in production this would be set
+    // by the router when Firebase auth check completes
+    let routerReady = false;
+    let splashSequenceDone = false;
+
+    // Simulate router being ready after 2.8s (in real app this varies)
+    setTimeout(() => {
+      routerReady = true;
+      if (splashSequenceDone) goToApp();
+    }, 2800);
+
+    function goToApp() {
+      // In real app: router.navigate('/home') or dismissPWASplash()
+      // Here we just show a visual cue
+      console.log('[ProvaNova] Splash done — entering app.');
+    }
+
+    function resetAll() {
+      // Reset rows
       for (let i = 1; i <= 5; i++) {
-        const w = document.getElementById('w' + i);
-        w.style.animation = 'none';
-        w.style.opacity = '0';
+        const r = document.getElementById('r' + i);
+        r.style.animation = 'none';
+        r.style.opacity = '0';
+        r.style.transform = 'translateY(-40px)';
       }
+      // Reset dividers
+      for (let i = 1; i <= 4; i++) {
+        const d = document.getElementById('d' + i);
+        d.classList.remove('show');
+      }
+      // Reset logo
       const logo = document.getElementById('logo-lock');
       logo.style.animation = 'none';
       logo.style.opacity = '0';
 
-      const line = document.getElementById('logo-line');
-      line.classList.remove('grow');
+      document.getElementById('gold-line').classList.remove('grow');
+      document.getElementById('logo-slogan').classList.remove('show');
+      document.getElementById('splash-brand').classList.remove('show');
 
-      const brand = document.getElementById('splash-brand');
-      brand.style.animation = 'none';
-      brand.style.opacity = '0';
+      routerReady = false;
+      splashSequenceDone = false;
+
+      // Re-simulate router ready
+      setTimeout(() => {
+        routerReady = true;
+        if (splashSequenceDone) goToApp();
+      }, 2800);
     }
 
-    function flashWord(id, duration, isLast = false) {
+    function dropRow(id) {
       return new Promise(resolve => {
         const el = document.getElementById(id);
+        // Force reflow
         el.style.animation = 'none';
         el.style.opacity = '0';
+        el.style.transform = 'translateY(-40px)';
 
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            const anim = isLast ? 'bridgeIn' : 'wordIn';
-            el.style.animation = `${anim} ${duration}ms ease forwards`;
-            setTimeout(resolve, duration * 0.85);
+            el.style.animation = 'rowDrop 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards';
+            setTimeout(resolve, 480);
           });
         });
       });
     }
 
     async function startSplash() {
-      clearAll();
-      await wait(120);
+      resetAll();
+      await wait(100);
 
-      // ── Word sequence ──
-      // Each word: animation duration, time before next starts
-      await flashWord('w1', 820);
-      await wait(20);
-      await flashWord('w2', 820);
-      await wait(20);
-      await flashWord('w3', 820);
-      await wait(20);
-      await flashWord('w4', 820);
+      // ── Drop rows one by one with dividers ──
+      await dropRow('r1');
+      await wait(30);
+      document.getElementById('d1').classList.add('show');
       await wait(60);
 
-      // Bridge line — stays longer
-      await flashWord('w5', 1100, true);
-      await wait(200);
+      await dropRow('r2');
+      await wait(30);
+      document.getElementById('d2').classList.add('show');
+      await wait(60);
+
+      await dropRow('r3');
+      await wait(30);
+      document.getElementById('d3').classList.add('show');
+      await wait(60);
+
+      await dropRow('r4');
+      await wait(30);
+      document.getElementById('d4').classList.add('show');
+      await wait(60);
+
+      await dropRow('r5');
+
+      // Brief pause — let it breathe
+      await wait(420);
+
+      // ── Fade out stack ──
+      const stage = document.getElementById('stack-stage');
+      stage.style.animation = 'stackFadeOut 0.35s ease forwards';
+      await wait(320);
 
       // ── Logo locks in ──
       const logo = document.getElementById('logo-lock');
-      logo.style.animation = 'logoIn 0.65s cubic-bezier(0.34, 1.2, 0.64, 1) forwards';
+      logo.style.animation = 'logoReveal 0.6s cubic-bezier(0.34, 1.2, 0.64, 1) forwards';
+      await wait(500);
 
+      // Gold line grows
+      document.getElementById('gold-line').classList.add('grow');
       await wait(400);
 
-      // Line grows under logo
-      document.getElementById('logo-line').classList.add('grow');
-
+      // Slogan fades
+      document.getElementById('logo-slogan').classList.add('show');
       await wait(300);
 
-      // Brand fades in
-      const brand = document.getElementById('splash-brand');
-      brand.style.animation = 'brandIn 0.5s ease forwards';
+      // Brand fades
+      document.getElementById('splash-brand').classList.add('show');
+
+      // ── Sequence done ──
+      splashSequenceDone = true;
+      stage.style.animation = '';
+
+      if (routerReady) {
+        goToApp();
+      }
+      // else: logo stays visible and waits for router
     }
 
     startSplash();
