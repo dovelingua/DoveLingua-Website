@@ -19,7 +19,6 @@
       font-family: 'Inter', sans-serif;
     }
 
-    /* Simulates a phone frame */
     .phone-frame {
       width: 375px;
       height: 812px;
@@ -32,26 +31,20 @@
         0 40px 80px rgba(0,0,0,0.8);
     }
 
-    /* ── THE ACTUAL SPLASH ── */
+    /* ── SPLASH ROOT ── */
     #pwa-splash {
-      display: flex;
       position: absolute;
       inset: 0;
       background: linear-gradient(160deg, #002080 0%, #0037CC 55%, #0044FF 100%);
+      display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0;
+      overflow: hidden;
     }
 
-    #pwa-splash.hidden {
-      opacity: 0;
-      transform: scale(1.04);
-      transition: opacity 0.45s ease, transform 0.45s ease;
-      pointer-events: none;
-    }
-
-    .pwa-splash-dots-bg {
+    /* dot grid */
+    .dots-bg {
       position: absolute;
       inset: 0;
       background-image: radial-gradient(circle, rgba(255,179,0,0.07) 1px, transparent 1px);
@@ -59,112 +52,252 @@
       pointer-events: none;
     }
 
-    .pwa-splash-orb {
+    /* orbs */
+    .orb {
       position: absolute;
       border-radius: 50%;
       filter: blur(60px);
       pointer-events: none;
     }
 
-    .pwa-splash-content {
-      position: relative;
-      z-index: 1;
+    /* ── PHASE 1: LOGO INTRO ── */
+    #phase-logo {
+      position: absolute;
+      inset: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      text-align: center;
-      padding: 0 40px;
+      justify-content: center;
+      z-index: 2;
+      opacity: 0;
     }
 
-    .pwa-splash-icon {
-      width: 80px;
-      height: 80px;
-      border-radius: 20px;
-      object-fit: cover;
-      box-shadow:
-        0 8px 32px rgba(0,0,0,0.35),
-        0 0 0 3px rgba(255,179,0,0.3);
-      margin-bottom: 20px;
-      animation: splashIconPop 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+    #phase-logo.active {
+      animation: fadeInUp 0.5s ease forwards;
+    }
+
+    #phase-logo.exit {
+      animation: fadeOutUp 0.4s ease forwards;
+    }
+
+    .logo-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
       background: linear-gradient(135deg, #0044CC, #0057FF);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 36px;
+      font-size: 34px;
+      margin-bottom: 16px;
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.35),
+        0 0 0 3px rgba(255,179,0,0.3);
     }
 
-    @keyframes splashIconPop {
-      from { opacity: 0; transform: scale(0.7); }
-      to   { opacity: 1; transform: scale(1);   }
-    }
-
-    .pwa-splash-name {
-      font-size: 28px;
+    .logo-name {
+      font-size: 30px;
       font-weight: 900;
       color: #fff;
       letter-spacing: -0.5px;
       margin-bottom: 6px;
-      animation: splashFadeUp 0.4s 0.15s ease both;
     }
 
-    .pwa-splash-slogan {
-      font-size: 12px;
-      color: rgba(255,255,255,0.5);
+    .logo-sub {
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
       font-style: italic;
-      margin-bottom: 40px;
+      text-align: center;
+      max-width: 220px;
       line-height: 1.5;
-      max-width: 240px;
-      animation: splashFadeUp 0.4s 0.22s ease both;
     }
 
-    .pwa-splash-bar-wrap {
-      width: 160px;
-      height: 3px;
+    /* ── PHASE 2: CARDS ── */
+    #phase-cards {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      opacity: 0;
+      gap: 14px;
+      padding: 0 28px;
+    }
+
+    #phase-cards.active {
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    #phase-cards.exit {
+      animation: fadeOutUp 0.4s ease forwards;
+    }
+
+    .cards-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      align-self: flex-start;
+    }
+
+    .feature-card {
+      width: 100%;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      opacity: 0;
+      transform: translateX(60px);
+      backdrop-filter: blur(8px);
+    }
+
+    .feature-card.slide-in {
+      animation: cardSlideIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+    }
+
+    .card-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .card-text { flex: 1; min-width: 0; }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+
+    .card-desc {
+      font-size: 10px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.4;
+    }
+
+    .card-arrow {
+      font-size: 14px;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* ── PHASE 3: READY ── */
+    #phase-ready {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      opacity: 0;
+      gap: 10px;
+    }
+
+    #phase-ready.active {
+      animation: zoomIn 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    }
+
+    .ready-icon {
+      font-size: 52px;
+      margin-bottom: 8px;
+    }
+
+    .ready-title {
+      font-size: 22px;
+      font-weight: 900;
+      color: #fff;
+      text-align: center;
+    }
+
+    .ready-sub {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      max-width: 200px;
+      line-height: 1.5;
+    }
+
+    /* progress bar at bottom */
+    .progress-wrap {
+      position: absolute;
+      bottom: 48px;
+      left: 40px;
+      right: 40px;
+      height: 2px;
       background: rgba(255,255,255,0.1);
       border-radius: 99px;
       overflow: hidden;
-      animation: splashFadeUp 0.4s 0.3s ease both;
+      z-index: 3;
     }
 
-    .pwa-splash-bar-fill {
+    .progress-fill {
       height: 100%;
       width: 0%;
+      background: linear-gradient(90deg, #FFB300, #FFD54F);
       border-radius: 99px;
-      background: linear-gradient(90deg, #FFB300, #FFD54F, #fff);
-      animation: splashBarLoad 1.2s 0.4s ease forwards;
+      transition: width 0.4s ease;
     }
 
-    @keyframes splashBarLoad {
-      0%   { width: 0%;   }
-      60%  { width: 75%;  }
-      100% { width: 100%; }
-    }
-
-    @keyframes splashFadeUp {
-      from { opacity: 0; transform: translateY(8px); }
-      to   { opacity: 1; transform: translateY(0);   }
-    }
-
-    .pwa-splash-brand {
+    /* brand */
+    .brand {
       position: absolute;
-      bottom: 28px;
-      font-size: 10px;
-      color: rgba(255,255,255,0.2);
-      letter-spacing: 0.1em;
+      bottom: 22px;
+      font-size: 9px;
+      color: rgba(255,255,255,0.18);
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      animation: splashFadeUp 0.4s 0.5s ease both;
+      z-index: 3;
     }
 
-    /* Replay button — only in preview, not in real app */
+    /* ── KEYFRAMES ── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeOutUp {
+      from { opacity: 1; transform: translateY(0); }
+      to   { opacity: 0; transform: translateY(-20px); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes cardSlideIn {
+      from { opacity: 0; transform: translateX(60px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.75); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    /* ── REPLAY BTN ── */
     .replay-btn {
       position: fixed;
       bottom: 24px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.12);
       color: #fff;
-      border: 1px solid rgba(255,255,255,0.3);
-      padding: 10px 24px;
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 10px 28px;
       border-radius: 50px;
       font-family: 'Inter', sans-serif;
       font-size: 13px;
@@ -174,56 +307,180 @@
       transition: background 0.2s;
       z-index: 999;
     }
-    .replay-btn:hover { background: rgba(255,255,255,0.25); }
+    .replay-btn:hover { background: rgba(255,255,255,0.22); }
   </style>
 </head>
 <body>
 
   <div class="phone-frame">
     <div id="pwa-splash">
-      <div class="pwa-splash-dots-bg"></div>
-      <div class="pwa-splash-orb" style="width:200px;height:200px;background:rgba(255,179,0,0.08);top:-60px;right:-40px;"></div>
-      <div class="pwa-splash-orb" style="width:120px;height:120px;background:rgba(255,255,255,0.04);bottom:80px;left:-20px;"></div>
 
-      <div class="pwa-splash-content">
-        <!-- Replace with your real icon path when testing locally -->
-        <div class="pwa-splash-icon">📋</div>
-        <div class="pwa-splash-name">ProvaNova</div>
-        <div class="pwa-splash-slogan">
-          "Melhor Professor é quem chega à sala preparado"
-        </div>
-        <div class="pwa-splash-bar-wrap">
-          <div class="pwa-splash-bar-fill" id="bar"></div>
-        </div>
+      <div class="dots-bg"></div>
+      <div class="orb" style="width:200px;height:200px;background:rgba(255,179,0,0.08);top:-60px;right:-40px;"></div>
+      <div class="orb" style="width:120px;height:120px;background:rgba(255,255,255,0.04);bottom:80px;left:-20px;"></div>
+
+      <!-- PHASE 1: LOGO -->
+      <div id="phase-logo">
+        <div class="logo-icon">📋</div>
+        <div class="logo-name">ProvaNova</div>
+        <div class="logo-sub">"Melhor Professor é quem chega à sala preparado"</div>
       </div>
 
-      <div class="pwa-splash-brand">
-        DoveLingua Academy © <span id="splash-year"></span>
+      <!-- PHASE 2: FEATURE CARDS -->
+      <div id="phase-cards">
+        <div class="cards-label">O que podes criar</div>
+
+        <div class="feature-card" id="card-1">
+          <div class="card-icon" style="background:rgba(0,180,255,0.15);">📝</div>
+          <div class="card-text">
+            <div class="card-title">Avaliações Contínuas</div>
+            <div class="card-desc">ACs prontas e alinhadas ao programa</div>
+          </div>
+          <div class="card-arrow">›</div>
+        </div>
+
+        <div class="feature-card" id="card-2">
+          <div class="card-icon" style="background:rgba(255,100,100,0.15);">📄</div>
+          <div class="card-text">
+            <div class="card-title">Avaliação Trimestral</div>
+            <div class="card-desc">ATs completas em segundos</div>
+          </div>
+          <div class="card-arrow">›</div>
+        </div>
+
+        <div class="feature-card" id="card-3">
+          <div class="card-icon" style="background:rgba(100,220,100,0.15);">👥</div>
+          <div class="card-text">
+            <div class="card-title">Trabalho em Grupo</div>
+            <div class="card-desc">Fichas colaborativas estruturadas</div>
+          </div>
+          <div class="card-arrow">›</div>
+        </div>
+
+        <div class="feature-card" id="card-4">
+          <div class="card-icon" style="background:rgba(255,179,0,0.15);">🎓</div>
+          <div class="card-text">
+            <div class="card-title">Prep. Para Exame</div>
+            <div class="card-desc">Revisão e simulados de exame</div>
+          </div>
+          <div class="card-arrow">›</div>
+        </div>
+
+        <div class="feature-card" id="card-5">
+          <div class="card-icon" style="background:rgba(180,100,255,0.15);">🏖️</div>
+          <div class="card-text">
+            <div class="card-title">Trabalho de Férias</div>
+            <div class="card-desc">Fichas para o período de férias</div>
+          </div>
+          <div class="card-arrow">›</div>
+        </div>
+
       </div>
+
+      <!-- PHASE 3: READY -->
+      <div id="phase-ready">
+        <div class="ready-icon">🚀</div>
+        <div class="ready-title">Pronto a usar!</div>
+        <div class="ready-sub">A carregar a sua plataforma docente…</div>
+      </div>
+
+      <!-- PROGRESS BAR -->
+      <div class="progress-wrap">
+        <div class="progress-fill" id="progress"></div>
+      </div>
+
+      <div class="brand">DoveLingua Academy © <span id="year"></span></div>
+
     </div>
   </div>
 
-  <button class="replay-btn" onclick="replaySplash()">↺ Replay Splash</button>
+  <button class="replay-btn" onclick="startSplash()">↺ Replay</button>
 
   <script>
-    document.getElementById('splash-year').textContent = new Date().getFullYear();
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    function replaySplash() {
-      const splash = document.getElementById('pwa-splash');
-      const bar = document.getElementById('bar');
+    const phases = {
+      logo:  document.getElementById('phase-logo'),
+      cards: document.getElementById('phase-cards'),
+      ready: document.getElementById('phase-ready'),
+    };
+    const progress = document.getElementById('progress');
+    const cards = [
+      document.getElementById('card-1'),
+      document.getElementById('card-2'),
+      document.getElementById('card-3'),
+      document.getElementById('card-4'),
+      document.getElementById('card-5'),
+    ];
 
-      // Reset all animations
-      splash.classList.remove('hidden');
-      splash.style.opacity = '';
-      splash.style.transform = '';
-
-      // Re-trigger CSS animations by cloning
-      const clone = splash.cloneNode(true);
-      splash.parentNode.replaceChild(clone, splash);
-
-      // Re-attach year
-      clone.querySelector('#splash-year').textContent = new Date().getFullYear();
+    function setProgress(pct) {
+      progress.style.width = pct + '%';
     }
+
+    function resetAll() {
+      Object.values(phases).forEach(p => {
+        p.className = '';
+        p.style.opacity = '0';
+      });
+      cards.forEach(c => {
+        c.className = 'feature-card';
+      });
+      setProgress(0);
+    }
+
+    function wait(ms) {
+      return new Promise(res => setTimeout(res, ms));
+    }
+
+    async function startSplash() {
+      resetAll();
+      await wait(50);
+
+      // ── PHASE 1: Logo (0–1200ms) ──
+      phases.logo.style.opacity = '';
+      phases.logo.classList.add('active');
+      setProgress(15);
+      await wait(1400);
+
+      // Exit logo
+      phases.logo.classList.remove('active');
+      phases.logo.classList.add('exit');
+      await wait(400);
+      phases.logo.style.opacity = '0';
+      phases.logo.className = '';
+
+      // ── PHASE 2: Cards ──
+      phases.cards.style.opacity = '';
+      phases.cards.classList.add('active');
+      setProgress(30);
+      await wait(200);
+
+      // Stagger each card
+      for (let i = 0; i < cards.length; i++) {
+        cards[i].classList.add('slide-in');
+        setProgress(30 + (i + 1) * 10);
+        await wait(200);
+      }
+
+      await wait(900);
+
+      // Exit cards
+      phases.cards.classList.add('exit');
+      await wait(400);
+      phases.cards.style.opacity = '0';
+      phases.cards.className = '';
+
+      // ── PHASE 3: Ready ──
+      setProgress(95);
+      phases.ready.style.opacity = '';
+      phases.ready.classList.add('active');
+      await wait(300);
+      setProgress(100);
+      await wait(800);
+    }
+
+    // Auto-start
+    startSplash();
   </script>
 
 </body>
