@@ -6,13 +6,12 @@
   <title>ProvaNova — Splash Preview</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background: #000d2e;
+      background: #000;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -20,6 +19,7 @@
       font-family: 'Inter', sans-serif;
     }
 
+    /* Simulates a phone frame */
     .phone-frame {
       width: 375px;
       height: 812px;
@@ -27,490 +27,203 @@
       overflow: hidden;
       position: relative;
       box-shadow:
-        0 0 0 8px #0a1628,
-        0 0 0 10px #1a2640,
-        0 50px 100px rgba(0,0,0,0.95);
+        0 0 0 8px #1a1a1a,
+        0 0 0 10px #333,
+        0 40px 80px rgba(0,0,0,0.8);
     }
 
-    /* ── SPLASH ROOT ── */
+    /* ── THE ACTUAL SPLASH ── */
     #pwa-splash {
+      display: flex;
       position: absolute;
       inset: 0;
-      background: #002C9A;
-      display: flex;
+      background: linear-gradient(160deg, #002080 0%, #0037CC 55%, #0044FF 100%);
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-    }
-
-    /* light bloom top */
-    #pwa-splash::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 70% 45% at 50% -5%, rgba(91,155,255,0.28) 0%, transparent 65%),
-        radial-gradient(ellipse 40% 30% at 15% 110%, rgba(0,15,80,0.5) 0%, transparent 60%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ── STACK STAGE ── */
-    #stack-stage {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 0 36px;
       gap: 0;
-      z-index: 2;
     }
 
-    /* each feature row */
-    .feat-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
+    #pwa-splash.hidden {
       opacity: 0;
-      transform: translateY(-40px);
-      margin-bottom: 22px;
-      will-change: transform, opacity;
-    }
-
-    .feat-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 11px;
-      background: rgba(255, 179, 0, 0.12);
-      border: 1px solid rgba(255, 179, 0, 0.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .feat-icon i {
-      font-size: 15px;
-      color: #FFB300;
-    }
-
-    .feat-text {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .feat-word {
-      font-size: 28px;
-      font-weight: 900;
-      color: #ffffff;
-      letter-spacing: -0.8px;
-      line-height: 1;
-    }
-
-    .feat-word .dot {
-      color: #FFB300;
-    }
-
-    /* alternate: gold word */
-    .feat-word.gold-word {
-      color: #FFB300;
-    }
-
-    .feat-label {
-      font-size: 10px;
-      font-weight: 500;
-      color: rgba(255,255,255,0.35);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    /* divider line between rows */
-    .feat-divider {
-      width: 0px;
-      height: 1px;
-      background: rgba(255,255,255,0.08);
-      margin-bottom: 22px;
-      border-radius: 99px;
-      opacity: 0;
-      transition: width 0.3s ease, opacity 0.3s ease;
-    }
-
-    .feat-divider.show {
-      width: 100%;
-      opacity: 1;
-    }
-
-    /* ── LOGO LOCK ── */
-    #logo-lock {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 4;
-      opacity: 0;
+      transform: scale(1.04);
+      transition: opacity 0.45s ease, transform 0.45s ease;
       pointer-events: none;
     }
 
-    .logo-ring {
+    .pwa-splash-dots-bg {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,179,0,0.07) 1px, transparent 1px);
+      background-size: 26px 26px;
+      pointer-events: none;
+    }
+
+    .pwa-splash-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      pointer-events: none;
+    }
+
+    .pwa-splash-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 40px;
+    }
+
+    .pwa-splash-icon {
       width: 80px;
       height: 80px;
-      border-radius: 24px;
-      background: rgba(255,255,255,0.07);
-      border: 1.5px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.35),
+        0 0 0 3px rgba(255,179,0,0.3);
+      margin-bottom: 20px;
+      animation: splashIconPop 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+      background: linear-gradient(135deg, #0044CC, #0057FF);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 22px;
-      position: relative;
+      font-size: 36px;
     }
 
-    /* gold corner accent on logo box */
-    .logo-ring::after {
-      content: '';
-      position: absolute;
-      top: -1.5px;
-      right: -1.5px;
-      width: 20px;
-      height: 20px;
-      border-top: 2px solid #FFB300;
-      border-right: 2px solid #FFB300;
-      border-radius: 0 24px 0 0;
+    @keyframes splashIconPop {
+      from { opacity: 0; transform: scale(0.7); }
+      to   { opacity: 1; transform: scale(1);   }
     }
 
-    .logo-ring i {
-      font-size: 32px;
-      color: #ffffff;
-    }
-
-    .logo-name {
-      font-size: 38px;
+    .pwa-splash-name {
+      font-size: 28px;
       font-weight: 900;
-      color: #ffffff;
-      letter-spacing: -1.5px;
-      line-height: 1;
+      color: #fff;
+      letter-spacing: -0.5px;
       margin-bottom: 6px;
+      animation: splashFadeUp 0.4s 0.15s ease both;
     }
 
-    .logo-name .nova {
-      color: #FFB300;
-    }
-
-    .logo-tagline {
-      font-size: 10px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.3);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      margin-bottom: 28px;
-    }
-
-    /* gold line under logo */
-    .gold-line {
-      width: 0px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #FFB300, transparent);
-      border-radius: 99px;
-      transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .gold-line.grow {
-      width: 80px;
-    }
-
-    /* slogan under gold line */
-    .logo-slogan {
-      margin-top: 16px;
-      font-size: 11px;
-      font-weight: 400;
+    .pwa-splash-slogan {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
       font-style: italic;
-      color: rgba(255,255,255,0.2);
-      text-align: center;
-      max-width: 220px;
-      line-height: 1.6;
-      opacity: 0;
-      transition: opacity 0.6s ease;
+      margin-bottom: 40px;
+      line-height: 1.5;
+      max-width: 240px;
+      animation: splashFadeUp 0.4s 0.22s ease both;
     }
 
-    .logo-slogan.show {
-      opacity: 1;
+    .pwa-splash-bar-wrap {
+      width: 160px;
+      height: 3px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 99px;
+      overflow: hidden;
+      animation: splashFadeUp 0.4s 0.3s ease both;
     }
 
-    /* ── BOTTOM BRAND ── */
-    #splash-brand {
+    .pwa-splash-bar-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #FFB300, #FFD54F, #fff);
+      animation: splashBarLoad 1.2s 0.4s ease forwards;
+    }
+
+    @keyframes splashBarLoad {
+      0%   { width: 0%;   }
+      60%  { width: 75%;  }
+      100% { width: 100%; }
+    }
+
+    @keyframes splashFadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0);   }
+    }
+
+    .pwa-splash-brand {
       position: absolute;
-      bottom: 24px;
-      font-size: 9px;
-      font-weight: 500;
-      color: rgba(255,255,255,0.15);
-      letter-spacing: 0.14em;
+      bottom: 28px;
+      font-size: 10px;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      z-index: 5;
-      opacity: 0;
-      transition: opacity 0.5s ease;
+      animation: splashFadeUp 0.4s 0.5s ease both;
     }
 
-    #splash-brand.show { opacity: 1; }
-
-    /* ── KEYFRAMES ── */
-    @keyframes rowDrop {
-      0%   { opacity: 0; transform: translateY(-40px); }
-      55%  { opacity: 1; transform: translateY(4px); }
-      75%  { transform: translateY(-2px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes logoReveal {
-      0%   { opacity: 0; transform: scale(0.9) translateY(10px); }
-      60%  { opacity: 1; transform: scale(1.02) translateY(-2px); }
-      100% { opacity: 1; transform: scale(1) translateY(0); }
-    }
-
-    @keyframes stackFadeOut {
-      0%   { opacity: 1; transform: translateY(0); }
-      100% { opacity: 0; transform: translateY(12px); }
-    }
-
-    /* ── REPLAY ── */
+    /* Replay button — only in preview, not in real app */
     .replay-btn {
       position: fixed;
-      bottom: 28px;
+      bottom: 24px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(255,255,255,0.06);
-      color: rgba(255,255,255,0.7);
-      border: 1px solid rgba(255,255,255,0.12);
-      padding: 10px 28px;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 10px 24px;
       border-radius: 50px;
       font-family: 'Inter', sans-serif;
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(8px);
       transition: background 0.2s;
       z-index: 999;
-      white-space: nowrap;
     }
-    .replay-btn:hover { background: rgba(255,255,255,0.12); }
+    .replay-btn:hover { background: rgba(255,255,255,0.25); }
   </style>
 </head>
 <body>
 
   <div class="phone-frame">
     <div id="pwa-splash">
+      <div class="pwa-splash-dots-bg"></div>
+      <div class="pwa-splash-orb" style="width:200px;height:200px;background:rgba(255,179,0,0.08);top:-60px;right:-40px;"></div>
+      <div class="pwa-splash-orb" style="width:120px;height:120px;background:rgba(255,255,255,0.04);bottom:80px;left:-20px;"></div>
 
-      <!-- STACK STAGE -->
-      <div id="stack-stage">
-
-        <div class="feat-row" id="r1">
-          <div class="feat-icon"><i class="fa-solid fa-pen-to-square"></i></div>
-          <div class="feat-text">
-            <div class="feat-word">ACs<span class="dot">.</span></div>
-            <div class="feat-label">Avaliações Contínuas</div>
-          </div>
+      <div class="pwa-splash-content">
+        <!-- Replace with your real icon path when testing locally -->
+        <div class="pwa-splash-icon">📋</div>
+        <div class="pwa-splash-name">ProvaNova</div>
+        <div class="pwa-splash-slogan">
+          "Melhor Professor é quem chega à sala preparado"
         </div>
-
-        <div class="feat-divider" id="d1"></div>
-
-        <div class="feat-row" id="r2">
-          <div class="feat-icon"><i class="fa-solid fa-clipboard-list"></i></div>
-          <div class="feat-text">
-            <div class="feat-word">AT<span class="dot">.</span></div>
-            <div class="feat-label">Avaliação Trimestral</div>
-          </div>
-        </div>
-
-        <div class="feat-divider" id="d2"></div>
-
-        <div class="feat-row" id="r3">
-          <div class="feat-icon"><i class="fa-solid fa-file-lines"></i></div>
-          <div class="feat-text">
-            <div class="feat-word gold-word">Fichas<span class="dot">.</span></div>
-            <div class="feat-label">Exercícios e Revisão</div>
-          </div>
-        </div>
-
-        <div class="feat-divider" id="d3"></div>
-
-        <div class="feat-row" id="r4">
-          <div class="feat-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-          <div class="feat-text">
-            <div class="feat-word">Exames<span class="dot">.</span></div>
-            <div class="feat-label">Preparação para Exames</div>
-          </div>
-        </div>
-
-        <div class="feat-divider" id="d4"></div>
-
-        <div class="feat-row" id="r5">
-          <div class="feat-icon"><i class="fa-solid fa-people-group"></i></div>
-          <div class="feat-text">
-            <div class="feat-word gold-word">Grupo<span class="dot">.</span></div>
-            <div class="feat-label">Trabalho em Grupo</div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- LOGO LOCK -->
-      <div id="logo-lock">
-        <div class="logo-ring">
-          <i class="fa-solid fa-file-pen"></i>
-        </div>
-        <div class="logo-name">Prova<span class="nova">Nova</span></div>
-        <div class="logo-tagline">Plataforma Docente</div>
-        <div class="gold-line" id="gold-line"></div>
-        <div class="logo-slogan" id="logo-slogan">
-          "Melhor Professor é quem<br>chega à sala preparado"
+        <div class="pwa-splash-bar-wrap">
+          <div class="pwa-splash-bar-fill" id="bar"></div>
         </div>
       </div>
 
-      <!-- BRAND -->
-      <div id="splash-brand">© <span id="splash-year"></span> ProvaNova</div>
-
+      <div class="pwa-splash-brand">
+        DoveLingua Academy © <span id="splash-year"></span>
+      </div>
     </div>
   </div>
 
-  <button class="replay-btn" onclick="startSplash()">↺ Replay</button>
+  <button class="replay-btn" onclick="replaySplash()">↺ Replay Splash</button>
 
   <script>
     document.getElementById('splash-year').textContent = new Date().getFullYear();
 
-    const wait = ms => new Promise(r => setTimeout(r, ms));
+    function replaySplash() {
+      const splash = document.getElementById('pwa-splash');
+      const bar = document.getElementById('bar');
 
-    // Simulates router readiness — in production this would be set
-    // by the router when Firebase auth check completes
-    let routerReady = false;
-    let splashSequenceDone = false;
+      // Reset all animations
+      splash.classList.remove('hidden');
+      splash.style.opacity = '';
+      splash.style.transform = '';
 
-    // Simulate router being ready after 2.8s (in real app this varies)
-    setTimeout(() => {
-      routerReady = true;
-      if (splashSequenceDone) goToApp();
-    }, 2800);
+      // Re-trigger CSS animations by cloning
+      const clone = splash.cloneNode(true);
+      splash.parentNode.replaceChild(clone, splash);
 
-    function goToApp() {
-      // In real app: router.navigate('/home') or dismissPWASplash()
-      // Here we just show a visual cue
-      console.log('[ProvaNova] Splash done — entering app.');
+      // Re-attach year
+      clone.querySelector('#splash-year').textContent = new Date().getFullYear();
     }
-
-    function resetAll() {
-      // Reset rows
-      for (let i = 1; i <= 5; i++) {
-        const r = document.getElementById('r' + i);
-        r.style.animation = 'none';
-        r.style.opacity = '0';
-        r.style.transform = 'translateY(-40px)';
-      }
-      // Reset dividers
-      for (let i = 1; i <= 4; i++) {
-        const d = document.getElementById('d' + i);
-        d.classList.remove('show');
-      }
-      // Reset logo
-      const logo = document.getElementById('logo-lock');
-      logo.style.animation = 'none';
-      logo.style.opacity = '0';
-
-      document.getElementById('gold-line').classList.remove('grow');
-      document.getElementById('logo-slogan').classList.remove('show');
-      document.getElementById('splash-brand').classList.remove('show');
-
-      routerReady = false;
-      splashSequenceDone = false;
-
-      // Re-simulate router ready
-      setTimeout(() => {
-        routerReady = true;
-        if (splashSequenceDone) goToApp();
-      }, 2800);
-    }
-
-    function dropRow(id) {
-      return new Promise(resolve => {
-        const el = document.getElementById(id);
-        // Force reflow
-        el.style.animation = 'none';
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(-40px)';
-
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            el.style.animation = 'rowDrop 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards';
-            setTimeout(resolve, 480);
-          });
-        });
-      });
-    }
-
-    async function startSplash() {
-      resetAll();
-      await wait(100);
-
-      // ── Drop rows one by one with dividers ──
-      await dropRow('r1');
-      await wait(30);
-      document.getElementById('d1').classList.add('show');
-      await wait(60);
-
-      await dropRow('r2');
-      await wait(30);
-      document.getElementById('d2').classList.add('show');
-      await wait(60);
-
-      await dropRow('r3');
-      await wait(30);
-      document.getElementById('d3').classList.add('show');
-      await wait(60);
-
-      await dropRow('r4');
-      await wait(30);
-      document.getElementById('d4').classList.add('show');
-      await wait(60);
-
-      await dropRow('r5');
-
-      // Brief pause — let it breathe
-      await wait(420);
-
-      // ── Fade out stack ──
-      const stage = document.getElementById('stack-stage');
-      stage.style.animation = 'stackFadeOut 0.35s ease forwards';
-      await wait(320);
-
-      // ── Logo locks in ──
-      const logo = document.getElementById('logo-lock');
-      logo.style.animation = 'logoReveal 0.6s cubic-bezier(0.34, 1.2, 0.64, 1) forwards';
-      await wait(500);
-
-      // Gold line grows
-      document.getElementById('gold-line').classList.add('grow');
-      await wait(400);
-
-      // Slogan fades
-      document.getElementById('logo-slogan').classList.add('show');
-      await wait(300);
-
-      // Brand fades
-      document.getElementById('splash-brand').classList.add('show');
-
-      // ── Sequence done ──
-      splashSequenceDone = true;
-      stage.style.animation = '';
-
-      if (routerReady) {
-        goToApp();
-      }
-      // else: logo stays visible and waits for router
-    }
-
-    startSplash();
   </script>
 
 </body>
