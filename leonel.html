@@ -1,0 +1,1920 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Data Entry Tool — Leonel Mapangule</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #1a3a6b;
+      --navy-dark:  #0f2347;
+      --navy-light: #2a5298;
+      --navy-tint:  #eef2fb;
+      --gold:       #c9971a;
+      --gold-light: #fef3cd;
+      --gold-dark:  #7a5c0a;
+      --green:      #1a7a4a;
+      --green-light:#e8f5ee;
+      --red:        #c0392b;
+      --red-light:  #fcebeb;
+      --purple:     #6b3fa0;
+      --purple-light:#f3eeff;
+      --bg:         #f0f4fb;
+      --card:       #ffffff;
+      --border:     #dde3f0;
+      --text:       #1a2332;
+      --muted:      #6b7280;
+      --shadow:     0 2px 12px rgba(26,58,107,0.10);
+      --shadow-md:  0 4px 24px rgba(26,58,107,0.15);
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 16px;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+      padding: 0 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 3px solid var(--gold);
+      box-shadow: 0 3px 16px rgba(15,35,71,0.4);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 10px; padding: 10px 0; }
+    .topbar-logo {
+      width: 38px; height: 38px; border-radius: 8px; flex-shrink: 0;
+      background: rgba(201,151,26,0.2); border: 2px solid rgba(201,151,26,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .topbar-title { color: white; }
+    .topbar-title h1 { font-size: 0.95rem; font-weight: 700; line-height: 1.2; }
+    .topbar-title p { font-size: 0.6rem; color: rgba(255,255,255,0.5); margin-top: 1px; letter-spacing: 0.04em; text-transform: uppercase; }
+    .topbar-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .topbar-stat {
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 7px; padding: 5px 10px; text-align: center;
+    }
+    .topbar-stat-val { font-size: 1.1rem; font-weight: 700; color: #f0c040; line-height: 1; }
+    .topbar-stat-lbl { font-size: 0.52rem; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* ── TABS ── */
+    .tabs {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      box-shadow: var(--shadow);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab {
+      padding: 12px 14px; cursor: pointer;
+      font-size: 0.75rem; font-weight: 600;
+      color: var(--muted); border-bottom: 3px solid transparent;
+      display: flex; align-items: center; gap: 5px;
+      transition: all 0.2s; margin-bottom: -1px;
+      user-select: none; white-space: nowrap; flex-shrink: 0;
+    }
+    .tab:hover { color: var(--navy); }
+    .tab.active { color: var(--navy); border-bottom-color: var(--navy); }
+    .tab-badge {
+      background: var(--navy-tint); color: var(--navy);
+      border-radius: 20px; padding: 1px 7px;
+      font-size: 0.62rem; font-weight: 700;
+    }
+    .tab.active .tab-badge { background: var(--navy); color: white; }
+
+    /* ── MAIN ── */
+    .main { max-width: 680px; margin: 0 auto; padding: 16px 12px 80px; }
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ── WIZARD SHELL ── */
+    .wizard-shell {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+
+    /* ── WIZARD HEADER ── */
+    .wizard-header {
+      background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+      padding: 16px 20px 14px;
+    }
+    .wizard-meta {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .wizard-qnum {
+      font-size: 0.7rem; font-weight: 700;
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase; letter-spacing: 0.07em;
+    }
+    .wizard-qnum span { color: #f0c040; font-size: 0.95rem; }
+    .wizard-section-badge {
+      font-size: 0.6rem; font-weight: 700;
+      padding: 3px 9px; border-radius: 20px;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .badge-pi { background: rgba(201,151,26,0.25); color: #f0c040; }
+    .badge-a  { background: rgba(100,160,255,0.2); color: #90c0ff; }
+    .badge-b  { background: rgba(255,100,100,0.2); color: #ffaaaa; }
+    .badge-c  { background: rgba(100,220,150,0.2); color: #80ffbb; }
+    .badge-d  { background: rgba(180,100,255,0.2); color: #d0aaff; }
+
+    /* ── PROGRESS BAR ── */
+    .progress-track {
+      height: 5px; background: rgba(255,255,255,0.15);
+      border-radius: 20px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; background: linear-gradient(90deg, #f0c040, #c9971a);
+      border-radius: 20px;
+      transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ── WIZARD BODY ── */
+    .wizard-body { padding: 24px 20px 20px; }
+    .wizard-question {
+      font-size: 1.05rem; font-weight: 700;
+      color: var(--text); line-height: 1.5;
+      margin-bottom: 6px;
+    }
+    .wizard-hint {
+      font-size: 0.72rem; color: var(--muted);
+      margin-bottom: 20px; line-height: 1.5;
+    }
+    .wizard-hint kbd {
+      background: var(--navy-tint); color: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: 4px; padding: 1px 5px;
+      font-size: 0.65rem; font-family: inherit; font-weight: 700;
+    }
+
+    /* ── OPTIONS ── */
+    .wizard-options { display: flex; flex-direction: column; gap: 9px; }
+    .wopt {
+      display: flex; align-items: center; gap: 12px;
+      padding: 13px 16px; border-radius: 11px;
+      border: 2px solid var(--border); background: var(--bg);
+      cursor: pointer; transition: all 0.15s; user-select: none;
+      font-size: 0.88rem; color: var(--text);
+      -webkit-tap-highlight-color: transparent;
+      min-height: 48px;
+    }
+    .wopt:active { transform: scale(0.98); }
+    .wopt:hover { border-color: var(--navy); background: var(--navy-tint); }
+    .wopt.selected {
+      border-color: var(--navy); background: var(--navy-tint);
+      color: var(--navy); font-weight: 600;
+    }
+    .wopt.flash {
+      border-color: var(--green); background: var(--green-light);
+      color: var(--green);
+    }
+    .wopt-key {
+      width: 30px; height: 30px; border-radius: 7px;
+      background: white; border: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 800; color: var(--muted);
+      flex-shrink: 0; transition: all 0.15s;
+    }
+    .wopt.selected .wopt-key {
+      background: var(--navy); border-color: var(--navy); color: white;
+    }
+    .wopt.flash .wopt-key {
+      background: var(--green); border-color: var(--green); color: white;
+    }
+    .wopt-check {
+      width: 24px; height: 24px; border-radius: 6px;
+      border: 2px solid var(--border); background: white;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 0.85rem; color: white;
+      transition: all 0.15s;
+    }
+    .wopt.selected .wopt-check {
+      background: var(--navy); border-color: var(--navy);
+    }
+    .wopt.selected .wopt-check::after { content: '✓'; }
+
+    /* ── LIKERT GRID ── */
+    .likert-wrap { display: flex; flex-direction: column; gap: 0; }
+    .likert-legend {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 4px; margin-bottom: 8px;
+    }
+    .likert-legend-item {
+      text-align: center; font-size: 0.58rem; font-weight: 700;
+      color: var(--muted); text-transform: uppercase; line-height: 1.3;
+      padding: 3px 2px;
+    }
+    .likert-row {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+    }
+    .lopt {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 14px 6px; border-radius: 10px;
+      border: 2px solid var(--border); background: var(--bg);
+      cursor: pointer; transition: all 0.15s; user-select: none;
+      font-size: 0.78rem; font-weight: 700; color: var(--muted);
+      min-height: 56px; text-align: center; line-height: 1.2;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .lopt:active { transform: scale(0.95); }
+    .lopt.selected { border-color: var(--navy); background: var(--navy); color: white; }
+    .lopt.flash    { border-color: var(--green); background: var(--green); color: white; }
+    .lopt-abbr { font-size: 1rem; font-weight: 800; }
+    .lopt-label { font-size: 0.52rem; margin-top: 2px; opacity: 0.85; }
+
+    /* ── RATING 1-4 ── */
+    .rating-row {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+    }
+    .ropt {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 12px 4px; border-radius: 10px;
+      border: 2px solid var(--border); background: var(--bg);
+      cursor: pointer; transition: all 0.15s; user-select: none;
+      min-height: 54px; text-align: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .ropt:active { transform: scale(0.95); }
+    .ropt.selected { border-color: var(--navy); background: var(--navy); color: white; }
+    .ropt.flash    { border-color: var(--green); background: var(--green); color: white; }
+    .ropt-num { font-size: 1.2rem; font-weight: 800; color: inherit; }
+    .ropt-label { font-size: 0.5rem; font-weight: 700; color: inherit; opacity: 0.8; margin-top: 2px; text-transform: uppercase; line-height: 1.2; }
+    .ropt:not(.selected):not(.flash) .ropt-num { color: var(--navy); }
+    .ropt:not(.selected):not(.flash) .ropt-label { color: var(--muted); }
+    .ropt-na { border-color: var(--border); background: var(--bg); }
+    .ropt-na.selected { background: var(--muted); border-color: var(--muted); color: white; }
+
+    /* ── TEXT AREA ── */
+    .wizard-textarea {
+      width: 100%; padding: 12px 14px;
+      border: 2px solid var(--border); border-radius: 10px;
+      font-size: 0.9rem; color: var(--text);
+      background: var(--bg); outline: none; transition: border 0.2s;
+      font-family: inherit; resize: vertical; min-height: 100px;
+      line-height: 1.5;
+    }
+    .wizard-textarea:focus { border-color: var(--navy); background: white; }
+
+    /* ── PERSONAL INFO STEP ── */
+    .pi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 400px) { .pi-grid { grid-template-columns: 1fr; } }
+    .pi-field label {
+      display: block; font-size: 0.68rem; font-weight: 700;
+      color: var(--muted); text-transform: uppercase;
+      letter-spacing: 0.06em; margin-bottom: 6px;
+    }
+    .pi-field select {
+      width: 100%; padding: 12px 14px;
+      border: 2px solid var(--border); border-radius: 10px;
+      font-size: 0.9rem; color: var(--text);
+      background: var(--bg); outline: none; transition: border 0.2s;
+      font-family: inherit; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236b7280' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center;
+      padding-right: 32px;
+    }
+    .pi-field select:focus { border-color: var(--navy); background-color: white; }
+
+    /* ── SUMMARY STEP ── */
+    .summary-grid { display: flex; flex-direction: column; gap: 8px; }
+    .summary-row {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 12px; border-radius: 10px;
+      background: var(--bg); border: 1px solid var(--border);
+    }
+    .summary-qnum {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--navy); color: white;
+      font-size: 0.62rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .summary-q { font-size: 0.72rem; color: var(--muted); margin-bottom: 2px; line-height: 1.4; }
+    .summary-a { font-size: 0.82rem; font-weight: 600; color: var(--navy); }
+    .summary-empty { color: var(--red); font-weight: 600; }
+
+    /* ── COUNTERS ── */
+    .counter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .cpill {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 14px;
+      display: flex; align-items: center; gap: 8px;
+      box-shadow: var(--shadow); flex: 1; min-width: 70px;
+    }
+    .cpill-val { font-size: 1.4rem; font-weight: 700; color: var(--navy); line-height: 1; }
+    .cpill-lbl { font-size: 0.58rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 20px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--navy-dark); color: white;
+      border-radius: 12px; padding: 12px 20px;
+      font-size: 0.82rem; font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+      box-shadow: var(--shadow-md); z-index: 9999;
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+      border: 1px solid rgba(201,151,26,0.3);
+      max-width: calc(100vw - 32px); text-align: center;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ── WIZARD FOOTER ── */
+    .wizard-footer {
+      padding: 14px 20px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid var(--border); gap: 8px;
+    }
+    .wizard-nav { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 11px 18px; border-radius: 10px; border: none;
+      font-size: 0.82rem; font-weight: 700; cursor: pointer;
+      transition: all 0.2s; font-family: inherit;
+      -webkit-tap-highlight-color: transparent;
+      min-height: 44px;
+    }
+    .btn-primary { background: var(--navy); color: white; }
+    .btn-primary:hover { background: var(--navy-dark); }
+    .btn-success { background: var(--green); color: white; }
+    .btn-success:hover { filter: brightness(1.08); }
+    .btn-danger  { background: var(--red); color: white; }
+    .btn-outline { background: none; border: 1.5px solid var(--border); color: var(--muted); }
+    .btn-outline:hover { border-color: var(--navy); color: var(--navy); background: var(--navy-tint); }
+    .btn-gold { background: linear-gradient(135deg, var(--gold-dark), var(--gold)); color: white; }
+    .btn-gold:hover { filter: brightness(1.08); }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn:active { transform: scale(0.97); }
+
+    /* ── RESULTS ── */
+    .sec-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; gap: 10px; }
+    .sec-head-left { display: flex; align-items: center; gap: 10px; }
+    .sec-icon { width: 38px; height: 38px; border-radius: 9px; background: var(--navy-tint); color: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 0.95rem; flex-shrink: 0; }
+    .sec-title { font-size: 1rem; font-weight: 700; }
+    .sec-sub { font-size: 0.67rem; color: var(--muted); margin-top: 1px; }
+
+    .big-stat-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 16px; }
+    @media (min-width: 400px) { .big-stat-row { grid-template-columns: repeat(4, 1fr); } }
+    .big-stat { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 10px; box-shadow: var(--shadow); text-align: center; }
+    .big-stat-val { font-size: 1.8rem; font-weight: 700; color: var(--navy); line-height: 1; }
+    .big-stat-lbl { font-size: 0.6rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 4px; }
+
+    .export-bar {
+      background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+      border-radius: 14px; padding: 16px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px; box-shadow: var(--shadow-md); gap: 12px;
+      flex-wrap: wrap;
+    }
+    .export-bar-left h3 { font-size: 0.9rem; font-weight: 700; color: white; margin-bottom: 2px; }
+    .export-bar-left p { font-size: 0.67rem; color: rgba(255,255,255,0.6); }
+
+    .result-section-label {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.07em; color: var(--muted);
+      margin: 22px 0 10px; display: flex; align-items: center; gap: 8px;
+    }
+    .result-section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .result-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); margin-bottom: 12px; }
+    .result-card-head { padding: 10px 14px; font-size: 0.76rem; font-weight: 700; color: white; line-height: 1.4; }
+    .rh-a { background: linear-gradient(135deg, #1a3a6b, #2a5298); }
+    .rh-b { background: linear-gradient(135deg, #7d1f1f, #c0392b); }
+    .rh-c { background: linear-gradient(135deg, #0f5c34, #1a7a4a); }
+    .rh-d { background: linear-gradient(135deg, #3a1f6b, #6b3fa0); }
+    .rh-p { background: linear-gradient(135deg, #4a2a6b, #7b52b8); }
+    .rh-o { background: linear-gradient(135deg, #5a4a0a, #c9971a); }
+    .result-body { padding: 14px; }
+
+    .result-opt-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
+    .result-opt-label { font-size: 0.73rem; color: var(--text); flex: 1; line-height: 1.3; }
+    .result-bar-wrap { width: 60px; height: 7px; background: var(--bg); border-radius: 20px; overflow: hidden; flex-shrink: 0; }
+    .result-bar { height: 100%; border-radius: 20px; background: var(--navy); transition: width 0.8s ease; }
+    .result-count { font-size: 0.7rem; font-weight: 700; color: var(--navy); width: 20px; text-align: right; flex-shrink: 0; }
+    .result-pct { font-size: 0.64rem; color: var(--muted); width: 34px; text-align: right; flex-shrink: 0; }
+
+    .pie-wrap { display: flex; justify-content: center; padding: 8px 0 4px; }
+    .pie-wrap canvas { max-width: 200px; max-height: 200px; }
+
+    /* ── OBSERVATION PAGE ── */
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 14px; }
+    .card-head { background: linear-gradient(135deg, var(--navy-dark), var(--navy)); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; }
+    .card-head-title { font-weight: 700; color: white; font-size: 0.84rem; display: flex; align-items: center; gap: 7px; }
+    .card-head-badge { font-size: 0.62rem; font-weight: 700; color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.12); border-radius: 20px; padding: 2px 9px; white-space: nowrap; }
+    .card-body { padding: 16px; }
+
+    .alert { border-radius: 10px; padding: 11px 14px; font-size: 0.8rem; line-height: 1.6; margin-bottom: 14px; display: flex; align-items: flex-start; gap: 9px; }
+    .alert-info { background: var(--navy-tint); border: 1px solid rgba(26,58,107,0.15); color: var(--navy); }
+
+    .obs-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 360px) { .obs-meta-grid { grid-template-columns: 1fr; } }
+    .info-field label { display: block; font-size: 0.67rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; }
+    .info-field input, .info-field select, .info-field textarea {
+      width: 100%; padding: 10px 12px;
+      border: 1.5px solid var(--border); border-radius: 8px;
+      font-size: 0.85rem; color: var(--text); background: var(--bg);
+      outline: none; transition: border 0.2s; font-family: inherit;
+    }
+    .info-field textarea { resize: vertical; min-height: 70px; line-height: 1.5; }
+    .info-field input:focus, .info-field select:focus, .info-field textarea:focus { border-color: var(--navy); background: white; }
+    .info-field-full { grid-column: 1 / -1; }
+
+    /* ── OBS SECTION HEADER ── */
+    .obs-sec-head {
+      background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+      color: white; font-size: 0.78rem; font-weight: 700;
+      padding: 9px 14px; border-radius: 8px; margin: 14px 0 10px;
+      display: flex; align-items: center; gap: 7px;
+    }
+    .obs-sec-head:first-child { margin-top: 0; }
+
+    /* ── OBS ITEM CARD ── */
+    .obs-item {
+      background: var(--bg); border: 1.5px solid var(--border);
+      border-radius: 10px; padding: 12px 14px; margin-bottom: 8px;
+    }
+    .obs-item-text { font-size: 0.82rem; color: var(--text); margin-bottom: 10px; line-height: 1.45; }
+    .obs-item-num { font-size: 0.65rem; font-weight: 700; color: var(--muted); margin-bottom: 4px; }
+
+    /* Rating buttons 1-4 + N/A inline */
+    .rating-inline { display: flex; gap: 6px; flex-wrap: nowrap; }
+    .r-btn {
+      flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 9px 4px; border-radius: 8px;
+      border: 2px solid var(--border); background: white;
+      cursor: pointer; transition: all 0.15s; user-select: none;
+      font-family: inherit; min-height: 50px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .r-btn:active { transform: scale(0.95); }
+    .r-btn-num { font-size: 1rem; font-weight: 800; color: var(--navy); line-height: 1; }
+    .r-btn-lbl { font-size: 0.45rem; font-weight: 700; color: var(--muted); text-transform: uppercase; margin-top: 2px; line-height: 1.2; text-align: center; }
+    .r-btn.active-4 { background: #1a3a6b; border-color: #1a3a6b; }
+    .r-btn.active-4 .r-btn-num, .r-btn.active-4 .r-btn-lbl { color: white; }
+    .r-btn.active-3 { background: #2a7a5a; border-color: #2a7a5a; }
+    .r-btn.active-3 .r-btn-num, .r-btn.active-3 .r-btn-lbl { color: white; }
+    .r-btn.active-2 { background: #c9971a; border-color: #c9971a; }
+    .r-btn.active-2 .r-btn-num, .r-btn.active-2 .r-btn-lbl { color: white; }
+    .r-btn.active-1 { background: #c0392b; border-color: #c0392b; }
+    .r-btn.active-1 .r-btn-num, .r-btn.active-1 .r-btn-lbl { color: white; }
+    .r-btn.active-na { background: var(--muted); border-color: var(--muted); }
+    .r-btn.active-na .r-btn-num, .r-btn.active-na .r-btn-lbl { color: white; }
+
+    /* ── BEFORE/DURING/AFTER SECTION ── */
+    .bda-section { margin-bottom: 16px; }
+    .bda-head {
+      font-size: 0.78rem; font-weight: 700; color: var(--navy);
+      padding: 8px 12px; background: var(--navy-tint);
+      border-radius: 8px; margin-bottom: 10px;
+      border-left: 3px solid var(--navy);
+    }
+    .bda-item { margin-bottom: 10px; }
+    .bda-label { font-size: 0.72rem; font-weight: 700; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+    /* ── MATERIALS CHECKBOXES ── */
+    .materials-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    @media (min-width: 400px) { .materials-grid { grid-template-columns: repeat(3, 1fr); } }
+    .mat-opt {
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 10px; border-radius: 8px;
+      border: 1.5px solid var(--border); background: var(--bg);
+      cursor: pointer; user-select: none; font-size: 0.78rem;
+      -webkit-tap-highlight-color: transparent;
+      transition: all 0.15s;
+    }
+    .mat-opt.selected { border-color: var(--navy); background: var(--navy-tint); color: var(--navy); font-weight: 600; }
+    .mat-check {
+      width: 18px; height: 18px; border-radius: 4px;
+      border: 2px solid var(--border); background: white;
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; color: white;
+    }
+    .mat-opt.selected .mat-check { background: var(--navy); border-color: var(--navy); }
+    .mat-opt.selected .mat-check::after { content: '✓'; }
+
+    /* ── SONG YES/NO ── */
+    .song-toggle { display: flex; gap: 8px; }
+    .song-btn {
+      flex: 1; padding: 11px; border-radius: 9px;
+      border: 2px solid var(--border); background: var(--bg);
+      cursor: pointer; font-size: 0.85rem; font-weight: 700;
+      font-family: inherit; transition: all 0.15s; text-align: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .song-btn.yes.active { background: var(--green); border-color: var(--green); color: white; }
+    .song-btn.no.active  { background: var(--red); border-color: var(--red); color: white; }
+
+    /* ── OPEN TEXT AREA in OBS ── */
+    .obs-textarea {
+      width: 100%; padding: 10px 12px;
+      border: 1.5px solid var(--border); border-radius: 8px;
+      font-size: 0.84rem; color: var(--text); background: var(--bg);
+      outline: none; transition: border 0.2s; font-family: inherit;
+      resize: vertical; min-height: 70px; line-height: 1.5;
+    }
+    .obs-textarea:focus { border-color: var(--navy); background: white; }
+
+    /* ── RESULTS OBSERVATION SUMMARY ── */
+    .obs-summary-item {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 14px; margin-bottom: 8px;
+    }
+    .obs-summary-text { font-size: 0.78rem; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
+    .rating-dist { display: flex; gap: 5px; }
+    .rdist-bar {
+      flex: 1; border-radius: 6px; padding: 6px 4px; text-align: center;
+      font-size: 0.65rem; font-weight: 700; color: white; min-height: 36px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .rdist-4 { background: #1a3a6b; }
+    .rdist-3 { background: #2a7a5a; }
+    .rdist-2 { background: #c9971a; }
+    .rdist-1 { background: #c0392b; }
+    .rdist-na { background: var(--muted); }
+
+    @media (max-width: 768px) {
+      .topbar { padding: 0 12px; }
+      .main { padding: 12px 10px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="toast" id="toast"><span id="toastMsg"></span></div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-logo">🎵</div>
+    <div class="topbar-title">
+      <h1>Data Entry — Leonel Mapangule</h1>
+      <p>Músicas · Motivação · 11ª Classe · 2025</p>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="topbar-stat">
+      <div class="topbar-stat-val" id="statTotal">0</div>
+      <div class="topbar-stat-lbl">Question.</div>
+    </div>
+    <div class="topbar-stat">
+      <div class="topbar-stat-val" id="statObs">0</div>
+      <div class="topbar-stat-lbl">Observ.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('student')">
+    <i class="fa-solid fa-users"></i> Questionário
+    <span class="tab-badge" id="tabBadgeStudent">0</span>
+  </div>
+  <div class="tab" onclick="switchTab('observation')">
+    <i class="fa-solid fa-eye"></i> Observação
+    <span class="tab-badge" id="tabBadgeObs">0</span>
+  </div>
+  <div class="tab" onclick="switchTab('results')">
+    <i class="fa-solid fa-chart-pie"></i> Resultados
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ══════════════════════════════════════
+       PAGE 1 — STUDENT QUESTIONNAIRE WIZARD
+  ══════════════════════════════════════ -->
+  <div class="page active" id="page-student">
+
+    <div class="counter-row">
+      <div class="cpill"><div><div class="cpill-val" id="cTotal">0</div><div class="cpill-lbl">Total</div></div></div>
+      <div class="cpill"><div><div class="cpill-val" id="cMale">0</div><div class="cpill-lbl">Masc.</div></div></div>
+      <div class="cpill"><div><div class="cpill-val" id="cFemale">0</div><div class="cpill-lbl">Fem.</div></div></div>
+      <div class="cpill"><div><div class="cpill-val" id="cQNum">1</div><div class="cpill-lbl">Actual</div></div></div>
+    </div>
+
+    <div class="wizard-shell">
+      <div class="wizard-header">
+        <div class="wizard-meta">
+          <div class="wizard-qnum">Passo <span id="wStepDisp">1</span> de <span id="wTotalDisp">20</span></div>
+          <div class="wizard-section-badge badge-pi" id="wSectionBadge">Info Pessoal</div>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="wProgressFill" style="width:0%"></div>
+        </div>
+      </div>
+      <div class="wizard-body" id="wBody"></div>
+      <div class="wizard-footer">
+        <button class="btn btn-outline" id="wBtnBack" onclick="wizardBack()">
+          <i class="fa-solid fa-arrow-left"></i> Anterior
+        </button>
+        <div class="wizard-nav">
+          <button class="btn btn-outline" onclick="resetWizard()">
+            <i class="fa-solid fa-rotate-left"></i> Limpar
+          </button>
+          <button class="btn btn-primary" id="wBtnNext" onclick="wizardNext()">
+            Próxima <i class="fa-solid fa-arrow-right"></i>
+          </button>
+          <button class="btn btn-success" id="wBtnSave" onclick="submitQuestionnaire()" style="display:none;">
+            <i class="fa-solid fa-check"></i> Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PAGE 2 — OBSERVATION
+  ══════════════════════════════════════ -->
+  <div class="page" id="page-observation">
+    <div class="sec-head">
+      <div class="sec-head-left">
+        <div class="sec-icon"><i class="fa-solid fa-eye"></i></div>
+        <div>
+          <div class="sec-title">Observação de Sala de Aula</div>
+          <div class="sec-sub">Escala 4-3-2-1 + N/A · Antes/Durante/Depois</div>
+        </div>
+      </div>
+      <button class="btn btn-success" onclick="saveObservation()"><i class="fa-solid fa-check"></i> Guardar</button>
+    </div>
+
+    <div class="alert alert-info">
+      <i class="fa-solid fa-circle-info" style="flex-shrink:0;margin-top:2px;"></i>
+      <span>Preencha a informação geral da aula e avalie cada item. <strong>4 = Muito Alto, 3 = Alto, 2 = Baixo, 1 = Muito Baixo, N/A = Não Aplicável.</strong></span>
+    </div>
+
+    <!-- GENERAL INFO -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-title"><i class="fa-solid fa-school"></i> Informação Geral</div>
+        <div class="card-head-badge" id="obsCount">Observação 1</div>
+      </div>
+      <div class="card-body">
+        <div class="obs-meta-grid">
+          <div class="info-field"><label>Nº da Observação</label><input type="text" id="obs_num" placeholder="ex: 1"/></div>
+          <div class="info-field"><label>Data</label><input type="date" id="obs_date"/></div>
+          <div class="info-field"><label>Hora</label><input type="time" id="obs_time"/></div>
+          <div class="info-field"><label>Professor</label><input type="text" id="obs_teacher" placeholder="Nome"/></div>
+          <div class="info-field"><label>Alunos Presentes</label><input type="number" id="obs_students" placeholder="ex: 35"/></div>
+          <div class="info-field"><label>Tópico da Aula</label><input type="text" id="obs_topic" placeholder="ex: Vocabulário"/></div>
+          <div class="info-field info-field-full">
+            <label>Música Usada?</label>
+            <div class="song-toggle">
+              <button class="song-btn yes" id="songYes" onclick="toggleSong('yes')">✓ Sim</button>
+              <button class="song-btn no"  id="songNo"  onclick="toggleSong('no')">✗ Não</button>
+            </div>
+          </div>
+          <div class="info-field" id="songTypeWrap" style="display:none;"><label>Tipo de Música</label><input type="text" id="obs_song_type" placeholder="ex: Animada"/></div>
+          <div class="info-field" id="songDurWrap" style="display:none;"><label>Duração da Música</label><input type="text" id="obs_song_dur" placeholder="ex: 3 min"/></div>
+        </div>
+
+        <div style="margin-top:14px;">
+          <div style="font-size:0.67rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">Materiais Utilizados</div>
+          <div class="materials-grid" id="materialsGrid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OBSERVATION ITEMS -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-title"><i class="fa-solid fa-list-check"></i> Itens de Observação</div>
+        <div class="card-head-badge">25 itens · Escala 4-3-2-1</div>
+      </div>
+      <div class="card-body" style="padding:12px 14px;" id="obsItemsBody"></div>
+    </div>
+
+    <!-- SECTION 5: BEFORE / DURING / AFTER -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-title"><i class="fa-solid fa-timeline"></i> Antes / Durante / Depois da Música</div>
+      </div>
+      <div class="card-body" id="bdaBody"></div>
+    </div>
+
+    <!-- SECTION 6: OPEN QUESTIONS -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-title"><i class="fa-solid fa-pen-to-square"></i> Observações Gerais (Secção 6)</div>
+      </div>
+      <div class="card-body">
+        <div class="obs-meta-grid">
+          <div class="info-field info-field-full">
+            <label>1. Mudanças observadas na motivação dos alunos após a música</label>
+            <textarea class="obs-textarea" id="obs_open1" placeholder="Descreva aqui..."></textarea>
+          </div>
+          <div class="info-field info-field-full">
+            <label>2. Mudanças observadas na participação dos alunos após a música</label>
+            <textarea class="obs-textarea" id="obs_open2" placeholder="Descreva aqui..."></textarea>
+          </div>
+          <div class="info-field info-field-full">
+            <label>3. Outras mudanças notáveis na sala de aula após a música</label>
+            <textarea class="obs-textarea" id="obs_open3" placeholder="Descreva aqui..."></textarea>
+          </div>
+          <div class="info-field info-field-full">
+            <label>4. Dificuldades ou reacções negativas observadas</label>
+            <textarea class="obs-textarea" id="obs_open4" placeholder="Descreva aqui..."></textarea>
+          </div>
+          <div class="info-field info-field-full">
+            <label>5. Comentários adicionais</label>
+            <textarea class="obs-textarea" id="obs_open5" placeholder="Descreva aqui..."></textarea>
+          </div>
+        </div>
+
+        <!-- OBSERVER'S SUMMARY -->
+        <div style="margin-top:16px;">
+          <div class="obs-sec-head"><i class="fa-solid fa-star"></i> Resumo do Observador</div>
+          <div id="observerSummaryBody"></div>
+          <div class="info-field" style="margin-top:12px;">
+            <label>Nome / Assinatura do Observador</label>
+            <input type="text" id="obs_observer" placeholder="Nome do observador"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:4px;">
+      <button class="btn btn-outline" onclick="clearObservation()"><i class="fa-solid fa-rotate-left"></i> Limpar</button>
+      <button class="btn btn-success" style="padding:12px 24px;" onclick="saveObservation()">
+        <i class="fa-solid fa-check"></i> Guardar Observação
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PAGE 3 — RESULTS
+  ══════════════════════════════════════ -->
+  <div class="page" id="page-results">
+    <div class="sec-head">
+      <div class="sec-head-left">
+        <div class="sec-icon"><i class="fa-solid fa-chart-pie"></i></div>
+        <div>
+          <div class="sec-title">Resultados &amp; Análise</div>
+          <div class="sec-sub">Frequência automática · Exportar PDF</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="export-bar">
+      <div class="export-bar-left">
+        <h3>📊 Exportar Relatório PDF</h3>
+        <p>Tabelas de frequência, percentagens e observações</p>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn btn-gold" onclick="exportPDF()"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+        <button class="btn btn-outline" style="color:white;border-color:rgba(255,255,255,0.3);" onclick="resetAllData()">
+          <i class="fa-solid fa-trash"></i> Resetar
+        </button>
+      </div>
+    </div>
+
+    <div class="big-stat-row" id="summaryStats"></div>
+    <div id="resultsContent"></div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+// ══════════════════════════════════════════════
+// DATA DEFINITIONS
+// ══════════════════════════════════════════════
+
+// TOTAL STEPS: 0=personal info, 1-17=questions (q1-q17), 18=review
+// q18 and q19 in original doc are open text — steps 16 and 17
+const TOTAL_STEPS = 20; // 0..19 (0=personal, 1-17=q1..q17, 18=q18open, 19=review)
+
+const LIKERT5 = ['CP','C','NS','D','SD'];
+const LIKERT5_LABELS = ['Concordo Plenamente','Concordo','Não tenho certeza','Discordo','Discordo plenamente'];
+
+const QUESTIONS = {
+  // Section A — background (personal info handles age/gender, so q3 is years of study)
+  q3:  { text: 'Há quantos anos estuda Inglês?', section: 'A', opts: ['1–3 anos','4–6 anos','7–9 anos','Mais de 9 anos'], auto: true },
+
+  // Section B — Likert
+  q4:  { text: 'As músicas tornam as aulas de Inglês mais interessantes.', section: 'B', type: 'likert5', auto: true },
+  q5:  { text: 'As músicas fazem-me sentir mais motivado(a) para aprender Inglês.', section: 'B', type: 'likert5', auto: true },
+  q6:  { text: 'Gosto mais das aulas de Inglês quando são usadas músicas.', section: 'B', type: 'likert5', auto: true },
+  q7:  { text: 'As músicas ajudam-me a sentir confortável durante as aulas de Inglês.', section: 'B', type: 'likert5', auto: true },
+  q8:  { text: 'As músicas ajudam-me a prestar atenção durante as aulas de Inglês.', section: 'B', type: 'likert5', auto: true },
+  q9:  { text: 'Gostaria que o meu professor de Inglês usasse músicas com mais frequência.', section: 'B', type: 'likert5', auto: true },
+
+  // Section C — participation (Likert + frequency)
+  q10: { text: 'Participo mais ativamente nas atividades de Inglês quando são usadas músicas.', section: 'C', type: 'likert5', auto: true },
+  q11: { text: 'As músicas incentivam-me a responder às perguntas durante as aulas de Inglês.', section: 'C', type: 'likert5', auto: true },
+  q12: { text: 'Sinto-me mais disposto(a) a falar Inglês depois de ouvir uma música.', section: 'C', type: 'likert5', auto: true },
+  q13: { text: 'As músicas incentivam-me a participar em atividades de grupo.', section: 'C', type: 'likert5', auto: true },
+  q14: { text: 'Com que frequência participa nas atividades de Inglês quando são usadas músicas?', section: 'C', opts: ['Sempre','Frequentemente','Às vezes','Raramente','Nunca'], auto: true },
+
+  // Section D — perceptions
+  q15: { text: 'Qual benefício das músicas considera mais útil para aprender Inglês?', section: 'D', opts: ['Aprender vocabulário','Melhorar a pronúncia','Melhorar a compreensão oral','Aprender gramática','Aumentar a motivação','Outro'], multi: true },
+  q16: { text: 'Que tipo de música é mais útil para si quando aprende Inglês?', section: 'D', opts: ['Músicas animadas','Músicas lentas e calmas','Músicas com pronúncia clara','Músicas educativas','Músicas com vocabulário simples','Outro'], multi: true },
+  q17: { text: 'Acha que as músicas são uma ferramenta útil para aprender Inglês?', section: 'D', opts: ['Sim, muito úteis','Sim, um pouco úteis','Não tenho certeza','Não são muito úteis','Não são úteis'], auto: true },
+
+  // Open text
+  q18: { text: 'O que mais gosta no uso de músicas nas aulas de Inglês?', section: 'D', type: 'open' },
+  q19: { text: 'Na sua opinião, como as músicas ajudam você a aprender Inglês?', section: 'D', type: 'open' },
+};
+
+// Maps wizard step (1..18) to question id
+function getStepQId(step) {
+  if (step === 0 || step === 19) return null;
+  const keys = Object.keys(QUESTIONS);
+  return keys[step - 1]; // step 1 → q3, step 2 → q4 ... step 17 → q17, step 18 → q18
+}
+
+const PIE_QUESTIONS = ['q3','q17'];
+
+// Observation items
+const OBS_ITEMS = [
+  { section: 'Secção 1 — Motivação na Sala de Aula' },
+  { id: 'obs1',  text: 'Os alunos mostram interesse quando a música é introduzida.' },
+  { id: 'obs2',  text: 'Os alunos prestam atenção durante a música.' },
+  { id: 'obs3',  text: 'Os alunos mostram entusiasmo durante a actividade com a música.' },
+  { id: 'obs4',  text: 'Os alunos mantêm-se atentos após a música.' },
+  { id: 'obs5',  text: 'Os alunos mostram disposição para continuar a aula de Inglês após a música.' },
+  { id: 'obs6',  text: 'Os alunos mostram-se confortáveis durante a actividade com a música.' },
+  { section: 'Secção 2 — Participação dos Alunos' },
+  { id: 'obs7',  text: 'Os alunos participam na audição da música.' },
+  { id: 'obs8',  text: 'Os alunos participam cantando ou repetindo partes da música.' },
+  { id: 'obs9',  text: 'Os alunos respondem a perguntas relacionadas com a música.' },
+  { id: 'obs10', text: 'Os alunos participam em actividades individuais de Inglês após a música.' },
+  { id: 'obs11', text: 'Os alunos participam em actividades de pares ou grupo após a música.' },
+  { id: 'obs12', text: 'Os alunos voluntariam-se para falar ou responder a perguntas em Inglês.' },
+  { id: 'obs13', text: 'Os alunos menos activos participam nas actividades.' },
+  { section: 'Secção 3 — Uso de Músicas pelo Professor' },
+  { id: 'obs14', text: 'O professor introduz a música de forma clara.' },
+  { id: 'obs15', text: 'O professor explica o objectivo da actividade com a música.' },
+  { id: 'obs16', text: 'A música está relacionada com a aula de Inglês.' },
+  { id: 'obs17', text: 'O professor encoraja os alunos a participar.' },
+  { id: 'obs18', text: 'O professor usa as letras da música para actividades de aprendizagem de Inglês.' },
+  { id: 'obs19', text: 'O professor dá aos alunos oportunidades de responder à música.' },
+  { id: 'obs20', text: 'A música é usada num momento adequado durante a aula.' },
+  { section: 'Secção 4 — Ambiente de Sala de Aula' },
+  { id: 'obs21', text: 'A sala de aula torna-se mais envolvente durante a actividade com a música.' },
+  { id: 'obs22', text: 'Os alunos interagem positivamente uns com os outros durante a actividade.' },
+  { id: 'obs23', text: 'Os alunos parecem menos ansiosos durante a actividade.' },
+  { id: 'obs24', text: 'Os alunos mostram vontade de comunicar em Inglês.' },
+  { id: 'obs25', text: 'Os alunos retomam a aula com atenção após a música.' },
+];
+
+const BDA_MOMENTS = ['Antes da Música','Durante a Música','Depois da Música'];
+const BDA_DIMS    = ['Motivação','Participação','Atenção'];
+const BDA_IDS     = ['before','during','after'];
+
+const MATERIALS = [
+  'Manual escolar','Quadro','Fichas de trabalho','Imagens/Fotos',
+  'Cartões','Áudio/Gravação','Telemóvel/Computador','Projector',
+  'Letra da música','Outro',
+];
+
+const OBS_SUMMARY_DIMS = ['Motivação geral dos alunos','Participação geral dos alunos','Envolvimento geral da turma'];
+
+// ══════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════
+
+let data = JSON.parse(localStorage.getItem('leonel_research_data') || 'null') || {
+  questionnaires: [],
+  observations: [],
+};
+
+let wStep = 0;
+let wAnswers = {};
+let wPersonal = { age: '', gender: '' };
+
+function save() {
+  localStorage.setItem('leonel_research_data', JSON.stringify(data));
+  updateTopStats();
+}
+
+// ══════════════════════════════════════════════
+// TABS
+// ══════════════════════════════════════════════
+
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    t.classList.toggle('active', ['student','observation','results'][i] === tab);
+  });
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + tab).classList.add('active');
+  if (tab === 'results') renderResults();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ══════════════════════════════════════════════
+// WIZARD — RENDER
+// ══════════════════════════════════════════════
+
+function renderWizard() {
+  const pct = Math.round((wStep / (TOTAL_STEPS - 1)) * 100);
+  document.getElementById('wStepDisp').textContent = wStep + 1;
+  document.getElementById('wTotalDisp').textContent = TOTAL_STEPS;
+  document.getElementById('wProgressFill').style.width = pct + '%';
+
+  const badge = document.getElementById('wSectionBadge');
+  if (wStep === 0) {
+    badge.textContent = 'Info Pessoal'; badge.className = 'wizard-section-badge badge-pi';
+  } else if (wStep === 19) {
+    badge.textContent = 'Revisão'; badge.className = 'wizard-section-badge badge-pi';
+  } else {
+    const qId = getStepQId(wStep);
+    const sec = QUESTIONS[qId].section;
+    badge.textContent = 'Secção ' + sec;
+    badge.className = 'wizard-section-badge badge-' + sec.toLowerCase();
+  }
+
+  const body = document.getElementById('wBody');
+  if (wStep === 0)       body.innerHTML = renderPersonalInfo();
+  else if (wStep === 19) body.innerHTML = renderSummary();
+  else                   body.innerHTML = renderQuestion(getStepQId(wStep));
+
+  const btnBack = document.getElementById('wBtnBack');
+  const btnNext = document.getElementById('wBtnNext');
+  const btnSave = document.getElementById('wBtnSave');
+  btnBack.disabled = (wStep === 0);
+  if (wStep === 19) { btnNext.style.display = 'none'; btnSave.style.display = ''; }
+  else              { btnNext.style.display = '';      btnSave.style.display = 'none'; }
+
+  if (wStep === 0) {
+    document.getElementById('pi_age').value    = wPersonal.age;
+    document.getElementById('pi_gender').value = wPersonal.gender;
+  }
+}
+
+function renderPersonalInfo() {
+  return `
+    <div class="wizard-question">Informação Pessoal do Aluno</div>
+    <div class="wizard-hint">Seleccione a idade e o género antes de continuar.</div>
+    <div class="pi-grid">
+      <div class="pi-field">
+        <label>Idade</label>
+        <select id="pi_age" onchange="wPersonal.age=this.value">
+          <option value="">— Seleccionar —</option>
+          <option value="15-16">15 – 16 anos</option>
+          <option value="17-18">17 – 18 anos</option>
+          <option value="19-20">19 – 20 anos</option>
+          <option value="21+">Acima de 20 anos</option>
+        </select>
+      </div>
+      <div class="pi-field">
+        <label>Género</label>
+        <select id="pi_gender" onchange="wPersonal.gender=this.value">
+          <option value="">— Seleccionar —</option>
+          <option value="Masculino">Masculino</option>
+          <option value="Feminino">Feminino</option>
+          <option value="Prefiro não responder">Prefiro não responder</option>
+        </select>
+      </div>
+    </div>`;
+}
+
+function renderQuestion(qId) {
+  const q = QUESTIONS[qId];
+  const num = qId.replace('q','');
+  let hint = '';
+
+  if (q.type === 'open') {
+    const saved = wAnswers[qId] || '';
+    return `
+      <div class="wizard-question">P${num}. ${q.text}</div>
+      <div class="wizard-hint">Escreva a resposta do aluno e prima <kbd>Enter</kbd> para avançar.</div>
+      <textarea class="wizard-textarea" id="open_${qId}" placeholder="Escreva a resposta aqui..."
+        oninput="wAnswers['${qId}']=this.value">${saved}</textarea>`;
+  }
+
+  if (q.type === 'likert5') {
+    const saved = wAnswers[qId];
+    let btns = '';
+    LIKERT5.forEach((abbr, i) => {
+      const sel = saved === abbr ? ' selected' : '';
+      btns += `
+        <div class="lopt${sel}" onclick="selectLikert(this,'${qId}','${abbr}')">
+          <div class="lopt-abbr">${abbr}</div>
+          <div class="lopt-label">${LIKERT5_LABELS[i]}</div>
+        </div>`;
+    });
+    return `
+      <div class="wizard-question">P${num}. ${q.text}</div>
+      <div class="wizard-hint">Toque numa opção. Avança automaticamente.</div>
+      <div class="likert-row" id="wopts_${qId}">${btns}</div>`;
+  }
+
+  // Standard single or multi
+  const isMulti = !!q.multi;
+  const saved = wAnswers[qId];
+  hint = isMulti
+    ? 'Pode seleccionar várias opções. Prima <kbd>Próxima</kbd> para avançar.'
+    : 'Toque numa opção. Avança automaticamente.';
+
+  let optsHtml = '';
+  q.opts.forEach((opt, i) => {
+    const keyLabel = i < 9 ? (i + 1) : '';
+    const isSelected = isMulti
+      ? (Array.isArray(saved) && saved.includes(opt))
+      : saved === opt;
+    const selClass = isSelected ? ' selected' : '';
+
+    if (isMulti) {
+      optsHtml += `
+        <div class="wopt multi${selClass}" onclick="toggleMultiOpt(this,'${qId}','${opt.replace(/'/g,"\\'")}')">
+          <div class="wopt-check"></div>
+          <span>${opt}</span>
+        </div>`;
+    } else {
+      optsHtml += `
+        <div class="wopt${selClass}" onclick="selectSingleOpt(this,'${qId}','${opt.replace(/'/g,"\\'")}')">
+          <div class="wopt-key">${keyLabel}</div>
+          <span>${opt}</span>
+        </div>`;
+    }
+  });
+
+  return `
+    <div class="wizard-question">P${num}. ${q.text}</div>
+    <div class="wizard-hint">${hint}</div>
+    <div class="wizard-options" id="wopts_${qId}">${optsHtml}</div>`;
+}
+
+function renderSummary() {
+  const qKeys = Object.keys(QUESTIONS);
+  let rows = '';
+  qKeys.forEach((qId, i) => {
+    const q = QUESTIONS[qId];
+    const ans = wAnswers[qId];
+    let ansText = '';
+    if (!ans || (Array.isArray(ans) && ans.length === 0) || ans === '') {
+      ansText = '<span class="summary-empty">⚠ Sem resposta</span>';
+    } else if (Array.isArray(ans)) {
+      ansText = ans.join(', ');
+    } else {
+      if (q.type === 'likert5') {
+        const idx = LIKERT5.indexOf(ans);
+        ansText = idx >= 0 ? LIKERT5_LABELS[idx] + ' (' + ans + ')' : ans;
+      } else {
+        ansText = ans;
+      }
+    }
+    rows += `
+      <div class="summary-row">
+        <div class="summary-qnum">${parseInt(qId.replace('q',''))}</div>
+        <div>
+          <div class="summary-q">${q.text}</div>
+          <div class="summary-a">${ansText}</div>
+        </div>
+      </div>`;
+  });
+
+  const pi = wPersonal;
+  return `
+    <div class="wizard-question">Revisão — Questionário #${data.questionnaires.length + 1}</div>
+    <div class="wizard-hint">Verifique as respostas e clique <strong>Guardar</strong> para confirmar.</div>
+    <div style="background:var(--navy-tint);border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:0.8rem;color:var(--navy);">
+      <strong>Idade:</strong> ${pi.age || '—'} &nbsp;|&nbsp; <strong>Género:</strong> ${pi.gender || '—'}
+    </div>
+    <div class="summary-grid">${rows}</div>`;
+}
+
+// ══════════════════════════════════════════════
+// WIZARD — INTERACTION
+// ══════════════════════════════════════════════
+
+function selectLikert(el, qId, val) {
+  document.querySelectorAll('#wopts_' + qId + ' .lopt').forEach(o => o.classList.remove('selected','flash'));
+  el.classList.add('selected');
+  wAnswers[qId] = val;
+  el.classList.add('flash');
+  setTimeout(() => { wizardNext(); }, 450);
+}
+
+function selectSingleOpt(el, qId, val) {
+  document.querySelectorAll('#wopts_' + qId + ' .wopt').forEach(o => o.classList.remove('selected','flash'));
+  el.classList.add('selected');
+  wAnswers[qId] = val;
+  if (QUESTIONS[qId].auto) {
+    el.classList.add('flash');
+    setTimeout(() => { wizardNext(); }, 450);
+  }
+}
+
+function toggleMultiOpt(el, qId, val) {
+  el.classList.toggle('selected');
+  if (!Array.isArray(wAnswers[qId])) wAnswers[qId] = [];
+  if (el.classList.contains('selected')) {
+    if (!wAnswers[qId].includes(val)) wAnswers[qId].push(val);
+  } else {
+    wAnswers[qId] = wAnswers[qId].filter(v => v !== val);
+  }
+}
+
+function wizardNext() {
+  if (wStep === 0) {
+    if (!wPersonal.age || !wPersonal.gender) {
+      showToast('⚠ Por favor seleccione a Idade e o Género.');
+      return;
+    }
+  } else if (wStep < 19) {
+    const qId = getStepQId(wStep);
+    const q = QUESTIONS[qId];
+    if (q.type === 'open') {
+      // open text — optional, allow empty
+    } else {
+      const ans = wAnswers[qId];
+      const isEmpty = !ans || (Array.isArray(ans) && ans.length === 0) || ans === '';
+      if (isEmpty) {
+        showToast('⚠ Por favor responda à pergunta antes de avançar.');
+        return;
+      }
+    }
+  }
+  if (wStep < TOTAL_STEPS - 1) {
+    wStep++;
+    renderWizard();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function wizardBack() {
+  if (wStep > 0) { wStep--; renderWizard(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+}
+
+function resetWizard() {
+  wStep = 0; wAnswers = {}; wPersonal = { age: '', gender: '' };
+  renderWizard(); window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('page-student').classList.contains('active')) return;
+  if (e.key === 'Enter' && wStep !== 19) { wizardNext(); return; }
+  if (wStep === 0 || wStep === 19) return;
+  const qId = getStepQId(wStep);
+  const q = QUESTIONS[qId];
+  if (q.type === 'open' || q.type === 'likert5' || q.multi) return;
+  const num = e.key >= '1' && e.key <= '9' ? parseInt(e.key) - 1 : e.key === '0' ? 9 : -1;
+  if (num >= 0 && num < q.opts.length) {
+    const opts = document.querySelectorAll('#wopts_' + qId + ' .wopt');
+    if (opts[num]) selectSingleOpt(opts[num], qId, q.opts[num]);
+  }
+});
+
+// ══════════════════════════════════════════════
+// SUBMIT QUESTIONNAIRE
+// ══════════════════════════════════════════════
+
+function submitQuestionnaire() {
+  const qKeys = Object.keys(QUESTIONS);
+  let missing = [];
+  qKeys.forEach(qId => {
+    const q = QUESTIONS[qId];
+    if (q.type === 'open') return; // optional
+    const ans = wAnswers[qId];
+    if (!ans || (Array.isArray(ans) && ans.length === 0) || ans === '') missing.push(qId);
+  });
+  if (missing.length > 0) {
+    showToast('⚠ Perguntas sem resposta: ' + missing.map(k => k.replace('q','P')).join(', '));
+    return;
+  }
+  const entry = {
+    age: wPersonal.age,
+    gender: wPersonal.gender,
+    answers: { ...wAnswers },
+    timestamp: new Date().toISOString(),
+  };
+  data.questionnaires.push(entry);
+  save();
+  showToast('✅ Questionário #' + data.questionnaires.length + ' guardado!');
+  resetWizard();
+}
+
+// ══════════════════════════════════════════════
+// OBSERVATION — BUILD UI
+// ══════════════════════════════════════════════
+
+function buildObsUI() {
+  // Materials
+  const mg = document.getElementById('materialsGrid');
+  if (mg) {
+    mg.innerHTML = MATERIALS.map(m => `
+      <div class="mat-opt" onclick="toggleMat(this,'${m.replace(/'/g,"\\'")}')">
+        <div class="mat-check"></div>
+        <span>${m}</span>
+      </div>`).join('');
+  }
+
+  // Items
+  const ib = document.getElementById('obsItemsBody');
+  if (ib) {
+    let html = '';
+    let n = 0;
+    OBS_ITEMS.forEach(item => {
+      if (item.section) {
+        html += `<div class="obs-sec-head"><i class="fa-solid fa-layer-group"></i> ${item.section}</div>`;
+      } else {
+        n++;
+        html += `
+          <div class="obs-item">
+            <div class="obs-item-num">Item ${item.id.replace('obs','')}</div>
+            <div class="obs-item-text">${item.text}</div>
+            <div class="rating-inline" id="rating_${item.id}">
+              ${[4,3,2,1].map(v => `
+                <button class="r-btn" data-val="${v}" onclick="setRating('${item.id}',${v})">
+                  <div class="r-btn-num">${v}</div>
+                  <div class="r-btn-lbl">${v===4?'Muito Alto':v===3?'Alto':v===2?'Baixo':'Muito Baixo'}</div>
+                </button>`).join('')}
+              <button class="r-btn" data-val="na" onclick="setRating('${item.id}','na')">
+                <div class="r-btn-num" style="font-size:0.8rem;">N/A</div>
+                <div class="r-btn-lbl">Não<br>Aplic.</div>
+              </button>
+            </div>
+          </div>`;
+      }
+    });
+    ib.innerHTML = html;
+  }
+
+  // BDA
+  const bda = document.getElementById('bdaBody');
+  if (bda) {
+    let html = '';
+    BDA_MOMENTS.forEach((moment, mi) => {
+      html += `<div class="bda-section">
+        <div class="bda-head">⏱ ${moment}</div>`;
+      BDA_DIMS.forEach((dim, di) => {
+        const id = BDA_IDS[mi] + '_' + di;
+        html += `<div class="bda-item">
+          <div class="bda-label">${dim}</div>
+          <div class="rating-inline" id="bda_${id}">
+            ${[4,3,2,1].map(v => `
+              <button class="r-btn" data-val="${v}" onclick="setBDA('${id}',${v})">
+                <div class="r-btn-num">${v}</div>
+                <div class="r-btn-lbl">${v===4?'M. Alto':v===3?'Alto':v===2?'Baixo':'M. Baixo'}</div>
+              </button>`).join('')}
+          </div>
+        </div>`;
+      });
+      // Comments per moment
+      html += `<div class="info-field" style="margin-top:8px;">
+        <label>Comentários — ${moment}</label>
+        <textarea class="obs-textarea" id="bda_comment_${BDA_IDS[mi]}" placeholder="Comentários..."></textarea>
+      </div></div>`;
+    });
+    bda.innerHTML = html;
+  }
+
+  // Observer summary
+  const osb = document.getElementById('observerSummaryBody');
+  if (osb) {
+    let html = '';
+    OBS_SUMMARY_DIMS.forEach((dim, i) => {
+      const id = 'sum_' + i;
+      html += `<div class="bda-item" style="margin-bottom:12px;">
+        <div class="bda-label">${dim}</div>
+        <div class="rating-inline" id="obssum_${id}">
+          ${[4,3,2,1].map(v => `
+            <button class="r-btn" data-val="${v}" onclick="setObsSum('${id}',${v})">
+              <div class="r-btn-num">${v}</div>
+              <div class="r-btn-lbl">${v===4?'M. Alto':v===3?'Alto':v===2?'Baixo':'M. Baixo'}</div>
+            </button>`).join('')}
+        </div>
+      </div>`;
+    });
+    osb.innerHTML = html;
+  }
+
+  updateObsCount();
+}
+
+function toggleMat(el, val) {
+  el.classList.toggle('selected');
+}
+
+function toggleSong(val) {
+  document.getElementById('songYes').classList.toggle('active', val === 'yes');
+  document.getElementById('songNo').classList.toggle('active', val === 'no');
+  document.getElementById('songTypeWrap').style.display = val === 'yes' ? '' : 'none';
+  document.getElementById('songDurWrap').style.display  = val === 'yes' ? '' : 'none';
+}
+
+function setRating(itemId, val) {
+  const wrap = document.getElementById('rating_' + itemId);
+  if (!wrap) return;
+  wrap.querySelectorAll('.r-btn').forEach(b => {
+    const bv = b.dataset.val;
+    b.className = 'r-btn' + (String(bv) === String(val) ? ' active-' + bv : '');
+  });
+}
+
+function setBDA(id, val) {
+  const wrap = document.getElementById('bda_' + id);
+  if (!wrap) return;
+  wrap.querySelectorAll('.r-btn').forEach(b => {
+    const bv = b.dataset.val;
+    b.className = 'r-btn' + (String(bv) === String(val) ? ' active-' + bv : '');
+  });
+}
+
+function setObsSum(id, val) {
+  const wrap = document.getElementById('obssum_' + id);
+  if (!wrap) return;
+  wrap.querySelectorAll('.r-btn').forEach(b => {
+    const bv = b.dataset.val;
+    b.className = 'r-btn' + (String(bv) === String(val) ? ' active-' + bv : '');
+  });
+}
+
+function getActiveRating(wrapperId) {
+  const wrap = document.getElementById(wrapperId);
+  if (!wrap) return null;
+  const active = wrap.querySelector('.r-btn[class*="active-"]');
+  if (!active) return null;
+  return active.dataset.val;
+}
+
+function saveObservation() {
+  // Collect items
+  const statements = {};
+  OBS_ITEMS.filter(i => i.id).forEach(item => {
+    statements[item.id] = getActiveRating('rating_' + item.id) || '—';
+  });
+
+  // BDA
+  const bda = {};
+  BDA_IDS.forEach((mid, mi) => {
+    bda[mid] = {};
+    BDA_DIMS.forEach((_, di) => {
+      bda[mid][di] = getActiveRating('bda_' + mid + '_' + di) || '—';
+    });
+    bda[mid + '_comment'] = (document.getElementById('bda_comment_' + mid) || {}).value || '';
+  });
+
+  // Observer summary
+  const obsSum = {};
+  OBS_SUMMARY_DIMS.forEach((_, i) => {
+    obsSum[i] = getActiveRating('obssum_sum_' + i) || '—';
+  });
+
+  // Materials
+  const mats = [];
+  document.querySelectorAll('#materialsGrid .mat-opt.selected').forEach(el => {
+    mats.push(el.querySelector('span').textContent);
+  });
+
+  const songUsed = document.getElementById('songYes').classList.contains('active') ? 'Sim'
+                 : document.getElementById('songNo').classList.contains('active')  ? 'Não' : '—';
+
+  const obs = {
+    num: document.getElementById('obs_num').value,
+    date: document.getElementById('obs_date').value,
+    time: document.getElementById('obs_time').value,
+    teacher: document.getElementById('obs_teacher').value,
+    students: document.getElementById('obs_students').value,
+    topic: document.getElementById('obs_topic').value,
+    songUsed,
+    songType: document.getElementById('obs_song_type').value,
+    songDur:  document.getElementById('obs_song_dur').value,
+    materials: mats,
+    statements,
+    bda,
+    obsSum,
+    open1: document.getElementById('obs_open1').value,
+    open2: document.getElementById('obs_open2').value,
+    open3: document.getElementById('obs_open3').value,
+    open4: document.getElementById('obs_open4').value,
+    open5: document.getElementById('obs_open5').value,
+    observer: document.getElementById('obs_observer').value,
+    timestamp: new Date().toISOString(),
+  };
+  data.observations.push(obs);
+  save();
+  showToast('✅ Observação #' + data.observations.length + ' guardada!');
+  clearObservation();
+}
+
+function clearObservation() {
+  ['obs_num','obs_date','obs_time','obs_teacher','obs_students','obs_topic',
+   'obs_song_type','obs_song_dur','obs_open1','obs_open2','obs_open3','obs_open4','obs_open5','obs_observer']
+    .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  document.getElementById('songYes').classList.remove('active');
+  document.getElementById('songNo').classList.remove('active');
+  document.getElementById('songTypeWrap').style.display = 'none';
+  document.getElementById('songDurWrap').style.display  = 'none';
+  document.querySelectorAll('#materialsGrid .mat-opt').forEach(el => el.classList.remove('selected'));
+  document.querySelectorAll('.r-btn').forEach(b => { b.className = 'r-btn'; });
+  BDA_IDS.forEach(mid => {
+    const el = document.getElementById('bda_comment_' + mid);
+    if (el) el.value = '';
+  });
+  updateObsCount();
+}
+
+function updateObsCount() {
+  const el = document.getElementById('obsCount');
+  if (el) el.textContent = 'Observação ' + (data.observations.length + 1);
+}
+
+// ══════════════════════════════════════════════
+// RESULTS
+// ══════════════════════════════════════════════
+
+let chartInstances = {};
+
+function getFreq(qId) {
+  const q = QUESTIONS[qId];
+  const counts = {};
+  if (q.type === 'likert5') {
+    LIKERT5.forEach(k => counts[k] = 0);
+    data.questionnaires.forEach(e => { const a = e.answers[qId]; if (a && counts[a] !== undefined) counts[a]++; });
+  } else if (q.opts) {
+    q.opts.forEach(o => counts[o] = 0);
+    data.questionnaires.forEach(e => {
+      const a = e.answers[qId];
+      if (q.multi) { (a || []).forEach(v => { if (counts[v] !== undefined) counts[v]++; }); }
+      else          { if (a && counts[a] !== undefined) counts[a]++; }
+    });
+  }
+  return counts;
+}
+
+function renderResults() {
+  Object.values(chartInstances).forEach(c => c.destroy());
+  chartInstances = {};
+
+  const total  = data.questionnaires.length;
+  const male   = data.questionnaires.filter(q => q.gender === 'Masculino').length;
+  const female = data.questionnaires.filter(q => q.gender === 'Feminino').length;
+  const obs    = data.observations.length;
+
+  document.getElementById('summaryStats').innerHTML = `
+    <div class="big-stat"><div class="big-stat-val">${total}</div><div class="big-stat-lbl">Questionários</div></div>
+    <div class="big-stat"><div class="big-stat-val">${male}</div><div class="big-stat-lbl">Masculino</div></div>
+    <div class="big-stat"><div class="big-stat-val">${female}</div><div class="big-stat-lbl">Feminino</div></div>
+    <div class="big-stat"><div class="big-stat-val">${obs}</div><div class="big-stat-lbl">Observações</div></div>`;
+
+  if (total === 0 && obs === 0) {
+    document.getElementById('resultsContent').innerHTML =
+      '<div class="alert alert-info"><i class="fa-solid fa-circle-info"></i><span>Ainda não há dados. Insira pelo menos um questionário para ver os resultados.</span></div>';
+    return;
+  }
+
+  let html = '';
+
+  if (total > 0) {
+    // Personal info
+    html += `<div class="result-section-label"><i class="fa-solid fa-user"></i> Informação Pessoal</div>`;
+    html += buildPieCard('pie_gender', 'Género (n = ' + total + ')', 'rh-p',
+      ['Masculino','Feminino','Prefiro não responder'],
+      [male, female, data.questionnaires.filter(q => q.gender === 'Prefiro não responder').length],
+      ['#1a3a6b','#7b52b8','#aaaaaa']);
+
+    const ageCounts = {'15-16':0,'17-18':0,'19-20':0,'21+':0};
+    data.questionnaires.forEach(q => { if (q.age && ageCounts[q.age] !== undefined) ageCounts[q.age]++; });
+    html += buildPieCard('pie_age', 'Distribuição de Idades (n = ' + total + ')', 'rh-p',
+      ['15–16 anos','17–18 anos','19–20 anos','Acima de 20'],
+      Object.values(ageCounts),
+      ['#1a3a6b','#2a5298','#6b3fa0','#c9971a']);
+
+    // Section A
+    html += `<div class="result-section-label"><i class="fa-solid fa-layer-group"></i> Secção A — Anos de Estudo de Inglês</div>`;
+    html += buildBarCard('q3', total);
+
+    // Section B — Likert
+    html += `<div class="result-section-label"><i class="fa-solid fa-music"></i> Secção B — Músicas e Motivação</div>`;
+    ['q4','q5','q6','q7','q8','q9'].forEach(qId => { html += buildLikertCard(qId, total); });
+
+    // Section C
+    html += `<div class="result-section-label"><i class="fa-solid fa-hand-paper"></i> Secção C — Participação</div>`;
+    ['q10','q11','q12','q13'].forEach(qId => { html += buildLikertCard(qId, total); });
+    html += buildBarCard('q14', total);
+
+    // Section D
+    html += `<div class="result-section-label"><i class="fa-solid fa-lightbulb"></i> Secção D — Percepções</div>`;
+    html += buildBarCard('q15', total);
+    html += buildBarCard('q16', total);
+    html += buildPieCard('pie_q17', 'P17. ' + QUESTIONS['q17'].text, 'rh-d',
+      QUESTIONS['q17'].opts,
+      QUESTIONS['q17'].opts.map(o => getFreq('q17')[o] || 0),
+      ['#1a3a6b','#2a5298','#6b7280','#c9971a','#c0392b']);
+  }
+
+  // Observations
+  if (obs > 0) html += buildObsResults();
+
+  document.getElementById('resultsContent').innerHTML = html;
+
+  setTimeout(() => {
+    animateBars();
+    // Draw pie charts for gender and age
+    const genderEl = document.getElementById('pie_gender');
+    if (genderEl) {
+      const male2 = data.questionnaires.filter(q => q.gender === 'Masculino').length;
+      const female2 = data.questionnaires.filter(q => q.gender === 'Feminino').length;
+      const pnr = data.questionnaires.filter(q => q.gender === 'Prefiro não responder').length;
+      makePie('pie_gender',['Masculino','Feminino','Prefiro não responder'],[male2,female2,pnr],['#1a3a6b','#7b52b8','#aaaaaa']);
+    }
+    const ageEl = document.getElementById('pie_age');
+    if (ageEl) {
+      const ageCounts2 = {'15-16':0,'17-18':0,'19-20':0,'21+':0};
+      data.questionnaires.forEach(q => { if (q.age && ageCounts2[q.age] !== undefined) ageCounts2[q.age]++; });
+      makePie('pie_age',['15–16','17–18','19–20','21+'],Object.values(ageCounts2),['#1a3a6b','#2a5298','#6b3fa0','#c9971a']);
+    }
+    const q17el = document.getElementById('pie_q17');
+    if (q17el) {
+      const freq = getFreq('q17');
+      makePie('pie_q17', QUESTIONS['q17'].opts, QUESTIONS['q17'].opts.map(o => freq[o]||0),
+        ['#1a3a6b','#2a5298','#6b7280','#c9971a','#c0392b']);
+    }
+  }, 80);
+}
+
+function buildPieCard(canvasId, title, rhClass, labels, values, colors) {
+  return `
+    <div class="result-card">
+      <div class="result-card-head ${rhClass}">${title}</div>
+      <div class="result-body">
+        <div class="pie-wrap"><canvas id="${canvasId}"></canvas></div>
+        ${labels.map((l, i) => renderBar(l, values[i], values.reduce((a,b)=>a+b,0))).join('')}
+      </div>
+    </div>`;
+}
+
+function buildBarCard(qId, total) {
+  const q = QUESTIONS[qId];
+  const counts = getFreq(qId);
+  const num = qId.replace('q','');
+  const denom = q.multi ? total : total;
+  const rhClass = q.section === 'A' ? 'rh-a' : q.section === 'B' ? 'rh-b' : q.section === 'C' ? 'rh-c' : 'rh-d';
+  const multiNote = q.multi ? ' <span style="font-size:0.6rem;opacity:0.7;">(múltipla escolha)</span>' : '';
+  return `
+    <div class="result-card">
+      <div class="result-card-head ${rhClass}">P${num}. ${q.text}${multiNote}</div>
+      <div class="result-body">
+        ${q.opts.map(opt => renderBar(opt, counts[opt]||0, denom)).join('')}
+      </div>
+    </div>`;
+}
+
+function buildLikertCard(qId, total) {
+  const q = QUESTIONS[qId];
+  const counts = getFreq(qId);
+  const num = qId.replace('q','');
+  const rhClass = q.section === 'B' ? 'rh-b' : 'rh-c';
+  return `
+    <div class="result-card">
+      <div class="result-card-head ${rhClass}">P${num}. ${q.text}</div>
+      <div class="result-body">
+        ${LIKERT5.map((abbr, i) => renderBar(LIKERT5_LABELS[i] + ' (' + abbr + ')', counts[abbr]||0, total)).join('')}
+      </div>
+    </div>`;
+}
+
+function renderBar(label, count, total) {
+  const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+  return `
+    <div class="result-opt-row">
+      <div class="result-opt-label">${label}</div>
+      <div class="result-bar-wrap"><div class="result-bar" data-pct="${pct}" style="width:0%"></div></div>
+      <div class="result-count">${count}</div>
+      <div class="result-pct">${pct}%</div>
+    </div>`;
+}
+
+function animateBars() {
+  document.querySelectorAll('.result-bar').forEach(bar => { bar.style.width = bar.dataset.pct + '%'; });
+}
+
+function makePie(canvasId, labels, data2, colors) {
+  const ctx = document.getElementById(canvasId);
+  if (!ctx) return;
+  if (chartInstances[canvasId]) { chartInstances[canvasId].destroy(); }
+  chartInstances[canvasId] = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels,
+      datasets: [{ data: data2, backgroundColor: colors, borderWidth: 2, borderColor: '#fff' }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { size: 10 }, padding: 8 } },
+        tooltip: {
+          callbacks: {
+            label: function(c) {
+              const sum = c.dataset.data.reduce((a,b)=>a+b,0);
+              const pct = sum > 0 ? Math.round((c.parsed/sum)*100) : 0;
+              return ' ' + c.label + ': ' + c.parsed + ' (' + pct + '%)';
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+function buildObsResults() {
+  const n = data.observations.length;
+  let html = `<div class="result-section-label"><i class="fa-solid fa-eye"></i> Resumo das Observações (n = ${n})</div>`;
+
+  // Rating distribution per item
+  html += `<div class="result-card">
+    <div class="result-card-head rh-o">Distribuição das Avaliações — 25 Itens</div>
+    <div class="result-body">`;
+
+  OBS_ITEMS.forEach(item => {
+    if (item.section) {
+      html += `<div style="font-size:0.7rem;font-weight:700;color:var(--navy);padding:10px 0 6px;text-transform:uppercase;letter-spacing:0.05em;">${item.section}</div>`;
+    } else {
+      const dist = {4:0, 3:0, 2:0, 1:0, na:0};
+      data.observations.forEach(o => {
+        const v = o.statements[item.id];
+        if (v && dist[v] !== undefined) dist[v]++;
+        else if (v === 'na') dist.na++;
+      });
+      const avg = n > 0 ? (
+        (dist[4]*4 + dist[3]*3 + dist[2]*2 + dist[1]*1) /
+        Math.max(1, dist[4]+dist[3]+dist[2]+dist[1])
+      ).toFixed(1) : '—';
+      html += `<div class="obs-summary-item">
+        <div class="obs-summary-text"><strong>${item.id.replace('obs','Item ')}.</strong> ${item.text}</div>
+        <div class="rating-dist">
+          <div class="rdist-bar rdist-4">${dist[4]}<br><span style="font-size:0.5rem;">4</span></div>
+          <div class="rdist-bar rdist-3">${dist[3]}<br><span style="font-size:0.5rem;">3</span></div>
+          <div class="rdist-bar rdist-2">${dist[2]}<br><span style="font-size:0.5rem;">2</span></div>
+          <div class="rdist-bar rdist-1">${dist[1]}<br><span style="font-size:0.5rem;">1</span></div>
+          <div class="rdist-bar rdist-na">${dist.na}<br><span style="font-size:0.5rem;">N/A</span></div>
+          <div style="display:flex;align-items:center;padding:0 6px;font-size:0.72rem;font-weight:700;color:var(--navy);white-space:nowrap;">Ø ${avg}</div>
+        </div>
+      </div>`;
+    }
+  });
+
+  html += `</div></div>`;
+
+  // BDA averages
+  html += `<div class="result-card" style="margin-top:12px;">
+    <div class="result-card-head rh-o">Antes / Durante / Depois (médias)</div>
+    <div class="result-body">`;
+  BDA_IDS.forEach((mid, mi) => {
+    html += `<div style="font-size:0.75rem;font-weight:700;color:var(--navy);margin:8px 0 4px;">${BDA_MOMENTS[mi]}</div>`;
+    BDA_DIMS.forEach((dim, di) => {
+      const vals = data.observations.map(o => parseInt(o.bda && o.bda[mid] && o.bda[mid][di]) || 0).filter(v => v > 0);
+      const avg = vals.length > 0 ? (vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1) : '—';
+      html += renderBar(dim, vals.length, n) + '';
+      // Override to show average instead
+      const lastRow = html.lastIndexOf('result-opt-row');
+    });
+  });
+  html += `</div></div>`;
+
+  return html;
+}
+
+// ══════════════════════════════════════════════
+// PDF EXPORT
+// ══════════════════════════════════════════════
+
+function exportPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const W = 210, H = 297, mg = 16;
+  let y = 0, pageNum = 1;
+
+  const total  = data.questionnaires.length;
+  const male   = data.questionnaires.filter(q => q.gender === 'Masculino').length;
+  const female = data.questionnaires.filter(q => q.gender === 'Feminino').length;
+  const now    = new Date();
+
+  function drawHeader() {
+    doc.setFillColor(15,35,71); doc.rect(0,0,W,20,'F');
+    doc.setFillColor(201,151,26); doc.rect(0,19,W,2.5,'F');
+    doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.setTextColor(255,255,255);
+    doc.text('Relatório de Dados de Investigação — Leonel Mapangule', W/2, 10, {align:'center'});
+    doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor(200,210,240);
+    doc.text('O Uso de Músicas para Aumentar a Motivação · Universidade Save · 2025', W/2, 16, {align:'center'});
+  }
+  function drawFooter() {
+    doc.setFillColor(15,35,71); doc.rect(0,H-12,W,12,'F');
+    doc.setFont('helvetica','normal'); doc.setFontSize(7); doc.setTextColor(180,200,240);
+    doc.text('Escola Secundária 1º de Maio · Maxixe · Licenciatura em Inglês', W/2, H-7, {align:'center'});
+    doc.setTextColor(140,160,200); doc.text('Página ' + pageNum, W/2, H-3, {align:'center'});
+  }
+  function newPage() {
+    drawFooter(); doc.addPage(); pageNum++; drawHeader(); y = 28;
+  }
+  function checkY(n) { if (y + n > H - 18) newPage(); }
+
+  function sectionBanner(text, r, g, b) {
+    checkY(10);
+    doc.setFillColor(r,g,b); doc.rect(mg,y,W-mg*2,8,'F');
+    doc.setFont('helvetica','bold'); doc.setFontSize(8.5); doc.setTextColor(255,255,255);
+    doc.text(text, mg+4, y+5.5); y += 11;
+  }
+
+  function freqBlock(qId, labelFn) {
+    const q = QUESTIONS[qId];
+    const counts = getFreq(qId);
+    const num = qId.replace('q','');
+    const denom = total;
+    checkY(14);
+    doc.setFillColor(238,242,251); doc.rect(mg,y,W-mg*2,7,'F');
+    doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(26,58,107);
+    const qLines = doc.splitTextToSize('P' + num + '. ' + q.text, W-mg*2-6);
+    doc.text(qLines, mg+3, y+4.5);
+    y += qLines.length > 1 ? 7 + (qLines.length-1)*4.2 : 9;
+
+    const keys = q.type === 'likert5' ? LIKERT5 : q.opts;
+    keys.forEach((k, i) => {
+      const label = labelFn ? labelFn(k, i) : k;
+      const count = counts[k] || 0;
+      const pct = denom > 0 ? Math.round((count/denom)*100) : 0;
+      checkY(7);
+      doc.setFont('helvetica','normal'); doc.setFontSize(7.2); doc.setTextColor(50,50,50);
+      const lLines = doc.splitTextToSize(label, 100);
+      doc.text(lLines, mg+3, y+4);
+      const barX = mg+108, barW = 46;
+      doc.setFillColor(220,228,245); doc.rect(barX,y+1.5,barW,4,'F');
+      if (pct>0) { doc.setFillColor(26,58,107); doc.rect(barX,y+1.5,(barW*pct)/100,4,'F'); }
+      doc.setFont('helvetica','bold'); doc.setFontSize(7.2); doc.setTextColor(26,58,107);
+      doc.text(count+'', barX+barW+3, y+4.5);
+      doc.setTextColor(100,100,100); doc.text(pct+'%', barX+barW+12, y+4.5);
+      y += lLines.length > 1 ? 5 + (lLines.length-1)*3.5 : 6.5;
+    });
+    y += 4;
+  }
+
+  drawHeader(); y = 28;
+
+  // Title block
+  doc.setFillColor(238,242,251); doc.rect(mg,y,W-mg*2,28,'F');
+  doc.setDrawColor(200,210,230); doc.rect(mg,y,W-mg*2,28);
+  doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(15,35,71);
+  doc.text('Análise de Frequência — Questionário dos Alunos', W/2, y+8, {align:'center'});
+  doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor(80,80,80);
+  doc.text('Tema: O Uso de Músicas para Aumentar a Motivação nas Aulas de Inglês', W/2, y+14, {align:'center'});
+  doc.text('Investigador: Leonel Mapangule · Data: ' + now.toLocaleDateString('pt-MZ'), W/2, y+19, {align:'center'});
+  doc.text('Total de questionários: ' + total + '   Masculino: ' + male + '   Feminino: ' + female, W/2, y+24, {align:'center'});
+  y += 32;
+
+  // Summary boxes
+  checkY(18);
+  const boxes = [
+    {label:'Questionários', val:total,  r:26,g:58,b:107},
+    {label:'Masculino',     val:male,   r:42,g:82,b:152},
+    {label:'Feminino',      val:female, r:107,g:63,b:160},
+    {label:'Observações',   val:data.observations.length, r:26,g:122,b:74},
+  ];
+  const bw = (W-mg*2-12)/4;
+  boxes.forEach((b2,i) => {
+    const bx = mg + i*(bw+4);
+    doc.setFillColor(b2.r,b2.g,b2.b); doc.rect(bx,y,bw,16,'F');
+    doc.setFont('helvetica','bold'); doc.setFontSize(14); doc.setTextColor(255,255,255);
+    doc.text(String(b2.val), bx+bw/2, y+9, {align:'center'});
+    doc.setFont('helvetica','normal'); doc.setFontSize(6.5);
+    doc.text(b2.label, bx+bw/2, y+14, {align:'center'});
+  });
+  y += 22;
+
+  sectionBanner('Secção A — Anos de Estudo de Inglês', 26,58,107);
+  freqBlock('q3');
+
+  sectionBanner('Secção B — Músicas e Motivação (Escala Likert)', 192,57,43);
+  ['q4','q5','q6','q7','q8','q9'].forEach(qId => {
+    freqBlock(qId, (abbr, i) => LIKERT5_LABELS[i] + ' (' + abbr + ')');
+  });
+
+  checkY(10);
+  sectionBanner('Secção C — Participação dos Alunos', 26,122,74);
+  ['q10','q11','q12','q13'].forEach(qId => {
+    freqBlock(qId, (abbr, i) => LIKERT5_LABELS[i] + ' (' + abbr + ')');
+  });
+  freqBlock('q14');
+
+  checkY(10);
+  sectionBanner('Secção D — Percepções dos Alunos', 107,63,160);
+  freqBlock('q15');
+  freqBlock('q16');
+  freqBlock('q17');
+
+  // Observations
+  if (data.observations.length > 0) {
+    newPage();
+    sectionBanner('Observações de Sala de Aula (n = ' + data.observations.length + ' sessões)', 90,60,10);
+    checkY(9);
+    doc.setFillColor(15,35,71); doc.rect(mg,y,W-mg*2,7,'F');
+    doc.setFont('helvetica','bold'); doc.setFontSize(7.5); doc.setTextColor(255,255,255);
+    doc.text('Item', mg+3, y+4.5);
+    doc.text('4', mg+120, y+4.5, {align:'center'});
+    doc.text('3', mg+130, y+4.5, {align:'center'});
+    doc.text('2', mg+140, y+4.5, {align:'center'});
+    doc.text('1', mg+150, y+4.5, {align:'center'});
+    doc.text('N/A', mg+160, y+4.5, {align:'center'});
+    doc.text('Média', mg+172, y+4.5, {align:'center'});
+    y += 8;
+
+    OBS_ITEMS.forEach(item => {
+      if (item.section) {
+        checkY(8);
+        doc.setFillColor(238,242,251); doc.rect(mg,y,W-mg*2,6,'F');
+        doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor(26,58,107);
+        doc.text(item.section, mg+3, y+4.2); y += 7;
+      } else {
+        const dist = {4:0,3:0,2:0,1:0,na:0};
+        data.observations.forEach(o => {
+          const v = o.statements[item.id];
+          if (v === '4' || v === 4) dist[4]++;
+          else if (v === '3' || v === 3) dist[3]++;
+          else if (v === '2' || v === 2) dist[2]++;
+          else if (v === '1' || v === 1) dist[1]++;
+          else if (v === 'na') dist.na++;
+        });
+        const numericVals = dist[4]*4+dist[3]*3+dist[2]*2+dist[1]*1;
+        const numericN = dist[4]+dist[3]+dist[2]+dist[1];
+        const avg = numericN > 0 ? (numericVals/numericN).toFixed(1) : 'N/A';
+        checkY(7);
+        const lines = doc.splitTextToSize(item.id.replace('obs','') + '. ' + item.text, 105);
+        const rowH = Math.max(7, lines.length*4+2);
+        doc.setFillColor(249,250,252); doc.rect(mg,y,W-mg*2,rowH,'F');
+        doc.setDrawColor(220,228,240); doc.rect(mg,y,W-mg*2,rowH);
+        doc.setFont('helvetica','normal'); doc.setFontSize(7.2); doc.setTextColor(40,40,40);
+        doc.text(lines, mg+3, y+4.2);
+        const cy = y + rowH/2 + 1.5;
+        doc.setFont('helvetica','bold'); doc.setFontSize(8);
+        doc.setTextColor(26,58,107);   doc.text(dist[4]+'', mg+120, cy, {align:'center'});
+        doc.setTextColor(42,122,90);   doc.text(dist[3]+'', mg+130, cy, {align:'center'});
+        doc.setTextColor(201,151,26);  doc.text(dist[2]+'', mg+140, cy, {align:'center'});
+        doc.setTextColor(192,57,43);   doc.text(dist[1]+'', mg+150, cy, {align:'center'});
+        doc.setTextColor(100,100,100); doc.text(dist.na+'', mg+160, cy, {align:'center'});
+        doc.setTextColor(26,58,107);   doc.text(avg, mg+172, cy, {align:'center'});
+        y += rowH + 1;
+      }
+    });
+  }
+
+  drawFooter();
+  doc.save('Relatorio_LeonelMapangule_' + now.toISOString().slice(0,10) + '.pdf');
+  showToast('✅ PDF exportado com sucesso!');
+}
+
+// ══════════════════════════════════════════════
+// UTILITIES
+// ══════════════════════════════════════════════
+
+function updateTopStats() {
+  const n = data.questionnaires.length;
+  const male   = data.questionnaires.filter(q => q.gender === 'Masculino').length;
+  const female = data.questionnaires.filter(q => q.gender === 'Feminino').length;
+  document.getElementById('statTotal').textContent = n;
+  document.getElementById('statObs').textContent   = data.observations.length;
+  document.getElementById('tabBadgeStudent').textContent = n;
+  document.getElementById('tabBadgeObs').textContent = data.observations.length;
+  document.getElementById('cTotal').textContent  = n;
+  document.getElementById('cMale').textContent   = male;
+  document.getElementById('cFemale').textContent = female;
+  document.getElementById('cQNum').textContent   = n + 1;
+}
+
+function resetAllData() {
+  if (!confirm('Resetar TODOS os dados? Esta acção não pode ser desfeita.')) return;
+  data = { questionnaires: [], observations: [] };
+  save();
+  resetWizard();
+  showToast('🗑️ Todos os dados foram removidos.');
+}
+
+let _toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+// ══════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════
+
+buildObsUI();
+updateTopStats();
+renderWizard();
+</script>
+</body>
+</html>
