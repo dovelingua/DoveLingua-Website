@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProvaNova — Splash Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Simulates a phone frame */
+    .phone-frame {
+      width: 375px;
+      height: 812px;
+      border-radius: 48px;
+      overflow: hidden;
+      position: relative;
+      box-shadow:
+        0 0 0 8px #1a1a1a,
+        0 0 0 10px #333,
+        0 40px 80px rgba(0,0,0,0.8);
+    }
+
+    /* ── THE ACTUAL SPLASH ── */
+    #pwa-splash {
+      display: flex;
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, #002080 0%, #0037CC 55%, #0044FF 100%);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+
+    #pwa-splash.hidden {
+      opacity: 0;
+      transform: scale(1.04);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+      pointer-events: none;
+    }
+
+    .pwa-splash-dots-bg {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,179,0,0.07) 1px, transparent 1px);
+      background-size: 26px 26px;
+      pointer-events: none;
+    }
+
+    .pwa-splash-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      pointer-events: none;
+    }
+
+    .pwa-splash-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 40px;
+    }
+
+    .pwa-splash-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.35),
+        0 0 0 3px rgba(255,179,0,0.3);
+      margin-bottom: 20px;
+      animation: splashIconPop 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+      background: linear-gradient(135deg, #0044CC, #0057FF);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+    }
+
+    @keyframes splashIconPop {
+      from { opacity: 0; transform: scale(0.7); }
+      to   { opacity: 1; transform: scale(1);   }
+    }
+
+    .pwa-splash-name {
+      font-size: 28px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+      animation: splashFadeUp 0.4s 0.15s ease both;
+    }
+
+    .pwa-splash-slogan {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      font-style: italic;
+      margin-bottom: 40px;
+      line-height: 1.5;
+      max-width: 240px;
+      animation: splashFadeUp 0.4s 0.22s ease both;
+    }
+
+    .pwa-splash-bar-wrap {
+      width: 160px;
+      height: 3px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 99px;
+      overflow: hidden;
+      animation: splashFadeUp 0.4s 0.3s ease both;
+    }
+
+    .pwa-splash-bar-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #FFB300, #FFD54F, #fff);
+      animation: splashBarLoad 1.2s 0.4s ease forwards;
+    }
+
+    @keyframes splashBarLoad {
+      0%   { width: 0%;   }
+      60%  { width: 75%;  }
+      100% { width: 100%; }
+    }
+
+    @keyframes splashFadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0);   }
+    }
+
+    .pwa-splash-brand {
+      position: absolute;
+      bottom: 28px;
+      font-size: 10px;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: splashFadeUp 0.4s 0.5s ease both;
+    }
+
+    /* Replay button — only in preview, not in real app */
+    .replay-btn {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: background 0.2s;
+      z-index: 999;
+    }
+    .replay-btn:hover { background: rgba(255,255,255,0.25); }
+  </style>
+</head>
+<body>
+
+  <div class="phone-frame">
+    <div id="pwa-splash">
+      <div class="pwa-splash-dots-bg"></div>
+      <div class="pwa-splash-orb" style="width:200px;height:200px;background:rgba(255,179,0,0.08);top:-60px;right:-40px;"></div>
+      <div class="pwa-splash-orb" style="width:120px;height:120px;background:rgba(255,255,255,0.04);bottom:80px;left:-20px;"></div>
+
+      <div class="pwa-splash-content">
+        <!-- Replace with your real icon path when testing locally -->
+        <div class="pwa-splash-icon">📋</div>
+        <div class="pwa-splash-name">ProvaNova</div>
+        <div class="pwa-splash-slogan">
+          "Melhor Professor é quem chega à sala preparado"
+        </div>
+        <div class="pwa-splash-bar-wrap">
+          <div class="pwa-splash-bar-fill" id="bar"></div>
+        </div>
+      </div>
+
+      <div class="pwa-splash-brand">
+        DoveLingua Academy © <span id="splash-year"></span>
+      </div>
+    </div>
+  </div>
+
+  <button class="replay-btn" onclick="replaySplash()">↺ Replay Splash</button>
+
+  <script>
+    document.getElementById('splash-year').textContent = new Date().getFullYear();
+
+    function replaySplash() {
+      const splash = document.getElementById('pwa-splash');
+      const bar = document.getElementById('bar');
+
+      // Reset all animations
+      splash.classList.remove('hidden');
+      splash.style.opacity = '';
+      splash.style.transform = '';
+
+      // Re-trigger CSS animations by cloning
+      const clone = splash.cloneNode(true);
+      splash.parentNode.replaceChild(clone, splash);
+
+      // Re-attach year
+      clone.querySelector('#splash-year').textContent = new Date().getFullYear();
+    }
+  </script>
+
+</body>
+</html>
