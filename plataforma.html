@@ -1,0 +1,2116 @@
+<!DOCTYPE html>
+<html lang="pt" translate="no" class="notranslate">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="google" content="notranslate">
+  <meta http-equiv="Content-Language" content="pt">
+
+  <title>Plataforma ProvaNova — Gerador de Avaliações e Exercícios para Professores de Moçambique</title>
+  <meta name="description" content="A Plataforma ProvaNova permite aos professores moçambicanos elaborar avaliações, fichas de exercícios, trabalhos de férias e muito mais — alinhados ao programa oficial do Ministério da Educação. Grátis para começar.">
+  <meta name="keywords" content="ProvaNova, plataforma docente, avaliações Moçambique, fichas de exercícios, programa MEC, professores Moçambique, elaborar testes, fichas pedagógicas">
+  <meta name="author" content="Plataforma ProvaNova">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://provanova.dovelingua.com/plataforma">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Plataforma ProvaNova — Para Professores de Moçambique">
+  <meta property="og:description" content="Elabore avaliações, fichas e exercícios alinhados ao programa do Ministério da Educação em segundos. Pensado para os professores de Moçambique.">
+  <meta property="og:image" content="https://provanova.dovelingua.com/assets/images/og-image.png">
+  <meta property="og:url" content="https://provanova.dovelingua.com/plataforma">
+  <meta property="og:locale" content="pt_MZ">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Plataforma ProvaNova">
+  <meta name="twitter:description" content="Elabore avaliações e fichas alinhadas ao MEC em segundos.">
+  <meta name="twitter:image" content="https://provanova.dovelingua.com/assets/images/og-image.png">
+
+  <link rel="icon" type="image/x-icon" href="https://provanova.dovelingua.com/assets/images/favicon-48x48.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://provanova.dovelingua.com/assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://provanova.dovelingua.com/assets/images/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="https://provanova.dovelingua.com/assets/images/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Plataforma ProvaNova",
+    "url": "https://provanova.dovelingua.com",
+    "description": "Plataforma docente para professores moçambicanos elaborarem avaliações e fichas alinhadas ao programa do MEC.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web, Android, iOS",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "MZN" },
+    "author": { "@type": "Person", "name": "Teacher Dove" },
+    "inLanguage": "pt-MZ"
+  }
+  </script>
+
+  <style>
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #F0F4FF;
+      color: #1A1A2E;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    img { display: block; max-width: 100%; }
+    ul { list-style: none; }
+
+    /* ── VARIABLES ── */
+    :root {
+      --blue:        #0057FF;
+      --blue-dark:   #0044CC;
+      --blue-mid:    #1976D2;
+      --blue-light:  #EEF3FF;
+      --gold:        #FFB300;
+      --gold-light:  #FFF8E1;
+      --gold-dark:   #E65100;
+      --teal:        #00695C;
+      --teal-light:  #E6F4F1;
+      --white:       #FFFFFF;
+      --bg:          #F0F4FF;
+      --text:        #1A1A2E;
+      --text-2:      #5A6478;
+      --text-muted:  #9AA3B5;
+      --border:      rgba(0,87,255,0.1);
+      --shadow-sm:   0 1px 4px rgba(0,0,0,0.06);
+      --shadow-md:   0 4px 16px rgba(0,0,0,0.08);
+      --shadow-lg:   0 8px 32px rgba(0,0,0,0.10);
+      --shadow-blue: 0 4px 20px rgba(0,87,255,0.25);
+      --radius:      12px;
+      --radius-lg:   16px;
+      --radius-xl:   22px;
+      --max:         1160px;
+    }
+
+    /* ── UTILITIES ── */
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ══════════════════════════════════════════
+       NAVBAR
+    ══════════════════════════════════════════ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 900;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      background: transparent;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .nav.scrolled {
+      background: rgba(255,255,255,0.96);
+      box-shadow: 0 1px 0 rgba(0,87,255,0.08), var(--shadow-sm);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .nav-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 20px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+
+    .nav-logo-img {
+      height: 28px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .nav-logo-name {
+      font-size: 17px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.3px;
+      transition: color 0.3s;
+    }
+
+    .nav.scrolled .nav-logo-name { color: var(--blue); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex: 1;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav.scrolled .nav-link { color: var(--text-2); }
+    .nav-link:hover { color: #fff; }
+    .nav.scrolled .nav-link:hover { color: var(--blue); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .nav-btn-outline {
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      border: 1.5px solid rgba(255,255,255,0.35);
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .nav.scrolled .nav-btn-outline {
+      color: var(--blue);
+      border-color: rgba(0,87,255,0.3);
+    }
+
+    .nav-btn-outline:hover {
+      background: rgba(255,255,255,0.15);
+    }
+
+    .nav.scrolled .nav-btn-outline:hover {
+      background: var(--blue-light);
+    }
+
+    .nav-btn-primary {
+      padding: 9px 20px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--blue);
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      white-space: nowrap;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav.scrolled .nav-btn-primary {
+      background: var(--blue);
+      color: #fff;
+      box-shadow: var(--shadow-blue);
+    }
+
+    .nav-btn-primary:hover { filter: brightness(1.06); }
+
+    /* Mobile hamburger */
+    .nav-hamburger {
+      display: none;
+      width: 38px;
+      height: 38px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9px;
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+
+    .nav.scrolled .nav-hamburger {
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+
+    /* Mobile menu */
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-md);
+      z-index: 899;
+      padding: 16px 20px 24px;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-mobile.open { display: flex; }
+
+    .nav-mobile-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-2);
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .nav-mobile-link:hover { background: var(--blue-light); color: var(--blue); }
+
+    .nav-mobile-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 8px 0;
+    }
+
+    .nav-mobile-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    .nav-mobile-btn.outline {
+      border: 1.5px solid var(--border);
+      color: var(--blue);
+    }
+
+    .nav-mobile-btn.primary {
+      background: var(--blue);
+      color: #fff;
+      box-shadow: var(--shadow-blue);
+    }
+
+    /* ══════════════════════════════════════════
+       HERO
+    ══════════════════════════════════════════ */
+    .hero {
+      background: linear-gradient(135deg, #002266 0%, #0044CC 45%, #0057FF 75%, #1976D2 100%);
+      padding: 130px 20px 100px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -32px; left: 0; right: 0;
+      height: 64px;
+      background: var(--bg);
+      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    }
+
+    .hero-dot {
+      position: absolute;
+      border-radius: 50%;
+      background: #fff;
+      opacity: 0.05;
+      pointer-events: none;
+    }
+
+    .hero-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,179,0,0.18);
+      border: 1px solid rgba(255,179,0,0.35);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #FFD54F;
+      margin-bottom: 24px;
+      letter-spacing: 0.03em;
+    }
+
+    .hero-title {
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 20px;
+    }
+
+    .hero-title span {
+      color: #FFD54F;
+    }
+
+    .hero-sub {
+      font-size: clamp(15px, 2vw, 18px);
+      color: rgba(255,255,255,0.75);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto 36px;
+      font-weight: 400;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hero-btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      color: var(--blue);
+      font-size: 15px;
+      font-weight: 800;
+      padding: 14px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+      transition: filter 0.2s, transform 0.15s;
+    }
+
+    .hero-btn-primary:hover { filter: brightness(1.04); transform: translateY(-1px); }
+    .hero-btn-primary:active { transform: scale(0.97); }
+
+    .hero-btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 50px;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .hero-btn-secondary:hover { background: rgba(255,255,255,0.2); transform: translateY(-1px); }
+    .hero-btn-secondary:active { transform: scale(0.97); }
+
+    .hero-trust-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 48px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-trust-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .hero-trust-item i { font-size: 12px; color: #FFD54F; }
+
+    /* ══════════════════════════════════════════
+       SHARED SECTION STYLES
+    ══════════════════════════════════════════ */
+    section { padding: 80px 0; }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--blue-light);
+      border: 1px solid rgba(0,87,255,0.15);
+      border-radius: 50px;
+      padding: 5px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(22px, 3.5vw, 36px);
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .section-sub {
+      font-size: 16px;
+      color: var(--text-2);
+      line-height: 1.7;
+      max-width: 580px;
+    }
+
+    .section-header {
+      margin-bottom: 48px;
+    }
+
+    .section-header.center {
+      text-align: center;
+    }
+
+    .section-header.center .section-sub {
+      margin: 0 auto;
+    }
+
+    /* ══════════════════════════════════════════
+       WHAT IS PROVANOVA
+    ══════════════════════════════════════════ */
+    .about {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .about-text p {
+      font-size: 15px;
+      color: var(--text-2);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .about-text p:last-child { margin-bottom: 0; }
+
+    .about-text strong { color: var(--text); font-weight: 700; }
+
+    .about-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .about-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .about-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+
+    .about-card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .about-card-desc {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.6;
+    }
+
+    /* ══════════════════════════════════════════
+       DOCUMENT TYPES
+    ══════════════════════════════════════════ */
+    .docs-section { background: var(--bg); }
+
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .doc-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-left: 4px solid var(--blue);
+      border-radius: var(--radius-lg);
+      padding: 20px 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .doc-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .doc-card-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .doc-card-label {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px;
+      line-height: 1.2;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .doc-card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 50px;
+      background: var(--blue-light);
+      color: var(--blue);
+      white-space: nowrap;
+    }
+
+    .doc-card-desc {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.6;
+    }
+
+    /* ══════════════════════════════════════════
+       HOW IT WORKS
+    ══════════════════════════════════════════ */
+    .how-section { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      position: relative;
+    }
+
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 32px;
+      left: calc(16.66% + 24px);
+      right: calc(16.66% + 24px);
+      height: 1px;
+      background: var(--border);
+    }
+
+    .step {
+      text-align: center;
+      position: relative;
+    }
+
+    .step-number {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-size: 22px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: var(--shadow-blue);
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .step-desc {
+      font-size: 14px;
+      color: var(--text-2);
+      line-height: 1.7;
+    }
+
+    /* ══════════════════════════════════════════
+       DOWNLOAD SECTION
+    ══════════════════════════════════════════ */
+    .download-section {
+      background: linear-gradient(135deg, #002266 0%, #0044CC 50%, #0057FF 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .download-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+
+    .download-dot {
+      position: absolute;
+      border-radius: 50%;
+      background: #fff;
+      opacity: 0.05;
+      pointer-events: none;
+    }
+
+    .download-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .download-inner .section-label {
+      background: rgba(255,179,0,0.15);
+      border-color: rgba(255,179,0,0.3);
+      color: #FFD54F;
+    }
+
+    .download-inner .section-title {
+      color: #fff;
+    }
+
+    .download-inner .section-sub {
+      color: rgba(255,255,255,0.7);
+      margin: 0 auto 36px;
+    }
+
+    .download-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .download-card {
+      background: rgba(255,255,255,0.08);
+      border: 1.5px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
+      text-align: center;
+      transition: background 0.2s;
+    }
+
+    .download-card:hover { background: rgba(255,255,255,0.14); }
+
+    .download-card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: #FFD54F;
+      margin: 0 auto 14px;
+    }
+
+    .download-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .download-card-desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .download-card-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      width: 100%;
+      padding: 11px 16px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: filter 0.2s, transform 0.15s;
+      cursor: pointer;
+    }
+
+    .download-card-btn:active { transform: scale(0.97); }
+
+    .download-card-btn.gold {
+      background: var(--gold);
+      color: #1A1A2E;
+    }
+
+    .download-card-btn.gold:hover { filter: brightness(1.06); }
+
+    .download-card-btn.white {
+      background: #fff;
+      color: var(--blue);
+    }
+
+    .download-card-btn.white:hover { filter: brightness(1.04); }
+
+    .download-browse-link {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+    }
+
+    .download-browse-link a {
+      color: #FFD54F;
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    /* ══════════════════════════════════════════
+       WHO IS IT FOR
+    ══════════════════════════════════════════ */
+    .who-section { background: var(--bg); }
+
+    .who-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .who-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .who-card-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--blue-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: var(--blue);
+      margin: 0 auto 16px;
+    }
+
+    .who-card-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .who-card-desc {
+      font-size: 14px;
+      color: var(--text-2);
+      line-height: 1.7;
+    }
+
+    /* ══════════════════════════════════════════
+       FAQ
+    ══════════════════════════════════════════ */
+    .faq-section {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .faq-sidebar-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .faq-sidebar-sub {
+      font-size: 14px;
+      color: var(--text-2);
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .faq-contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      background: #25D366;
+      color: #fff;
+      transition: filter 0.2s, transform 0.15s;
+      box-shadow: 0 3px 12px rgba(37,211,102,0.3);
+    }
+
+    .faq-contact-btn:hover { filter: brightness(1.06); }
+    .faq-contact-btn:active { transform: scale(0.97); }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .faq-item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      text-align: left;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      font-family: inherit;
+      transition: color 0.2s;
+    }
+
+    .faq-question:hover { color: var(--blue); }
+
+    .faq-question i {
+      font-size: 12px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+
+    .faq-item.open .faq-question i { transform: rotate(180deg); }
+    .faq-item.open .faq-question { color: var(--blue); }
+
+    .faq-answer {
+      display: none;
+      padding: 0 20px 18px;
+      font-size: 14px;
+      color: var(--text-2);
+      line-height: 1.75;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+    }
+
+    .faq-item.open .faq-answer { display: block; }
+
+    /* ══════════════════════════════════════════
+       CONTACT SECTION
+    ══════════════════════════════════════════ */
+    .contact-section { background: var(--bg); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .contact-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      text-decoration: none;
+      display: block;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .contact-card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin: 0 auto 14px;
+    }
+
+    .contact-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+
+    .contact-card-value {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.5;
+    }
+
+    /* ══════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════ */
+    .footer {
+      background: #0D1629;
+      padding: 56px 0 32px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      text-decoration: none;
+    }
+
+    .footer-logo-img {
+      height: 26px;
+      width: auto;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: 0.9;
+    }
+
+    .footer-logo-name {
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .footer-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.75;
+      margin-bottom: 20px;
+      max-width: 260px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 10px;
+    }
+
+    .footer-social-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .footer-social-btn:hover {
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+    }
+
+    .footer-col-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+
+    .footer-col-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col-link {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .footer-col-link:hover { color: #fff; }
+    .footer-col-link i { font-size: 11px; flex-shrink: 0; }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(255,255,255,0.25);
+      line-height: 1.6;
+    }
+
+    .footer-copy strong { color: rgba(255,255,255,0.4); }
+
+    .footer-mec-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,179,0,0.1);
+      border: 1px solid rgba(255,179,0,0.2);
+      border-radius: 50px;
+      padding: 5px 14px;
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,179,0,0.7);
+    }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .who-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      section { padding: 56px 0; }
+      .nav-links { display: none; }
+      .nav-actions { display: none; }
+      .nav-hamburger { display: flex; }
+      .docs-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; gap: 28px; }
+      .steps-grid::before { display: none; }
+      .faq-layout { grid-template-columns: 1fr; gap: 32px; }
+      .download-cards { grid-template-columns: 1fr; }
+      .who-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-desc { max-width: 100%; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .hero { padding: 100px 20px 80px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-trust-row { gap: 14px; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .hero-btn-primary, .hero-btn-secondary { justify-content: center; }
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-up { animation: fadeUp 0.5s ease both; }
+    .fade-up-1 { animation: fadeUp 0.5s 0.1s ease both; }
+    .fade-up-2 { animation: fadeUp 0.5s 0.2s ease both; }
+    .fade-up-3 { animation: fadeUp 0.5s 0.3s ease both; }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       NAVBAR
+  ══════════════════════════════════════ -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-inner">
+      <a href="/plataforma" class="nav-logo">
+        <img
+          class="nav-logo-img"
+          src="https://provanova.dovelingua.com/assets/images/logo.png"
+          alt="ProvaNova"
+          onerror="this.style.display='none'"
+        >
+        <span class="nav-logo-name notranslate" translate="no">ProvaNova</span>
+      </a>
+
+      <div class="nav-links">
+        <a class="nav-link" href="#documentos">Documentos</a>
+        <a class="nav-link" href="#como-funciona">Como funciona</a>
+        <a class="nav-link" href="#descarregar">Descarregar</a>
+        <a class="nav-link" href="#faq">FAQ</a>
+        <a class="nav-link" href="#contacto">Contacto</a>
+        <a class="nav-link" href="/info/termos">Termos</a>
+        <a class="nav-link" href="/info/privacidade">Privacidade</a>
+      </div>
+
+      <div class="nav-actions">
+        <a class="nav-btn-outline" href="/auth">Entrar</a>
+        <a class="nav-btn-primary" href="/auth">Criar conta</a>
+      </div>
+
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="nav-mobile" id="nav-mobile">
+    <a class="nav-mobile-link" href="#documentos" onclick="closeMobileMenu()">
+      <i class="fa-solid fa-file-lines" style="color:var(--blue);width:16px;"></i>
+      Documentos
+    </a>
+    <a class="nav-mobile-link" href="#como-funciona" onclick="closeMobileMenu()">
+      <i class="fa-solid fa-circle-play" style="color:var(--blue);width:16px;"></i>
+      Como funciona
+    </a>
+    <a class="nav-mobile-link" href="#descarregar" onclick="closeMobileMenu()">
+      <i class="fa-solid fa-download" style="color:var(--blue);width:16px;"></i>
+      Descarregar
+    </a>
+    <a class="nav-mobile-link" href="#faq" onclick="closeMobileMenu()">
+      <i class="fa-solid fa-circle-question" style="color:var(--blue);width:16px;"></i>
+      FAQ
+    </a>
+    <a class="nav-mobile-link" href="#contacto" onclick="closeMobileMenu()">
+      <i class="fa-solid fa-envelope" style="color:var(--blue);width:16px;"></i>
+      Contacto
+    </a>
+    <div class="nav-mobile-divider"></div>
+    <a class="nav-mobile-link" href="/info/termos" onclick="closeMobileMenu()">
+      <i class="fa-solid fa-file-shield" style="color:var(--text-muted);width:16px;"></i>
+      Termos de Uso
+    </a>
+    <a class="nav-mobile-link" href="/info/privacidade" onclick="closeMobileMenu()">
+      <i class="fa-solid fa-shield-halved" style="color:var(--text-muted);width:16px;"></i>
+      Política de Privacidade
+    </a>
+    <div class="nav-mobile-divider"></div>
+    <a class="nav-mobile-btn outline" href="/auth">Entrar na plataforma</a>
+    <a class="nav-mobile-btn primary" href="/auth">Criar conta grátis</a>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+  <header class="hero" id="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-dot" style="width:300px;height:300px;top:-100px;right:-80px;"></div>
+    <div class="hero-dot" style="width:180px;height:180px;bottom:60px;left:-40px;"></div>
+    <div class="hero-dot" style="width:80px;height:80px;top:80px;left:30%;"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge fade-up">
+        <i class="fa-solid fa-shield-halved"></i>
+        Alinhado ao Programa do MEC · Da 4ª à 12ª Classe
+      </div>
+
+      <h1 class="hero-title fade-up-1">
+        Chegue à sala<br>
+        <span>sempre preparado</span>
+      </h1>
+
+      <p class="hero-sub fade-up-2">
+        A Plataforma ProvaNova permite aos professores moçambicanos elaborar
+        avaliações, fichas de exercícios, trabalhos e muito mais —
+        alinhados ao programa oficial do Ministério da Educação,
+        em segundos.
+      </p>
+
+      <div class="hero-actions fade-up-3">
+        <a class="hero-btn-primary" href="/auth">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i>
+          Começar gratuitamente
+        </a>
+        <a class="hero-btn-secondary" href="#documentos">
+          <i class="fa-solid fa-file-lines"></i>
+          Ver documentos
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-trust-row">
+      <div class="hero-trust-item">
+        <i class="fa-solid fa-check-circle"></i>
+        Grátis para começar
+      </div>
+      <div class="hero-trust-item">
+        <i class="fa-solid fa-check-circle"></i>
+        Funciona no browser e no telemóvel
+      </div>
+      <div class="hero-trust-item">
+        <i class="fa-solid fa-check-circle"></i>
+        Pronto a imprimir
+      </div>
+      <div class="hero-trust-item">
+        <i class="fa-solid fa-check-circle"></i>
+        Criado por Teacher Dove
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════
+       ABOUT
+  ══════════════════════════════════════ -->
+  <section class="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <div class="section-label">
+            <i class="fa-solid fa-circle-info"></i>
+            O que é o ProvaNova
+          </div>
+          <h2 class="section-title">
+            Uma plataforma feita para os professores de Moçambique
+          </h2>
+          <p>
+            O <strong>ProvaNova</strong> é uma plataforma docente que gera documentos
+            pedagógicos profissionais, alinhados ao programa oficial do
+            <strong>Ministério da Educação e Cultura (MEC)</strong> de Moçambique.
+          </p>
+          <p>
+            Em vez de passar horas a elaborar avaliações e fichas manualmente,
+            o professor configura os parâmetros — disciplina, classe, trimestre,
+            unidades — e a plataforma gera um documento formatado, completo
+            e pronto a imprimir.
+          </p>
+          <p>
+            O ProvaNova funciona directamente no browser, sem necessidade de
+            instalar nada. Também está disponível como aplicação para telemóvel,
+            podendo ser instalado directamente no ecrã inicial.
+          </p>
+          <p>
+            Criado por <strong>Teacher Dove</strong> para servir os docentes
+            moçambicanos do ensino primário e secundário.
+          </p>
+        </div>
+
+        <div class="about-cards">
+          <div class="about-card">
+            <div class="about-card-icon" style="background:var(--blue-light);">
+              <i class="fa-solid fa-graduation-cap" style="color:var(--blue);"></i>
+            </div>
+            <div>
+              <div class="about-card-title">Alinhado ao programa do MEC</div>
+              <div class="about-card-desc">
+                Todo o conteúdo foi preparado unidade por unidade, da 4ª à 12ª Classe,
+                respeitando os objectivos e competências do currículo nacional.
+              </div>
+            </div>
+          </div>
+          <div class="about-card">
+            <div class="about-card-icon" style="background:var(--teal-light);">
+              <i class="fa-solid fa-print" style="color:var(--teal);"></i>
+            </div>
+            <div>
+              <div class="about-card-title">Formatado e pronto a imprimir</div>
+              <div class="about-card-desc">
+                Os documentos são gerados em formato A4, com cabeçalho de escola,
+                campos de nome do aluno e todas as secções correctamente estruturadas.
+              </div>
+            </div>
+          </div>
+          <div class="about-card">
+            <div class="about-card-icon" style="background:var(--gold-light);">
+              <i class="fa-solid fa-bolt" style="color:var(--gold-dark);"></i>
+            </div>
+            <div>
+              <div class="about-card-title">Gerado em segundos</div>
+              <div class="about-card-desc">
+                O que antes levava horas a elaborar fica pronto em segundos.
+                O professor verifica, ajusta se necessário, e imprime.
+              </div>
+            </div>
+          </div>
+          <div class="about-card">
+            <div class="about-card-icon" style="background:var(--blue-light);">
+              <i class="fa-solid fa-globe" style="color:var(--blue);"></i>
+            </div>
+            <div>
+              <div class="about-card-title">Funciona no browser e no telemóvel</div>
+              <div class="about-card-desc">
+                Pode usar o ProvaNova directamente no browser ou instalar
+                a aplicação no seu telemóvel Android ou iOS.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       DOCUMENT TYPES
+  ══════════════════════════════════════ -->
+  <section class="docs-section" id="documentos">
+    <div class="container">
+      <div class="section-header center">
+        <div class="section-label">
+          <i class="fa-solid fa-file-lines"></i>
+          Documentos disponíveis
+        </div>
+        <h2 class="section-title">8 tipos de documentos pedagógicos</h2>
+        <p class="section-sub">
+          Tudo o que o professor precisa para preparar a aula,
+          avaliar os alunos e apoiar a sua recuperação.
+        </p>
+      </div>
+
+      <div class="docs-grid">
+
+        <div class="doc-card" style="border-left-color:#0057FF;">
+          <div class="doc-card-icon" style="background:#EEF3FF;">
+            <i class="fa-solid fa-file-pen" style="color:#0057FF;"></i>
+          </div>
+          <div>
+            <div class="doc-card-label">
+              Avaliação Contínua
+              <span class="doc-card-tag">ACs</span>
+            </div>
+            <div class="doc-card-desc">
+              Avaliações realizadas durante o trimestre, cobrindo apenas
+              as unidades já leccionadas. Alinhadas ao momento certo do ano lectivo.
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-card" style="border-left-color:#6A1B9A;">
+          <div class="doc-card-icon" style="background:#F3E5F5;">
+            <i class="fa-solid fa-file-circle-check" style="color:#6A1B9A;"></i>
+          </div>
+          <div>
+            <div class="doc-card-label">
+              Avaliação Trimestral
+              <span class="doc-card-tag" style="background:#F3E5F5;color:#6A1B9A;">AT</span>
+            </div>
+            <div class="doc-card-desc">
+              Avaliações de fim de trimestre que cobrem todo o conteúdo
+              do trimestre seleccionado, em conformidade com o programa.
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-card" style="border-left-color:var(--teal);">
+          <div class="doc-card-icon" style="background:var(--teal-light);">
+            <i class="fa-solid fa-list-check" style="color:var(--teal);"></i>
+          </div>
+          <div>
+            <div class="doc-card-label">Ficha de Exercícios</div>
+            <div class="doc-card-desc">
+              Fichas práticas para consolidar o conteúdo ensinado em sala,
+              com exercícios variados e adequados à classe.
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-card" style="border-left-color:#E65100;">
+          <div class="doc-card-icon" style="background:#FFF8E1;">
+            <i class="fa-solid fa-umbrella-beach" style="color:#E65100;"></i>
+          </div>
+          <div>
+            <div class="doc-card-label">Trabalho de Férias</div>
+            <div class="doc-card-desc">
+              Fichas de actividades para as férias escolares, adequadas
+              à faixa etária e ao programa da classe.
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-card" style="border-left-color:#4527A0;">
+          <div class="doc-card-icon" style="background:#EDE7F6;">
+            <i class="fa-solid fa-people-group" style="color:#4527A0;"></i>
+          </div>
+          <div>
+            <div class="doc-card-label">Trabalho de Grupo</div>
+            <div class="doc-card-desc">
+              Tarefas colaborativas com instruções claras, distribuição
+              de funções e critérios de avaliação definidos.
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-card" style="border-left-color:#2E7D32;">
+          <div class="doc-card-icon" style="background:#E8F5E9;">
+            <i class="fa-solid fa-rotate" style="color:#2E7D32;"></i>
+          </div>
+          <div>
+            <div class="doc-card-label">Ficha de Revisão</div>
+            <div class="doc-card-desc">
+              Fichas para rever e consolidar o conteúdo já estudado,
+              ajudando os alunos a preparar-se melhor para as avaliações.
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-card" style="border-left-color:#BF360C;">
+          <div class="doc-card-icon" style="background:#FBE9E7;">
+            <i class="fa-solid fa-arrows-rotate" style="color:#BF360C;"></i>
+          </div>
+          <div>
+            <div class="doc-card-label">
+              Teste de Revisão
+              <span class="doc-card-tag" style="background:#FBE9E7;color:#BF360C;">2ª Oportunidade</span>
+            </div>
+            <div class="doc-card-desc">
+              Teste alternativo para alunos que não atingiram a nota mínima,
+              baseado no mesmo conteúdo da avaliação original.
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-card" style="border-left-color:#C62828;">
+          <div class="doc-card-icon" style="background:#FFEBEE;">
+            <i class="fa-solid fa-graduation-cap" style="color:#C62828;"></i>
+          </div>
+          <div>
+            <div class="doc-card-label">
+              Preparação para Exames
+              <span class="doc-card-tag" style="background:#FFEBEE;color:#C62828;">Intensiva</span>
+            </div>
+            <div class="doc-card-desc">
+              Questões de treino no estilo da Avaliação Sumativa, para
+              preparar os alunos para os exames nacionais.
+              Não substitui nem representa exames oficiais do MEC.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       HOW IT WORKS
+  ══════════════════════════════════════ -->
+  <section class="how-section" id="como-funciona">
+    <div class="container">
+      <div class="section-header center">
+        <div class="section-label">
+          <i class="fa-solid fa-circle-play"></i>
+          Como funciona
+        </div>
+        <h2 class="section-title">Três passos simples</h2>
+        <p class="section-sub">
+          Sem complicações. Sem formação necessária.
+          Qualquer professor consegue usar desde o primeiro dia.
+        </p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-title">Configure o documento</div>
+          <div class="step-desc">
+            Escolha o tipo de documento, a disciplina, a classe,
+            o trimestre e as unidades a cobrir. A plataforma guia-o
+            passo a passo.
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-title">Gere em segundos</div>
+          <div class="step-desc">
+            A plataforma elabora o documento automaticamente,
+            com base no programa oficial do MEC e nos parâmetros
+            que definiu.
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-title">Reveja e imprima</div>
+          <div class="step-desc">
+            Verifique o documento, ajuste se necessário,
+            e descarregue em PDF formatado em A4 — pronto
+            a imprimir e entregar aos alunos.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       DOWNLOAD
+  ══════════════════════════════════════ -->
+  <section class="download-section" id="descarregar">
+    <div class="container">
+      <div class="download-inner">
+        <div class="section-label" style="justify-content:center;">
+          <i class="fa-solid fa-download"></i>
+          Descarregar
+        </div>
+        <h2 class="section-title" style="color:#fff;margin-bottom:12px;">
+          Use no browser ou instale no telemóvel
+        </h2>
+        <p class="section-sub" style="color:rgba(255,255,255,0.7);margin:0 auto 36px;">
+          O ProvaNova funciona directamente no browser — basta criar uma conta
+          e começar. Também pode instalar a aplicação no seu telemóvel
+          Android para acesso rápido e offline.
+        </p>
+
+        <div class="download-cards">
+          <div class="download-card">
+            <div class="download-card-icon">
+              <i class="fa-solid fa-globe"></i>
+            </div>
+            <div class="download-card-title">Usar no browser</div>
+            <div class="download-card-desc">
+              Aceda directamente pelo browser do seu telemóvel ou computador.
+              Sem instalação, sem complicações.
+            </div>
+            <a
+              class="download-card-btn white"
+              href="/auth"
+            >
+              <i class="fa-solid fa-arrow-right-to-bracket"></i>
+              Entrar na plataforma
+            </a>
+          </div>
+
+          <div class="download-card">
+            <div class="download-card-icon">
+              <i class="fa-brands fa-android"></i>
+            </div>
+            <div class="download-card-title">Instalar no Android</div>
+            <div class="download-card-desc">
+              Descarregue a aplicação ProvaNova para o seu telemóvel Android
+              e aceda rapidamente a qualquer momento.
+            </div>
+            <a
+              class="download-card-btn gold"
+              href="https://download.dovelingua.com/provanova/provanova.apk"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fa-solid fa-download"></i>
+              Descarregar APK
+            </a>
+          </div>
+        </div>
+
+        <p class="download-browse-link">
+          Todos os ficheiros disponíveis em
+          <a href="https://download.dovelingua.com/provanova" target="_blank" rel="noopener">
+            download.dovelingua.com/provanova
+          </a>
+        </p>
+      </div>
+    </div>
+    <div class="download-dot" style="width:240px;height:240px;top:-80px;right:-60px;"></div>
+    <div class="download-dot" style="width:120px;height:120px;bottom:40px;left:-20px;"></div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       WHO IS IT FOR
+  ══════════════════════════════════════ -->
+  <section class="who-section">
+    <div class="container">
+      <div class="section-header center">
+        <div class="section-label">
+          <i class="fa-solid fa-users"></i>
+          Para quem é
+        </div>
+        <h2 class="section-title">Feito para o professor moçambicano</h2>
+        <p class="section-sub">
+          O ProvaNova foi desenvolvido especificamente para o contexto
+          do ensino em Moçambique — com o programa certo, na língua certa,
+          para os desafios reais da sala de aula.
+        </p>
+      </div>
+
+      <div class="who-grid">
+        <div class="who-card">
+          <div class="who-card-icon">
+            <i class="fa-solid fa-school"></i>
+          </div>
+          <div class="who-card-title">Ensino Primário</div>
+          <div class="who-card-desc">
+            Da 4ª à 7ª Classe. Fichas, avaliações contínuas e trabalhos
+            adaptados às características dos alunos mais novos.
+          </div>
+        </div>
+        <div class="who-card">
+          <div class="who-card-icon">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div class="who-card-title">Ensino Secundário</div>
+          <div class="who-card-desc">
+            Da 8ª à 12ª Classe. Avaliações trimestrais, preparação
+            para exames e materiais no formato das provas nacionais.
+          </div>
+        </div>
+        <div class="who-card">
+          <div class="who-card-icon">
+            <i class="fa-solid fa-map-location-dot"></i>
+          </div>
+          <div class="who-card-title">Todas as províncias</div>
+          <div class="who-card-desc">
+            De Maputo ao Niassa. O ProvaNova foi pensado para professores
+            de todas as regiões de Moçambique, com o mesmo programa nacional.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       FAQ
+  ══════════════════════════════════════ -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="faq-layout">
+
+        <div>
+          <div class="section-label">
+            <i class="fa-solid fa-circle-question"></i>
+            Perguntas frequentes
+          </div>
+          <h2 class="faq-sidebar-title">Tem alguma dúvida?</h2>
+          <p class="faq-sidebar-sub">
+            Encontre as respostas às perguntas mais comuns sobre a Plataforma ProvaNova.
+            Não encontrou o que precisava? Fale connosco directamente.
+          </p>
+          <a
+            class="faq-contact-btn"
+            href="https://wa.me/258848920143"
+            target="_blank"
+            rel="noopener"
+          >
+            <i class="fa-brands fa-whatsapp"></i>
+            Falar pelo WhatsApp
+          </a>
+          <div style="margin-top:16px;">
+            <a
+              href="/info/faq"
+              style="font-size:13px;font-weight:600;color:var(--blue);text-decoration:underline;"
+            >
+              Ver todas as perguntas →
+            </a>
+          </div>
+        </div>
+
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              O ProvaNova é gratuito?
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              Sim. Criar uma conta no ProvaNova é completamente gratuito.
+              A plataforma funciona com um sistema de créditos — ao registar-se,
+              recebe créditos de boas-vindas para começar a gerar documentos
+              imediatamente. Pode ganhar mais créditos ao convidar colegas.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              Os documentos estão realmente alinhados ao programa do MEC?
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              Sim. Todo o conteúdo curricular foi preparado manualmente,
+              unidade por unidade, disciplina por disciplina, da 4ª à 12ª Classe,
+              com base no programa oficial do Ministério da Educação e Cultura
+              de Moçambique. Não é geração aleatória — é conteúdo estruturado
+              e verificado.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              Posso usar o ProvaNova no meu telemóvel?
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              Sim. O ProvaNova funciona directamente no browser do seu telemóvel,
+              sem necessidade de instalar nada. Se preferir, pode descarregar
+              a aplicação para Android e instalá-la no seu telemóvel para
+              acesso mais rápido.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              Os documentos gerados são oficiais do MEC?
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              Não. Os documentos gerados pelo ProvaNova são ferramentas
+              pedagógicas de apoio ao professor — não são documentos oficiais
+              emitidos pelo Ministério da Educação. Os documentos de
+              "Preparação para Exames" são exclusivamente materiais de treino
+              e não substituem nem representam a Avaliação Sumativa oficial.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              Posso editar o documento depois de gerado?
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              Sim. Após a geração, pode editar qualquer parte do documento —
+              alterar questões, ajustar pontuações, modificar o cabeçalho —
+              antes de descarregar o PDF final. Os documentos ficam guardados
+              na sua Biblioteca pessoal para aceder a qualquer momento.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              Posso partilhar os documentos gerados com colegas?
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              Os documentos são para uso pedagógico pessoal. Pode imprimi-los
+              e distribui-los gratuitamente aos seus alunos. Não é permitido
+              vendê-los, partilhá-los comercialmente ou removê-los do contexto
+              pedagógico para o qual foram elaborados.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       CONTACT
+  ══════════════════════════════════════ -->
+  <section class="contact-section" id="contacto">
+    <div class="container">
+      <div class="section-header center">
+        <div class="section-label">
+          <i class="fa-solid fa-headset"></i>
+          Contacto e Suporte
+        </div>
+        <h2 class="section-title">Estamos disponíveis para si</h2>
+        <p class="section-sub">
+          Para questões sobre a plataforma, problemas técnicos ou qualquer
+          dúvida — fale connosco directamente.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+
+        <a
+          class="contact-card"
+          href="https://wa.me/258848920143"
+          target="_blank"
+          rel="noopener"
+        >
+          <div class="contact-card-icon" style="background:#E8F5E9;">
+            <i class="fa-brands fa-whatsapp" style="color:#25D366;"></i>
+          </div>
+          <div class="contact-card-title">WhatsApp — Suporte</div>
+          <div class="contact-card-value">
+            +258 84 892 0143<br>
+            Disponível para mensagens e dúvidas
+          </div>
+        </a>
+
+        <a
+          class="contact-card"
+          href="tel:+258865804379"
+        >
+          <div class="contact-card-icon" style="background:var(--blue-light);">
+            <i class="fa-solid fa-phone" style="color:var(--blue);"></i>
+          </div>
+          <div class="contact-card-title">Chamadas</div>
+          <div class="contact-card-value">
+            +258 86 580 4379<br>
+            Para chamadas e contacto directo
+          </div>
+        </a>
+
+        <a
+          class="contact-card"
+          href="mailto:provanova@dovelingua.com"
+        >
+          <div class="contact-card-icon" style="background:var(--gold-light);">
+            <i class="fa-solid fa-envelope" style="color:var(--gold-dark);"></i>
+          </div>
+          <div class="contact-card-title">Email</div>
+          <div class="contact-card-value">
+            provanova@dovelingua.com<br>
+            Para questões formais e privacidade
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+
+        <div>
+          <a class="footer-logo" href="/plataforma">
+            <img
+              class="footer-logo-img"
+              src="https://provanova.dovelingua.com/assets/images/logo.png"
+              alt="ProvaNova"
+              onerror="this.style.display='none'"
+            >
+            <span class="footer-logo-name notranslate" translate="no">ProvaNova</span>
+          </a>
+          <p class="footer-desc">
+            Plataforma docente para professores moçambicanos.
+            Elabore avaliações e fichas alinhadas ao programa do MEC
+            em segundos.
+          </p>
+          <div class="footer-mec-badge">
+            <i class="fa-solid fa-shield-halved"></i>
+            Alinhado ao Programa do MEC
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Plataforma</div>
+          <div class="footer-col-links">
+            <a class="footer-col-link" href="/auth">
+              <i class="fa-solid fa-arrow-right-to-bracket"></i>
+              Entrar na plataforma
+            </a>
+            <a class="footer-col-link" href="/auth">
+              <i class="fa-solid fa-user-plus"></i>
+              Criar conta
+            </a>
+            <a class="footer-col-link" href="#documentos">
+              <i class="fa-solid fa-file-lines"></i>
+              Documentos
+            </a>
+            <a class="footer-col-link" href="#como-funciona">
+              <i class="fa-solid fa-circle-play"></i>
+              Como funciona
+            </a>
+            <a class="footer-col-link" href="#descarregar">
+              <i class="fa-solid fa-download"></i>
+              Descarregar APK
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Ajuda</div>
+          <div class="footer-col-links">
+            <a class="footer-col-link" href="#faq">
+              <i class="fa-solid fa-circle-question"></i>
+              Perguntas Frequentes
+            </a>
+            <a class="footer-col-link" href="/info/faq">
+              <i class="fa-solid fa-list"></i>
+              FAQ completo
+            </a>
+            <a class="footer-col-link" href="https://wa.me/258848920143" target="_blank" rel="noopener">
+              <i class="fa-brands fa-whatsapp"></i>
+              Suporte WhatsApp
+            </a>
+            <a class="footer-col-link" href="mailto:provanova@dovelingua.com">
+              <i class="fa-solid fa-envelope"></i>
+              Email de suporte
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Legal</div>
+          <div class="footer-col-links">
+            <a class="footer-col-link" href="/info/termos">
+              <i class="fa-solid fa-file-shield"></i>
+              Termos de Uso
+            </a>
+            <a class="footer-col-link" href="/info/privacidade">
+              <i class="fa-solid fa-shield-halved"></i>
+              Política de Privacidade
+            </a>
+            <a class="footer-col-link" href="https://download.dovelingua.com/provanova" target="_blank" rel="noopener">
+              <i class="fa-solid fa-folder-open"></i>
+              Ficheiros e Downloads
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-copy">
+          © <span id="footer-year"></span> <strong>Plataforma ProvaNova</strong>.
+          Todos os direitos reservados.<br>
+          Criado por <strong>Teacher Dove</strong> para os professores de Moçambique 🇲🇿
+        </div>
+        <div class="footer-mec-badge">
+          <i class="fa-solid fa-book-open"></i>
+          Da 4ª à 12ª Classe · MEC Moçambique
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── FOOTER YEAR ──
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    // ── NAVBAR SCROLL ──
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // ── MOBILE MENU ──
+    const hamburger = document.getElementById('nav-hamburger');
+    const mobileMenu = document.getElementById('nav-mobile');
+    let menuOpen = false;
+
+    hamburger.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileMenu.classList.toggle('open', menuOpen);
+      hamburger.innerHTML = menuOpen
+        ? '<i class="fa-solid fa-xmark"></i>'
+        : '<i class="fa-solid fa-bars"></i>';
+    });
+
+    window.closeMobileMenu = function() {
+      menuOpen = false;
+      mobileMenu.classList.remove('open');
+      hamburger.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    };
+
+    // Close menu on outside click
+    document.addEventListener('click', (e) => {
+      if (menuOpen && !mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+        closeMobileMenu();
+      }
+    });
+
+    // ── FAQ ACCORDION ──
+    window.toggleFaq = function(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      // Open this one if it wasn't open
+      if (!isOpen) item.classList.add('open');
+    };
+
+    // ── SMOOTH SCROLL for anchor links ──
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          const offset = 72;
+          const top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+          closeMobileMenu();
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
